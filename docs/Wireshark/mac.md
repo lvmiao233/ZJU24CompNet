@@ -3,7 +3,7 @@ sidebar_position: 3
 title: Mac端安装
 ---
 
-:::warning 警告
+:::warning 该文档存在待解决问题
 
 由于助教没有macOs设备，无法测试教程的有效性，如遇到问题请联系助教更正，感谢理解
 

@@ -2,6 +2,9 @@
 sidebar_position: 3
 title: Linux端安装
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 
 在Lab7/8中，较多同学会选择在WSL上完成实验，此时宿主机WIndows无法捕获WSL内部的网络活动。为了对实现的程序抓包，你将需要在其运行的Linux发行版上安装Wireshark
 
@@ -13,47 +16,50 @@ title: Linux端安装
 
 :::
 
-### 1.1 基于Debian的发行版（如Ubuntu, Mint, Kali Linux等）
 
-* 打开终端
+### 1.1 打开终端
 
-* 更新包列表
+### 1.2 更新包列表
 
+<Tabs className="unique-tabs"  groupId="operating-systems">
+  <TabItem value="基于Debian(Ubuntu, Mint, Kali Linux等)">
+    ```
+    sudo apt update
+    ```
+  </TabItem>
+  <TabItem value="基于Red Hat(Fedora, CentOS, RHEL等)">
+    ```
+    sudo yum update
+    ```
+  </TabItem>
+    <TabItem value="基于Arch Linux">
   ```
-  sudo apt update
+  sudo pacman -Syy
   ```
+  </TabItem>
+</Tabs>
 
-* 安装Wireshark
+### 1.3 安装Wireshark
 
-  ```
-  sudo apt install wireshark
-  ```
-
-### 1.2 基于Red Hat的发行版（如Fedora, CentOS, RHEL等)
-
-* 打开终端
-
-* 更新包列表
-
-  ```
-  sudo yum update
-  ```
-
-* 安装Wireshark
+<Tabs className="unique-tabs"  groupId="operating-systems">
+  <TabItem value="基于Debian(Ubuntu, Mint, Kali Linux等)">
+    ```
+    sudo apt install wireshark
+    ```
+  </TabItem>
+  <TabItem value="基于Red Hat(Fedora, CentOS, RHEL等)">
 
   ```
   sudo yum install wireshark
   ```
-
-### 1.3 基于Arch Linux的发行版
-
-* 打开终端
-
-* 安装Wireshark
-
+  </TabItem>
+  <TabItem value="基于Arch Linux">
   ```
   sudo pacman -S wireshark
   ```
+  </TabItem>
+</Tabs>
+
 
 安装完成后，你可能可在开始菜单中看到有Tux角标的Wireshark：
 
@@ -81,4 +87,4 @@ sudo wireshark
 sudo usermod -aG wireshark [你的用户名]
 ```
 
-执行完成后，关闭当前终端会话，重新启动终端后再通过命令/Windows快捷方式启动Wireshark即可正常捕获网络数据包
+执行完成后，**关闭当前终端会话**，重新启动终端后再通过命令/Windows快捷方式启动Wireshark即可正常捕获网络数据包
