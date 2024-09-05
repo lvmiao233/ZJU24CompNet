@@ -78,7 +78,7 @@ const config = {
             position: 'left',
             label: '实验指导',
           },
-          {to: '/blog', label: '延申阅读', position: 'left'},
+          {to: '/blog', label: '延伸阅读', position: 'left'},
           {
             href: 'https://github.com/lvmiao233/ZJU24CompNet',
             label: '文档仓库',
@@ -94,11 +94,11 @@ const config = {
             items: [
               {
                 label: '实验指导',
-                to: '/docs/',
+                to: '/docs/intro',
               },
               {
                 label: '延伸阅读',
-                to: '/blogs/',
+                to: '/blog',
               },
             ],
           },
@@ -113,10 +113,6 @@ const config = {
                 label: '浙江大学课程攻略共享计划',
                 href: 'https://github.com/QSCTech/zju-icicles',
               },
-              // {
-              //   label: 'CC98',
-              //   href: 'cc98.org',
-              // },
             ],
           },
           {
