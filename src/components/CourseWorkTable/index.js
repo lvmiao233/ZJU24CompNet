@@ -1,4 +1,4 @@
-import {Badge, Table} from "antd";
+import {Alert, Badge, Table} from "antd";
 import React from "react";
 import courseWorkData from "./data";
 
@@ -27,7 +27,7 @@ export default function CourseWorkTable() {
             title: '截止时间', dataIndex: 'end', key: 'end',
         }, {
             title: '状态', key: 'state', render: (row) => getBadgeStatus(row.start, row.end),
-        }, ];
+        },];
         return <Table columns={columns} dataSource={courseWorkData['detail'][idx.key]} pagination={false}/>;
     };
     const columns = [{
@@ -38,15 +38,19 @@ export default function CourseWorkTable() {
         title: '成绩占比', dataIndex: 'ratio', key: 'ratio',
     }];
     return (
-        <Table
-            columns={columns}
-            expandable={{
-                expandedRowRender
-            }}
-            pagination={false}
-            dataSource={courseWorkData["items"]}
-            size={'small'}
-        />
+        <>
+            <Alert message="Quiz时间尚未更新，请以钉钉群通知及网上作业系统为准" type="warning" showIcon />
+            <Table
+                columns={columns}
+                expandable={{
+                    expandedRowRender
+                }}
+                pagination={false}
+                dataSource={courseWorkData["items"]}
+                size={'small'}
+                style={{marginTop: 12}}
+            />
+        </>
     );
 };
 

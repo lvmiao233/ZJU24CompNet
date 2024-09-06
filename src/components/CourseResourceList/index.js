@@ -6,7 +6,7 @@ import {
     FileWordOutlined,
 } from '@ant-design/icons';
 import {ProCard} from '@ant-design/pro-components';
-import {Col, Row} from 'antd';
+import {Alert, Col, Row} from 'antd';
 import React from 'react';
 import resourceData from "@site/src/components/CourseResourceList/data.js";
 
@@ -39,40 +39,43 @@ const convertSize = (byte) => {
 };
 
 const CourseResourceList = () => (
-    <ProCard
-        bodyStyle={{paddingLeft: 0, paddingRight: 0}}
-        gutter={[14]}
-        style={{padding: 0}}
-        wrap={true}>
-        {resourceData.map((item, index) => (
-                <ProCard
-                    key={index}
-                    bordered={true}
-                    split={'horizontal'}
-                    type={'inner'}
-                    colSpan={12}
-                    style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18}}
-                >
-                    <Row>
-                        <Col span={1}>{getFileIcon(item.file_type)}</Col>
-                        <Col style={{marginLeft: 30}} span={20}>
-                            <>
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span style={{fontWeight: 500}}>{item.name}</span>
-                                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                                        <a href={item.link} style={{color: '#006d75'}}>
-                                            下载
-                                        </a>
+    <>
+        <Alert message="课件资源尚未更新，请稍后再来吧" type="warning" showIcon/>
+        <ProCard
+            bodyStyle={{paddingLeft: 0, paddingRight: 0}}
+            gutter={[14]}
+            style={{padding: 0}}
+            wrap={true}>
+            {resourceData.map((item, index) => (
+                    <ProCard
+                        key={index}
+                        bordered={true}
+                        split={'horizontal'}
+                        type={'inner'}
+                        colSpan={12}
+                        style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18}}
+                    >
+                        <Row>
+                            <Col span={1}>{getFileIcon(item.file_type)}</Col>
+                            <Col style={{marginLeft: 30}} span={20}>
+                                <>
+                                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                        <span style={{fontWeight: 500}}>{item.name}</span>
+                                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                                            <a href={item.link} style={{color: '#006d75'}}>
+                                                下载
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <span style={{color: '#7d7d7d'}}>{convertSize(item.size)}</span>
-                            </>
-                        </Col>
-                    </Row>
-                </ProCard>
-            )
-        )}
-    </ProCard>
+                                    <span style={{color: '#7d7d7d'}}>{convertSize(item.size)}</span>
+                                </>
+                            </Col>
+                        </Row>
+                    </ProCard>
+                )
+            )}
+        </ProCard>
+    </>
 );
 export default CourseResourceList;
 
