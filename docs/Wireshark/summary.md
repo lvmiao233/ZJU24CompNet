@@ -31,7 +31,11 @@ export const LinkCard = ({title, url, children}) => (
 </Tabs>
 
 
-##  2 WireShark上手应用
+## 2 WireShark上手应用
 
+:::warning 启动前注意事项
+建议在启动Wireshark前关闭VPN，避免对数据包抓取产生干扰
+建议尽可能多地关闭当前使用网络的应用程序，或直接运行在虚拟环境中，以免无关数据包影响分析
+:::
 
 ## 3 Wireshark使用延伸
