@@ -1,47 +1,28 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
+title: 实验文档引言
 ---
 
-# Tutorial Intro
+### 1 主要内容
 
-Let's discover **Docusaurus in less than 5 minutes**.
+* 实验工具链的安装与配置
+  * Lab1/7-8 Wireshark
+  * Lab2-6 GNS3客户端及VM
+  * Lab7-8 编译工具链配置
+* 实验涉及的原理分析
+* 复杂知识点解析
 
-## Getting Started
+### 2 更新记录
+* 2024.09.06 上线页面，完成Wireshark安装文档，完成GNS3客户端安装文档，完成术语翻译
 
-Get started by **creating a new site**.
+### 3 进行中工作
+以下内容预计将在近期正式推送上线：
+* Wireshark使用文档
+* Wireshark用例延申阅读
+* GNS3VM VMware Workstation版本配置
+* GNS3客户端 自定义终端
+* Lab7-8 编译工具链配置
+* Lab8 效果测试页面
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+如果你对文档指导内容有需求，意见与建议，欢迎通过钉钉/Github Issue等方式反馈，或直接修改后提交PR，我们会尽快完善文档的相应部分
+我们还提供了近似Blog形式的延伸阅读页面，如果你撰写/发现了计算机网络相关的知识技术内容，欢迎你以原文档（Markdown/MDX）/外链形式分享

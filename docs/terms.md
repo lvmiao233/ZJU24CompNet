@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 title: 术语翻译对照
 ---
 import TermList from "@site/src/components/TermTable"
