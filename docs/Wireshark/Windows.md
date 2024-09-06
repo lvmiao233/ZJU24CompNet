@@ -2,12 +2,15 @@
 sidebar_position: 2
 title: Windows端安装
 ---
+import LinkCard from '@site/src/components/LinkCard';
 
 Windows是较多同学通常使用的系统，本文将引导你完成Windows端Wireshark安装，用于捕捉Windows端网络通信数据包
 
 ## 1 下载Wireshark
-
-> 官方网站： https://www.wireshark.org/
+<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/" > 
+The world's most popular network protocol analyzer
+Get started with Wireshark today and see why it is the standard across many commercial and non-profit enterprises.
+</LinkCard>
 
 * 打开Wireshark官方网站，点击“Download”
 

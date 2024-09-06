@@ -53,7 +53,7 @@ const CourseResourceList = () => (
                         split={'horizontal'}
                         type={'inner'}
                         colSpan={12}
-                        style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18}}
+                        style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10}}
                     >
                         <Row>
                             <Col span={1}>{getFileIcon(item.file_type)}</Col>

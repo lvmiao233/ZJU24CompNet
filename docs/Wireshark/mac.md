@@ -2,16 +2,22 @@
 sidebar_position: 3
 title: Mac端安装
 ---
+import LinkCard from '@site/src/components/LinkCard';
+import {Alert} from 'antd';
 
-:::warning 该文档存在待解决问题
-
-由于助教没有macOs设备，无法测试教程的有效性，如遇到问题请联系助教更正，感谢理解
-
-:::
+<Alert 
+  message="该文档存在待解决问题" 
+  type="warning" 
+  showIcon 
+  description="由于助教没有macOS设备，无法测试教程的有效性，如遇到问题请联系助教更正，感谢理解"
+/>
 
 ## 1 下载Wireshark
 
-> 官方网站： https://www.wireshark.org/
+<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/" > 
+The world's most popular network protocol analyzer
+Get started with Wireshark today and see why it is the standard across many commercial and non-profit enterprises.
+</LinkCard>
 
 * 打开Wireshark官方网站，点击“Download”
 
