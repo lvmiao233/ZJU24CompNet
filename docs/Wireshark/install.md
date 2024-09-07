@@ -99,7 +99,7 @@ Get started with Wireshark today and see why it is the standard across many comm
 * Npcap安装完成后，请留意完成安装向导，否则将持续阻塞Wireshark安装过程
 
   ![image-20240905023414829](img/image-20240905023414829.png)
-  在Lab7/8中，较多同学会选择在WSL上完成实验，此时宿主机Windows无法捕获WSL内部的网络活动。为了对实现的程序抓包，你将需要在其运行的Linux发行版上安装Wireshark
+
 
 </TabItem>
 <TabItem value="Linux">
