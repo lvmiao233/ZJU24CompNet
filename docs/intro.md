@@ -14,12 +14,13 @@ title: 实验文档引言
 
 ### 2 更新记录
 * 2024.09.06 上线页面，完成Wireshark安装文档，完成GNS3客户端安装文档，完成术语翻译页面，基本完成首页信息展示
-* 2024.09.07 完成Wireshark使用文档，更新安装文档格式
+* 2024.09.07 完成Wireshark使用文档，更新安装文档格式，使用CDN加速网页访问（感谢CloudFlare的免费套餐）
 
 ### 3 进行中工作
 以下内容预计将在近期正式推送上线：
+- [ ] 实验报告模板Markdown版本
 - [x] Wireshark使用文档
-- [ ] Wireshark用例延申阅读
+- [x] Wireshark用例延伸阅读
 - [ ] GNS3VM VMware Workstation版本配置
 - [ ] GNS3客户端 自定义终端
 - [ ] Lab7-8 编译工具链配置

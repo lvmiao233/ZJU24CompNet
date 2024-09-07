@@ -146,9 +146,9 @@ Your system may have a different version installed, possibly with some local mod
 
 ## 4 Wireshark使用延伸
 
-<Alert
-message="该部分存在待解决问题"
-type="warning"
-showIcon
-description="本节将列举一些Wireshark实际应用的例子，这些文章还没有完成格式适配，请稍后再来延伸阅读查看吧"
-/>
+这里准备了一些Wireshark实际使用的样例，有空不妨看看~
+
+<LinkCard title="Wireshark抓取宽带密码" url="/blog/adsl" style={{marginBottom: 20}}>
+你是否也曾经历过换路由器后想不起来密码的痛苦？你是否在帮助他人维修配置路由器时因不知道宽带密码而备受掣肘？不妨抛开运营商重置的复杂步骤，直接用Wireshark让路由器把密码直接讲给你听！
+</LinkCard>
+<br/>

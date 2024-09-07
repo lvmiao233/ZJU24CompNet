@@ -6,3 +6,8 @@ gns3:
   label: GNS3
   permalink: /docs/GNS3
   description: GNS3相关内容
+
+comp_net:
+  label: 计算机网络
+  permalink: /docs/
+  description: 计算机网络课程延伸内容
