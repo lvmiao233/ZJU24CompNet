@@ -64,7 +64,7 @@ export default function Home() {
                             <br/>
                             实验课： 周二 6-8节 玉泉曹光彪西-304
                             <br/>
-                            课程网站：<a href="http://10.214.0.253/network/exercise/index.php">计算机网络课程网站</a>，请注意，课程内容将不会在学在浙大发布
+                            课程网站：<a href="http://10.214.0.253/network/exercise/index.php">计算机网络课程网站</a>
                             <br/>
                             <br/>
                             <h2 style={{color: '#006d75'}}>预修要求</h2>

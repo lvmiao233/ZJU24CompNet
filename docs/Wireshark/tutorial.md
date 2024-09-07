@@ -1,6 +1,6 @@
 ---
-sidebar_position: 1
-title: 安装与配置汇总
+sidebar_position: 2
+title: Wireshark上手使用
 ---
 import LinkCard from '@site/src/components/LinkCard';
 import Tabs from '@theme/Tabs';
@@ -8,36 +8,50 @@ import TabItem from '@theme/TabItem';
 import {Alert} from 'antd';
 
 
-## 1 安装Wireshark
 
-请根据你的设备平台，阅读相应的安装指导：
+## 0 什么是抓包？为什么要抓包？
 
-<Tabs className="unique-tabs">
-  <TabItem value="Windows">
-    <LinkCard title="Windows端安装" url="../wireshark/Windows">本文将引导你在运行Windows的设备上下载并安装Wireshark，点击跳转至相应文档</LinkCard>
-  </TabItem>
-  <TabItem value="Linux">
-    <LinkCard title="Linux端安装" url="../wireshark/Linux">本文将引导你在运行不同Linux发行版的设备上安装Wireshark并配置权限，点击跳转至相应文档</LinkCard>
-  </TabItem>
-  <TabItem value="macOS">
-    <LinkCard title="macOS端安装" url="../wireshark/mac">本文将引导你在macOS设备上下载安装Wireshark并配置权限，点击跳转至相应文档</LinkCard>
-  </TabItem>
-</Tabs>
+![image-20240907094430591](img/image-20240907094430591.png)
+
+**抓包（Packet Capture）**就是将网络传输发送与接收的数据包进行截获、重发、编辑、转存等操作
+
+获取数据包后，我们可以：
+
+1. 分析数据传输协议
+2. 定位网络协议的问题
+3. 从数据包中获取想要的信息
+4. 将截取到的数据包进行修改，伪造，重发
+
+在实际应用中，我们往往可以通过抓包：
+
+1. 功能测试
+
+   通过抓包工具可以观察Web表单中的隐藏字段，这些字段通常具有特殊功能，例如用于用户数据的收集、防止跨站请求伪造（CSRF）攻击、抵御网络爬虫等，由于这些字段在用户界面上不可见，因此必须借助抓包工具来进行检测
+
+2. 安全测试
+
+   可以用来验证敏感数据在传输过程中的加密状态，同时通过观察系统应对截取、篡改、重发数据包等攻击的行为，可以评估系统的安全级别
+
+3. 接口测试
+
+   在解决前端与后端之间的bug归属争议时，通过抓取并分析数据包，可以明确问题是出在数据传输阶段还是前端展示阶段，进而确定bug的责任方
+
+   在接口文档不够完整/尚未更新时，可用于观察接口行为（除非万策尽，请优先使用[Postman](https://www.getpostman.com/downloads/)，[APIfox](https://apifox.com/)，[Insomnia](https://insomnia.rest/)）
 
 
-## 2 WireShark上手应用
+
+## 1 抓包基本流程
 
 :::warning 启动前注意事项
 建议在启动Wireshark前关闭VPN，避免对数据包抓取产生干扰
+
 建议尽可能多地关闭当前使用网络的应用程序，或直接运行在虚拟环境中，以免无关数据包影响分析
 :::
 
-### 2.1 抓包基本流程
-
 * 启动Wireshark后，首页会展示可捕获的网络接口列表，右侧折线表示相应设备的网络活动流量
 
-  * 如你希望捕捉单个NIC的流量，可直接双击相应的接口开始捕获
-  * 如需要同时捕获多个NIC的流量，请按住Ctrl，同时点选所需的NIC，选择完成后按Enter开始捕捉
+    * 如你希望捕捉单个NIC的流量，可直接双击相应的接口开始捕获
+    * 如需要同时捕获多个NIC的流量，请按住Ctrl，同时点选所需的NIC，选择完成后按Enter开始捕捉
 
   ![image-20240907002402646](img/image-20240907002402646.png)
 
@@ -48,8 +62,10 @@ import {Alert} from 'antd';
 * 停止抓包后，可点选文件-保存，将抓包得到的数据保存供后续使用
 
   ![image-20240907002945420](img/image-20240907002945420.png)
+  
+  
 
-### 2.2 Wireshark 功能与界面介绍
+## 2 Wireshark 功能与界面介绍
 
 ![1725640544121](img/1725640544121.jpg)
 
@@ -87,7 +103,9 @@ import {Alert} from 'antd';
 
   ![image-20240907004801247](img/image-20240907004801247.png)
 
-### 2.3 过滤器的使用
+
+
+## 3 过滤器的使用
 
 过滤器分为抓包过滤器和显示过滤器，前者在抓包前配置，配置后仅捕获过滤后的数据包；后者捕获所有数据包，但仅展示过滤后的数据包
 
@@ -108,25 +126,25 @@ Your system may have a different version installed, possibly with some local mod
 :::
 
 * 数据链路层过滤
-  * 指定MAC地址 `ether [src|dst] host MAC` 
-  * 指定广播/多播 `[ether] broadcast|multicast`
-  * 指定VLAN `vlan <vlan>`
+    * 指定MAC地址 `ether [src|dst] host MAC`
+    * 指定广播/多播 `[ether] broadcast|multicast`
+    * 指定VLAN `vlan <vlan>`
 * 网络层过滤
-  * 过滤IP地址 `[ip|ip6|arp|rarp] [src|dst] host IP`
-  * 过滤子网 `[src|dst] net SUBNET [{mask MASK}|{/LEN}]`
+    * 过滤IP地址 `[ip|ip6|arp|rarp] [src|dst] host IP`
+    * 过滤子网 `[src|dst] net SUBNET [{mask MASK}|{/LEN}]`
 * 传输层过滤
-  * 过滤端口号 `[tcp|udp] [src|dst] port|portrange PORT`
-  * 过滤协议 `协议名称`（如ip, arp, ip6）
+    * 过滤端口号 `[tcp|udp] [src|dst] port|portrange PORT`
+    * 过滤协议 `协议名称`（如ip, arp, ip6）
 * 过滤表达式复合
-  * 与、或、非 `%%、||、!`
-  * 指定协议数据包引用位置 `协议名称 [所取首字节偏移量:总截取长度]`
-  * 数据包长度 `len`
-  * 算术表达式  由整型常量、二元运算符（支持+、-、*、/、%、&、|、^、位运算）、长度运算符和对指定协议数据包数据引用运算符
-  * 关系表达式 `算术表达式 关系运算符 算术表达式`
+    * 与、或、非 `%%、||、!`
+    * 指定协议数据包引用位置 `协议名称 [所取首字节偏移量:总截取长度]`
+    * 数据包长度 `len`
+    * 算术表达式  由整型常量、二元运算符（支持+、-、*、/、%、&、|、^、位运算）、长度运算符和对指定协议数据包数据引用运算符
+    * 关系表达式 `算术表达式 关系运算符 算术表达式`
 
 
 
-## 3 Wireshark使用延伸
+## 4 Wireshark使用延伸
 
 <Alert
 message="该部分存在待解决问题"
@@ -134,14 +152,3 @@ type="warning"
 showIcon
 description="本节将列举一些Wireshark实际应用的例子，这些文章还没有完成格式适配，请稍后再来延伸阅读查看吧"
 />
-
-
-## 4 Q&A
-
-* Lab8可以正常加载网页/图片，完成登录验证，但Wireshark里响应包不能被正常识别为HTTP数据包/解析混乱
-
-  部分版本的Wireshark默认启用了TCP reassembly，请在数据包详情栏右键HTTP协议，选择ProtocalPreferences/协议首选项，关闭"Allow subdissector to reassemble TCP streams"
-
-  ![lQLPJw93yaP9zFPNA97NA-awpsD_v8IL6XoFclh6YBP8AA_998_990](img/lQLPJw93yaP9zFPNA97NA-awpsD_v8IL6XoFclh6YBP8AA_998_990.png)
-
-  

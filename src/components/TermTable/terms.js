@@ -1,5 +1,5 @@
 const Terms = [
-    { term: "POP", full: "post office protocol 3", layer: "Application", description: "用于用户从邮件服务器拉取邮件" },
+    { term: "POP", full: "Post Office Protocol 3", layer: "Application", description: "用于用户从邮件服务器拉取邮件" },
     { term: "IMAP", full: "Internet Message Access Protocol", layer: "Application", description: "一种邮件协议，允许客户端检索邮件存储在邮件服务器上的邮件" },
     { term: "FTP", full: "File Transfer Protocol", layer: "Application", description: "用于在网络上进行文件传输" },
     { term: "RTP", full: "Real-time Transport Protocol", layer: "Application", description: "用于传送实时数据，如音频或视频" },
@@ -37,7 +37,7 @@ const Terms = [
     { term: "CIDR", full: "Classless Inter-Domain Routing", layer: "Network", description: "一种用于有效分配IPv4地址的方案" },
     { term: "ARP", full: "Address Resolution Protocol", layer: "Network", description: "用于映射IP地址到物理地址" },
     { term: "DHCP", full: "Dynamic Host Configuration Protocol", layer: "Network", description: "用于自动分配IP地址和其他网络配置参数" },
-    { term: "OpenFlow", full: "", layer: "Network", description: "一种网络协议，用于实现软件定义网络(SDN)" },
+    { term: "OpenFlow", full: "OpenFlow", layer: "Network", description: "一种网络协议，用于实现软件定义网络(SDN)" },
     { term: "AS", full: "Autonomous System", layer: "Network", description: "互联网中的一个可管理网络" },
     { term: "RSA", full: "Rivest-Shamir-Adleman", layer: "Network Security", description: "一种公钥加密算法" },
     { term: "AES", full: "Advanced Encryption Standard", layer: "Network Security", description: "一种对称密钥加密标准" },
@@ -54,14 +54,14 @@ const Terms = [
     { term: "UDP", full: "User Datagram Protocol", layer: "Transport", description: "一种无连接的传输层协议，提供不可靠的数据报传输" },
     { term: "cwnd", full: "Congestion Window", layer: "Transport", description: "TCP拥塞控制中的一个概念，用来控制发送速率" },
     { term: "MSS", full: "Maximum Segment Size", layer: "Transport", description: "TCP的最大段大小，定义了单个TCP报文段能够携带的最大数据量" },
-    { term: "SDLC", full: "Systems Development Life Cycle", layer: "", description: "用于计划、设计、构建、测试和部署IT系统的生命周期模型" },
+    { term: "SDLC", full: "Synchronous Data Link Control", layer: "Data Link", description: "同步数据链路控制" },
     { term: "PAN", full: "Personal Area Network", layer: "", description: "一种用于连接个人空间内的设备的网络" },
     { term: "LAN", full: "Local Area Network", layer: "", description: "一种连接相对小区域内的设备的网络" },
     { term: "PDU", full: "Protocol Data Unit", layer: "", description: "在网络协议栈的每一层传输的数据单位" },
     { term: "SDU", full: "Service Data Unit", layer: "", description: "服务访问点上呈现的数据单元" },
     { term: "AP", full: "Access Point", layer: "", description: "一种无线网络设备，用于无线设备连接到有线网络" },
-    { term: "NAT", full: "Network Address Translation", layer: "", description: "一种用于重写IP地址的技术" },
-    { term: "TTL", full: "Time To Live", layer: "", description: "数据包在网络中存活的时间" },
+    { term: "NAT", full: "Network Address Translation", layer: "Network", description: "一种用于重写IP地址的技术" },
+    { term: "TTL", full: "Time To Live", layer: "Network", description: "数据包在网络中存活的时间" },
     { term: "SAP", full: "Service Access Point", layer: "", description: "网络层的服务访问点" }
 ];
 
