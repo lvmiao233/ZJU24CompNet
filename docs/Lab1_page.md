@@ -146,7 +146,9 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 :::warning 注意
 为了加速访问，已获取到的 IP-Mac 对应关系会存储在 ARP 表缓存中，在下一次访问时就不必再次发送 ARP 请求
 
-如果你无法捕获到 ARP 包，可能是 ARP 表缓存的原因，请在命令行中使用 `arp -d` 清除 ARP缓存后再次尝试捕获
+如果你无法捕获到 ARP 包，可能是 ARP 表缓存的原因，请在命令行中使用 `netsh interface IP delete arpcache` 清除 ARP缓存后再次尝试捕获
+
+建议流程：开始Wireshark捕获 - 清除ARP缓存 - 立刻Ping
 :::
 
 * **任务2**：使用Ping命令，分别测试某个IP地址和某个域名的连通性，并捕获数据包。捕获到了哪些相关协议数据包？
@@ -300,4 +302,31 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
 你对本实验安排有哪些更好的建议呢？欢迎献计献策：
 
- 
+
+
+
+
+
+### Q&A
+
+1. ARP包不是向子网内广播的吗，为什么我捕获到了有目的地MAC地址的ARP包？
+
+   > RFC 826
+   >
+   > ——Another alternative is to have a daemon perform the timeouts. After a suitable time, the daemon considers removing an entry. It first sends (with a small number of retransmissions if needed) an address resolution packet with opcode REQUEST directly to the Ethernet address in the table. If a REPLY is not seen in a short amount of time, the entry is deleted. The request is sent directly so as not to bother every station on the Ethernet. Just forgetting entries will likely cause useful information to be forgotten, which must be regained.
+
+   TLDR: ARP表项过期前，守护程序可以给对应的主机发一个ARP请求，如果有响应则不删除表项并更新生存期，这样可以减少1次广播，降低开销
+
+2. Ping一个IP/域名时，为什么没有ICMP包
+
+   请检查Ping时显示的是否是IPv4地址，如显示正在Ping IPv6地址，则只会出现ICMPv6包
+
+   要使用IPv4地址，可通过`ping -4 addr`指定
+
+
+
+### 延伸阅读
+
+<LinkCard url={'https://zhuanlan.zhihu.com/p/382459372'} title={'TTL、Ping包最大字节数、网络时延、抖动、丢包率，看完瞬间变大神！'} >
+Ping是工作在 TCP/IP网络体系结构中应用层的一个服务命令，用于测试网络连接量，以及DNS解析是否正常。通过向特定的目的主机发送 ICMP Echo 请求报文，测试目的站是否可达及了解其有关状态。
+</LinkCard>
