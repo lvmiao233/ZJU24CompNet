@@ -60,7 +60,7 @@ const FileCard = (props) => {
         >
             <Row>
                 <Col span={1}>{getFileIcon(file_type)}</Col>
-                <Col style={{marginLeft: 30}} span={22}>
+                <Col style={{marginLeft: 30}} span={21}>
                     <>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <span style={{fontWeight: 500}}>{name}</span>

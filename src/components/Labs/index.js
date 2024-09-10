@@ -1,6 +1,6 @@
 import {Alert, Badge, Table} from "antd";
 import React from "react";
-import courseWorkData from "./data";
+import LabDeadlineData from "./data";
 
 // 实现一个简单的函数，判断当前时间在传入的YYYY-MM-DD HH:MM:SS 格式的时间范围前、中还是后，分别返回状态为default/processing/error的badge
 const getBadgeStatus = (start, end) => {
@@ -16,7 +16,7 @@ const getBadgeStatus = (start, end) => {
     }
 };
 
-const expandedRowRender = (idx) => {
+export default function LabDeadlineTable() {
     const columns = [{
         title: '任务名称', dataIndex: 'name', key: 'name',
     }, {
@@ -26,32 +26,7 @@ const expandedRowRender = (idx) => {
     }, {
         title: '状态', key: 'state', render: (row) => getBadgeStatus(row.start, row.end),
     },];
-    return <Table columns={columns} dataSource={courseWorkData['detail'][idx.key]} pagination={false}/>;
-};
-
-export default function CourseWorkTable() {
-    const columns = [{
-        title: '项目', dataIndex: 'name', key: 'name',
-    }, {
-        title: '数量', dataIndex: 'cnt', key: 'cnt',
-    }, {
-        title: '成绩占比', dataIndex: 'ratio', key: 'ratio',
-    }];
-    return (
-        <>
-            <Alert message="Quiz时间尚未更新，请以钉钉群通知及网上作业系统为准" type="warning" showIcon />
-            <Table
-                columns={columns}
-                expandable={{
-                    expandedRowRender
-                }}
-                pagination={false}
-                dataSource={courseWorkData["items"]}
-                size={'small'}
-                style={{marginTop: 12}}
-            />
-        </>
-    );
+    return <Table columns={columns} dataSource={LabDeadlineData} pagination={false} size={'small'}/>;
 };
 
 

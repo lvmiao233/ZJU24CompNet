@@ -6,9 +6,10 @@ title: Lab1 网络协议分析
 
 import LinkCard from '@site/src/components/LinkCard';
 import FileCard from '@site/src/components/FileCard';
+import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
-<h3 style={{color: '#006d75'}}>实验资源</h3>
-
+<h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
+<DeadlineProcess start={'2024-09-10 13:25:00'} end={'2024-09-20 23:59:59'}/>
 <FileCard file_type={'md'} name={'Lab1 实验报告模板 Markdown版本'} size={'562679'} link={'https://pan.zju.edu.cn/share/a6b1603118146a62c2254439ff'} />
 
 <FileCard file_type={'doc'} name={'Lab1 实验报告模板 Word版本'} size={'738304'} link={'http://10.214.0.253/network/download/Assignments/FundOfNetworks/2024/%e5%ae%9e%e9%aa%8c%e6%8a%a5%e5%91%8a%e6%a8%a1%e7%89%88_%e5%ae%9e%e9%aa%8c1.doc'} />
