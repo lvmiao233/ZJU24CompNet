@@ -39,7 +39,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
 * 联网的PC机、Windows、Linux或Mac操作系统、浏览器软件
 * WireShark协议分析软件
-<LinkCard title={'Wireshark安装与使用'} url={'https://zjucomp.net/docs/category/wireshark%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8'}>
+<LinkCard title={'Wireshark安装与使用'} url={'/docs/category/wireshark%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8'}>
 请在实验进行前，参考实验文档完成Wireshark安装与基本配置
 </LinkCard>
 
@@ -123,9 +123,11 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
 
 :::important 温馨提示
-请在下面的每次捕获任务完成后，保存Wireshark抓包记录（.pcap格式），随报告一起提交。
+请在下面的每次捕获任务完成后，保存Wireshark抓包记录（.pcap格式），随报告一起提交
 
-每一个任务一个单独文件（如dns.pcap、ping.pcap、tracert.pcap），请捕获尽可能短的时间，以免文件大小超过系统限制。
+每一个任务一个单独文件（如dns.pcap、ping.pcap、tracert.pcap），请捕获尽可能短的时间，以免文件大小超过系统限制
+
+如果难以将捕获文件降低到合适大小，请参考[导出标记数据包](/docs/Wireshark/tutorial#2-wireshark-%E5%8A%9F%E8%83%BD%E4%B8%8E%E7%95%8C%E9%9D%A2%E4%BB%8B%E7%BB%8D)部分，仅导出所需数据包
 :::
 
 #### Part Two
@@ -141,8 +143,14 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
   ![img](img/1.2.jpg)
 
 
+:::warning 注意
+为了加速访问，已获取到的 IP-Mac 对应关系会存储在 ARP 表缓存中，在下一次访问时就不必再次发送 ARP 请求
+
+如果你无法捕获到 ARP 包，可能是 ARP 表缓存的原因，请在命令行中使用 `arp -d` 清除 ARP缓存后再次尝试捕获
+:::
 
 * **任务2**：使用Ping命令，分别测试某个IP地址和某个域名的连通性，并捕获数据包。捕获到了哪些相关协议数据包？
+
 
   Ping IP地址时：____________________________
 
