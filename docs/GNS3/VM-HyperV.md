@@ -1,18 +1,21 @@
 ---
-sidebar_position: 3
+sidebar_position: 10
 title: Hyper-V虚拟机配置
 ---
 
 :::warning 该文档存在待解决问题
 
-Hyper-V版本的GNS3 VM 在与外部网络通信时行为与其他VM不同，这可能影响实验中测试与外网通信的步骤（约2步）
+Hyper-V不提供NAT/DHCP服务，这会使你无法实验中测试与外网通信的2个步骤
+
+GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择使用VMware Workstation运行GNS3虚拟机
+
 如你有解决该问题的方式，欢迎向助教反馈或提交PR，非常感谢！
 
 :::
 
 ## 1 配置Hyper-V管理器
 
-:::important[NOTE]
+:::important[解析]
 
 虚拟机有两种常见架构：寄生架构（VMware Workstation/VirtualBox）/原生or裸金属架构（Hyper-V/VMware Exsi），前者虚拟机运行在宿主机操作系统上，而后者所有操作系统均平等地运行在轻量化的虚拟化平台上，使所有虚拟机可享受与物理机基本一致的性能与体验 [在操作系统课程-虚拟机部分了解更多]
 
@@ -154,22 +157,6 @@ Hyper-V自带的`Default Switch`为内部网络，即对应Vmware下NAT模式的
 ![image-20231107190934640](img/image-20231107190934640.png)
 
 * 应用后，虚拟机即有eth0/eth1两个虚拟网络适配器，分别对应实验指导的eth0/eth2
-
-### 2.3 映像文件添加
-
-GNS3 2.2后，添加映像方式进行了调整，同学们可参考以下方式进行添加
-
-* 打开GNS3，点击Edit-Preferences进入首选项
-
-  ![image-20240828122730965](img/image-20240828122730965.png)
-
-* 点击Dynamips下的IOS routers
-
-  ![image-20231107192237416](img/image-20231107192237416.png)
-
-  点击New，接下来步骤与指南中`四.5`开始一致
-
-
 
 
 

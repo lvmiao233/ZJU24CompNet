@@ -1,11 +1,12 @@
 ---
 sidebar_position: 2
-title: 客户端安装与初始配置
+title: 客户端安装
 ---
 
+import {Alert} from 'antd';
 
+<Alert message="本文档尚未完成样式调整，将在稍后完成更新" type="warning" showIcon />
 
-## 1 GNS3客户端安装
 
 * 下载GNS3 3.0.0rc1（或更新版本）
 
@@ -26,12 +27,7 @@ title: 客户端安装与初始配置
 
 * Solarwinds广告选择No即可
 
-
-    :::tip 可参考后续步骤，将终端配置为体验更好的Windows Terminal
-    :::
-
-  ![image-20240828090744712](img/image-20240828090744712.png)
+      ![image-20240828090744712](img/image-20240828090744712.png)
 
 * 完成安装向导
 
-## 2 导入路由器镜像
