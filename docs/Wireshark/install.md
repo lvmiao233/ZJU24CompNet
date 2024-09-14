@@ -15,10 +15,7 @@ import {Alert} from 'antd';
 
 * 打开Wireshark官方网站，点击“Download”
 
-<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/" > 
-The world's most popular network protocol analyzer
-Get started with Wireshark today and see why it is the standard across many commercial and non-profit enterprises.
-</LinkCard>
+<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/"  icon="https://www.wireshark.org/assets/icons/wireshark-fin@2x.png">The world's most popular network protocol analyzer</LinkCard>
 <br/>
 
     ![image-20240905022017410](img/image-20240905022017410.png)
@@ -47,11 +44,8 @@ description="由于助教没有macOS设备，无法测试教程的有效性，�
 <br/>
 * 打开Wireshark官方网站，点击“Download”
 
-<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/" > 
-The world's most popular network protocol analyzer
-Get started with Wireshark today and see why it is the standard across many commercial and non-profit enterprises.
-</LinkCard>
-
+<LinkCard title="Wireshark官方网站" url="https://www.wireshark.org/"   icon="https://www.wireshark.org/assets/icons/wireshark-fin@2x.png">The world's most popular network protocol analyzer</LinkCard>
+<br/>
   ![image-20240905022017410](img/image-20240905022017410.png)
 
 * 页面将跳转至下载选项，请根据系统情况选择对应版本
