@@ -3,6 +3,8 @@ sidebar_position: 10
 title: Hyper-V虚拟机配置
 ---
 
+import FileCard from '@site/src/components/FileCard';
+
 :::warning 该文档存在待解决问题
 
 Hyper-V不提供NAT/DHCP服务，这会使你无法实验中测试与外网通信的2个步骤
@@ -72,10 +74,10 @@ GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择
   > 旧版Hyper-V GNS3 VM对网络适配器切换支持不佳，可能影响部分实验的正常进行
   >
   > 建议选择较新的、与已安装GNS3客户端版本匹配的VM
-  >
-  > 浙大云盘：https://pan.zju.edu.cn/share/ffaff71dfd3be31ac90c2a5c0f
-  >
-  > 官方仓库：https://github.com/GNS3/gns3-gui/releases
+
+  <FileCard link="https://pan.zju.edu.cn/share/ffaff71dfd3be31ac90c2a5c0f" name="浙大云盘" size={1116691496} file_type="cloud"/>
+  <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
+
 
 * 解压压缩包到合适存储位置
 

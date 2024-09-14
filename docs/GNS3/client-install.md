@@ -3,16 +3,14 @@ sidebar_position: 2
 title: 客户端安装
 ---
 
-import {Alert} from 'antd';
-
-<Alert message="本文档尚未完成样式调整，将在稍后完成更新" type="warning" showIcon />
+import FileCard from '@site/src/components/FileCard';
 
 
 * 下载GNS3 3.0.0rc1（或更新版本）
 
-  > 浙大云盘：https://pan.zju.edu.cn/share/57acd2792d40b041e5b1ba8df5
-  >
-  > 官方仓库：https://github.com/GNS3/gns3-gui/releases
+  <FileCard link="https://pan.zju.edu.cn/share/57acd2792d40b041e5b1ba8df5" name="浙大云盘" size={75078041} file_type="cloud"/>
+  <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75078041} file_type="github"/>
+
 
 * 下载完成后运行安装程序，阅读并同意EULA，设置安装路径等信息
 

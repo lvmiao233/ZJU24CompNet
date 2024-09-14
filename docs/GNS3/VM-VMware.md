@@ -3,19 +3,18 @@ sidebar_position: 4
 title: Vmware Workstation虚拟机配置
 ---
 
-import {Alert} from 'antd';
+import FileCard from '@site/src/components/FileCard';
+import LinkCard from '@site/src/components/LinkCard';
 
-<Alert message="本文档尚未完成样式调整，将在稍后完成更新" type="warning" showIcon />
 
 ## 1 安装VMWare Workstation
 
 同学们可在白洪欢老师的课程网站上下载VMWare Workstation
 
-http://cc.zju.edu.cn/bhh/
+<LinkCard url="http://cc.zju.edu.cn/bhh/" title="Black White's Homepage" icon="https://www.zju.edu.cn/_upload/tpl/0b/bf/3007/template3007/favicon.ico">白洪欢老师课程网站</LinkCard>
+<br/>
 
-(页面内搜索Vmware，下载相应版本)
-
-请注意不要下载VMWare Player
+在页面内搜索VMware，下载相应版本，注意不要下载VMWare Player
 
 
 
@@ -33,9 +32,9 @@ http://cc.zju.edu.cn/bhh/
 
 * 下载并解压GNS3虚拟机
 
-https://github.com/GNS3/gns3-gui/releases
+  <FileCard link="https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b15" name="浙大云盘" size={1116691496} file_type="cloud"/>
+  <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
 
-https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b1
 
 
 
