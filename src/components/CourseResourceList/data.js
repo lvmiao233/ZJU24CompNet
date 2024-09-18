@@ -13,9 +13,21 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "2 Physical Layer.pdf",
+        "size": "4249125",
+        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_2_The%20Physical%20Layer.pdf"
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark.pdf",
         "size": "2874374",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Wireshark.pdf"
+    },
+    {
+        "file_type": "pdf",
+        "name": "Lab7 基于Socket接口实现自定义协议通信.pdf",
+        "size": "1967383",
+        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Socket%e7%bc%96%e7%a8%8b.pdf"
     },
 ];
 
