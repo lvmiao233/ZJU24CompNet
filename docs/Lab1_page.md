@@ -81,7 +81,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
    截图参考（此处应替换成实际截获的数据）：
 
-   ![img](img/1.1.jpg)
+   ![img](img/Lab1/1.1.jpg)
 
 3. 配置应用显示过滤器，让界面只显示某一协议类型的数据包（输入协议名称）。
 
@@ -140,7 +140,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一个）：
 
-  ![img](img/1.2.jpg)
+  ![img](img/Lab1/1.2.jpg)
 
 
 :::warning 注意
@@ -164,13 +164,13 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一）：
 
-  ![img](img/1.3.jpg)
+  ![img](img/Lab1/1.3.jpg)
 
   分别选择一个ICMP请求和响应数据包，展开最高层协议的详细内容，标出类型、序号。
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一）：
 
-  ![img](img/1.4.jpg)
+  ![img](img/Lab1/1.4.jpg)
 
 
 
@@ -182,7 +182,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
   截图参考（此处应替换成实际截获的数据）：
   
-  ![img](img/1.5.jpg)
+  ![img](img/Lab1/1.5.jpg)
   
   观察并记录响应包的信息，第一组响应包的发送者IP是：___________，标记ICMP层的类型字段。最后一组响应包的发送者IP是：_______，标记ICMP层的类型字段。附上截图：
   
@@ -190,11 +190,11 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
   
   * 第一组：
   
-    ![img](img/1.6.jpg)
+    ![img](img/Lab1/1.6.jpg)
   
   * 最后一组：
   
-    ![img](img/1.7.jpg)
+    ![img](img/Lab1/1.7.jpg)
 
 
 
@@ -230,9 +230,9 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
    截图参考（此处应替换成实际截获的数据）：
 
-   ![img](img/1_clip_image0021.jpg)
+   ![img](img/Lab1/1_clip_image0021.jpg)
 
-   ![img](img/1_clip_image2.jpg)
+   ![img](img/Lab1/1_clip_image2.jpg)
 
  
 
@@ -258,7 +258,7 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
    截图示例（此处应替换成实际截获的数据）：
 
-   ![img](img/1_clip_image002.jpg)
+   ![img](img/Lab1/1_clip_image002.jpg)
 
  
 
@@ -268,43 +268,17 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
 * 如果只想捕获某个特定WEB服务器IP地址相关的HTTP数据包，捕获过滤器应该怎么写？
 
-  
 
 * Ping发送的是什么类型的协议数据包？什么情况下会出现ARP数据包？ Ping一个域名和Ping一个IP地址出现的数据包有什么不同？
 
-  
 
 * Tracert/Traceroute发送的是什么类型的协议数据包，整个路由跟踪过程是如何进行的？
 
-  
 
 * 如何理解TCP连接和HTTP会话？他们之间存在什么关系？
 
-  
 
 * DNS为什么选择使用UDP协议进行传输？而HTTP为什么选择使用TCP协议？ 
-
-  
-
-
-
-
-
-### 七、讨论、心得
-
-在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
-
- 
-
-在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
-
- 
-
-你对本实验安排有哪些更好的建议呢？欢迎献计献策：
-
-
-
-
 
 
 ### Q&A

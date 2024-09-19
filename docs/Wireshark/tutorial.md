@@ -111,10 +111,7 @@ import {Alert} from 'antd';
 
 Wireshark的过滤器使用LibPcap编写，如需了解完整内容，请参阅官方文档：
 
-<LinkCard title="pcap-filter(7) man page" url="https://www.tcpdump.org/manpages/pcap-filter.7.html" style={{marginBottom: 20}}>
-This man page documents libpcap version 1.11.0-PRE-GIT (see also: [1.10.5](https://www.tcpdump.org/manpages/libpcap-1.10.5/pcap-filter.7.html), [1.10.4](https://www.tcpdump.org/manpages/libpcap-1.10.4/pcap-filter.7.html), [1.10.2](https://www.tcpdump.org/manpages/libpcap-1.10.2/pcap-filter.7.html), [1.10.1](https://www.tcpdump.org/manpages/libpcap-1.10.1/pcap-filter.7.html), [1.10.0](https://www.tcpdump.org/manpages/libpcap-1.10.0/pcap-filter.7.html), [1.9.1](https://www.tcpdump.org/manpages/libpcap-1.9.1/pcap-filter.7.html), [1.8.1](https://www.tcpdump.org/manpages/libpcap-1.8.1/pcap-filter.7.html), [1.7.4](https://www.tcpdump.org/manpages/libpcap-1.7.4/pcap-filter.7.html), [1.6.2](https://www.tcpdump.org/manpages/libpcap-1.6.2/pcap-filter.7.html), [1.5.3](https://www.tcpdump.org/manpages/libpcap-1.5.3/pcap-filter.7.html)).
-Your system may have a different version installed, possibly with some local modifications. To achieve the best results, please make sure this version of this man page suits your needs. If necessary, try to look for a different version on this web site or in the man pages available in your installation.
-</LinkCard>
+<LinkCard title="pcap-filter(7) man page" url="https://www.tcpdump.org/manpages/pcap-filter.7.html" icon="https://www.tcpdump.org/images/T-32x32.png" style={{marginBottom: 20}}>This man page documents libpcap version 1.11.0-PRE-GIT</LinkCard>
 <br/>
 
 :::important 提示
