@@ -25,6 +25,12 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "Lab2 使用双层交换机组网.pdf",
+        "size": "1223654",
+        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab2.pdf"
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab7 基于Socket接口实现自定义协议通信.pdf",
         "size": "1967383",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Socket%e7%bc%96%e7%a8%8b.pdf"
