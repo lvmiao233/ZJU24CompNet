@@ -12,9 +12,9 @@ const LabDeadlineData = [
     }, {
         name: 'Lab 6', start: '2024-09-10 13:25:00', end: '2024-12-02 23:59:59',
     }, {
-        name: 'Lab 7', start: '2024-09-10 13:25:00', end: '2024-12-30 23:59:59',
+        name: 'Lab 7', start: '2024-09-10 13:25:00', end: '2024-12-29 23:59:59',
     }, {
-        name: 'Lab 8', start: '2024-09-10 13:25:00', end: '2024-12-30 23:59:59',
+        name: 'Lab 8', start: '2024-09-10 13:25:00', end: '2024-12-29 23:59:59',
     },
 ]
 export default LabDeadlineData;
