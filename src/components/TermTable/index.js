@@ -7,7 +7,11 @@ const termColumns = [
         title: '术语缩写',
         dataIndex: 'term',
         key: 'term',
-        render: (text) => <a>{text}</a>,
+        render: (text, record) => (
+            <a href={`https://zh.wikipedia.org/wiki/${record.link}`} target="_blank" rel="noopener noreferrer">
+                {text}
+            </a>
+        ),
         sorter: (a, b) => a.term > b.term,
     },
     {
