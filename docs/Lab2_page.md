@@ -10,8 +10,8 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 <DeadlineProcess start={'2024-09-21 13:25:00'} end={'2024-10-07 23:59:59'}/>
+<FileCard file_type={'pdf'} name={'Lab2 使用双层交换机组网 实验课件'} size={'122365'} link={'http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab2.pdf'} />
 <FileCard file_type={'md'} name={'Lab2 实验报告模板 Markdown版本'} size={'180289'} link={'https://pan.zju.edu.cn/share/7ee6f68ad4bad4181d6c831f36'} />
-
 <FileCard file_type={'doc'} name={'Lab2 实验报告模板 Word版本'} size={'214016'} link={'http://10.214.0.253/network/download/Assignments/FundOfNetworks/2024/%e5%ae%9e%e9%aa%8c%e6%8a%a5%e5%91%8a%e6%a8%a1%e7%89%88_%e5%ae%9e%e9%aa%8c2.doc'} />
 
 ### 一、实验目的
