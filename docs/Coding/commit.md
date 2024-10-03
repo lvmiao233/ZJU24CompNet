@@ -1,0 +1,150 @@
+---
+sidebar_position: 14
+title: Angular Commit信息规范
+---
+
+:::important 温馨提示
+以下内容在我们的实验中不是必须的，但能为你在本实验与其他课程实验中提供更好的协作体验，推荐你学习应用
+:::
+
+## 为什么需要好的Commit Message?
+
+- 可以使自己或者其他开发人员能够清晰地知道每个 commit 的变更内容，方便快速浏览变更历史，比如可以直接略过文档类型或者格式化类型的代码变更。
+- 可以基于这些 Commit Message 进行过滤查找，比如只查找某个版本新增的功能：`git log --oneline --grep "^feat|^fix|^perf`。
+- 可以基于规范化的 Commit Message 生成 Change Log。
+- 可以依据某些类型的 Commit Message 触发构建或者发布流程，比如当 type 类型为 feat、fix 时我们才触发 CI 流程。
+- 确定语义化版本的版本号。比如 fix 类型可以映射为 PATCH 版本，feat 类型可以映射为 MINOR 版本。带有 BREAKING CHANGE 的 commit，可以映射为 MAJOR 版本。
+
+总结来说，一个好的 Commit Message 规范可以使 Commit Message 的可读性更好，并且可以实现自动化。那究竟如何写一个易读的 Commit Message 呢？
+
+## Angular Commit Message 规范
+
+Commit Message 包含三个部分，分别是 Header、Body 和 Footer，格式如下：
+
+```html
+<type>[optional scope]: <description> 
+// 空行
+[optional body] 
+// 空行
+[optional footer(s)]
+```
+
+其中，Header 是必需的，Body 和 Footer 可以省略。在以上规范中，必须用括号 () 括起来，[] 后必须紧跟冒号 ，冒号后必须紧跟空格，2 个空行也是必需的。
+
+在实际开发中，为了使 Commit Message 在 GitHub 或者其他 Git 工具上更加易读，我们往往会限制每行 message 的长度。根据需要，可以限制为 50/72/100 个字符，这里我将长度限制在 72 个字符以内（也有一些开发者会将长度限制为 100，你可根据需要自行选择）。
+
+以下是一个符合 Angular 规范的 Commit Message：
+
+```python
+fix($compile): couple of unit tests for IE9
+# Please enter the Commit Message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+# ...
+Older IEs serialize html uppercased, but IE9 does not...
+Would be better to expect case insensitive, unfortunately jasmine does
+not allow to user regexps for throw expectations.
+Closes #392
+Breaks foo.bar api, foo.baz should be used instead
+```
+
+接下来，我们详细看看 Angular 规范中 Commit Message 的三个部分。
+
+### Header
+
+Header 部分只有一行，包括三个字段：type（必选）、scope（可选）和 subject（必选）。
+
+#### Type
+
+说明 commit 的类型——Development 和 Production 两类
+
+- Development：这类修改一般是项目管理类的变更，不会影响最终用户和生产环境的代码，比如 CI 流程、构建方式等的修改。遇到这类修改，通常也意味着可以免测发布。
+- Production：这类修改会影响最终的用户和生产环境的代码。所以对于这种改动，我们一定要慎重，并在提交前做好充分的测试。
+
+常见 type 和它们所属的类别如下：
+
+![img](img\65e5572e51088274339ce8d7)
+
+确定所属type方式：
+
+![img](img\65e5572e51088274339ce8d8)
+
+如果我们变更了应用代码，比如某个 Go 函数代码，那这次修改属于代码类。在代码类中，有 4 种具有明确变更意图的类型：feat、fix、perf 和 style；如果我们的代码变更不属于这 4 类，那就全都归为 refactor 类，也就是优化代码。
+
+如果我们变更了非应用代码，例如更改了文档，那它属于非代码类。在非代码类中，有 3 种具有明确变更意图的类型：test、ci、docs；如果我们的非代码变更不属于这 3 类，那就全部归入到 chore 类。
+
+在实际开发中，我们可以使用部分 type，或者扩展添加我们自己的 type。但无论选择哪种方式，我们一定要保证一个项目中的 type 类型一致。
+
+#### scope
+
+说明 commit 的影响范围，它必须是名词，比如可以按组件名或者功能来设置 scope，主要是根据组件名和功能来设置的。例如，page, storage等 scope。
+
+scope 不适合设置太具体的值。太具体的话，一方面会导致项目有太多的 scope，难以维护。另一方面，开发者也难以确定 commit 属于哪个具体的 scope，导致错放 scope，反而会使 scope 失去了分类的意义。
+
+#### subject
+
+commit 的简短描述，必须以动词开头、使用现在时。比如，我们可以用 change，却不能用 changed 或 changes，而且这个动词的第一个字母必须是小写。通过这个动词，我们可以明确地知道 commit 所执行的操作。此外我们还要注意，subject 的结尾不能加英文句号。
+
+### Body
+
+Header 对 commit 做了高度概括，可以方便我们查看 Commit Message。那我们如何知道具体做了哪些变更呢？答案就是，可以通过 Body 部分，它是对本次 commit 的更详细描述，是可选的。
+
+Body 部分可以分成多行，而且格式也比较自由。不过，和 Header 里的一样，它也要以动词开头，使用现在时。此外，它还必须要包括修改的动机，以及和跟上一版本相比的改动点。
+
+以下是一个简单的示例：
+
+```
+The body is mandatory for all commits except for those of scope "docs".
+When the body is required it must be at least 20 characters long.
+```
+
+### Footer
+
+Footer 部分不是必选的，可以根据需要来选择，主要用来说明本次 commit 导致的后果。在实际应用中，Footer 通常用来说明不兼容的改动和关闭的 Issue 列表，格式如下：
+
+```html
+BREAKING CHANGE: <breaking change summary>
+// 空行
+<breaking change description + migration instructions>
+// 空行
+// 空行
+Fixes #<issue number>
+```
+
+具体来说，Footer需要描述：
+
+- 不兼容的改动：如果当前代码跟上一个版本不兼容，需要在 Footer 部分，以 BREAKING CHANG: 开头，后面跟上不兼容改动的摘要。Footer 的其他部分需要说明变动的描述、变动的理由和迁移方法，例如：
+
+```json
+BREAKING CHANGE: isolate scope bindings definition has changed and
+    the inject option for the directive controller injection was removed.
+    To migrate the code follow the example below:
+    Before:
+    scope: {      myAttr: 'attribute',    }
+    After:    scope: {      myAttr: '@',    }
+    The removed `inject` wasn't generaly useful for directives so there
+ should be no code using it.
+```
+
+- 关闭的 Issue 列表：关闭的 Bug 需要在 Footer 部分新建一行，并以 Closes 开头列出，例如：Closes #123。如果关闭了多个 Issue，可以这样列出：Closes #123, #432, #886。例如:
+
+```
+Change pause version value to a constant for image
+
+Closes #1137
+```
+
+### Revert Commit
+
+除了 Header、Body 和 Footer 这 3 个部分，Commit Message 还有一种特殊情况：如果当前 commit 还原了先前的 commit，则应以 revert: 开头，后跟还原的 commit 的 Header。而且，在 Body 中必须写成 This reverts commit，其中 hash 是要还原的 commit 的 SHA 标识。例如：
+
+```
+revert: feat(iam-apiserver): add 'Host' option
+
+This reverts commit 079360c7cfc830ea8a6e13f4c8b8114febc9b48a.
+```
+
+为了更好地遵循 Angular 规范，建议你在提交代码时养成不用 `git commit -m`，即不用 -m 选项的习惯，而是直接用 `git commit` 或者 `git commit -a` 进入交互界面编辑 Commit Message。这样可以更好地格式化 Commit Message。
+
+Visual Studio Code / Clion等也提供了可视化的Git交互页面，可以便于你使用Git完成操作
