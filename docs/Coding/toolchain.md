@@ -142,8 +142,14 @@ g++ --version
 
   <Tabs className="unique-tabs"  groupId="operating-systems">
   <TabItem value="Linux">
+  
+  使用以下命令，安装Glog
 
-  参考Glog官方文档进行安装，CMake已在前序步骤完成安装
+  ```bash
+  sudo apt-get install libgoogle-glog-dev
+  ```
+
+  如果无法使用包管理器安装，请参考Glog官方文档编译安装，编译所需的CMake在前序步骤已经准备好
 
   <LinkCard title="Google Logging Library" url="https://google.github.io/glog/stable/build/#bazel"  icon="https://google.github.io/glog/stable/assets/images/favicon.png">
   {"Building From Source"}
