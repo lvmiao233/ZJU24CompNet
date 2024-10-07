@@ -53,41 +53,32 @@ const CourseResourceList = () => (
                     split={'horizontal'}
                     type={'inner'}
                     hoverable={true}
-                    colSpan={{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12 }}
+                    colSpan={{xs: 24, sm: 24, md: 24, lg: 12, xl: 12}}
                     style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10}}
                 >
-                    <Row>
-                        <Col span={1} style={{minHeight: '100%'}}>
-                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
-                                {getFileIcon(item.file_type)}
-                            </div>
-                        </Col>
-                        <Col span={22}>
-                            <div style={{paddingLeft: 24}}>
-                                <Title level={5} style={{marginBottom: 8, marginTop: 0}}>{item.name}</Title>
-                                <span>{convertSize(item.size)}</span>
-                            </div>
-                        </Col>
-                        <Col span={1} style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <CloudDownloadOutlined style={{fontSize: '20px'}}/>
-                        </Col>
-                    </Row>
-                    {/*<Row>*/}
-                    {/*    <Col span={1}>{getFileIcon(item.file_type)}</Col>*/}
-                    {/*    <Col style={{marginLeft: 30}} span={20}>*/}
-                    {/*        <>*/}
-                    {/*            <div style={{display: 'flex', justifyContent: 'space-between'}}>*/}
-                    {/*                <span style={{fontWeight: 500}}>{item.name}</span>*/}
-                    {/*                <div style={{display: 'flex', justifyContent: 'flex-end'}}>*/}
-                    {/*                    <a href={item.link} style={{color: '#006d75'}}>*/}
-                    {/*                        下载*/}
-                    {/*                    </a>*/}
-                    {/*                </div>*/}
-                    {/*            </div>*/}
-                    {/*            <span style={{color: '#7d7d7d'}}>{convertSize(item.size)}</span>*/}
-                    {/*        </>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
+                    <a href={item.link} style={{textDecoration: 'none', color: 'inherit'}}>
+                        <Row>
+                            <Col span={1} style={{minHeight: '100%'}}>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100%'
+                                }}>
+                                    {getFileIcon(item.file_type)}
+                                </div>
+                            </Col>
+                            <Col span={22}>
+                                <div style={{paddingLeft: 24}}>
+                                    <Title level={5} style={{marginBottom: 8, marginTop: 0}}>{item.name}</Title>
+                                    <span>{convertSize(item.size)}</span>
+                                </div>
+                            </Col>
+                            <Col span={1} style={{display: 'flex', justifyContent: 'flex-end'}}>
+                                <CloudDownloadOutlined style={{fontSize: '20px'}}/>
+                            </Col>
+                        </Row>
+                    </a>
                 </ProCard>
             )
         )}
