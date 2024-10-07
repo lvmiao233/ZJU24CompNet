@@ -1,7 +1,7 @@
 const resourceData = [
     {
         "file_type": "pdf",
-        "name": "Computer Networks - A Tanenbaum - 5th edition.pdf",
+        "name": "Computer Networks - 5th edition.pdf",
         "size": "8454231",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Computer%20Networks%20-%20A%20Tanenbaum%20-%205th%20edition.pdf"
     },
@@ -20,7 +20,7 @@ const resourceData = [
     {
         "file_type": "pdf",
         "name": "3 Data Link Layer.pdf",
-        "size": "5223107",
+        "size": "5465726",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_3_Data%20Link%20Layer.pdf"
     },
     {

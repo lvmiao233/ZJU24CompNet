@@ -1,4 +1,5 @@
 import {
+    CloudDownloadOutlined,
     FileExcelOutlined,
     FilePdfOutlined,
     FilePptOutlined,
@@ -6,10 +7,11 @@ import {
     FileWordOutlined,
 } from '@ant-design/icons';
 import {ProCard} from '@ant-design/pro-components';
-import {Alert, Col, Row} from 'antd';
+import {Col, Row, Typography} from 'antd';
 import React from 'react';
 import resourceData from "@site/src/components/CourseResourceList/data.js";
 
+const {Title, Paragraph} = Typography;
 const getFileIcon = (type) => {
     if (type === 'pdf')
         return <FilePdfOutlined style={{color: '#006d75', fontSize: 40, marginTop: 7}}/>;
@@ -50,26 +52,42 @@ const CourseResourceList = () => (
                     bordered={true}
                     split={'horizontal'}
                     type={'inner'}
-                    colSpan={12}
-                    style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10,
-                        boxShadow: '0 3px 6px rgba(0, 0, 0, 0.1)'}}
+                    hoverable={true}
+                    colSpan={{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12 }}
+                    style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10}}
                 >
                     <Row>
-                        <Col span={1}>{getFileIcon(item.file_type)}</Col>
-                        <Col style={{marginLeft: 30}} span={20}>
-                            <>
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span style={{fontWeight: 500}}>{item.name}</span>
-                                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                                        <a href={item.link} style={{color: '#006d75'}}>
-                                            下载
-                                        </a>
-                                    </div>
-                                </div>
-                                <span style={{color: '#7d7d7d'}}>{convertSize(item.size)}</span>
-                            </>
+                        <Col span={1} style={{minHeight: '100%'}}>
+                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                                {getFileIcon(item.file_type)}
+                            </div>
+                        </Col>
+                        <Col span={22}>
+                            <div style={{paddingLeft: 24}}>
+                                <Title level={5} style={{marginBottom: 8, marginTop: 0}}>{item.name}</Title>
+                                <span>{convertSize(item.size)}</span>
+                            </div>
+                        </Col>
+                        <Col span={1} style={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <CloudDownloadOutlined style={{fontSize: '20px'}}/>
                         </Col>
                     </Row>
+                    {/*<Row>*/}
+                    {/*    <Col span={1}>{getFileIcon(item.file_type)}</Col>*/}
+                    {/*    <Col style={{marginLeft: 30}} span={20}>*/}
+                    {/*        <>*/}
+                    {/*            <div style={{display: 'flex', justifyContent: 'space-between'}}>*/}
+                    {/*                <span style={{fontWeight: 500}}>{item.name}</span>*/}
+                    {/*                <div style={{display: 'flex', justifyContent: 'flex-end'}}>*/}
+                    {/*                    <a href={item.link} style={{color: '#006d75'}}>*/}
+                    {/*                        下载*/}
+                    {/*                    </a>*/}
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*            <span style={{color: '#7d7d7d'}}>{convertSize(item.size)}</span>*/}
+                    {/*        </>*/}
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
                 </ProCard>
             )
         )}
