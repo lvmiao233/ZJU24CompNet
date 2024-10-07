@@ -19,6 +19,12 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "3 Data Link Layer.pdf",
+        "size": "5223107",
+        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_3_Data%20Link%20Layer.pdf"
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark.pdf",
         "size": "2874374",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Wireshark.pdf"
