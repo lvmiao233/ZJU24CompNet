@@ -17,6 +17,9 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 <FileCard file_type={'md'} name={'Lab7 实验报告模板 Markdown版本'} size={'29705'} link={'https://pan.zju.edu.cn/share/09545b9b20e92afe8631c7c8f2'} />
 <FileCard file_type={'doc'} name={'Lab7 实验报告模板 Word版本'} size={'68096'} link={'http://10.214.0.253/network/download/Assignments/FundOfNetworks/2024/%e5%ae%9e%e9%aa%8c%e6%8a%a5%e5%91%8a%e6%a8%a1%e7%89%88_%e5%ae%9e%e9%aa%8c7.doc'} />
 
+:::important 提示
+以下指导仅供参考，在满足实验报告要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发
+:::
 
 ## 1 初试Socket——年轻人的第一个服务端
 
@@ -445,6 +448,33 @@ while(msgQueue.empty()) response.wait(msgLock);
 尽管在本实验中，采用定长数据包能够正常完成实验，但这将使后续实验完成产生困难
 :::
 
+设计完成通信协议后，我们的服务端/客户端即在沟通方式上达成一致，后续的通信都将使用相同的格式进行，你可能已经注意到了这种共性，这使得我们可以对服务端/客户端应用一致的Socket处理逻辑
+
+因此，你可以考虑**自行**对Socket进行封装，接收传入的数据包，按照协议完成序列化后，调用原生Socket API完成数据发送，在接收方按照协议反序列化。此时我们的服务端/客户端只需要组装/分析定义好的数据包即可完成通信，而无需处理Socket底层实现
+
+![Socket@1x](img/Socket@1x.png)
+
+以下是一个封装的例子，封装后，你可以使用与原生Socket一致的方式进行数据传输，还可以通过运算符重载，使你封装好的Socket具有类似`std::cin` / `std::cout`的特性，简化你的开发过程：
+
+```cpp
+class mySocket{
+protected:
+    ... // Socket infomation
+public:
+    mySocket(...) :(...) { ... }; // Constructors
+    ~mySocket() { /* closes the socket before exit */ }
+    ... // Getters
+    // socket utilities
+    bool send(packet &pkt) const { ... }
+    auto recv(packet &pkt) { ... }
+    // Operator overloaded for easier use
+    bool operator==(...) const { ... }
+    friend mySocket& operator>>(...);
+};
+```
+
+封装后，每个连接对应一个`mySocket`对象，你可以通过管理`mySocket`对象实现对连接的管理，同时也可以通过对象生存期的控制，在析构时自动完成下线告知、关闭socket等操作，简化通信过程
+
 
 
 ## 5 运行控制
@@ -483,7 +513,7 @@ while(msgQueue.empty()) response.wait(msgLock);
   int main(int argc, char** argv){
       // Register exit handler to exit signals
       signal(SIGINT,  exitHandler); // Ctrl + C
-      signal(SIGQUIT, exitHandler); // Ctrl + \
+      signal(SIGQUIT, exitHandler); // Ctrl + '\'
       signal(SIGHUP,  exitHandler); // current user log off
       ...
       // start normal operation
@@ -501,15 +531,123 @@ while(msgQueue.empty()) response.wait(msgLock);
 
 客户端提供了较多功能，要让用户能够使用，我们就需要支持接受用户输入选择功能，这部分相对较为简单，你需要实现以下功能：
 
-* 持续读入用户输入
-* 根据用户输入，调用相应的功能并向用户提供反馈
-* 显示功能调用的结果
+* 根据当前状态，向用户展示可选功能
+  * 未连接服务器时：连接服务器 / 退出
+  * 连接服务器时：断开连接 / 请求服务端时间 / 请求服务端名称 / 请求服务端已连接客户端列表 / 发送消息 / 退出
 
-<Alert message="用户输入处理 施工中，将在近期上线" type="warning" showIcon/>
-<br/>
+* 持续读入用户输入
+* 根据用户输入，按照设计的通信协议组装相应的数据包
+
+可能对你有些微帮助：
+
+* 指定读入行的截止字符 `getline([istream], [string], [截止字符]);`
+
+* 结构化绑定  `C++17`开始可用
+
+  对于含多元素容器，如`pair[int, string]`，可直接将其结构并绑定到指定的局部变量上，这使得遍历`map`等时可以避免较模糊的`.first`/`.second`
+
+  ```cpp
+  std::map<std::string, int> list;
+  // Structural Binding
+  for(auto const& [addr, port] : list) { cout << addr << port; }
+  // Previous method
+  for(auto const& iter : list) { cout << iter.first << iter.second; }
+  ```
+
+* 输出格式化
+
+  引入`iomanip`库，可指定输出每个元素所占宽度/对齐/空白填充方式等，实现格式化输出
+
+  ```cpp
+  cout << a << setw(6) << b << setw(22) << c << setw(16) << d << endl;
+  ```
+
+* ……
+
+你可以自由设计客户端功能展示与选择的形式，我们对此不作过多要求；交互形式上，采用CLI/GUI均可，但使用GUI/复杂CLI交互没有额外加分
+
+
 
 
 ## 6 功能实现 
+
+### 6.1 整体逻辑
+
+在完成上述步骤后，我们的服务端/客户端已经非常接近于可用状态了，现在，我们只需要添加具体功能实现的逻辑，即可让两端间传递有效数据
+
+具体来说，我们需要按照以下流程，处理来自用户或客户端的请求：
+
+* 通过用户输入或通过Socket接收数据包，接受请求输入
+* 解析请求类型与需求
+* 根据请求类型，完成相应操作并生成相应反馈
+* 将反馈信息作为响应提供给用户/客户端
+
+以下是一个较为粗略的实现思路框架，供你参考：
+
+```cpp
+// process request for different functions
+pkt func1Handler(params) { ... }
+pkt func2Handler(params) { ... }
+...
+
+// retrive request and dispach tasks
+void connectionHandler(int socket) {
+	while (!shouldExit) {
+        // get request from user input or client request packet
+        // parse target function
+        if (func1) res = func1Handler(params);
+        if (func2) res = func2Handler(params);
+        ...
+        // construct and provide response
+    }
+}
+```
+
+在上述实现中，我们在无限循环中持续处理新的请求，并根据需求类型，将任务分派给其他函数，产生相应的响应结果。
+
+软件工程/OOP告诉我们，好的软件设计应当做到“高内聚、低耦合”，而一个好的内聚模块，应当尽可能只做好一件事。因此，我们的请求处理部分应当尽可能关注请求的接收与响应任务，而对于相对无关的生成客户端列表、获取当前时间等职能，则不应该处理其业务逻辑。
+
+为了保持高内聚度，这里我们选择将这些独立的职能拆分为单独的处理函数，根据类型进行相应的调用。可以看到，对模块进行拆分后，我们能够更清晰地分别了解请求处理部分与其他功能部分的业务逻辑，降低了后续Debug/扩展的难度。
+
+### 6.2 服务器功能实现
+
+* 断开连接请求
+
+  移除当前客户端连接记录；结束连接处理子线程
+
+* 获取时间/名字/客户端请求
+
+  根据设计的通信协议，组装相应的响应数据返回给客户端
+
+* 发送消息请求
+
+  尝试向用户请求的客户端发送消息；发送后，根据设计的通信协议，将发送结果（客户端不存在/发送成功等）组装相应的响应数据返回给客户端
+
+### 6.3 客户端功能实现
+
+在前序步骤中，我们已经完成了用户输入的处理逻辑，因此本步骤中，我们只需要分别实现被调用功能的具体逻辑，并实现信息的呈现即可
+
+#### 功能调用
+
+* 断开功能
+
+  关闭Socket连接（析构封装Socket）；更新连接状态为未连接；结束连接处理子线程
+
+* 获取时间/名字/客户端功能
+
+  根据设计的通信协议，组装相应的请求数据包，发送给服务端
+
+* 发送消息功能
+
+  接受用户输入的目标客户端与发送内容，请用户输入客户端的列表编号和要发送的内容，根据设计的通信协议，组装相应的请求数据包，发送给服务端
+
+* 退出功能
+
+  如已和服务器建立连接，关闭Socket连接（析构封装Socket）；退出程序
+
+#### 信息呈现
+
+### 6.4 功能测试
 
 <Alert message="功能实现 施工中，将在近期上线" type="warning" showIcon/>
 <br/>
