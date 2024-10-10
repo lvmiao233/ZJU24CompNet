@@ -47,7 +47,7 @@ const FileCard = (props) => {
                 bordered={true}
                 type={'inner'}
                 hoverable={true}
-                style={{paddingLeft: 6, marginBottom: 10}}
+                style={{paddingLeft: 6, marginBottom: 10, border: '1px solid #dcdcdc'}}
             >
                 <Row>
                     <Col span={1} style={{minHeight: '100%'}}>

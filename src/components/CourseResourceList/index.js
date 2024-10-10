@@ -54,7 +54,7 @@ const CourseResourceList = () => (
                     type={'inner'}
                     hoverable={true}
                     colSpan={{xs: 24, sm: 24, md: 24, lg: 12, xl: 12}}
-                    style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10}}
+                    style={{paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 18, marginBottom: 10, border: '1px solid #dcdcdc'}}
                 >
                     <a href={item.link} style={{textDecoration: 'none', color: 'inherit'}}>
                         <Row>

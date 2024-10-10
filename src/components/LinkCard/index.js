@@ -8,7 +8,7 @@ export const LinkCard = ({title, url, icon, children}) => (
     <a href={url} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
         <Card
             hoverable={true} // 鼠标悬停时有阴影效果
-            style={{width: '100%', paddingBottom: -20}}
+            style={{width: '100%', paddingBottom: -20, border: '1px solid #dcdcdc'}}
         >
             <Row gutter={[0, 0]}>
                 <Col span={2}>
