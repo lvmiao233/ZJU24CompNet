@@ -30,7 +30,7 @@ function SocketServerInit() {
     };
 
     const renderResponseItem = (response) => {
-        const [idx, status] = response;
+        const status = response[1];
         if (status === 'TLE') {
             return (
                 <div style={{display: 'flex', alignItems: 'center'}}>
