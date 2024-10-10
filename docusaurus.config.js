@@ -126,6 +126,10 @@ const config = {
                 label: 'GNS3',
                 href: 'https://github.com/GNS3/gns3-gui',
               },
+              {
+                label: '编程实验测试框架',
+                href: 'https://github.com/lvmiao233/NetLabFramework',
+              },
             ],
           },
         ],
