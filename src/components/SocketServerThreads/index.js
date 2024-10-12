@@ -13,7 +13,7 @@ function SocketServerThreads() {
 
     const handleSendRequest = async () => {
         try {
-            const response = await axios.post('http://' + `${testServerUrl}/test/lab7_server`, {
+            const response = await axios.post('http://' + `${testServerUrl}/test/lab7/server`, {
                 host: socketServerUrl,
                 num_threads: threadCount,
             });

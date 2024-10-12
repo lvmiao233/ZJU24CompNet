@@ -3,24 +3,102 @@ sidebar_position: 11
 title: 测试框架配置与使用
 ---
 
-
-import {Alert} from 'antd';
 import LinkCard from '@site/src/components/LinkCard';
-
-<Alert message="文档正在撰写中，请稍后再来吧" type="warning" showIcon/>
-<br/>
-
-文档尚未完成全部修改，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## 1 测试框架运行环境配置
 
-* Python
+Lab7-8分别要求你实现Socket 服务端+客户端/Web服务器，为了测试正确性，我们为你提供了一套测试框架，可在能与服务端建立连接的环境内，与你编写的服务端进行连接与功能验证
 
-<LinkCard title="编程实验测试框架" url="https://github.com/lvmiao233/NetLabFrameworkl"  icon="https://github.githubassets.com/favicons/favicon.svg">
+### 1.1 拉取测试仓库代码
+
+请在可与被测试服务端建立连接的系统环境下，Clone该仓库
+
+<LinkCard title="编程实验测试框架" url="https://github.com/lvmiao233/NetLabFramework"  icon="https://github.githubassets.com/favicons/favicon.svg">
     {"计算机网络 Lab7-8 测试框架"}
 </LinkCard>
 
+```
+git clone https://github.com/lvmiao233/NetLabFramework.git
+```
+
+### 1.2 安装Python
+
+我们的测试框架使用Python编写，在Python3.10+进行了测试，根据依赖包/特性需求，本地测试框架至少需要Python3.6+，在线测试版本至少需要Python2.7+ / 3.4+，如果你尝试使用较老版本运行时出现问题，请先尝试更新/使用较新版本
+
+如果你测试的系统环境没有安装Python，可参考以下方式：
+
+* 直接安装Python3
+
+  <Tabs className="unique-tabs"  groupId="operating-systems">
+  <TabItem value="Linux">
+
+  ```bash
+  sudo apt update
+  sudo apt install python3
+  # 默认安装的可能并非预期版本，你可以指定安装版本，但安装源不一定有相应包
+  # sudo apt install python3.12
+  ```
+
+  </TabItem>
+  <TabItem value="macOS">
+
+  macOS通常自带一个较老版本的Python，你可以使用以下命令检查安装的Python版本
+
+  ```
+  python --version
+  ```
+
+  如果需要安装Python，请使用：
+
+  ```
+  brew install python
+  ```
+
+  </TabItem>
+  <TabItem value="Windows">
+
+  <LinkCard title="在Windows上使用Python" url="https://learn.microsoft.com/zh-cn/windows/python/beginners" icon="https://learn.microsoft.com/favicon.ico">
+      {"Microsoft Learn"}
+  </LinkCard>
+
+  </TabItem>
+  </Tabs>
+
+* 安装Anaconda/MiniConda/Pixi等包/环境管理器
+
+  实际使用中，很多项目对Python版本/依赖包版本有严格的要求，微小的差别都可能会导致项目运行出现严重问题，为了在同一台设备的不同项目间便捷地切换不同版本的Python/依赖，你可以选择Anaconda等发行版
+
+  目前使用较多的是Anaconda/MiniConda（后者预置的科学计算包较少，你可以手动安装所需依赖），你可以通过以下文档了解其区别，并选择需要的进行安装
+
+  <LinkCard title="Anaconda Documentation" url="https://docs.anaconda.com/distro-or-miniconda/"  icon="https://docs.anaconda.com/_static/img/favicon.ico">
+      {"Should I use Anaconda Distribution or Miniconda?"}
+  </LinkCard>
+
+  目前较新推出的一些环境管理工具在环境解析等方面具有较好的性能，你也可以选择了解使用
+
+### 1.3 安装依赖包
+
+如果你只需要使用本地测试，可忽略本部分
+
+```bash
+pip install flask flask_cors
+```
+
+
+
 ## 2 测试框架使用
+
+我们的测试框架提供在线与本地测试两种版本：
+
+* 在线版本
+
+  使用Flask实现了测试服务端，运行后支持在实验文档网站内连接进行测试；该版本同时也作为目前主流Web服务端的简单DEMO，供你学习与参考
+
+* 本地版本
+
+  可直接本地发起测试，无需持续启用服务/网站内操作，仅展示测试结果
 
 ### 2.1 关键词解释
 
@@ -30,8 +108,51 @@ import LinkCard from '@site/src/components/LinkCard';
 
 * Web服务器地址：Web服务器运行的IP与端口号，测试页面需要通过该地址连接到测试服务，发起测试请求并根据响应展示结果
 
-### 2.2 确认服务所在IP
+### 2.2 确认服务所在IP与端口
 
-* 宿主机连接
+通常情况下，对于宿主机→WSL / 同系统环境的测试，使用本地环回地址`127.0.0.1`均能完成测试
 
-* WSL内部测试
+如果无法连接到服务端，请检查端口是否填写正确，且未被拦截（如：防火墙/VPN）
+
+测试服务端默认运行于`5000`端口，你可以在服务端启动时观察运行地址
+
+![image-20241013025133530](img/image-20241013025133530.png)
+
+Socket服务端端口为你的学号后4位，如果后4位中首位为0，请在最前添加1将其补全到5位
+
+Socket服务端如存在缺陷，可能导致无法正确释放端口，此时你可能无法使用指定的端口进行连接，建议退出后等待2分钟左右重试
+
+### 2.3 进行测试
+
+<Tabs className="unique-tabs">
+<TabItem value="在线测试">
+
+使用以下指令启动在线测试服务：
+
+```
+python online_test.py
+```
+
+启动后，打开实验文档网址，填入测试服务地址/Socket服务端地址，并指定其他测试参数，点击发起测试进行测试
+
+![image-20241013025813724](img/image-20241013025813724.png)
+
+测试完成后，将会显示测试结果，你可以翻页对每个线程的结果进行查看
+
+![image-20241013025922080](img/image-20241013025922080.png)
+
+</TabItem>
+<TabItem value="本地测试">
+
+测试需要指定Socket服务端地址`host`、端口`port`、测试线程数等参数
+
+```bash
+python local_test.py --lab 7 --test 3 --host 127.0.0.1 --port 6054 --threads 20
+```
+
+测试完成后，将会显示测试结果
+
+![image-20241013030052259](img/image-20241013030052259.png)
+
+</TabItem>
+</Tabs>
