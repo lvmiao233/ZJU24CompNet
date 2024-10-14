@@ -31,9 +31,15 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
-        "name": "Lab2 使用双层交换机组网.pdf",
+        "name": "Lab2 使用二层交换机组网.pdf",
         "size": "1223654",
         "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab2.pdf"
+    },
+    {
+        "file_type": "pdf",
+        "name": "Lab3 使用三层交换机组网.pdf",
+        "size": "650417",
+        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab3-%E4%BD%BF%E7%94%A8%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%BB%84%E7%BD%91.pdf"
     },
     {
         "file_type": "pdf",

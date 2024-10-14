@@ -1,4 +1,5 @@
-import {Progress} from 'antd';
+import { Progress } from 'antd';
+import {FieldTimeOutlined} from "@ant-design/icons";
 import React from 'react';
 
 const deadlineProgress = (begin, end) => {
@@ -19,21 +20,30 @@ const strokeColor = (progress) => {
 
 
 const DeadlineProcess = (props) => {
-    const {start, end} = props;
+    const { start, end } = props;
+    const process = deadlineProgress(start, end);
     return (
-        <div style={{display: 'flex', flexDirection: 'column', paddingTop: 8, marginBottom: 12}}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <span>{start}</span>
-                <span>{'>>>'}</span>
-                <span>{end}</span>
+        process === 100 ?
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
+                {<FieldTimeOutlined style={{  fontSize: 22, marginRight: '4px' }} />}
+                <h5 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+                    {"已超过建议完成时间，请务必在2024-12-29前提交该实验报告与数据"}
+                </h5>
             </div>
-            <Progress
-                percent={deadlineProgress(start, end)}
-                showInfo={false}
-                strokeColor={strokeColor(deadlineProgress(start, end))}
-                style={{margin: '6px 0'}}
-            />
-        </div>
+            :
+            <div style={{ display: 'flex', flexDirection: 'column', paddingTop: 8, marginBottom: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{start}</span>
+                    <span>{'>>>'}</span>
+                    <span>{end}</span>
+                </div>
+                <Progress
+                    percent={process}
+                    showInfo={false}
+                    strokeColor={strokeColor(process)}
+                    style={{ margin: '6px 0' }}
+                />
+            </div>
     );
 }
 

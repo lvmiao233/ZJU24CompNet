@@ -20,9 +20,9 @@ export default function LabDeadlineTable() {
     const columns = [{
         title: '任务名称', dataIndex: 'name', key: 'name',
     }, {
-        title: '开始时间', dataIndex: 'start', key: 'start',
+        title: '建议开始时间', dataIndex: 'start', key: 'start',
     }, {
-        title: '截止时间', dataIndex: 'end', key: 'end',
+        title: '建议截止时间', dataIndex: 'end', key: 'end',
     }, {
         title: '状态', key: 'state', render: (row) => getBadgeStatus(row.start, row.end),
     },];
