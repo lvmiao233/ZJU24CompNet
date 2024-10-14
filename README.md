@@ -1,5 +1,10 @@
 # ZJU24CompNet
+
+[![Deploy to GitHub Pages](https://github.com/lvmiao233/ZJU24CompNet/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/lvmiao233/ZJU24CompNet/actions/workflows/deploy.yml)
+
 浙江大学2024-2025学年秋冬学期 计算机网络 课程实验文档
+
+
 # Website
 
 This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
