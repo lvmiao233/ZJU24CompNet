@@ -40,6 +40,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+        routeBasePath: '/',
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -78,6 +79,12 @@ const config = {
             position: 'left',
             label: '实验指导',
           },
+          {
+            type: 'docSidebar',
+            sidebarId: 'noteSidebar',
+            position: 'left',
+            label: '课程解析',
+          },
           {to: '/blog', label: '延伸阅读', position: 'left'},
           {
             href: 'https://github.com/lvmiao233/ZJU24CompNet',
@@ -97,6 +104,10 @@ const config = {
                 to: '/docs/intro',
               },
               {
+                label: '课程解析',
+                to: '/notes/intro',
+              },
+              {
                 label: '延伸阅读',
                 to: '/blog',
               },
@@ -108,6 +119,10 @@ const config = {
               {
                 label: '计算机网络课程网站',
                 href: 'http://10.214.0.253/network/exercise/index.php',
+              },
+              {
+                label: '计算机网络朋辈辅学',
+                href: 'https://www.yuque.com/xianyuxuan/coding/network',
               },
               {
                 label: '浙江大学课程攻略共享计划',
