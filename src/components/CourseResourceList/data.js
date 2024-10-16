@@ -9,43 +9,43 @@ const resourceData = [
         "file_type": "pdf",
         "name": "1 Introduction.pdf",
         "size": "3822490",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_1_Introduction.pdf"
+        "link": require('@site/assets/slides/luxq_1_Introduction.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "2 Physical Layer.pdf",
         "size": "4249125",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_2_The%20Physical%20Layer.pdf"
+        "link": require('@site/assets/slides/luxq_2_The Physical Layer.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "3 Data Link Layer.pdf",
         "size": "5465726",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_3_Data%20Link%20Layer.pdf"
+        "link": require('@site/assets/slides/luxq_3_Data Link Layer.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "Lab1 Wireshark.pdf",
         "size": "2874374",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Wireshark.pdf"
+        "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "Lab2 使用二层交换机组网.pdf",
         "size": "1223654",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab2.pdf"
+        "link": require('@site/assets/slides/luxq_Lab2.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "Lab3 使用三层交换机组网.pdf",
         "size": "650417",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Lab3-%E4%BD%BF%E7%94%A8%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%BB%84%E7%BD%91.pdf"
+        "link": require('@site/assets/slides/luxq_Lab3-使用三层交换机组网.pdf').default
     },
     {
         "file_type": "pdf",
         "name": "Lab7 基于Socket接口实现自定义协议通信.pdf",
         "size": "1967383",
-        "link": "http://10.214.0.253/network/exercise/courseware/upload/110/luxq_Socket%e7%bc%96%e7%a8%8b.pdf"
+        "link": require('@site/assets/slides/luxq_Socket编程.pdf').default
     },
 ];
 

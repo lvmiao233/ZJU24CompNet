@@ -34,7 +34,7 @@ GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择
 * 选择“打开或关闭 Windows 功能”
 * 选择“Hyper-V”、“虚拟化平台”，然后选择“确定”
 
-  ![Windows 程序和功能对话框](img/enable-hyper-v.png)
+  <img src={require('./img/enable-hyper-v.png').default}   alt="Windows 程序和功能对话框" style={{zoom:' 67%'}} />
 
   安装完成后，系统会提示你重启计算机。
 
@@ -89,7 +89,7 @@ GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择
 
 * 运行完成后，打开Hyper-V管理器（可Win+S打开Windows搜索，搜索“Hyper-V”找到）
 
-  ![image-20240828122511513](img/image-20240828122511513.png)
+  <img src={require('./img/image-20240828122511513.png').default}   alt="image-20240828122511513" style={{zoom:'80%'}} />
 
 * 此时，你应当可以看到导入成功的GNS3 VM，双击可打开虚拟机连接
 
@@ -104,7 +104,7 @@ GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择
     :::important[每次启动后，IP会发生变化，请留意使用新IP连接]
     :::
 
-  ![image-20240828093827930](img/image-20240828093827930.png)
+  <img src={require('./img/image-20240828093827930.png').default}   alt="image-20240828093827930" style={{zoom:'67%'}} />
 
 * 打开GNS3，点击Edit-Preferences进入首选项
 
@@ -112,7 +112,7 @@ GNS3 3.*版本已经解决了过往强制虚拟化造成的问题，推荐选择
 
 * 点击左侧Controller，填入虚拟机中展示的IP与端口（用户名/密码均为admin，通常无需修改），点击Connect连接
 
-  ![image-20240828122816891](img/image-20240828122816891.png)
+  <img src={require('./img/image-20240828122816891.png').default}   alt="image-20240828122816891" style={{zoom:'80%'}} />
 
 
 
@@ -152,11 +152,11 @@ Hyper-V自带的`Default Switch`为内部网络，即对应Vmware下NAT模式的
 
 * 再次选中GNS3 VM，右键-设置，选择添加硬件-网络适配器-添加
 
-  ![image-20231107190852270](img/image-20231107190852270.png)
+  <img src={require('./img/image-20231107190852270.png').default}   alt="image-20231107190852270" style={{zoom:'90%'}} />
 
 * 指定我们刚刚添加好的虚拟网络交换机并应用
 
-![image-20231107190934640](img/image-20231107190934640.png)
+    <img src={require('./img/image-20231107190934640.png').default}   alt="image-20231107190934640" style={{zoom:'90%'}} />
 
 * 应用后，虚拟机即有eth0/eth1两个虚拟网络适配器，分别对应实验指导的eth0/eth2
 
@@ -168,7 +168,7 @@ Hyper-V自带的`Default Switch`为内部网络，即对应Vmware下NAT模式的
 
   尝试关闭Windows网络防火墙，并在Windows Defender防火墙中取消对GNS VM相应虚拟交换机的保护
 
-  ![image-20231107204429414](img/image-20231107204429414.png)
+  <img src={require('./img/image-20231107204429414.png').default}   alt="image-20231107204429414" style={{zoom:'80%'}} />
 
 * Dynamips error when running command 'nio create_udp udp-f21f8df5-b82c-41e7-a31a-88119fd84746 10010 127.0.0.1 10011 ': unable to create UDP NIO
 
