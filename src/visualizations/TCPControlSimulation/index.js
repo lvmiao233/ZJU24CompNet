@@ -1,128 +1,198 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Line} from '@antv/g2plot';
-import {Button, Col, Row} from 'antd';
+import {Button, Col, InputNumber, Row, Slider} from 'antd';
+import {
+    CaretRightOutlined,
+    DeleteRowOutlined,
+    FieldTimeOutlined,
+    PauseOutlined,
+    ReloadOutlined
+} from "@ant-design/icons";
 
 class TCPSimulator {
-    constructor() {
-        this.time = 0;
-        this.cwnd = 0.5; // 初始拥塞窗口大小
-        this.ssthresh = 32; // 慢启动阈值
-        this.data = []; // 存储数据点
+    constructor(ssthresh, fastRecovery) {
+        this.time = 1;
+        this.cwnd = 1; // 初始拥塞窗口大小
+        this.ssthresh = ssthresh; // 慢启动阈值
+        this.data = [{time: 0, cwnd: 1}]; // 存储数据点
+        this.fastRecovery = fastRecovery; // 是否启用快速恢复
     }
 
-    simulate(steps) {
-        for (let i = 0; i < steps; i++) {
-            if (this.cwnd < this.ssthresh) {
-                // Slow Start
-                if (this.cwnd * 2 < this.ssthresh) this.cwnd *= 2; else this.cwnd = this.ssthresh;
-            } else {
-                // Additive Increase
-                this.cwnd += 1;
-            }
-            this.data.push({time: this.time, cwnd: this.cwnd});
-            this.time += 1;
-        }
-        console.log(this.data);
+    simulate() {
+        if (this.cwnd < this.ssthresh) { // Slow Start
+            if (this.cwnd * 2 < this.ssthresh) this.cwnd *= 2;
+            else this.cwnd = this.ssthresh;
+        } else this.cwnd += 1; // Additive Increase
+        this.data.push({time: this.time++, cwnd: this.cwnd});
     }
 
     handlePacketLoss() {
-        this.ssthresh = Math.max(this.cwnd / 2, 1); // 减半ssthresh
+        this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 2); // 减半ssthresh
         this.cwnd = 1; // 重置cwnd
     }
 
     handleRedundantAck() {
-        this.ssthresh = Math.max(this.cwnd / 2, 1); // 减半ssthresh
-        this.cwnd = this.ssthresh; // 从减半后的cwnd开始
+        if (this.fastRecovery) {
+            this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 2); // 减半ssthresh
+            this.cwnd = this.ssthresh; // 从减半后的cwnd开始
+        } else {
+            this.handlePacketLoss(); // 如果没有快速恢复，按超时处理
+        }
     }
 
     getData() {
         return this.data;
     }
-
-    reset() {
-        this.time = 0;
-        this.cwnd = 0.5;
-        this.ssthresh = 32;
-        this.data = [];
-    }
 }
 
-
 const TCPControlSimulation = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([
+        {name: 'TCP Reno', data: [{time: 0, cwnd: 1}]},
+        {name: 'TCP Tahoe', data: [{time: 0, cwnd: 1}]}
+    ]);
     const [isRunning, setIsRunning] = useState(false);
-    const simulator = useRef(new TCPSimulator());
+    const [hasRun, setHasRun] = useState(false);
+    const [ssthresh, setSsthresh] = useState(32); // 初始阈值
+    const renoSimulator = useRef(new TCPSimulator(ssthresh, true));
+    const tahoeSimulator = useRef(new TCPSimulator(ssthresh, false));
     const intervalRef = useRef(null);
     const chartRef = useRef(null);
 
     const startSimulation = () => {
         setIsRunning(true);
+        setHasRun(true);
         intervalRef.current = setInterval(() => {
-            simulator.current.simulate(1);
-            setData([...simulator.current.getData()]);
+            renoSimulator.current.simulate();
+            tahoeSimulator.current.simulate();
+            setData([
+                {name: 'TCP Reno', data: renoSimulator.current.getData()},
+                {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
+            ]);
         }, 1000);
     };
 
     const pauseSimulation = () => {
         setIsRunning(false);
-        clearInterval(intervalRef.current);
+        if (intervalRef.current) clearInterval(intervalRef.current);
     };
 
-    const resetSimulation = () => {
-        chartRef.current.destroy();
-        simulator.current.reset();
-        setData(simulator.current.getData());
+    const resetSimulation = (neoSsthresh) => {
+        setHasRun(false);
+        const prevRunning = isRunning;
         pauseSimulation();
+        renoSimulator.current = new TCPSimulator(neoSsthresh, true);
+        tahoeSimulator.current = new TCPSimulator(neoSsthresh, false);
+        setData([
+            {name: 'TCP Reno', data: renoSimulator.current.getData()},
+            {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
+        ]);
+        if (prevRunning) startSimulation();
     };
 
     const handlePacketLoss = () => {
-        simulator.current.handlePacketLoss();
-        setData(simulator.current.getData());
+        renoSimulator.current.handlePacketLoss();
+        tahoeSimulator.current.handlePacketLoss();
+        setData([
+            {name: 'TCP Reno', data: renoSimulator.current.getData()},
+            {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
+        ]);
     };
 
     const handleRedundantAck = () => {
-        simulator.current.handleRedundantAck();
-        setData(simulator.current.getData());
+        renoSimulator.current.handleRedundantAck();
+        tahoeSimulator.current.handleRedundantAck();
+        setData([
+            {name: 'TCP Reno', data: renoSimulator.current.getData()},
+            {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
+        ]);
+    };
+
+    const handleSsthreshChange = (value) => {
+        setSsthresh(value);
+        resetSimulation(value); // 重置模拟器以应用新的ssthresh值
     };
 
     useEffect(() => {
-        if (data.length === 0) return;
+        const formattedData = data.flatMap(series => series.data.map(point => ({...point, type: series.name})));
+        console.log(formattedData);
+        if (!hasRun) return;
         if (chartRef.current) {
-            chartRef.current.update({data,});
+            chartRef.current.update({data: formattedData});
         } else {
             chartRef.current = new Line('chart-container', {
-                data, xField: 'time', yField: 'cwnd', title: {
+                data: formattedData,
+                xField: 'time',
+                yField: 'cwnd',
+                seriesField: 'type',
+                title: {
                     title: 'TCP Congestion Control Simulation',
-                }, interactions: [{
+                },
+                interactions: [{
                     type: 'active-region', enable: false,
-                },], animation: false, // 关闭动画
+                }],
+                animation: false, // 关闭动画
             });
+            chartRef.current.render();
         }
-        chartRef.current.render();
-    }, [data]);
 
-    return (<Row justify="center" align="middle">
-        <Col span={20}>
-            {(isRunning || data.length > 0) &&
-                <div id="chart-container" style={{width: '100%', height: '600px'}}></div>}
-            <div style={{marginTop: '20px', display: 'flex', justifyContent: 'space-between'}}>
-                {isRunning ? (<Button type="primary" onClick={pauseSimulation} disabled={!isRunning}>
-                    暂停
-                </Button>) : (<Button type="primary" onClick={startSimulation} disabled={isRunning}>
-                    开始
-                </Button>)}
-                {(isRunning || data.length > 0) && <Button type="primary" onClick={resetSimulation}>
-                    重置
-                </Button>}
-                <Button type="primary" onClick={handlePacketLoss}>
-                    丢包
-                </Button>
-                <Button type="primary" onClick={handleRedundantAck}>
-                    重复Ack
-                </Button>
-            </div>
-        </Col>
-    </Row>);
+        return () => {
+            if (chartRef.current) {
+                chartRef.current.destroy();
+                chartRef.current = null;
+            }
+        };
+    }, [data, hasRun]);
+
+    return (
+        <div>
+            <Row justify="center" align="middle" style={{ width: '100%', marginBottom: '10px' }}>
+                <Col span={24} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                    <Button type="primary" onClick={isRunning ? pauseSimulation : startSimulation}
+                            disabled={isRunning ? !isRunning : isRunning}
+                            icon={isRunning ? <PauseOutlined/> : <CaretRightOutlined />}
+                    >
+                        {isRunning ? '暂停' : '开始'}
+                    </Button>
+                    <Button type="primary" onClick={() => resetSimulation(ssthresh)}
+                            disabled={isRunning || (data.length === 2)}
+                            icon={<ReloadOutlined />}
+                    >
+                        重置
+                    </Button>
+                    <Button type="primary" onClick={handlePacketLoss} icon={<FieldTimeOutlined />}>
+                        模拟网络超时
+                    </Button>
+                    <Button type="primary" onClick={handleRedundantAck} icon={<DeleteRowOutlined />}>
+                        模拟重复Ack
+                    </Button>
+                </Col>
+            </Row>
+
+            <Row justify="center" align="middle" style={{width: '100%'}}>
+                <Col span={24}
+                     style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'}}>
+                    <span style={{marginRight: '0px'}}>慢开始阈值</span>
+                    <Slider
+                        min={1} max={100} value={ssthresh}
+                        onChange={handleSsthreshChange}
+                        tooltip={{formatter: (value) => `初始阈值: ${value}`}}
+                        style={{flex: 1, marginRight: '10px'}}
+                    />
+                    <InputNumber
+                        min={1} max={100} value={ssthresh}
+                        onChange={handleSsthreshChange}
+                        style={{width: '100px'}}
+                    />
+                </Col>
+            </Row>
+            <Row justify="center" align="middle">
+                {hasRun && (
+                    <div id="chart-container" style={{width: '100%', height: '600px'}}></div>
+                )}
+            </Row>
+        </div>
+
+    );
 };
 
 export default TCPControlSimulation;
