@@ -19,11 +19,15 @@ class TCPSimulator {
     }
 
     simulate() {
+        let expIncStop = false;
         if (this.cwnd < this.ssthresh) { // Slow Start
             if (this.cwnd * 2 < this.ssthresh) this.cwnd *= 2;
-            else this.cwnd = this.ssthresh;
+            else {
+                this.cwnd = this.ssthresh;
+                expIncStop = true;
+            }
         } else this.cwnd += 1; // Additive Increase
-        this.data.push({time: this.time++, cwnd: this.cwnd});
+        this.data.push(expIncStop ? {time: this.time++, cwnd: this.cwnd, event: '慢开始→\n拥塞避免'} : {time: this.time++, cwnd: this.cwnd});
     }
 
     handlePacketLoss() {
@@ -35,14 +39,10 @@ class TCPSimulator {
         if (this.fastRecovery) {
             this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 2); // 减半ssthresh
             this.cwnd = this.ssthresh; // 从减半后的cwnd开始
-        } else {
-            this.handlePacketLoss(); // 如果没有快速恢复，按超时处理
-        }
+        } else this.handlePacketLoss(); // 如果没有快速恢复，按超时处理
     }
 
-    getData() {
-        return this.data;
-    }
+    getData() { return this.data; }
 }
 
 const TCPControlSimulation = () => {
@@ -68,7 +68,7 @@ const TCPControlSimulation = () => {
                 {name: 'TCP Reno', data: renoSimulator.current.getData()},
                 {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
             ]);
-        }, 1000);
+        }, 650);
     };
 
     const pauseSimulation = () => {
@@ -92,19 +92,22 @@ const TCPControlSimulation = () => {
     const handlePacketLoss = () => {
         renoSimulator.current.handlePacketLoss();
         tahoeSimulator.current.handlePacketLoss();
-        setData([
-            {name: 'TCP Reno', data: renoSimulator.current.getData()},
-            {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
-        ]);
+        const renoData = renoSimulator.current.getData();
+        const tahoeData = tahoeSimulator.current.getData();
+        // 为最后一项数据添加 event 字段
+        if (renoData.length > 0)  renoData[renoData.length - 1].event = '超时';
+        if (tahoeData.length > 0) tahoeData[tahoeData.length - 1].event = '超时';
+        setData([{name: 'TCP Reno', data: renoData}, {name: 'TCP Tahoe', data: tahoeData}]);
     };
 
     const handleRedundantAck = () => {
         renoSimulator.current.handleRedundantAck();
         tahoeSimulator.current.handleRedundantAck();
-        setData([
-            {name: 'TCP Reno', data: renoSimulator.current.getData()},
-            {name: 'TCP Tahoe', data: tahoeSimulator.current.getData()}
-        ]);
+        const renoData = renoSimulator.current.getData();
+        const tahoeData = tahoeSimulator.current.getData();
+        if (renoData.length > 0) renoData[renoData.length - 1].event = '重复Ack';
+        if (tahoeData.length > 0) tahoeData[tahoeData.length - 1].event = '重复Ack';
+        setData([{name: 'TCP Reno', data: renoData}, {name: 'TCP Tahoe', data: tahoeData}]);
     };
 
     const handleSsthreshChange = (value) => {
@@ -116,21 +119,22 @@ const TCPControlSimulation = () => {
         const formattedData = data.flatMap(series => series.data.map(point => ({...point, type: series.name})));
         console.log(formattedData);
         if (!hasRun) return;
-        if (chartRef.current) {
-            chartRef.current.update({data: formattedData});
-        } else {
+        if (chartRef.current) chartRef.current.update({data: formattedData});
+        else {
             chartRef.current = new Line('chart-container', {
-                data: formattedData,
-                xField: 'time',
-                yField: 'cwnd',
-                seriesField: 'type',
-                title: {
-                    title: 'TCP Congestion Control Simulation',
-                },
-                interactions: [{
-                    type: 'active-region', enable: false,
-                }],
+                data: formattedData, xField: 'time', yField: 'cwnd', seriesField: 'type',
+                xAxis: { label: { style: { fontSize: 15, }, }, },
+                yAxis: { label: { style: {fontSize: 15, }, }, },
+                legend: { itemName: { style: {fontSize: 15,}, }, },
+                interactions: [{ type: 'active-region', enable: false, }],
                 animation: false, // 关闭动画
+                annotations: formattedData
+                    .filter(point => point.event)
+                    .map(point => ({
+                        type: 'text', position: [point.time, point.cwnd], content: point.event, offsetY: -20,
+                        style: { fill: 'red', fontSize: 15 }, offsetX: -16, // 确保注释在水平方向上居中对齐
+                        transform: [{ type: 'overlapDodgeY', step: 10, maxStep: 50 }], // 指定 labelTransform
+                    })),
             });
             chartRef.current.render();
         }
@@ -143,26 +147,25 @@ const TCPControlSimulation = () => {
         };
     }, [data, hasRun]);
 
-    return (
-        <div>
-            <Row justify="center" align="middle" style={{ width: '100%', marginBottom: '10px' }}>
-                <Col span={24} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+    return (<div>
+            <Row justify="center" align="middle" style={{width: '100%', marginBottom: '10px'}}>
+                <Col span={24} style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
                     <Button type="primary" onClick={isRunning ? pauseSimulation : startSimulation}
                             disabled={isRunning ? !isRunning : isRunning}
-                            icon={isRunning ? <PauseOutlined/> : <CaretRightOutlined />}
+                            icon={isRunning ? <PauseOutlined/> : <CaretRightOutlined/>}
                     >
                         {isRunning ? '暂停' : '开始'}
                     </Button>
                     <Button type="primary" onClick={() => resetSimulation(ssthresh)}
-                            disabled={isRunning || (data.length === 2)}
-                            icon={<ReloadOutlined />}
+                            disabled={!hasRun}
+                            icon={<ReloadOutlined/>}
                     >
                         重置
                     </Button>
-                    <Button type="primary" onClick={handlePacketLoss} icon={<FieldTimeOutlined />}>
+                    <Button type="primary" onClick={handlePacketLoss} icon={<FieldTimeOutlined/>}>
                         模拟网络超时
                     </Button>
-                    <Button type="primary" onClick={handleRedundantAck} icon={<DeleteRowOutlined />}>
+                    <Button type="primary" onClick={handleRedundantAck} icon={<DeleteRowOutlined/>}>
                         模拟重复Ack
                     </Button>
                 </Col>
@@ -171,7 +174,7 @@ const TCPControlSimulation = () => {
             <Row justify="center" align="middle" style={{width: '100%'}}>
                 <Col span={24}
                      style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'}}>
-                    <span style={{marginRight: '0px'}}>慢开始阈值</span>
+                    <span style={{marginRight: '0px', fontSize: '15px'}}>慢开始阈值</span>
                     <Slider
                         min={1} max={100} value={ssthresh}
                         onChange={handleSsthreshChange}
@@ -186,9 +189,7 @@ const TCPControlSimulation = () => {
                 </Col>
             </Row>
             <Row justify="center" align="middle">
-                {hasRun && (
-                    <div id="chart-container" style={{width: '100%', height: '600px'}}></div>
-                )}
+                {hasRun && (<div id="chart-container" style={{width: '100%', height: '600px'}}></div>)}
             </Row>
         </div>
 
