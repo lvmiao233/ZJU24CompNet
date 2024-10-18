@@ -27,19 +27,26 @@ class TCPSimulator {
                 expIncStop = true;
             }
         } else this.cwnd += 1; // Additive Increase
-        this.data.push(expIncStop ? {time: this.time++, cwnd: this.cwnd, event: '慢开始→\n拥塞避免'} : {time: this.time++, cwnd: this.cwnd});
+
+        // 检查前一个记录是否有重复 ACK
+        const lastEvent = this.data[this.data.length - 1];
+        const isLastEventRedundantAck = lastEvent && lastEvent.event && lastEvent.event === '重复ACK';
+        this.data.push((expIncStop && !isLastEventRedundantAck) ?
+            {time: this.time++, cwnd: this.cwnd, event: '慢开始→\n拥塞避免'} :
+            {time: this.time++, cwnd: this.cwnd});
     }
 
     handlePacketLoss() {
-        this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 2); // 减半ssthresh
-        this.cwnd = 1; // 重置cwnd
+        this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 1); // 减半ssthresh
+        this.cwnd = 0.5; // 重置cwnd
+        if (this.data.length > 0 && this.fastRecovery)  this.data[this.data.length - 1].event = '超时';
     }
-
     handleRedundantAck() {
         if (this.fastRecovery) {
-            this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 2); // 减半ssthresh
-            this.cwnd = this.ssthresh; // 从减半后的cwnd开始
+            this.ssthresh = Math.max(Math.floor(this.cwnd / 2), 1); // 减半ssthresh
+            this.cwnd = this.ssthresh - 1; // 从减半后的cwnd开始
         } else this.handlePacketLoss(); // 如果没有快速恢复，按超时处理
+        if (this.data.length > 0 && this.fastRecovery)  this.data[this.data.length - 1].event = '重复ACK';
     }
 
     getData() { return this.data; }
@@ -70,12 +77,10 @@ const TCPControlSimulation = () => {
             ]);
         }, 650);
     };
-
     const pauseSimulation = () => {
         setIsRunning(false);
         if (intervalRef.current) clearInterval(intervalRef.current);
     };
-
     const resetSimulation = (neoSsthresh) => {
         setHasRun(false);
         const prevRunning = isRunning;
@@ -92,24 +97,11 @@ const TCPControlSimulation = () => {
     const handlePacketLoss = () => {
         renoSimulator.current.handlePacketLoss();
         tahoeSimulator.current.handlePacketLoss();
-        const renoData = renoSimulator.current.getData();
-        const tahoeData = tahoeSimulator.current.getData();
-        // 为最后一项数据添加 event 字段
-        if (renoData.length > 0)  renoData[renoData.length - 1].event = '超时';
-        if (tahoeData.length > 0) tahoeData[tahoeData.length - 1].event = '超时';
-        setData([{name: 'TCP Reno', data: renoData}, {name: 'TCP Tahoe', data: tahoeData}]);
     };
-
     const handleRedundantAck = () => {
         renoSimulator.current.handleRedundantAck();
         tahoeSimulator.current.handleRedundantAck();
-        const renoData = renoSimulator.current.getData();
-        const tahoeData = tahoeSimulator.current.getData();
-        if (renoData.length > 0) renoData[renoData.length - 1].event = '重复Ack';
-        if (tahoeData.length > 0) tahoeData[tahoeData.length - 1].event = '重复Ack';
-        setData([{name: 'TCP Reno', data: renoData}, {name: 'TCP Tahoe', data: tahoeData}]);
     };
-
     const handleSsthreshChange = (value) => {
         setSsthresh(value);
         resetSimulation(value); // 重置模拟器以应用新的ssthresh值
@@ -126,7 +118,6 @@ const TCPControlSimulation = () => {
                 xAxis: { label: { style: { fontSize: 15, }, }, },
                 yAxis: { label: { style: {fontSize: 15, }, }, },
                 legend: { itemName: { style: {fontSize: 15,}, }, },
-                interactions: [{ type: 'active-region', enable: false, }],
                 animation: false, // 关闭动画
                 annotations: formattedData
                     .filter(point => point.event)
@@ -151,14 +142,12 @@ const TCPControlSimulation = () => {
             <Row justify="center" align="middle" style={{width: '100%', marginBottom: '10px'}}>
                 <Col span={24} style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
                     <Button type="primary" onClick={isRunning ? pauseSimulation : startSimulation}
-                            disabled={isRunning ? !isRunning : isRunning}
                             icon={isRunning ? <PauseOutlined/> : <CaretRightOutlined/>}
                     >
                         {isRunning ? '暂停' : '开始'}
                     </Button>
                     <Button type="primary" onClick={() => resetSimulation(ssthresh)}
-                            disabled={!hasRun}
-                            icon={<ReloadOutlined/>}
+                            disabled={!hasRun} icon={<ReloadOutlined/>}
                     >
                         重置
                     </Button>
@@ -166,7 +155,7 @@ const TCPControlSimulation = () => {
                         模拟网络超时
                     </Button>
                     <Button type="primary" onClick={handleRedundantAck} icon={<DeleteRowOutlined/>}>
-                        模拟重复Ack
+                        模拟重复ACK
                     </Button>
                 </Col>
             </Row>
@@ -176,15 +165,13 @@ const TCPControlSimulation = () => {
                      style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'}}>
                     <span style={{marginRight: '0px', fontSize: '15px'}}>慢开始阈值</span>
                     <Slider
-                        min={1} max={100} value={ssthresh}
-                        onChange={handleSsthreshChange}
+                        min={1} max={100} value={ssthresh} onChange={handleSsthreshChange}
                         tooltip={{formatter: (value) => `初始阈值: ${value}`}}
                         style={{flex: 1, marginRight: '10px'}}
                     />
                     <InputNumber
                         min={1} max={100} value={ssthresh}
-                        onChange={handleSsthreshChange}
-                        style={{width: '100px'}}
+                        onChange={handleSsthreshChange} style={{width: '100px'}}
                     />
                 </Col>
             </Row>
