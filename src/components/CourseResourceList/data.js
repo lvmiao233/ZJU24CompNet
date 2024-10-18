@@ -25,7 +25,7 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
-        "name": "4 Medium Access Control Layer.pdf",
+        "name": "4 Medium Access Control Sublayer.pdf",
         "size": "3401217",
         "link": require('@site/assets/slides/4_MACLayer.pdf').default
     },
