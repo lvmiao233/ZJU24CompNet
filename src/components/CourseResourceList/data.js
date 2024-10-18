@@ -25,6 +25,12 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "4 Medium Access Control Layer.pdf",
+        "size": "3401217",
+        "link": require('@site/assets/slides/4_MACLayer.pdf').default
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark.pdf",
         "size": "2874374",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
