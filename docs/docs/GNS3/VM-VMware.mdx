@@ -5,6 +5,7 @@ title: Vmware Workstation虚拟机配置
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
+import { Row, Col } from 'antd';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -75,10 +76,14 @@ import TabItem from '@theme/TabItem';
 :::
 
 * 下载并解压GNS3虚拟机
-
-  <FileCard link="https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b1" name="浙大云盘" size={1116691496} file_type="cloud"/>
-  <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
-
+    <Row gutter={[16, 16]} justify="space-between">
+          <Col xs={24} sm={12}>
+          <FileCard link="https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b1" name="浙大云盘" size={1116691496} file_type="cloud"/>
+          </Col>
+          <Col xs={24} sm={12}>
+          <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
+        </Col>
+    </Row>
 * 打开VMware Workstation，选择打开虚拟机
 
   ![image-20240913010554139](img/image-20240913010554139.png)

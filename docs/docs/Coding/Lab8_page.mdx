@@ -6,18 +6,143 @@ title: Lab8 实现一个轻量级的WEB服务器
 import {Alert} from 'antd';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import { Row, Col, Collapse } from 'antd';
+import HTTPVersion from '@site/src/compData/HTTPVersion.js';
+import HTTPMethods from '@site/src/compData/HTTPMethods.js';
 
-<Alert message="文档正在撰写中，请稍后再来吧" type="warning" showIcon/>
+<Alert message="文档尚未编写完成，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解" type="warning" showIcon/>
 <br/>
+
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 
 <DeadlineProcess start={'2024-09-21 13:25:00'} end={'2024-12-29 23:59:59'}/>
-<FileCard file_type={'md'} name={'Lab8 实验报告模板 Markdown版本'} size={'26341'} link={require('@site/assets/templete/md/Lab8 实验报告模板.zip').default} />
-<FileCard file_type={'doc'} name={'Lab8 实验报告模板 Word版本'} size={'61440'} link={require('@site/assets/templete/word/实验报告模版_实验8.doc').default} />
+
+<Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
+    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+        <FileCard file_type={'md'} name={'Lab8 实验报告模板 Markdown版本'} size={'26341'} link={require('@site/assets/templete/md/Lab8 实验报告模板.zip').default} />
+    </Col>
+    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+        <FileCard file_type={'doc'} name={'Lab8 实验报告模板 Word版本'} size={'61440'} link={require('@site/assets/templete/word/实验报告模版_实验8.doc').default} />
+    </Col>
+    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+    </Col>
+</Row>
+<br/>
+:::important 以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发
+:::
+
+## 0 实验目的与意义
+
+* 深化知识理解：通过Socket API使用实践，增加对网络应用程序的了解，对网络通信的过程与原理获得更鲜活直接的体验与理解
+* 提高开发技能：接触日志工具/版本控制工具/自动化测试工具，锻炼协作开发能力与技巧，增强自主学习能力
+* 设计自定义协议：通过自己动手设计网络通信协议，体会数据的编码与解码、错误检测与恢复机制的作用与原则
+* 实现并发处理：学会处理并发客户端连接，提高处理并发请求的能力，适应当下计算资源并行化与网络应用高并发化的发展趋势
+
+## 1 初识HTTP——概念浅析
+
+HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客户端（通常是Web浏览器）与服务器之间请求和响应的格式。HTTP的简单与强大使其成为了互联网上应用最广泛的网络协议之一，无论是访问网页，还是在线APP加载，都有HTTP的身影。
+
+### 1.1 HTTP版本演进
+
+过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0
+
+<Collapse items={HTTPVersion} defaultActiveKey={['HTTP/1.0']} />
+
+### 1.2 HTTP方法
+
+在HTTP协议中，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为。通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等。HTTP方法的设计遵循REST（表述性状态传递 Representational State Transfer）架构原则，旨在促进无状态、可缓存和轻量级的通信。每种方法都有其特定的语义和使用场景，正确选择和使用这些方法对于构建高效的Web应用至关重要（会在后续讲解）。
+
+对于HTTP，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
+
+<Collapse items={HTTPMethods} defaultActiveKey={['GET']} />
 
 
-文档尚未完成全部修改，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解
+:::important 幂等性
 
-* 实验解析部分预计将于 2024年 10月 上线
+幂等性是指连续多次相同的请求对服务器状态**不会造成额外的影响**。例如，删除某个文件的操作是幂等的，即无论删除请求发送多少次，最终的结果都是该文件在服务器上处于已删除状态，不会导致服务器凭空生成新文件或恢复已删除的文件等“闹鬼”一样的现象
 
-* 实验测试部分预计将于 2024年 10月 上线
+对于我们不甚可靠的网络环境来说，幂等性相当重要，因为请求可能会因为各种原因（如网络延迟、重试机制等）而被重复发送；幂等性能够确保数据的**一致性和可预测性**，即使不慎进行了重复操作，也能保证业务的安全进行
+:::
+
+|  方法  | GET  | POST | PUT  | DELETE | HEAD | OPTION | PATCH |
+| :----: | :--: | :--: | :--: | :----: | :--: | :----: | :---: |
+| 幂等性 |  √   |  ×   |  √   |   √    |  √   |   √    |   ×   |
+|  缓存  |  √   |  ×   |  ×   |   ×    |  √   |   √    |   ×   |
+
+
+
+每种HTTP方法都有其特定的设计目的和使用场景，正确选择和使用这些方法对于构建高效、可靠和安全的Web应用至关重要。理解这些方法的工作原理及其差异，有助于我们在设计Web服务器时做出更加合理的决策。例如，在处理用户登录请求时，考虑到安全性，应选择POST方法来提交用户凭证；而在搜索功能中，如果查询条件简单且不涉及敏感信息，则可以考虑使用GET方法来方便地保存搜索链接。通过合理利用HTTP方法，我们可以构建更加符合REST架构原则的Web服务，提高系统的可扩展性和互操作性。
+
+### HTTP请求结构介绍
+
+HTTP请求是由客户端发送给服务器的消息，用于发起一次网络请求。每个HTTP请求都由三部分组成：请求行、请求头和请求体。下面我们将详细介绍这三个组成部分，并重点讲解一些重要的请求头字段。
+
+#### 整体结构
+
+1. **请求行 (Request Line)**
+   - 请求行包括方法、请求的目标URI和使用的HTTP版本，如： `GET /index.html HTTP/1.1`
+   - 方法：如 `GET`、`POST`、`PUT` 等，表示请求类型
+   - 目标URI：指定请求的资源位置
+   - HTTP版本：如 `HTTP/1.1`，表示使用的HTTP协议版本
+
+2. **请求头 (Request Headers)**
+   - 请求头是一系列键值对，每对以冒号分隔，每行一对，用于提供关于请求的额外信息。如：
+
+     ```yaml
+     Host: www.example.com
+     User-Agent: Mozilla/5.0 ...
+     Accept: text/html,application/xhtml+xml,...
+     ```
+   
+3. **请求体 (Request Body)**
+   - 请求体是可选的，用于携带请求的数据，如表单数据或文件上传
+   
+     对于 `GET` 请求，请求体通常是空的；而对于 `POST`、`PUT` 等方法，请求体则包含了要提交的数据。例如： `username=johndoe&password=s3cre7`
+
+#### 头字段介绍
+
+以下是几个最重要的请求头字段及其作用：
+
+1. **Host** 例：`Host: www.example.com`
+
+   - 指定请求的主机名和端口号。这个字段在HTTP/1.1中是必需的，因为它帮助服务器区分不同的虚拟主机。
+
+2. **Content-Type** 例：`Content-Type: application/x-www-form-urlencoded`
+
+   - 指示请求体中的数据格式，对于 `POST`、`PUT` 等方法尤为重要，因为服务器需要知道如何解析请求体中的数据
+
+3. **Content-Length** 例：`Content-Length: 34`
+
+   - 表示请求体的长度，以字节为单位，帮助服务器知道何时读取完所有请求数据
+
+4. **User-Agent** 例：`User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36`
+
+   - 描述发出请求的客户端软件的信息，包括浏览器名称、版本和其他相关信息，为了解决历史兼容问题以及与其他浏览器进行竞争，该字段看起来可能非常抽象离谱，如果对这座屎山的堆积过程感兴趣，你可以浏览：
+   - 网站
+
+5. **Accept** 例：`Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`
+
+   - 指示客户端能够接受的内容类型。服务器可以根据这个字段来决定返回哪种格式的数据
+
+6. **Authorization** 例：`Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=`
+
+   - 用于提供访问受保护资源所需的认证信息，通常采用Base64编码的形式
+
+7. **Cookie** 例：`Cookie: sessionid=abc123xyz`
+
+   - 用于存储客户端的状态信息，如会话ID。每次请求时，客户端会自动将之前设置的Cookie发送回服务器
+
+8. **Referer** 例：`Referer: http://www.example.com/index.html`
+
+   :::info 这个字段的错误拼写是为了保持历史兼容而有意为之的，不是实验文档错误
+   :::
+
+   - 指示当前请求是从哪个页面链接过来的，通常用于统计分析或防止盗链
+
+9. **Accept-Encoding** 例：`Accept-Encoding: gzip, deflate`
+
+   - 指示客户端支持的内容编码方式，如 `gzip`、`deflate` 等，服务器可以根据这个字段来压缩响应数据，从而减少传输时间
+
+10. **Connection** 例： `Connection: keep-alive`
+    - 控制连接的行为，如是否保持连接，常用的值有 `keep-alive` 和 `close`
+
