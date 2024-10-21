@@ -4,14 +4,20 @@ title: 客户端安装与初始配置
 ---
 
 import FileCard from '@site/src/components/FileCard';
+import { Row, Col } from 'antd';
 
 ## 1 安装 GNS3 客户端
 
 * 下载GNS3 3.0.0rc1（或更新版本）
 
-  <FileCard link="https://pan.zju.edu.cn/share/57acd2792d40b041e5b1ba8df5" name="浙大云盘" size={75078041} file_type="cloud"/>
-  <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75078041} file_type="github"/>
-
+    <Row gutter={[16, 4]} justify="space-between">
+        <Col xs={24} sm={12}>
+            <FileCard link="https://pan.zju.edu.cn/share/57acd2792d40b041e5b1ba8df5" name="浙大云盘" size={75078041} file_type="cloud"/>
+        </Col>
+        <Col xs={24} sm={12}>
+            <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75078041} file_type="github"/>
+        </Col>
+    </Row>
 
 * 下载完成后运行安装程序，阅读并同意EULA，设置安装路径等信息
 
