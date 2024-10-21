@@ -1,6 +1,6 @@
 import React from 'react';
-import { Space, Table, Tag } from 'antd';
-import Terms from '@site/src/components/TermTable/terms.js';
+import { Table } from 'antd';
+import Terms from '@site/src/compData/terms.js';
 
 const termColumns = [
     {

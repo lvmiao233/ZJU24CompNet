@@ -9,7 +9,7 @@ import {
 import {ProCard} from '@ant-design/pro-components';
 import {Col, Row, Typography} from 'antd';
 import React from 'react';
-import resourceData from "@site/src/components/CourseResourceList/data.js";
+import resourceData from "@site/src/compData/courseResource.js";
 
 const {Title, Paragraph} = Typography;
 const getFileIcon = (type) => {

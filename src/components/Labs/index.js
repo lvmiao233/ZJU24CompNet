@@ -1,6 +1,6 @@
-import {Alert, Badge, Table} from "antd";
+import {Badge, Table} from "antd";
 import React from "react";
-import LabDeadlineData from "./data";
+import LabDeadlineData from "@site/src/compData/labs.js";
 
 // 实现一个简单的函数，判断当前时间在传入的YYYY-MM-DD HH:MM:SS 格式的时间范围前、中还是后，分别返回状态为default/processing/error的badge
 const getBadgeStatus = (start, end) => {
