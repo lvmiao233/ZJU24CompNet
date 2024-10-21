@@ -5,17 +5,61 @@ title: Vmware Workstation虚拟机配置
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
-
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## 1 安装VMWare Workstation
 
-同学们可在白洪欢老师的课程网站上下载VMWare Workstation
+### 1.1 启用虚拟化平台 [Windows]
 
-<LinkCard url="http://cc.zju.edu.cn/bhh/" title="Black White's Homepage" icon="https://www.zju.edu.cn/_upload/tpl/0b/bf/3007/template3007/favicon.ico">白洪欢老师课程网站</LinkCard>
+对于使用Windows的同学，由于其他实验需要使用WSL，Hyper-V特性会自动启用，为了保证VMWare Workstation的兼容性，需要启用虚拟化平台
+
+<Tabs className="unique-tabs"  groupId="operating-systems">
+    <TabItem value="Windows 10">
+
+* 导航到“控制面板”，选择“程序”，然后选择“程序和功能”
+* 选择“打开或关闭 Windows 功能”
+* 勾选“虚拟化平台”，然后选择“确定”
+
+<img src={require('./img/enable-hyper-v.png').default}   alt="Windows 程序和功能对话框" style={{zoom:' 67%'}} />
+
+安装完成后，系统会提示你重启计算机。
+    </TabItem>
+    <TabItem value="Windows 11">
+
+* 打开设置-系统-可选功能
+* 点击最下方的“更多Windows功能”
+* 勾选“虚拟化平台”，然后选择“确定”
+
+<img src={require('./img/enable-hyper-v.png').default}   alt="Windows 程序和功能对话框" style={{zoom:' 67%'}} />
+
+安装完成后，系统会提示你重启计算机。
+
+    </TabItem>
+</Tabs>
+
+### 1.2 下载并安装
+
+博通收购VMWare后，宣布VMWare Workstation Pro等产品面向个人用户免费，因此你现在不必使用任何破解版本
+
+以下是24.10.22为你转存至浙大云盘的版本，较老的版本不影响实验正常进行，但**不能使用VMWare Player**
+
+<Tabs className="unique-tabs"  groupId="operating-systems">
+    <TabItem value="Windows">
+        <LinkCard url="https://pan.zju.edu.cn/share/92c91a7878b1f7e15f347632d6" title="VMware Workstation Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Workstation Pro for Personal Use (For Windows) 17.6.1</LinkCard>
+    </TabItem>
+    <TabItem value="macOS">
+        <LinkCard url="https://pan.zju.edu.cn/share/89422b3ae5ab1f720cc9ac378b/" title="VMware Funsion Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Fusion Pro for Personal Use (For Intel-based and Apple silicon Macs) 13.6.1</LinkCard>
+    </TabItem>
+    <TabItem value="Linux">
+        <LinkCard url="https://pan.zju.edu.cn/share/d4cfd82e4a0a8d23ebba08a7f1" title="VMware Workstation Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Workstation Pro for Personal Use (For Linux) 17.6.1</LinkCard>
+    </TabItem>
+</Tabs>
+
+如果你希望下载后续推出的最新版本，可前往博通官网
+
+<LinkCard url="https://support.broadcom.com/group/ecx/downloads" title="My Downloads - Support Portal - Broadcom Support Portal" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">My Downloads - VMware Cloud Foundatio</LinkCard>
 <br/>
-
-在页面内搜索VMware，下载相应版本，注意不要下载VMWare Player
-
 
 
 ## 2 导入GNS3虚拟机
@@ -34,11 +78,6 @@ import LinkCard from '@site/src/components/LinkCard';
 
   <FileCard link="https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b1" name="浙大云盘" size={1116691496} file_type="cloud"/>
   <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
-
-
-
-
-
 
 * 打开VMware Workstation，选择打开虚拟机
 
