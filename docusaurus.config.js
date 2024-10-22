@@ -96,6 +96,9 @@ const config = {
 
         //... other Algolia params
       },
+      metadata: [
+        {name: 'baidu-site-verification', content: 'codeva-V1s0VJvPRM'},
+      ],
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
