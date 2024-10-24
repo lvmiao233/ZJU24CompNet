@@ -4,20 +4,38 @@ title: 客户端安装与初始配置
 ---
 
 import FileCard from '@site/src/components/FileCard';
-import { Row, Col } from 'antd';
+import { Row, Col, Alert } from 'antd';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## 1 安装 GNS3 客户端
 
-* 下载GNS3 3.0.0rc1（或更新版本）
+<Alert message="GNS3 3.0.0无法正确获取Idle PC，会导致卡死，请卸载客户端与虚拟机后重新安装较老版本，给你带来不便非常抱歉" type="error" showIcon />
 
-    <Row gutter={[16, 4]} justify="space-between">
-        <Col xs={24} sm={12}>
-            <FileCard link="https://pan.zju.edu.cn/share/57acd2792d40b041e5b1ba8df5" name="浙大云盘" size={75078041} file_type="cloud"/>
-        </Col>
-        <Col xs={24} sm={12}>
-            <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75078041} file_type="github"/>
-        </Col>
-    </Row>
+* 下载GNS3 2.2.50（不要下载GNS3 3.0版本）
+
+    <Tabs className="unique-tabs"  groupId="operating-systems">
+        <TabItem value="Windows">
+            <Row gutter={[16, 4]} justify="space-between">
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/e95e2dbd715935a727e25b28d8" name="浙大云盘" size={109551360} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={117268057} file_type="github"/>
+                </Col>
+            </Row>
+        </TabItem>
+        <TabItem value="macOS">
+            <Row gutter={[16, 4]} justify="space-between">
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/6374a5dbded4183968d9b0d8a7" name="浙大云盘" size={117268057} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={117268057} file_type="github"/>
+                </Col>
+            </Row>
+        </TabItem>
+    </Tabs>
 
 * 下载完成后运行安装程序，阅读并同意EULA，设置安装路径等信息
 
@@ -25,7 +43,7 @@ import { Row, Col } from 'antd';
 
 * 指定安装组件，至少需选择GNS3 Desktop，你可以根据需求额外安装其他组件
 
-    :::tip 安装向导下载GNS3 VM的速度较慢，你可以按照后续步骤指导单独配置GNS3 VM，不影响正常使用
+    :::tip 安装向导下载GNS3 VM的速度较慢，且自动设置与WSL存在兼容性问题，请按照后续步骤指导单独配置GNS3 VM，不影响正常使用
     :::
 
   ![image-20240828090704816](img/image-20240828090704816.png)
@@ -46,7 +64,7 @@ import { Row, Col } from 'antd';
 
   ![image-20240828122730965](img/image-20240828122730965.png)
 
-* 点击左侧Controller，填入虚拟机中展示的IP与端口（用户名/密码均为admin，通常无需修改），点击Connect连接
+* 点击左侧Server，取消勾选“Enable Local Server“，并填入虚拟机中展示的IP与端口（用户名/密码均为admin，一般请保持默认），点击Apply应用
 
   <img src={require('./img/image-20240828122816891.png').default} alt="image-20240828122816891" style={{zoom: '80%'}} />
 
@@ -83,7 +101,7 @@ import { Row, Col } from 'antd';
 
   ![image-20240913022106638](img/image-20240913022106638.png)
 
-* 指定路由器内存大小，保持默认即可，如内存严重不足，可降低为128MB
+* 指定路由器内存大小，保持默认即可，在完成需较多路由器的实验时，如内存不足可修改为128MB
 
   ![image-20240913022146059](img/image-20240913022146059.png)
 
@@ -105,7 +123,7 @@ import { Row, Col } from 'antd';
 
 
 
-## 4 配置自定义终端（可选）
+## 4 配置自定义终端（可选，不推荐）
 
 本部分为**可选步骤**，请根据需求权衡是否需要，**实验对使用的终端没有任何要求**
 

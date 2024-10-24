@@ -5,7 +5,7 @@ title: Vmware Workstation虚拟机配置
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
-import { Row, Col } from 'antd';
+import { Row, Col, Alert } from 'antd';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -71,17 +71,17 @@ import TabItem from '@theme/TabItem';
 
 如在官方仓库下载请选择中缀"VM.VMware.Workstation"
 
-使用2.*版本GNS3虚拟机的同学，请务必阅读第4部分Q&A
-
 :::
+
+<Alert message="GNS3 3.0.0无法正确获取Idle PC，会导致卡死，请卸载客户端与虚拟机后重新安装较老版本，给你带来不便非常抱歉" type="error" showIcon />
 
 * 下载并解压GNS3虚拟机
     <Row gutter={[16, 4]} justify="space-between">
           <Col xs={24} sm={12}>
-          <FileCard link="https://pan.zju.edu.cn/share/f8b99eeebe605bef1fded196b1" name="浙大云盘" size={1116691496} file_type="cloud"/>
+          <FileCard link="https://pan.zju.edu.cn/share/10ab9b9ea3850f46e284f8da00" name="浙大云盘" size={946080449} file_type="cloud"/>
           </Col>
           <Col xs={24} sm={12}>
-          <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={1116691496} file_type="github"/>
+          <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={946080449} file_type="github"/>
         </Col>
     </Row>
 * 打开VMware Workstation，选择打开虚拟机
@@ -118,7 +118,9 @@ import TabItem from '@theme/TabItem';
 
   ![image-20240913011357784](img/image-20240913011357784.png)
 
-* 在左侧点选处理器，取消勾选虚拟化引擎中全部项目，点击确定保存设置
+* 在左侧点选**处理器**，取消勾选虚拟化引擎中全部项目，并增加“处理器数量”（推荐4个）
+
+    点选**内存**，增加至4G左右（如果内存充裕，可增加更多，但不要超过VMWare的建议上限）点击确定保存设置
 
   ![image-20240913011831596](img/image-20240913011831596.png)
 
@@ -143,6 +145,8 @@ import TabItem from '@theme/TabItem';
 ## 4 Q&A
 
 * 虚拟机启动时，总是因为虚拟化问题导致启动失败，如何解决？
+
+    请先尝试改用[连接虚拟机](/docs/GNS3/client-install#2-%E8%BF%9E%E6%8E%A5-gns3-%E8%99%9A%E6%8B%9F%E6%9C%BA)步骤的方式连接GNS3 VM，如无效再尝试以下方法
 
   旧版GNS3客户端启动时，会自动尝试调用VMware workstation启动虚拟机，且会强制启用虚拟化，由于同学们几乎全部在使用WSL，其基于的Hyper-V的虚拟化方式将与VMware产生冲突，导致启动失败（对GNS3客户端的逆天逻辑送上一个大大的F）
 
