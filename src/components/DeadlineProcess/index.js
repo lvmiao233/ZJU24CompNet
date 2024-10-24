@@ -24,7 +24,7 @@ const DeadlineProcess = (props) => {
     const process = deadlineProgress(start, end);
     return (
         process === 100 ?
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px', marginTop: 12 }}>
                 {<FieldTimeOutlined style={{  fontSize: 22, marginRight: '4px' }} />}
                 <h5 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
                     {"已超过建议完成时间，请务必在2024-12-29前提交该实验报告与数据"}

@@ -22,7 +22,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-### 一、实验目的
+## 一、实验目的
 
 * 理解链路状态路由协议的工作原理。
 * 理解OSPF协议的工作机制。
@@ -30,7 +30,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 二、实验内容
+## 二、实验内容
 
 -   使用网线连接PC和路由器，并配置PC和路由器各端口的IP地址，让PC彼此能够与路由器接口互相Ping通；
 -   用网线连接多个路由器，并配置互联端口的IP地址，使直接连接的2个路由器能相互Ping通；
@@ -44,13 +44,13 @@ import { Row, Col } from 'antd';
 
 
 
-### 三、主要仪器设备
+## 三、主要仪器设备
 
 PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### 四、操作方法与实验步骤
+## 四、操作方法与实验步骤
 
 -   按照拓扑图连接PC和路由器，其中R1-R2之间采用串口连接，数据链路层协议使用HDLC；R5、R7、R8之间采用Frame Relay交换机连接（Frame Relay交换机的配置请参考GNS3指南）。
 -   设计好PC和路由器各端口的IP地址、子网掩码。分配地址时请遵循下面的规则：
@@ -70,15 +70,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 -   实时显示路由器之间交换的路由信息事件，理解OSPF协议交互过程；
 -   断开某些网络连接，查看OSPF的数据变化以及路由表的变化，并测试PC间的联通性；
 
-#### RIP相关命令参考
+### RIP相关命令参考
 
 -   在路由器上启用RIP协议：`Router(config)# router rip`
 -   将路由器各接口（子网）加入路由宣告：`Router(config-router)# network[<ip_net]`
 
-#### OSPF相关命令参考
+### OSPF相关命令参考
 
 - 给路由器的回环接口配置地址
-  ```bash
+  ```kotlin
   Router(config)# interface loopback 0
   Router(config-if)# ip address [ip] [mask]
   ```
@@ -98,7 +98,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### 五、实验数据记录和处理
+## 五、实验数据记录和处理
 
 :::important 提示
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，可直接在图片上进行标注，也可以单独用文本进行描述。
@@ -111,7 +111,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R1配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R1 (config) #interface f0/0
    R1 (config-if) #ip addr [ip] 255.255.255.0
@@ -122,7 +122,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R1 (config-if) #no shutdown
    R1 (config-if) #exit
    R1 (config) #interface s2/0
-   R1 (config-if)#ip addr [ip] 255.255.255.252
+   R1 (config-if) #ip addr [ip] 255.255.255.252
    R1 (config-if) #encapsulation hdlc
    R1 (config-if) #clock rate 128000
    R1 (config-if) #no shutdown
@@ -130,7 +130,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R2配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R2 (config) #interface f0/0
    R2 (config-if) #ip addr [ip] 255.255.255.0
@@ -148,7 +148,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R3 (config) #interface f0/1
    R3 (config-if) #ip addr [ip] 255.255.255.252
@@ -171,13 +171,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-#### Part 1：配置RIP（用于和OSPF进行比较）
+### Part 1  配置RIP（用于和OSPF进行比较）
 
 3. 在R1、R2、R3上启用RIP动态路由协议，并宣告各接口所在子网地址（版本要设置成2）；
 
    R1配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R1 (config) #router rip
    R1 (config-router) #network [subnet]
@@ -186,7 +186,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R2配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R2 (config) #router rip
    R2 (config-router) #version 2
@@ -195,7 +195,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R3 (config) #router rip
    R3 (config-router) #version 2
@@ -220,17 +220,17 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    PC1→PC2的路由跟踪：（经过的路由器顺序是R1、\_\_\_\_\_\_）
 
-![](img/Lab5/image14.png)
+    ![](img/Lab5/image14.png)
 
 
 
-#### Part 2：配置单域OSPF（Area 0）
+### Part 2  配置单域OSPF（Area 0）
 
 5. 启用路由器R1的OSPF动态路由协议，并配置各接口所属区域（为Area 0），其中进程ID请设置为学号的后2位（全0者往前取值）。
 
    R1配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R1 (config) #router ospf [pid]
    R1 (config-router) #network [subnet] [mask] area 0
@@ -242,7 +242,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R2配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R2 (config) #interface loopback 0
    R2 (config-if) #ip address [ip] 255.255.255.252
@@ -257,7 +257,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3配置命令：
 
-   ```bash
+   ```kotlin
    示例
    R3 (config) #router ospf [pid]
    R3 (config-router) #router-id [x.x.x.x]
@@ -364,13 +364,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-#### Part 3：配置多域OSPF
+### Part 3  配置多域OSPF
 
 15. 给R4的f0/1接口、R5的回环接口、f0/1和f0/0接口配置IP地址、激活端口，并启用OSPF协议，各接口均属于Area 1。配置PC3的IP地址和默认路由。过一会儿，查看R2、R5上的路由表，标出区域间路由（IA），测试PC3与PC1的连通性。
 
     R4配置命令：
 
-    ```bash
+    ```kotlin
     示例
     R4 (config) #interface f0/1
     R4 (config-if) #ip address [ip] 255.255.255.0
@@ -381,7 +381,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R5配置命令：
 
-    ```bash
+    ```kotlin
     R5(config)#interface f0/1
     R5(config-if)#
     R5(config-if)#
@@ -446,7 +446,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R6配置命令：
 
-    ```bash
+    ```kotlin
     R6(config)#interface f0/1
     R6(config-if)#
     R6(config-if)#
@@ -456,7 +456,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R8配置命令：
 
-    ```bash
+    ```kotlin
     R8(config)#interface f0/1
     R8(config-if)#
     R8(config-if)#
@@ -494,7 +494,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R5配置命令：
 
-    ```bash
+    ```kotlin
     示例
     R5 (config) #interface s2/0
     R5 (config-if) #encapsulation frame-relay
@@ -519,7 +519,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R7配置命令：
 
-    ```bash
+    ```kotlin
     R7(config)#interface f0/0
     R7(config-if)#
     R7(config-if)#
@@ -544,7 +544,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R9配置命令：
 
-    ```bash
+    ```kotlin
     R9(config)#interface f0/1
     R9(config-if)#
     R9(config-if)#
@@ -583,7 +583,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R5配置命令：
 
-    ```bash
+    ```kotlin
     R5(config)#interface s2/0.1
     R5(config-subif)#
     R5(config)#interface s2/0.2
@@ -592,14 +592,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R7配置命令：
 
-    ```bash
+    ```kotlin
     R7(config)#interface s2/0
     R7(config-if)#
     ```
 
     R9配置命令：
 
-    ```bash
+    ```kotlin
     R9(config)#interface s2/0
     R9(config-if)#
     ```
@@ -640,7 +640,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R10配置命令：
 
-    ```bash
+    ```kotlin
     R8(config)#interface f0/1
     R8(config-if)#
     R8(config-if)#
@@ -661,14 +661,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R4配置命令：
 
-    ```bash
+    ```kotlin
     R4(config)#
     R4(config-router)#
     ```
 
     R9配置命令：
 
-    ```bash
+    ```kotlin
     R9(config)#
     R9(config-router)#
     ```
@@ -697,7 +697,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### 六、实验结果与分析
+## 六、实验结果与分析
 
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 

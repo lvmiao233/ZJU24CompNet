@@ -22,7 +22,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-### 一、实验目的
+## 一、实验目的
 
 -   学习掌握路由器的工作原理和配置方法；
 -   加深路由和交换功能的区别和联系；
@@ -31,7 +31,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 二、实验内容
+## 二、实验内容
 
 -   分别采用静态地址分配、动态地址分配构建多种类型的局域网；
 -   使用多个路由器连接多个局域网；
@@ -42,7 +42,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 三、主要仪器设备
+## 三、主要仪器设备
 
 联网的PC机、路由器、交换机
 
@@ -50,7 +50,7 @@ import { Row, Col } from 'antd';
 :::
 
 
-### 四、操作方法与实验步骤
+## 四、操作方法与实验步骤
 
 -   按拓扑图连接路由器、交换机和PC机；
 ![](img/Lab4/image2.png)
@@ -63,7 +63,7 @@ import { Row, Col } from 'antd';
 - 为便于记忆，建议路由器之间的接口统一采用192.168.X.Y/24的形式，其中X为两个路由器的编号组合，如12代表R1和R2之间的子网，Y为路由器编号，如192.168.12.1分配给R1的s2/0接口，192.168.12.2分配给R2的s2/0接口。
 - 按照上述设计给PC配置合适的IP地址及掩码；
 - 按照上述设计给各路由器接口分配合适的IP地址、掩码并激活接口（命令参考下面）：
-  ```
+  ```kotlin
   R1(config)# interface 接口名
   R1(config-if)# ip address IP地址 掩码
   R1(config-if)# no shutdown
@@ -90,7 +90,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 五、实验数据记录和处理
+## 五、实验数据记录和处理
 
 :::important 提示
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，可直接在图片上进行标注，也可以单独用文本进行描述。
@@ -115,7 +115,7 @@ import { Row, Col } from 'antd';
 
    输入的配置命令：
 
-   ```
+   ```kotlin
    示例：
    R1#config t
    Enter configuration commands, one per line. End with CNTL/Z.
@@ -143,14 +143,14 @@ import { Row, Col } from 'antd';
 
    配置命令：
 
-   ```
+   ```kotlin
    示例
    PC-1> ip 10.0.0.1 255.255.0.0 [gateway]
    Checking for duplicate address...
    PC1 : 10.0.0.1 255.255.0.0 gateway [gateway]
    ```
 
-   ```
+   ```kotlin
    示例
    PC-3> ip 10.1.0.1 255.255.0.0 [gateway]
    Checking for duplicate address...
@@ -167,7 +167,7 @@ import { Row, Col } from 'antd';
 
    配置命令：
 
-   ```
+   ```kotlin
    示例
    R4(config)#interface fa0/0
    R4(config-if)#ip address [ip] 255.255.255.0
@@ -184,7 +184,7 @@ import { Row, Col } from 'antd';
 
    配置命令：
 
-   ```
+   ```kotlin
    示例
    R4(config)#ip dhcp pool 1
    R4(dhcp-config)#network 172.16.0.0 /24
@@ -205,7 +205,7 @@ import { Row, Col } from 'antd';
 
     配置命令：
 
-    ```
+    ```kotlin
     示例
     R4(config)#ip dhcp pool 1
     R4(dhcp-config)#network 172.16.1.0 /24
@@ -290,7 +290,7 @@ import { Row, Col } from 'antd';
 
     记录：R1 / R2 / R3 / R4上输入的命令，保留命令前提示符，如`R1(config)#`
 
-    ```
+    ```kotlin
     示例
     R1#config t
     Enter configuration commands, one per line. End with CNTL/Z.
@@ -313,7 +313,7 @@ import { Row, Col } from 'antd';
 
     * R1：
 
-      ```
+      ```kotlin
       示例
       R1(config)#ip route 172.16.0.0 255.255.255.0 [ip] [mask-length]
       ```
@@ -376,7 +376,7 @@ import { Row, Col } from 'antd';
 
     配置命令：
 
-    ```
+    ```kotlin
     示例
     R5(config)#interface fa0/1
     R5(config-if)#ip nat inside
@@ -458,7 +458,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 六、实验结果与分析
+## 六、实验结果与分析
 
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 

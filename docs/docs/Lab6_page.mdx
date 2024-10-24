@@ -22,7 +22,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-### 一、实验目的
+## 一、实验目的
 
 * 理解距离向量路由协议的工作原理。
 * 理解BGP协议的工作机制。
@@ -30,7 +30,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 二、实验内容
+## 二、实验内容
 
 -   创建多种类型的网络，各自成为一个独立的AS
 -   AS内部路由器配置成启用OSPF路由协议
@@ -42,7 +42,7 @@ import { Row, Col } from 'antd';
 -   在AS间进行多径负载均衡
 
 
-### 三、主要仪器设备
+## 三、主要仪器设备
 
 PC机、路由器、Console连接线、直联网络线、交叉网络线
 
@@ -50,13 +50,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### 四、操作方法与实验步骤
+## 四、操作方法与实验步骤
 
 按照下面的拓扑图连接路由器和PC机。每个自治系统（AS）均分配1个独立的AS号。其中，AS 65003内部运行OSPF路由协议，R6、R7、R8分别代表一个AS。
 
 ![](img/Lab6/image2.png)
 
-###### 实验主要步骤：
+### 实验主要步骤
 
 * 配置路由器各接口的IP地址（除了R1的f0/1、R2的f0/0接口配置IPv6的地址外，其他均配置IPv4的地址）, 使直连的2个路由器能相互Ping通，为方便记忆，建议使用192.168.xy.x/24、192.168.xy.y/24形式的地址，其中x,y分别是相连路由器的编号, 例如可以设置R1连接R3的f1/0接口IP为192.168.13.1，R3连接R1的f1/0接口IP为192.168.13.3，其他类推；
 * 在各AS边界路由器之间建立邻居关系；
@@ -72,7 +72,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-###### BGP知识点：
+### BGP知识点
 
 * 64512-65534之间的AS号属于私有AS号，不在互联网出现。
 * 两个路由器都在同一个AS，称为iBGP邻居，链路称为内部link。iBGP邻居之间的链路可以为非直连链路，数据需要通过其他路由器转发。
@@ -89,63 +89,63 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-###### BGP相关命令：
+### BGP相关命令
 
 * 在路由器R1上启用BGP协议, 设置AS号，并宣告直连网络：
-  ```bash
+  ```kotlin
   R1(config)# router bgp <AS-Number>
   R1(config-router)# network x.x.x.x mask x.x.x.x
   ```
 * 把对方增加为AS内部的邻居（AS-Number设置为相同的AS号）
-  ```bash
+  ```kotlin
   R1(config-router)# neighbor [IP-Address] remote-as [AS-Number]
   ```
 * 对方增加为AS间的邻居（IP-Address为对方的IP，AS-Number设置为对方的AS号）：
-  ```bash
+  ```kotlin
   R1(config-router)# neighbor [IP-Address] remote-as [AS-Number]
   ```
 * 查看邻居关系：
-  ```bash
+  ```kotlin
   R1# show ip bgp neighbor
   ```
 * 打开bgp调试：
-  ```bash
+  ```kotlin
   R1# debug ip bgp
   ```
 * 查看BGP数据库：
-  ```bash
+  ```kotlin
   R1# show ip bgp
   ```
 * 启用BGP同步功能：
-  ```bash
+  ```kotlin
   R1(config-router)# synchronization
   ```
 * 设置BGP更新源为回环接口（IP-Addr设置为对方的回环口IP）：
-  ```bash
+  ```kotlin
   R1(config-router)# neighbor [IP-Addr] update-source loopback 0
   ```
 * 在BGP中启用路由重分发功能，从OSPF中重分发路由信息：
-  ```bash
+  ```kotlin
   R1(config)# router bgp [AS-Number]
   R1(config-router)# redistribute ospf [process-id]
   ```
 * 在OSPF中启用重分发功能，从BGP中重分发路由信息：
-  ```bash
+  ```kotlin
   R1(config)# router ospf [process-id]
   R1(config-router)# redistribute bgp [AS-Number] subnets
   ```
 * 聚合路由（summary-only参数的含义是只传递聚合后的路由，as-set参数的含义是在传播网络时加上AS属性，避免出现循环路由）：
-  ```bash
+  ```kotlin
   R1(config-route)# aggregate-address [ip network] [subnet mask] summary-only as-set
   ```
 * 设置允许多条路径：
-  ```bash
+  ```kotlin
   R1(config-route)# maximum-paths 2
   ```
 
 
 
-### 五、实验数据记录和处理
+## 五、实验数据记录和处理
 
 :::important 提示
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，可直接在图片上进行标注，也可以单独用文本进行描述。
@@ -154,13 +154,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 1. 参考实验操作方法的说明，设计好每个PC、路由器各接口的IP地址及掩码（除了PC2、PC4、PC5以及与之相连的路由器接口配置IPv6的地址外，其他均配置IPv4的地址），并标注在拓扑图上。
 
 
-#### Part 1. 配置iBGP
+### Part 1  配置iBGP
 
 2. 分别在R3、R4、R5上配置回环端口、各物理接口的IP地址，激活OSPF动态路由协议，宣告直连网络。其中进程ID请设置为学号的后2位（全0者往前取值）。
 
    R3配置命令：
 
-   ```bash
+   ```kotlin
    R3(config)#interface f0/0
    R3(config-if)#
    R3(config-if)#
@@ -190,7 +190,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R5配置命令：
 
-   ```bash
+   ```kotlin
    R5(config)#interface f0/1
    R5(config-if)#
    R5(config-if)#
@@ -225,7 +225,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R5配置命令：
 
-   ```bash
+   ```kotlin
    R5(config)#
    R5(config-router)#
    R5(config-router)#
@@ -257,7 +257,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R5配置命令：
 
-   ```bash
+   ```kotlin
    R5(config)#
    R5(config-router)#
    ```
@@ -284,7 +284,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：R5的BGP数据库（标出iBGP路由）、R5的路由表（标出在BGP数据库中存在，但优先级更高的OSPF路由）
 
-#### Part 2. 配置eBGP
+### Part 2  配置eBGP
 
 8. 在R1、R2、R6、R7、R8上激活路由器互联的接口，配置IP地址，启用BGP协议，每个路由器使用不同的AS号，宣告所有直连网络，把直接连接的对方增加为AS间的邻居（命令：`neighbor [IP-Address] remote-as [AS-Number]`），IP-Address为对方的IP，AS-Number设置为对方的AS号。
 
@@ -292,7 +292,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    ![](img/Lab6/image13.png)
 
-   ```bash
+   ```kotlin
    R1(config)#interface f1/0
    R1(config-if)#
    R1(config-if)#
@@ -308,7 +308,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R2的配置命令：
 
-   ```bash
+   ```kotlin
    R2(config)#interface f1/0
    R2(config-if)#
    R2(config-if)#
@@ -324,7 +324,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R6的配置命令：
 
-   ```bash
+   ```kotlin
    R6(config)#interface f0/0
    R6(config-if)#
    R6(config-if)#
@@ -340,7 +340,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R7的配置命令：
 
-   ```bash
+   ```kotlin
    R7(config)#interface f0/0
    R7(config-if)#
    R7(config-if)#
@@ -356,7 +356,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R8的配置命令：
 
-   ```bash
+   ```kotlin
    R8(config)#interface f0/1
    R8(config-if)#
    R8(config-if)#
@@ -376,14 +376,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3的配置命令：
 
-   ```bash
+   ```kotlin
    R3(config)#
    R3(config-router)#
    ```
 
    R5的配置命令：
 
-   ```bash
+   ```kotlin
    R5(config)#
    R5(config-router)#
    ```
@@ -410,15 +410,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R5的邻居关系：R3的iGP邻居的IP为为\_\_\_\_\_\_，eBGP邻居的IP为为\_\_\_\_\_\_。
 
-    
+
 
     R6的邻居关系：R6的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
 
-    
+
 
     R7的邻居关系：R7的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
 
-    
+
 
     R8的邻居关系：R8的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
 
@@ -473,7 +473,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-#### Part 3. 路由重分发
+### Part 3  路由重分发
 
 16. 重新激活R1-R3之间的端口（命令：`no shutdown`），等待R1重新选择R3作为到达R2-R8间子网的最佳BGP路由。然后测试R1是否能Ping通R2-R8互联端口，并跟踪R1到该子网的路由（命令：`traceroute ip-addr`，如果提前终止，可按Ctrl+6）。
 
@@ -510,14 +510,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的配置命令：
 
-    ```bash
+    ```kotlin
     R3(config)#
     R3(config-router)#
     ```
 
     R5的配置命令：
 
-    ```bash
+    ```kotlin
     R5(config)#
     R5(config-router)#
     ```
@@ -552,14 +552,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的配置命令：
 
-    ```bash
+    ```kotlin
     R3(config)#
     R3(config-router)#
     ```
 
     R5的配置命令：
 
-    ```bash
+    ```kotlin
     R5(config)#
     R5(config-router)#
     ```
@@ -601,7 +601,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的配置命令：
 
-    ```bash
+    ```kotlin
     R3(config)#
     R3(config-router)#
     ```
@@ -620,7 +620,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的配置命令：
 
-    ```bash
+    ```kotlin
     R1(config)#interface f0/0
     R1(config-if)#
     R1(config-if)#
@@ -630,7 +630,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     PC1的配置命令：
 
-    ```bash
+    ```kotlin
     PC1>
     ```
 
@@ -640,7 +640,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R2的配置命令：
 
-    ```bash
+    ```kotlin
     R2(config)#interface f0/0
     R2(config-if)#
     R2(config-if)#
@@ -650,7 +650,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     PC3的配置命令：
 
-    ```bash
+    ```kotlin
     PC3>
     ```
 
@@ -658,7 +658,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-#### Part 4. 路由过滤
+### Part 4  路由过滤
 
 24. 查看R7的BGP数据库中PC3所在子网的最佳路由。
 
@@ -690,13 +690,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-#### Part 5. IPv6双栈路由
+### Part 5  IPv6双栈路由
 
 26. 激活R1上的f0/1端口，配置IPv6的site-local地址；给f2/0口配置IPv6的site-local地址。查看IPv6接口（命令：`show ipv6 interface`），标记自动分配的link-local地址。
 
     R1的配置命令：（截图仅供参考，请替换成文本形式）
 
-    ```bash
+    ```kotlin
     示例
     R1(config)#interface f0/1
     R1(config-if)#ipv6 address [ip]
@@ -724,7 +724,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R6的配置命令：
 
-    ```bash
+    ```kotlin
     R6(config)#interface f2/0
     R6(config-if)#
     R6(config)#interface f0/1
@@ -753,7 +753,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的配置命令：
 
-    ```bash
+    ```kotlin
     R1(config)#ipv6 unicast-routing
     R1(config)#router bgp 65001
     R1(config-router)#address-family ipv6
@@ -766,7 +766,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R6的配置命令：
 
-    ```bash
+    ```kotlin
     R6(config)# （启用IPv6单播路由）
     R6(config)# （进入BGP配置）
     R6(config-router)# （进入IPv6地址族配置模式）
@@ -789,7 +789,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     PC2的配置命令：
 
-    ```bash
+    ```kotlin
     PC2> ip [ip]
     PC1 : [ip]
     ```
@@ -840,7 +840,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R2的配置命令：
 
-    ```bash
+    ```kotlin
     R2(config)#interface f0/1
     R2(config-if)#
     R2(config-if)#
@@ -849,7 +849,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     PC4的配置命令：
 
-    ```bash
+    ```kotlin
     PC4>
     ```
 
@@ -877,7 +877,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R2的配置命令：
 
-    ```bash
+    ```kotlin
     R2(config)#
     ```
 
@@ -891,7 +891,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R2的配置命令：
 
-    ```bash
+    ```kotlin
     R2(config)# （设置静态路由）
     ```
 
@@ -927,7 +927,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### 六、实验结果与分析
+## 六、实验结果与分析
 
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 

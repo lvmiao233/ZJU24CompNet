@@ -34,13 +34,43 @@ const config = {
     locales: ['zh-Hans'],
   },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        // fromExtensions: ['html', 'htm'], // /myPage.html -> /myPage
+        // toExtensions: ['exe', 'zip'], // /myAsset -> /myAsset.zip (if latter exists)
+        redirects: [
+          // /docs/oldDoc -> /docs/newDoc
+          {
+            to: '/docs/Lab7_page',
+            from: '/docs/Coding/Lab7_page',
+          },
+          {
+            to: '/docs/Lab8_page',
+            from: '/docs/Coding/Lab8_page',
+          },
+        ],
+        // createRedirects(existingPath) {
+        //   if (existingPath.includes('/community')) {
+        //     // Redirect from /docs/team/X to /community/X and /docs/support/X to /community/X
+        //     return [
+        //       existingPath.replace('/community', '/docs/team'),
+        //       existingPath.replace('/community', '/docs/support'),
+        //     ];
+        //   }
+        //   return undefined; // Return a falsy value: no redirect created
+        // },
+      },
+    ],
+  ],
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-        routeBasePath: '/',
+          routeBasePath: '/',
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -97,16 +127,13 @@ const config = {
         //... other Algolia params
       },
       metadata: [
-        {name: 'baidu-site-verification', content: 'codeva-V1s0VJvPRM'},
+        {name: 'name', content: '浙大计网实验文档'},
       ],
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: '计算机网络课程实验',
-        logo: {
-          alt: '计算机网络课程实验',
-          src: 'img/logo.svg',
-        },
+        logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
         items: [
           {
             type: 'docSidebar',
@@ -134,18 +161,9 @@ const config = {
           {
             title: '实验文档',
             items: [
-              {
-                label: '实验指导',
-                to: '/docs/intro',
-              },
-              {
-                label: '课程解析',
-                to: '/notes/intro',
-              },
-              {
-                label: '延伸阅读',
-                to: '/blog',
-              },
+              { label: '实验指导', to: '/docs/intro', },
+              { label: '课程解析', to: '/notes/intro', },
+              { label: '延伸阅读', to: '/blog', },
             ],
           },
           {
@@ -154,12 +172,10 @@ const config = {
               {
                 label: '计算机网络课程网站',
                 href: 'http://10.214.0.253/network/exercise/index.php',
-              },
-              {
+              }, {
                 label: '计算机网络朋辈辅学',
                 href: 'https://www.yuque.com/xianyuxuan/coding/network',
-              },
-              {
+              }, {
                 label: '浙江大学课程攻略共享计划',
                 href: 'https://github.com/QSCTech/zju-icicles',
               },
@@ -171,12 +187,10 @@ const config = {
               {
                 label: 'WireShark',
                 href: 'https://www.wireshark.org/',
-              },
-              {
+              }, {
                 label: 'GNS3',
                 href: 'https://github.com/GNS3/gns3-gui',
-              },
-              {
+              }, {
                 label: '编程实验测试框架',
                 href: 'https://github.com/lvmiao233/NetLabFramework',
               },
@@ -186,8 +200,14 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} 浙江大学2024年计算机网络课程实验文档。使用 Docusaurus 搭建.`,
       },
       prism: {
+        additionalLanguages: ['HTTP'],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
+      },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
       },
     }),
 };
