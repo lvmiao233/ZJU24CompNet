@@ -34,70 +34,82 @@ function SocketServerInit() {
         }
     };
 
+    const flexCenterStyle = {
+        display: 'flex',
+        alignItems: 'center'
+    };
+
+    const h5Style = {
+        margin: 0,
+        display: 'flex',
+        alignItems: 'center'
+    };
+
+    const inputStyle = {
+        flex: 1.1,
+        marginRight: '10px'
+    };
+
+    const buttonStyle = {
+        flex: 0.90,
+        marginRight: '10px'
+    };
+
     const renderResponseItem = (response) => {
         const status = response[1];
-        if (status === 'TLE') {
-            return (
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    {<ClockCircleTwoTone twoToneColor='#ff9900' style={{marginRight: '4px'}}/>}
-                    <h5 style={{margin: 0, display: 'flex', alignItems: 'center'}}>
-                        {"请求超时"}
-                    </h5>
-                </div>
-            );
-        } else if (status === 'RE') {
-            return (
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    {<CloseCircleTwoTone twoToneColor='#ff0000' style={{marginRight: '4px'}}/>}
-                    <h5 style={{margin: 0, display: 'flex', alignItems: 'center'}}>
-                        {"请求失败"}
-                    </h5>
-                </div>
-            );
-        } else {
-            return (
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    {<CheckCircleTwoTone twoToneColor='#52c41a' style={{marginRight: '4px'}}/>}
-                    <h5 style={{margin: 0, display: 'flex', alignItems: 'center'}}>
-                        {'请求成功，服务端返回消息：' + status}
-                    </h5>
-                </div>
-            );
-        }
+        const iconMap = {
+            TLE: <ClockCircleTwoTone twoToneColor='#ff9900' />,
+            RE: <CloseCircleTwoTone twoToneColor='#ff0000' />,
+            default: <CheckCircleTwoTone twoToneColor='#52c41a' />
+        };
+        const messageMap = {
+            TLE: "请求超时",
+            RE: "请求失败",
+            default: `请求成功，服务端返回消息：${status}`
+        };
+
+        return (
+            <div style={flexCenterStyle}>
+                {iconMap[status] || iconMap.default}
+                <h5 style={h5Style}>
+                    {messageMap[status] || messageMap.default}
+                </h5>
+            </div>
+        );
     };
 
     return (
         <div>
-            <div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-                {<DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>}
-                <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
+            <div style={{ ...flexCenterStyle, marginBottom: '15px' }}>
+                <DotChartOutlined style={{ color: '#006d75', fontSize: 26, marginRight: '4px' }} />
+                <h3 style={{ ...h5Style, color: '#006d75', fontSize: 18 }}>
                     {"测试1 服务端连接与发送测试"}
                 </h3>
             </div>
-            <Watermark content={testInfo} gap={[60, 30]} font={{fontSize: 14}}>
-                <div style={{display: 'flex', alignItems: 'center', marginBottom: '20px'}}>
+            <Watermark content={testInfo} gap={[60, 30]} font={{ fontSize: 14 }}>
+                <div style={{ ...flexCenterStyle, marginBottom: '20px' }}>
                     <Input
                         addonBefore="http://"
                         placeholder="测试服务地址"
                         value={testServerUrl}
                         onChange={(e) => setTestServerUrl(e.target.value)}
-                        style={{flex: 1.1, marginRight: '10px'}}
+                        style={inputStyle}
                     />
                     <Input
                         placeholder="Socket服务器地址"
                         value={socketServerUrl}
                         onChange={(e) => setSocketServerUrl(e.target.value)}
-                        style={{flex: 0.90, marginRight: '10px'}}
+                        style={buttonStyle}
                     />
                     <Button type="primary" onClick={handleSendRequest}>
                         发送请求
                     </Button>
                 </div>
-                {testInfo.length > 0 &&
-                    <div style={{marginTop: '20px', marginBottom: '20px'}}>
+                {testInfo.length > 0 && (
+                    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
                         {renderResponseItem(responses[0])}
                     </div>
-                }
+                )}
             </Watermark>
         </div>
     );

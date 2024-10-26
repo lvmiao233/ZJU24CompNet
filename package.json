@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
-    "@ant-design/pro-components": "^2.6.48",
     "@antv/g2plot": "^2.4.32",
     "@docusaurus/core": "3.4.0",
     "@docusaurus/plugin-client-redirects": "^3.4.0",
