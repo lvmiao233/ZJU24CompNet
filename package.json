@@ -16,9 +16,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@antv/g2plot": "^2.4.32",
-    "@docusaurus/core": "3.4.0",
-    "@docusaurus/plugin-client-redirects": "^3.4.0",
-    "@docusaurus/preset-classic": "3.4.0",
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/plugin-client-redirects": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
     "@mdx-js/react": "^3.0.0",
     "antd": "^5.16.0",
     "antd-style": "^3.6.1",
@@ -30,8 +30,8 @@
     "zju-24-comp-net": "file:"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.4.0",
-    "@docusaurus/types": "3.4.0"
+    "@docusaurus/module-type-aliases": "^3.5.2",
+    "@docusaurus/types": "^3.5.2"
   },
   "browserslist": {
     "production": [

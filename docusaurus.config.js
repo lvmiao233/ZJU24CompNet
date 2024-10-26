@@ -149,6 +149,11 @@ const config = {
           },
           {to: '/blog', label: '延伸阅读', position: 'left'},
           {
+            href: 'https://github.com/lvmiao233/NetLabFramework',
+            label: '测试框架',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/lvmiao233/ZJU24CompNet',
             label: '文档仓库',
             position: 'right',
@@ -161,9 +166,9 @@ const config = {
           {
             title: '实验文档',
             items: [
-              { label: '实验指导', to: '/docs/intro', },
-              { label: '课程解析', to: '/notes/intro', },
-              { label: '延伸阅读', to: '/blog', },
+              { label: '实验指导', to: '/docs/intro/', },
+              { label: '课程解析', to: '/notes/intro/', },
+              { label: '延伸阅读', to: '/blog/', },
             ],
           },
           {
