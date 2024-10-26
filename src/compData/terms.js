@@ -65,4 +65,31 @@ const Terms = [
     { term: "SAP", full: "Service Access Point", layer: "", link: "無線接入點", description: "网络层的服务访问点" }
 ];
 
+export const termColumns = [
+    {
+        title: '术语缩写',
+        dataIndex: 'term',
+        key: 'term',
+        render: (text, record) => (
+            <a href={`https://zh.wikipedia.org/wiki/${record.link}`} target="_blank" rel="noopener noreferrer">
+                {text}
+            </a>
+        ),
+        sorter: (a, b) => a.term > b.term,
+    }, {
+        title: '全称',
+        dataIndex: 'full',
+        key: 'full',
+    }, {
+        title: '所属层级',
+        key: 'layers',
+        dataIndex: 'layer',
+        sorter: (a, b) => a.layer > b.layer,
+    }, {
+        title: '描述',
+        dataIndex: 'description',
+        key: 'description',
+    },
+];
+
 export default Terms;

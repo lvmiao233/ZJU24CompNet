@@ -1,10 +1,10 @@
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import {Card} from 'antd';
+import { Card, Row, Col } from 'antd';
 import React from "react";
 import CourseWorkTable from "@site/src/components/CourseWorkTable";
-import CourseResourceList from "../components/CourseResourceList";
-
+import resourceData from "@site/src/compData/courseResource.js";
+import FileCard from "@site/src/components/FileCard";
 
 export default function Home() {
     // const {siteConfig} = useDocusaurusContext();
@@ -52,7 +52,13 @@ export default function Home() {
                             <h2 style={{color: '#006d75'}}>考核形式</h2>
                             <CourseWorkTable/> <br/>
                             <h2 style={{color: '#006d75'}}>课程课件</h2>
-                            <CourseResourceList/>
+                            <Row gutter={[16, 4]} justify="space-between">
+                                {resourceData.map((item, index) => (
+                                    <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                                        <FileCard key={index} file_type={item.file_type} name={item.name} size={item.size} link={item.link}/>
+                                    </Col>
+                                ))}
+                            </Row>
                         </div>
                     </div>
                 </div>

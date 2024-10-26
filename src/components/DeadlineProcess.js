@@ -1,7 +1,6 @@
 import { Progress } from 'antd';
 import {FieldTimeOutlined} from "@ant-design/icons";
 import React from 'react';
-// import custom
 
 const deadlineProgress = (begin, end) => {
     if (!begin || !end) return 0;
@@ -76,6 +75,5 @@ const DeadlineProcess = (props) => {
             </div>
     );
 }
-
 
 export default DeadlineProcess;

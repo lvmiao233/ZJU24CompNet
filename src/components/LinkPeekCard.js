@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Avatar, Card, Col, Row, Typography} from 'antd';
 import {DownOutlined, RightOutlined, UpOutlined} from "@ant-design/icons";
 
-const {Title, Paragraph} = Typography;
+const {Title} = Typography;
 
 export const LinkPeekCard = ({title, url, icon, children}) => {
     const [showPeek, setShowPeek] = useState(false);

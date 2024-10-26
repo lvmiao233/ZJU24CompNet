@@ -2,9 +2,10 @@
 sidebar_position: 32
 title: 术语翻译对照
 ---
-import TermList from "@site/src/components/TermTable"
-import {Alert} from 'antd';
+import Terms from '@site/src/compData/terms.js';
+import { termColumns } from '@site/src/compData/terms.js';
+import { Alert, Table} from 'antd';
 
 <Alert message="点击缩写可跳转至Wikipedia相应页面，如需了解更详细信息，请考虑切换为英文版本页面" type="info" showIcon />
 <br/>
-<TermList  style={{ width: '100%' }}/>
+<Table columns={termColumns} dataSource={Terms} pagination={false} style={{ width: '100%' }}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import {Avatar, Card, Col, Row, Typography} from 'antd';
 import {RightOutlined} from "@ant-design/icons";
 
-const {Title, Paragraph} = Typography;
+const {Title} = Typography;
 
 export const LinkCard = ({title, url, icon, children}) => (
     <a href={url} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
