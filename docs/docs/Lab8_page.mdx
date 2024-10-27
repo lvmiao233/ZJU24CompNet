@@ -6,9 +6,10 @@ title: Lab8 实现一个轻量级的WEB服务器
 import {Alert} from 'antd';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
-import { Row, Col, Collapse } from 'antd';
-import HTTPVersion from '@site/src/compData/HTTPVersion.js';
-import HTTPMethods from '@site/src/compData/HTTPMethods.js';
+import { Row, Col } from 'antd';
+import MappedCollapse from "@site/src/components/CollapseContent";
+import HTTPVersions, {HTTPMethods} from '@site/src/compData/HTTPInfo.js';
+import IconHeader from "@site/src/components/IconHeader";
 
 <Alert message="文档尚未编写完成，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解" type="warning" showIcon/>
 <br/>
@@ -40,22 +41,32 @@ import HTTPMethods from '@site/src/compData/HTTPMethods.js';
 
 ## 1 初识HTTP——概念浅析
 
-HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客户端（通常是Web浏览器）与服务器之间请求和响应的格式。HTTP的简单与强大使其成为了互联网上应用最广泛的网络协议之一，无论是访问网页，还是在线APP加载，都有HTTP的身影。
+HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客户端（通常是Web浏览器）与服务器之间请求和响应的格式。HTTP的简单与强大使其成为了互联网上应用最广泛的网络协议之一，无论是访问网页，还是在线APP加载，都有HTTP的身影
+
+在这一部分，我们将带你了解HTTP相关的基本概念，你可以边学习边打开开发者工具（Ctrl + Shift + J 或 F12）动手尝试
 
 ### 1.1 HTTP版本演进
 
 过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0
 
-<Collapse items={HTTPVersion} defaultActiveKey={['HTTP/1.0']} />
+在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
 
-### 1.2 HTTP方法
+<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} />
 
-在HTTP协议中，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为。通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等。HTTP方法的设计遵循REST（表述性状态传递 Representational State Transfer）架构原则，旨在促进无状态、可缓存和轻量级的通信。每种方法都有其特定的语义和使用场景，正确选择和使用这些方法对于构建高效的Web应用至关重要（会在后续讲解）。
 
-对于HTTP，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
+### 1.2 统一资源标识符 URI
 
-<Collapse items={HTTPMethods} defaultActiveKey={['GET']} />
+随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么我们的检索和访问就会无异于大海捞针
 
+
+### 1.3 HTTP方法
+
+在HTTP协议中，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为
+
+通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等，一般来说，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
+
+<MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} />
+<br/>
 
 :::important 幂等性
 
@@ -64,16 +75,16 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 对于我们不甚可靠的网络环境来说，幂等性相当重要，因为请求可能会因为各种原因（如网络延迟、重试机制等）而被重复发送；幂等性能够确保数据的**一致性和可预测性**，即使不慎进行了重复操作，也能保证业务的安全进行
 :::
 
-|  方法  | GET  | POST | PUT  | DELETE | HEAD | OPTION | PATCH |
-| :----: | :--: | :--: | :--: | :----: | :--: | :----: | :---: |
-| 幂等性 |  √   |  ×   |  √   |   √    |  √   |   √    |   ×   |
-|  缓存  |  √   |  ×   |  ×   |   ×    |  √   |   √    |   ×   |
+|  方法  | GET / HEAD / OPTION  | PUT / DELETE | POST / PATCH |
+| :----: | :--: | :--: | :--: |
+| 幂等性 |  √   |   √   |  ×   |
+|  缓存  |  √   |  ×   |  ×   |
 
 
 
 每种HTTP方法都有其特定的设计目的和使用场景，正确选择和使用这些方法对于构建高效、可靠和安全的Web应用至关重要。理解这些方法的工作原理及其差异，有助于我们在设计Web服务器时做出更加合理的决策。例如，在处理用户登录请求时，考虑到安全性，应选择POST方法来提交用户凭证；而在搜索功能中，如果查询条件简单且不涉及敏感信息，则可以考虑使用GET方法来方便地保存搜索链接。通过合理利用HTTP方法，我们可以构建更加符合REST架构原则的Web服务，提高系统的可扩展性和互操作性。
 
-### HTTP请求结构介绍
+### 1.4 HTTP请求结构介绍
 
 HTTP请求是由客户端发送给服务器的消息，用于发起一次网络请求。每个HTTP请求都由三部分组成：请求行、请求头和请求体。下面我们将详细介绍这三个组成部分，并重点讲解一些重要的请求头字段。
 
@@ -88,7 +99,7 @@ HTTP请求是由客户端发送给服务器的消息，用于发起一次网络�
 2. **请求头 (Request Headers)**
    - 请求头是一系列键值对，每对以冒号分隔，每行一对，用于提供关于请求的额外信息。如：
 
-     ```yaml
+     ```HTTP
      Host: www.example.com
      User-Agent: Mozilla/5.0 ...
      Accept: text/html,application/xhtml+xml,...
@@ -145,63 +156,3 @@ HTTP请求是由客户端发送给服务器的消息，用于发起一次网络�
 
 10. **Connection** 例： `Connection: keep-alive`
     - 控制连接的行为，如是否保持连接，常用的值有 `keep-alive` 和 `close`
-
-通过理解和使用这些请求头字段，可以有效地控制和优化HTTP请求的行为，提高客户端与服务器之间的通信效率。例如，通过设置 `Accept` 头，可以告诉服务器客户端希望接收的数据格式；通过设置 `Content-Type` 头，可以确保服务器正确解析请求体中的数据。这些字段在实际开发中非常有用，能够帮助开发者构建更加高效和安全的Web应用。
-
-
-
-在实现一个简单的Web服务器的过程中，理解HTTP服务端和客户端的工作原理是非常重要的。HTTP（HyperText Transfer Protocol）是一种用于传输超文本的应用层协议，它定义了客户端和服务器之间如何交换数据。客户端通常是浏览器，而服务器则是运行在网络上的程序，负责处理来自客户端的请求并返回相应的响应。
-
-当我们讨论HTTP服务端时，实际上是在讨论运行在服务器上的应用程序，这些应用程序监听特定的端口（通常是80端口用于HTTP，443端口用于HTTPS），等待客户端的连接请求。一旦接收到请求，服务器会解析请求的内容，根据请求的方法和路径执行相应的操作，然后生成并发送响应给客户端。这个过程中，服务器需要处理各种HTTP方法，如GET、POST等，并且能够解析请求头和请求体中的信息，以便正确地处理请求。
-
-客户端的角色相对简单，它负责发起HTTP请求并将用户的请求转换成标准的HTTP消息格式发送给服务器。客户端还需要能够解析服务器返回的响应，提取出有用的信息并呈现给用户。最常见的客户端是Web浏览器，但也可以是移动应用、命令行工具（如curl）或其他类型的程序。
-
-在HTTP通信中，请求和响应都遵循固定的格式。请求由请求行、请求头和请求体组成。请求行包含请求方法、请求的目标URI和使用的HTTP版本。请求头提供了关于请求的额外信息，如客户端类型、接受的内容类型等。请求体则用于携带请求的数据，如表单数据或文件上传。响应也由状态行、响应头和响应体组成。状态行包含HTTP版本、状态码和状态描述。响应头提供了关于响应的额外信息，如服务器类型、内容类型等。响应体则包含了服务器返回的数据，如HTML页面、图片等。
-
-为了更好地理解HTTP服务端和客户端的交互过程，让我们通过一个简单的例子来说明。假设客户端（如浏览器）需要从服务器获取一个HTML页面。客户端首先发送一个GET请求，请求行如下：
-
-```
-GET /index.html HTTP/1.1
-```
-
-请求头可能包含以下内容：
-
-```
-Host: www.example.com
-User-Agent: Mozilla/5.0 ...
-Accept: text/html,application/xhtml+xml,...
-```
-
-服务器接收到请求后，会解析请求行和请求头，找到对应的资源 `/index.html` 并读取其内容。然后，服务器生成一个HTTP响应，响应状态行如下：
-
-```
-HTTP/1.1 200 OK
-```
-
-响应头可能包含以下内容：
-
-```
-Date: Mon, 1 Oct 2023 12:00:00 GMT
-Server: Apache/2.4.41 (Ubuntu)
-Content-Type: text/html
-Content-Length: 1234
-```
-
-响应体则包含了HTML页面的内容：
-
-```
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Example Page</title>
-</head>
-<body>
-    <h1>Welcome to Example Page</h1>
-    <p>This is an example of an HTML page served by a web server.</p>
-</body>
-</html>
-```
-
-客户端接收到响应后，会解析响应头和响应体，然后将HTML内容渲染成网页展示给用户。
-
-通过这个例子，我们可以看到HTTP服务端和客户端之间的交互是一个双向的过程，每个步骤都需要精确地遵循HTTP协议的规范。服务器需要能够处理各种类型的请求，并生成正确的响应；客户端则需要能够正确地解析响应并展示给用户。理解这些基本原理有助于我们在实现Web服务器时做出更加合理的决策，确保服务器能够高效、可靠地处理客户端请求。

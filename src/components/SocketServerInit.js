@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Button, Input, message, Watermark} from 'antd';
 import axios from 'axios';
-import {CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone, DotChartOutlined} from "@ant-design/icons";
+import IconHeader from "@site/src/components/IconHeader";
+import {CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
 
 function SocketServerInit() {
     const [testServerUrl, setTestServerUrl] = useState('');
@@ -80,12 +81,7 @@ function SocketServerInit() {
 
     return (
         <div>
-            <div style={{ ...flexCenterStyle, marginBottom: '15px' }}>
-                <DotChartOutlined style={{ color: '#006d75', fontSize: 26, marginRight: '4px' }} />
-                <h3 style={{ ...h5Style, color: '#006d75', fontSize: 18 }}>
-                    {"测试1 服务端连接与发送测试"}
-                </h3>
-            </div>
+            <IconHeader type="lab" title="测试1 服务端连接与发送测试"/>
             <Watermark content={testInfo} gap={[60, 30]} font={{ fontSize: 14 }}>
                 <div style={{ ...flexCenterStyle, marginBottom: '20px' }}>
                     <Input

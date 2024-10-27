@@ -9,6 +9,7 @@ import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import SocketServerInit from '@site/src/components/SocketServerInit';
 import SocketServerThreads from '@site/src/components/SocketServerThreads';
+import IconHeader from "@site/src/components/IconHeader";
 import { Row, Col } from 'antd';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
@@ -235,12 +236,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试2 客户端连接与接收测试"}
-    </h3>
-</div>
+<IconHeader type="lab" title="测试2 客户端连接与接收测试"/>
 
 完成客户端的编写后，指定客户端连接端口为服务端设定的端口，编译后同时运行服务端和客户端（你可以打开多个终端窗口，分别运行服务端、客户端），此时你应当可以在客户端上接收到服务端发来的信息。
 
@@ -705,22 +701,10 @@ void connectionHandler(int socket) {
 
 ### 6.4 功能测试
 
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试4 功能效果测试"}
-    </h3>
-</div>
-
+<IconHeader type="lab" title="测试4 功能效果测试"/>
 你需要使用Wireshark开始数据包捕获，使用客户端连接服务端，分别请求获取时间、获取名字、获取客户端列表、发送消息功能，观察客户端（含接收消息的客户端）与服务端的显示、Wireshark抓取到的数据包情况，并截图填入实验报告
 
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试5 断连效果测试"}
-    </h3>
-</div>
-
+<IconHeader type="lab" title="测试5 断连效果测试"/>
 :::important 本步骤是为了增强你对TCP连接状态的理解，不是要求断开网络连接后清除异常连接，请按照你观察到的实际情况进行记录与分析
 :::
 
@@ -728,30 +712,11 @@ void connectionHandler(int socket) {
 
 再次连上客户端的网线，重新运行客户端程序。选择连接功能，连上后选择获取客户端列表功能，查看之前异常退出的连接是否还在。选择给这个之前异常退出的客户端连接发送消息，出现了什么情况？
 
-
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试6 连续请求响应测试"}
-    </h3>
-</div>
-
+<IconHeader type="lab" title="测试6 连续请求响应测试"/>
 你需要使用Wireshark开始数据包捕获，使用客户端连续请求获取时间100次（你可以修改代码，使每次调用请求时间功能均会发出100个数据包），记录客户端接收到的响应数量是否匹配（你可以在代码内加入收到时间次数的计数器），并观察Wireshark抓取到的数据包数量是否匹配，将结果截图填入实验报告
 
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试7 多客户端连续请求响应测试"}
-    </h3>
-</div>
-
+<IconHeader type="lab" title="测试7 多客户端连续请求响应测试"/>
 你需要使用Wireshark开始数据包捕获，使用多个客户端连接服务端，同时开始连续请求获取时间100次（你可以修改代码，使每次调用请求时间功能均会发出100个数据包），观察客户端（含接收消息的客户端）与服务端的显示情况，并截图填入实验报告
 
-<div style={{display: 'flex', alignItems: 'center', marginBottom: '15px'}}>
-    <DotChartOutlined style={{color: '#006d75', fontSize: 26, marginRight: '4px'}}/>
-    <h3 style={{margin: 0, display: 'flex', alignItems: 'center', color: '#006d75', fontSize: 18}}>
-        {"测试8 TCP断开连接后状态观察"}
-    </h3>
-</div>
-
+<IconHeader type="lab" title="测试8 TCP断开连接后状态观察"/>
 客户端主动断开连接后，使用netstat -an查看当时的TCP连接状态是什么，并注意该状态保持的时间长度

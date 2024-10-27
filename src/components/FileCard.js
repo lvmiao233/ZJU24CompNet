@@ -13,15 +13,18 @@ import {
 } from '@ant-design/icons';
 
 const {Title} = Typography;
+
+const iconStyle = {color: '#006d75', fontSize: 40};
+
 const getFileIcon = (type) => {
-    if (type === 'pdf') return <FilePdfOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'xls' || type === 'xlsx') return <FileExcelOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'doc' || type === 'docx') return <FileWordOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'ppt' || type === 'pptx') return <FilePptOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'md' || type === 'mdx') return <FileMarkdownOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'cloud') return <AntCloudOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    if (type === 'github') return <GithubOutlined style={{color: '#006d75', fontSize: 40}}/>;
-    return <FileTextOutlined style={{color: '#006d75', fontSize: 40}}/>;
+    if (type === 'pdf') return <FilePdfOutlined style={iconStyle}/>;
+    if (type === 'xls' || type === 'xlsx') return <FileExcelOutlined style={iconStyle}/>;
+    if (type === 'doc' || type === 'docx') return <FileWordOutlined style={iconStyle}/>;
+    if (type === 'ppt' || type === 'pptx') return <FilePptOutlined style={iconStyle}/>;
+    if (type === 'md' || type === 'mdx') return <FileMarkdownOutlined style={iconStyle}/>;
+    if (type === 'cloud') return <AntCloudOutlined style={iconStyle}/>;
+    if (type === 'github') return <GithubOutlined style={iconStyle}/>;
+    return <FileTextOutlined style={iconStyle}/>;
 };
 
 const convertSize = (byte) => {
@@ -38,30 +41,18 @@ const convertSize = (byte) => {
 };
 
 const cardStyle = {
-    paddingLeft: 6,
-    marginBottom: 10,
+    paddingLeft: 6, marginBottom: 10,
     border: '1px solid #dcdcdc'
 };
-
 const iconContainerStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%'
 };
-
-const contentStyle = {
-    paddingLeft: 24
-};
-
-const titleStyle = {
-    marginBottom: 8,
-    marginTop: 0
-};
-
-const downloadIconStyle = {
-    fontSize: '20px'
-};
+const contentStyle = { paddingLeft: 24 };
+const titleStyle = { marginBottom: 8, marginTop: 0 };
+const downloadIconStyle = { fontSize: '20px' };
 
 const FileCard = (props) => {
     const {file_type, name, size, link} = props;
@@ -70,17 +61,10 @@ const FileCard = (props) => {
 
     return (
         <a href={link} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Card
-                bordered={true}
-                type={'inner'}
-                hoverable={true}
-                style={cardStyle}
-            >
+            <Card bordered={true} hoverable={true} type={'inner'} style={cardStyle} >
                 <Row>
                     <Col span={1} style={{ minHeight: '100%' }}>
-                        <div style={iconContainerStyle}>
-                            {fileIcon}
-                        </div>
+                        <div style={iconContainerStyle}> {fileIcon} </div>
                     </Col>
                     <Col span={22}>
                         <div style={contentStyle}>
