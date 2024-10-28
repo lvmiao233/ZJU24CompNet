@@ -23,11 +23,11 @@ export const HTTPMethods = {
 const BASE_URL= 'https://demo.zjucomp.net';
 
 const notifyResult = (response) => {
-    const prettyResponse = JSON.stringify(response, null, 2);
+    const prettyResponse = JSON.stringify(response, null, 1);
     notification.success({
         message: '请求成功，服务器返回:',
-        description: <pre>{prettyResponse}</pre>,
-        style: {width: '600px'},
+        description: <pre style={{marginLeft: -36}}>{prettyResponse}</pre>,
+        style: {width: '450px'},
         duration: 1.5,
         pauseOnHover: true
     });
