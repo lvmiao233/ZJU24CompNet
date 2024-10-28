@@ -8,8 +8,11 @@ import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
-import HTTPVersions, {HTTPMethods} from '@site/src/compData/HTTPInfo.js';
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";
+import LinkCard from '@site/src/components/LinkCard';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <Alert message="文档尚未编写完成，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解" type="warning" showIcon/>
 <br/>
@@ -43,7 +46,37 @@ import IconHeader from "@site/src/components/IconHeader";
 
 HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客户端（通常是Web浏览器）与服务器之间请求和响应的格式。HTTP的简单与强大使其成为了互联网上应用最广泛的网络协议之一，无论是访问网页，还是在线APP加载，都有HTTP的身影
 
-在这一部分，我们将带你了解HTTP相关的基本概念，你可以边学习边打开开发者工具（Ctrl + Shift + J 或 F12）动手尝试
+在这一部分，我们将带你了解HTTP相关的基本概念，你可以边学习边打开开发者工具（Ctrl + Shift + J 或 F12），选择网络Tab后刷新页面重载，观察网页加载过程发生的动作，加深对相应知识的理解
+
+![image-20241028143838447](img/Lab8/image-20241028143838447.png)
+
+如果你的列表中显示的信息较少，可以右键顶部字段（如“名称”），并勾选想要查看的字段，我们推荐你选择方法、状态、域
+
+为了便于你清晰地观察和筛选头字段，开发人员工具有时会对头部进行结构化解析，这个过程可能会丢弃HTTP版本等信息，你可以开启Raw开关查看原始的响应（Edge不支持该特性）
+
+![image-20241028142906869](img/Lab8/image-20241028142906869.png)
+
+关于更多信息，请参见你所使用的浏览器的开发者文档
+
+<Tabs className="unique-tabs"  groupId="browser">
+    <TabItem value="Microsoft Edge">
+        <LinkCard title="网络功能参考" url="https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/network/reference"  icon="https://learn.microsoft.com/favicon.ico">
+            {"网络功能参考 - Microsoft Edge Developer Documentation | Microsoft Learn"}
+        </LinkCard>
+    </TabItem>
+    <TabItem value="Google Chrome">
+        <LinkCard title="网络功能参考" url="https://developer.chrome.com/docs/devtools/network/reference?hl=zh-cn"  icon="
+https://www.gstatic.com/devrel-devsite/prod/v0e3f58103119c4df6fb3c3977dcfd0cb669bdf6385f895761c1853a4b0b11be9/chrome/images/favicon.png">
+            {"网络功能参考 | Chrome Dev Tools | Chrome for Developers"}
+        </LinkCard>
+    </TabItem>
+    <TabItem value="Mozilla Firefox">
+        <LinkCard title="Network Monitor" url="https://firefox-source-docs.mozilla.org/devtools-user/network_monitor/"  icon="https://firefox-source-docs.mozilla.org/_static/firefox.ico">
+            {"Network Monitor - Firefox  Source Docs Documentation"}
+        </LinkCard>
+    </TabItem>
+</Tabs>
+
 
 ### 1.1 HTTP版本演进
 
@@ -51,12 +84,30 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
 
-<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} />
+<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} style={{marginBottom: 12}}/>
+<IconHeader type="tryout" title="动手试1 观察自己加载网页使用的HTTP版本" />
+
+选中一个网络请求，查看其版本（Edge不支持该查看，需要使用Wireshark抓包）
+
+![image-20241028145513246](img/Lab8/image-20241028145513246.png)
+
+实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2
+
+<div style={{position: "relative", width:'100%', height: '400px'}}>
+    <iframe style={{position: 'absolute', width: '100%', height: '100%'}} src="https://radar.cloudflare.com/embed/HttpVersionXY?botClass=&chartState=%7B%22showAnnotations%22%3Atrue%2C%22xy.hiddenSeries%22%3A%5B%5D%2C%22xy.highlightedSeries%22%3Anull%2C%22xy.previousVisible%22%3Atrue%7D" title="Cloudflare Radar - HTTP/1.x vs. HTTP/2 vs. HTTP/3" loading="lazy"></iframe>
+</div>
+
+
+
 
 
 ### 1.2 统一资源标识符 URI
 
 随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么我们的检索和访问就会无异于大海捞针
+
+
+
+
 
 
 ### 1.3 HTTP方法
@@ -65,7 +116,8 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等，一般来说，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
 
-<MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} />
+<MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} extras={HTTPMethodsExtras}/>
+<IconHeader type="tryout" title="动手试3 使用不同HTTP方法并观察请求与响应" />
 <br/>
 
 :::important 幂等性
