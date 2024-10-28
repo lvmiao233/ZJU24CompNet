@@ -49,6 +49,18 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "Lab4-静态路由配置.pdf",
+        "size": "4490633",
+        "link": require('@site/assets/slides/Lab4-静态路由配置.pdf').default
+    },
+    {
+        "file_type": 'pdf',
+        "name":'GNS3模拟环境中使用WireShark抓STP协议报文.pdf',
+        "size":'1204626',
+        "link": require('@site/assets/slides/GNS3模拟环境中使用WireShark抓STP协议报文.pdf').default
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab7 基于Socket接口实现自定义协议通信.pdf",
         "size": "1967383",
         "link": require('@site/assets/slides/luxq_Socket编程.pdf').default
