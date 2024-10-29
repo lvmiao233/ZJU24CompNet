@@ -80,44 +80,82 @@ https://www.gstatic.com/devrel-devsite/prod/v0e3f58103119c4df6fb3c3977dcfd0cb669
 
 ### 1.1 HTTP版本演进
 
-过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0
+过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0；在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
 
-在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
+<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} />
 
-<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} style={{marginBottom: 12}}/>
-<IconHeader type="tryout" title="动手试1 观察自己加载网页使用的HTTP版本" />
+<IconHeader type="tryout" title="动手试1 观察自己加载网页使用的HTTP版本" style={{paddingTop: 16}}/>
 
 选中一个网络请求，查看其版本（Edge不支持该查看，需要使用Wireshark抓包）
 
-![image-20241028145513246](img/Lab8/image-20241028145513246.png)
+<img src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
 
 实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2
 
 <div style={{position: "relative", width:'100%', height: '400px'}}>
     <iframe style={{position: 'absolute', width: '100%', height: '100%'}} src="https://radar.cloudflare.com/embed/HttpVersionXY?botClass=&chartState=%7B%22showAnnotations%22%3Atrue%2C%22xy.hiddenSeries%22%3A%5B%5D%2C%22xy.highlightedSeries%22%3Anull%2C%22xy.previousVisible%22%3Atrue%7D" title="Cloudflare Radar - HTTP/1.x vs. HTTP/2 vs. HTTP/3" loading="lazy"></iframe>
 </div>
+### 1.2 HTTP协议格式介绍
+
+<img src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
+
+#### 1.2.1 HTTP请求
+
+* 请求行：请求方法  URI  HTTP版本
+* 请求头：以key: value键值对的形式，描述请求的属性，键值对间以CRLF（\r\n）间隔
+* 空行：使用一个CRLF表示报头结束，接下来是正文内容
+* 请求正文：请求相关的信息和数据，正文可以为空，如果存在请求正文，则请求头会使用一个`Content-Length`属性标记正文长度
+
+#### 1.2.1 HTTP响应
+
+* 状态行：HTTP版本  状态码  状态码描述
+* 响应头：以key: value键值对的形式，描述响应的属性，键值对间以CRLF（\r\n）间隔
+* 空行：使用一个CRLF表示报头结束，接下来是正文内容
+* 响应正文：响应的数据，正文可以为空，如果存在正文，则响应头会使用一个`Content-Length`属性标记正文长度
+
+可以注意到，HTTP协议很好地定义了每个数据包自身的几个关键信息：我要去哪（请求URI）以怎样的方式（头部属性）做什么（HTTP方法），具体是（正文），后续部分中，我们会逐一讲解各个部分，带你逐步实现一个较为完整的Web服务器
+
+<IconHeader type="tryout" title="动手试2 观察一对HTTP请求与响应" />
+
+你可以打开开发人员工具-网络，刷新一下页面，观察每个请求和响应的情况
+
+![image-20241029214851758](img/Lab8/image-20241029214851758.png)
+
+在实际应用中，我们的浏览器或应用程序会发起HTTP请求，Web服务器则会根据请求进行相应的操作，并组装并返回相应的HTTP响应数据包
+
+由于HTTP/2及以前的版本中，整个通信过程都是基于TCP协议的，我们只需要以在Lab7 Socket编程的基础上进行一些简单的修改，就能搭建起一个简单的“Hello World”Web服务器
+
+具体来说，此时的客户端由我们的浏览器充当，而服务端则需要简单调整连接后的处理逻辑，在建立Socket连接后，服务器固定返回一段符合HTTP响应格式的数据包，然后关闭连接即可
+
+```cpp
+// retrive request and dispach tasks
+void connectionHandler(int socket) {
+	while (!shouldExit) {
+        // construct and provide response
+        string response = "HTTP/1.0 200\r\nContent-Length: 12\r\n\r\nHello World!";
+        // send response
+        ...
+        // close the connection
+    }
+}
+```
+
+<IconHeader type="lab" title="测试1 测试Hello World Web服务器" />
+
+在浏览器内输入127.0.0.1:[你学号的后4位，首位为0则在前面补1]，观察浏览器是否显示了“Hello World”
 
 
 
-### 1.2 统一资源标识符 URI
-
-随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么我们的检索和访问就会无异于大海捞针
-
-
-
-
-
-
-### 1.3 HTTP方法
+## 2 HTTP方法浅析
 
 在HTTP协议中，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为
 
 通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等，一般来说，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
 
 <MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} extras={HTTPMethodsExtras}/>
-<IconHeader type="tryout" title="动手试3 使用不同HTTP方法并观察请求与响应" />
+<IconHeader type="tryout" title="动手试2 使用不同HTTP方法并观察请求与响应" />
 
-点击测试按钮，发起相应方法的请求，并在开发人员工具中观察请求与相应情况
+你可以点击测试按钮，发起相应方法的请求，并在开发人员工具中观察请求与相应情况
 
 你可能已经注意到了——POST方法能携带数据并返回响应，看起来我们提到的其他方法也可以通过POST方法加参数实现。那么，为什么要专门分为这些不同的HTTP方法呢？除了遵守RESTful架构，进行面向资源的标准化设计的目的以外，也有对以下特性的考量：
 
@@ -126,38 +164,48 @@ https://www.gstatic.com/devrel-devsite/prod/v0e3f58103119c4df6fb3c3977dcfd0cb669
 - **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点，以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求。这不仅减少了服务器的负载，还提高了响应速度。例如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态。合理利用缓存可以显著提升用户体验和系统性能。
 
 
-|  方法  | GET/HEAD/OPTION  | PUT/DELETE | POST/PATCH |
-| :----: | :--: | :--: | :--: |
-| 幂等性 |  √   |   √   |  ×   |
-|  缓存  |  √   |  ×   |  ×   |
+|  方法  | GET/HEAD/OPTION | PUT/DELETE | POST/PATCH |
+| :----: | :-------------: | :--------: | :--------: |
+| 幂等性 |        √        |     √      |     ×      |
+|  缓存  |        √        |     ×      |     ×      |
 
-### 1.4 HTTP请求结构介绍
+现在，我们可以根据对几种方法的要求，实现对HTTP请求方法的解析
 
-HTTP请求是由客户端发送给服务器的消息，用于发起一次网络请求。每个HTTP请求都由三部分组成：请求行、请求头和请求体。下面我们将详细介绍这三个组成部分，并重点讲解一些重要的请求头字段。
+```cpp
+void getHandler(info, pkt) {}
+void postHandler(info, pkt) {}
+...
 
-#### 整体结构
+// retrive request and dispach tasks
+void connectionHandler(int socket) {
+	while (!shouldExit) {
+        // extract HTTP methods
+        ...
+        // handle request according to method, construct response
+        if (method == "GET") getHandler(info, pkt);
+        if (method == "POST") postHandler(info, pkt);
+        ...
+        // return response
+        ...
+        // close the connection
+    }
+}
+```
 
-1. **请求行 (Request Line)**
-   - 请求行包括方法、请求的目标URI和使用的HTTP版本，如： `GET /index.html HTTP/1.1`
-   - 方法：如 `GET`、`POST`、`PUT` 等，表示请求类型
-   - 目标URI：指定请求的资源位置
-   - HTTP版本：如 `HTTP/1.1`，表示使用的HTTP协议版本
+<IconHeader type="lab" title="测试2 测试HTTP方法解析" />
 
-2. **请求头 (Request Headers)**
-   - 请求头是一系列键值对，每对以冒号分隔，每行一对，用于提供关于请求的额外信息。如：
+为了便于测试你对方法的提取是否正确，请你根据不同的方法，以如下格式进行返回：
 
-     ```HTTP
-     Host: www.example.com
-     User-Agent: Mozilla/5.0 ...
-     Accept: text/html,application/xhtml+xml,...
-     ```
-   
-3. **请求体 (Request Body)**
-   - 请求体是可选的，用于携带请求的数据，如表单数据或文件上传
-   
-     对于 `GET` 请求，请求体通常是空的；而对于 `POST`、`PUT` 等方法，请求体则包含了要提交的数据。例如： `username=johndoe&password=s3cre7`
+```cpp
+GET → "HTTP/1.0 200\r\nContent-Length: 4\r\n\r\nGET#"
+POST → "HTTP/1.0 200\r\nContent-Length: 4\r\n\r\nPOST"
+```
 
-#### 头字段介绍
+我们的测试程序将会测试你实现的程序，检验各种情况下是否能正确解析请求的HTTP方法，返回相应的值
+
+
+
+## 3 头字段
 
 以下是几个最重要的请求头字段及其作用：
 
@@ -202,4 +250,48 @@ HTTP请求是由客户端发送给服务器的消息，用于发起一次网络�
    - 指示客户端支持的内容编码方式，如 `gzip`、`deflate` 等，服务器可以根据这个字段来压缩响应数据，从而减少传输时间
 
 10. **Connection** 例： `Connection: keep-alive`
+
     - 控制连接的行为，如是否保持连接，常用的值有 `keep-alive` 和 `close`
+
+
+
+## 4 统一资源标识符 URI
+
+随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么我们的组织、管理和访问就会无异于大海捞针
+
+在这个背景下，统一资源标识符URI（Uniform Resource Identifier）应运而生，它为互联网上的资源提供了一种标准化的命名和定位机制，极大地便利了资源的发现与访问过程
+
+URI是一种字符串，用于唯一地标识互联网上的资源。它可以指向任何类型的资源，包括文档、图片、视频流、服务入口点等，URI的设计目的是为了确保每个资源在全球范围内都能被唯一识别
+
+根据其功能和结构的不同，URI可以进一步划分为URL和URN两种类型。
+
+* **统一资源定位符URL（Uniform Resource Locator） **
+
+  最常见的URI形式，提供了访问特定资源的路径和方法，URL不仅告诉计算机资源是什么，更重要的是说明了如何找到并获取这个资源，一个典型的URL结构如下所示：
+
+  ```makefile
+  scheme://host[:port]/path?query#fragment
+  ```
+
+  - **scheme**：指定访问资源时使用的协议类型，如HTTP、HTTPS、FTP等
+
+  - **host**：资源所在的主机名或IP地址
+
+  - **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如HTTP默认使用80端口，HTTPS使用443端口
+
+  - **path**：资源在服务器上的具体位置
+
+  - **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现
+
+  - **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过http://zjucomp.net/docs/Lab8_page#3-%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6-uri访问本文档时，可以直接跳转到第4部分
+
+* **统一资源名称URN（Uniform Resource Name）** 
+
+  URN更关注于资源的身份标识而非物理位置，旨在提供一种持久不变的名字空间，即使资源的实际位置发生变化，其URN仍然保持不变，它的格式通常为：
+
+  ```cpp
+  <nns>:<specifics>
+  ```
+
+  * **nns**：命名空间标识符，用于定义URN所属的命名空间
+  * **specifics**：命名空间内的具体标识符，用于唯一确定资源
