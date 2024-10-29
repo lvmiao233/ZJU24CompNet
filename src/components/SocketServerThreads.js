@@ -115,7 +115,7 @@ function SocketServerThreads() {
                         suffix="个线程"
                         value={threadCount}
                         onChange={(e) => {
-                            console.log(e);
+                            // console.log(e);
                             setThreadCount(e);
                         }}
                         style={inputNumberStyle}

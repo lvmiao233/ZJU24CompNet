@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 <Alert message="GNS3 3.0.0无法正确获取Idle PC，会导致卡死，请卸载客户端与虚拟机后重新安装较老版本，给你带来不便非常抱歉" type="error" showIcon />
 
-* 下载GNS3 2.2.50（不要下载GNS3 3.0版本）
+* 下载GNS3 2.2.50（不要下载GNS3 3.0版本，Apple Silicon Mac用户请下载2.2.48版本）
 
     <Tabs className="unique-tabs"  groupId="operating-systems">
         <TabItem value="Windows">
@@ -25,13 +25,23 @@ import TabItem from '@theme/TabItem';
                 </Col>
             </Row>
         </TabItem>
-        <TabItem value="macOS">
+        <TabItem value="macOS (Intel)">
             <Row gutter={[16, 4]} justify="space-between">
                 <Col xs={24} sm={12}>
                     <FileCard link="https://pan.zju.edu.cn/share/6374a5dbded4183968d9b0d8a7" name="浙大云盘" size={117268057} file_type="cloud"/>
                 </Col>
                 <Col xs={24} sm={12}>
                     <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={117268057} file_type="github"/>
+                </Col>
+            </Row>
+        </TabItem>
+        <TabItem value="macOS (Apple Silicon)">
+            <Row gutter={[16, 4]} justify="space-between">
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/c4e91671f6afe119e169a44249" name="浙大云盘" size={75917281} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75917281} file_type="github"/>
                 </Col>
             </Row>
         </TabItem>
@@ -126,7 +136,7 @@ import TabItem from '@theme/TabItem';
 
 
 
-## 4 配置自定义终端（供了解，不推荐）
+## 4 配置自定义终端（供了解，不推荐，仅Windows）
 
 :::danger 注意
 

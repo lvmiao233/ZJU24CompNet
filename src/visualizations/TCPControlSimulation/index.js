@@ -109,7 +109,7 @@ const TCPControlSimulation = () => {
 
     useEffect(() => {
         const formattedData = data.flatMap(series => series.data.map(point => ({...point, type: series.name})));
-        console.log(formattedData);
+        // console.log(formattedData);
         if (!hasRun) return;
         if (chartRef.current) chartRef.current.update({data: formattedData});
         else {
