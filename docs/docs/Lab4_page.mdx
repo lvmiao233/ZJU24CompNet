@@ -376,7 +376,10 @@ import { Row, Col } from 'antd';
 
     记录：输入的命令，保留命令前提示符，如`R1(config)#`
 
-25. 在R5路由器上配置NAT服务，定义fa0/1接口为外部接口，定义fa0/0接口为内部接口。配置完成后同时在PC6、PC7上持续Ping路由器R3的fa0/0接口地址（命令：`ping ip地址 -t`），Ping通后在R5上显示NAT信息（命令：`show ip nat translation`），可以看出内部的源IP地址被转换成了外部IP地址。
+25. 在R5路由器上配置NAT服务，定义fa0/1接口为**内部接口**，定义fa0/0接口为**外部接口**。配置完成后同时在PC6、PC7上持续Ping路由器R3的fa0/0接口地址（命令：`ping ip地址 -t`），Ping通后在R5上显示NAT信息（命令：`show ip nat translation`），可以看出内部的源IP地址被转换成了外部IP地址。
+
+    :::danger 实验报告模板中，内部/外部接口写反，请按实验文档要求，定义fa0/1接口为内部接口，定义fa0/0接口为外部接口
+    :::
 
     配置命令：
 
