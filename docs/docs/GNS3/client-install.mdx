@@ -87,17 +87,34 @@ import TabItem from '@theme/TabItem';
 
 * 下载路由器IOS镜像（推荐使用3745）
 
-    <Row gutter={[16, 4]} justify="space-between">
-        <Col xs={24} sm={12}>
-            <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/c3745-adventerprisek.124-25d.bin" name="Cisco 3745" size={39900084} file_type="cloud"/>
-        </Col>
-        <Col xs={24} sm={12}>
-            <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/cisco2-c3725.bin" name="Cisco 3725" size={22674684} file_type="cloud"/>
-        </Col>
-        <Col xs={24} sm={12}>
-            <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/c3660-jk9o3s-mz.124-15.T5.bin" name="Cisco 3660" size={90835908} file_type="cloud"/>
-        </Col>
-    </Row>
+    <Tabs className="unique-tabs"  groupId="host-platform">
+        <TabItem value="浙大云盘下载">
+            <Row gutter={[16, 4]} justify="space-between">
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/988765a21c41acc77b79802027" name="Cisco 3745" size={39900084} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/ac90cf01fe4625b6b1f23f1e30" name="Cisco 3725" size={22674684} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="https://pan.zju.edu.cn/share/ebd2ea386617c03d88d9afb3d3" name="Cisco 3660" size={90835908} file_type="cloud"/>
+                </Col>
+            </Row>
+        </TabItem>
+        <TabItem value="作业系统下载">
+            <Row gutter={[16, 4]} justify="space-between">
+                <Col xs={24} sm={12}>
+                    <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/c3745-adventerprisek.124-25d.bin" name="Cisco 3745" size={39900084} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/cisco2-c3725.bin" name="Cisco 3725" size={22674684} file_type="cloud"/>
+                </Col>
+                <Col xs={24} sm={12}>
+                    <FileCard link="http://10.214.0.253/network/IOS/CiscoIOS/c3660-jk9o3s-mz.124-15.T5.bin" name="Cisco 3660" size={90835908} file_type="cloud"/>
+                </Col>
+            </Row>
+        </TabItem>
+    </Tabs>
 
 * 点击Dynamips下的IOS routers
 
