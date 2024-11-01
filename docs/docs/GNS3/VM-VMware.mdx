@@ -5,7 +5,7 @@ title: Vmware Workstation虚拟机配置
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
-import { Row, Col, Alert } from 'antd';
+import { Row, Col } from 'antd';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -47,7 +47,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs className="unique-tabs"  groupId="operating-systems">
     <TabItem value="Windows">
-        <LinkCard url="https://pan.zju.edu.cn/share/92c91a7878b1f7e15f347632d6" title="VMware Workstation Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Workstation Pro for Personal Use (For Windows) 17.6.1</LinkCard>
+        <LinkCard url="https://oss.zjucomp.net/VMware-workstation-full-17.6.1-24319023.exe" title="VMware Workstation Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Workstation Pro for Personal Use (For Windows) 17.6.1</LinkCard>
     </TabItem>
     <TabItem value="macOS">
         <LinkCard url="https://pan.zju.edu.cn/share/89422b3ae5ab1f720cc9ac378b/" title="VMware Funsion Pro" icon="https://support.broadcom.com/o/ecx-standard-theme/images/favicon.ico">VMware Fusion Pro for Personal Use (For Intel-based and Apple silicon Macs) 13.6.1</LinkCard>
@@ -67,17 +67,18 @@ import TabItem from '@theme/TabItem';
 
 :::warning 注意
 
-下载的GNS3 VM版本号需要与GNS3 客户端匹配
+如在官方仓库下载，请选择中缀"VM.VMware.Workstation"+与客户端匹配的版本号
 
-如在官方仓库下载请选择中缀"VM.VMware.Workstation"
+GNS3 3.0.0无法正确获取Idle PC，会导致卡死，如果你已经安装了该版本，请卸载客户端与虚拟机后重新安装较老版本，给你带来不便非常抱歉
 
 :::
-
-<Alert message="GNS3 3.0.0无法正确获取Idle PC，会导致卡死，请卸载客户端与虚拟机后重新安装较老版本，给你带来不便非常抱歉" type="error" showIcon />
 
 <Tabs className="unique-tabs"  groupId="platform">
     <TabItem value="Windows / macOS (Intel) / Linux">
         <Row gutter={[16, 4]} justify="space-between">
+            <Col xs={24} sm={12}>
+                <FileCard link="https://oss.zjucomp.net/GNS3.VM.VMware.Workstation.2.2.50.zip" name="本站镜像源" size={946080449} file_type="cloud"/>
+            </Col>
             <Col xs={24} sm={12}>
                 <FileCard link="https://pan.zju.edu.cn/share/10ab9b9ea3850f46e284f8da00" name="浙大云盘" size={946080449} file_type="cloud"/>
             </Col>
