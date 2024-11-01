@@ -1,7 +1,7 @@
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import { Card, Row, Col } from 'antd';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import CourseWorkTable from "@site/src/components/CourseWorkTable";
 import resourceData from "@site/src/compData/courseResource.js";
 import FileCard from "@site/src/components/FileCard";
@@ -16,20 +16,23 @@ import {
 
 export default function Home() {
     // const {siteConfig} = useDocusaurusContext();
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => { setIsMobile(window.innerWidth < 768); };
+        handleResize(); // 初始检查
+        window.addEventListener('resize', handleResize); // 添加事件监听器
+        return () => { window.removeEventListener('resize', handleResize); };
+    }, []);
+
     return (<Layout
         title={`计算机网络 Computer Network`}
         description="浙江大学 24-25学年秋冬学期计算机网络课程实验网站">
-        <Card style={{
-                  borderRadius: 0, border: '0', paddingLeft: 8,
-                  background: `linear-gradient(to bottom, rgba(19, 194, 194, 0.35) 0%, rgba(255, 255, 255, 0.3) 97%, rgba(255, 255, 255, 0.6) 100%)`,
-              }}
+        <Card style={{ borderRadius: 0, border: '0', paddingLeft: 8,
+                       background: `linear-gradient(to bottom, rgba(19, 194, 194, 0.35) 0%, rgba(255, 255, 255, 0.3) 97%, rgba(255, 255, 255, 0.6) 100%)`, }}
         >
-            <div style={{
-                     backgroundPosition: '100% -30%', backgroundRepeat: 'no-repeat', backgroundSize: '274px auto',
-                     backgroundImage: "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
-                     display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
-                     minHeight: '100%',
-                 }}
+            <div style={{ backgroundPosition: '100% -30%', backgroundRepeat: 'no-repeat', backgroundSize: '274px auto',
+                          backgroundImage: "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
+                          display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', minHeight: '100%', }}
             >
                 <header>
                     <div className="container" style={{paddingTop: 30, paddingBottom: 30, textAlign: 'center'}}>
@@ -42,7 +45,7 @@ export default function Home() {
         <main>
             <section>
                 <div className="container">
-                    <div style={{marginLeft: 48, marginRight: 48, marginTop: 48}}>
+                    <div style={{marginLeft: isMobile ? 16 : 48, marginRight: isMobile ? 16 : 48, marginTop: 48}}>
                         <IconHeader icon={<AimOutlined/>} title="课程描述" size="h2"/>
                         本课程的主要任务是研究计算机网络相关的基本理论及专业基础知识。
                         本课程从网络体系结构的角度介绍计算机网络的组成原理，以及在数据传输、网络互连和高层协议等方面的主要概念及方法；介绍网络体系中的一些重要功能及相关协议。通过学习，使学生掌握计算机网络的基本理论及专业基础知识，熟悉网络系统（特别是TCP/IP）的体系结构、工作原理及多种网络协议，全面理解各种常见的网络技术。
@@ -72,7 +75,8 @@ export default function Home() {
                         <Row gutter={[16, 4]} justify="space-between">
                             {resourceData.map((item, index) => (
                                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                                    <FileCard key={index} file_type={item.file_type} name={item.name} size={item.size}
+                                    <FileCard key={index} file_type={item.file_type} name={item.name}
+                                              size={item.size}
                                               link={item.link}/>
                                 </Col>
                             ))}
