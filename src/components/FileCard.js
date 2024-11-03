@@ -42,7 +42,7 @@ const convertSize = (byte) => {
 
 const cardStyle = {
     paddingLeft: 6, marginBottom: 10,
-    border: '1px solid #dcdcdc'
+    border: '1px solid #dcdcdc', minHeight: '86px'
 };
 const iconContainerStyle = {
     display: 'flex',

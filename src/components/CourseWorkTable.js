@@ -30,7 +30,7 @@ export const renderItem = (item) => (
 );
 
 const CourseWorkTable = () => (
-    <Collapse style={{ marginTop: 12 }}>
+    <Collapse style={{ marginTop: 12, height: '189px', overflow: 'auto' }}>
         {courseWorkData.items.map((item, index) => (
             <Panel header={item.name} key={index.toString()} extra={`共${item.cnt}次  占比${item.ratio}`}>
                 {index === 1 && <Alert message="Quiz时间尚未更新，请以钉钉群通知及网上作业系统为准" type="warning" showIcon style={{marginBottom: 8}}/>}
