@@ -1,4 +1,3 @@
-import {Card, Col, Row, Typography} from "antd";
 import React, { useMemo } from 'react';
 import {
     AntCloudOutlined,
@@ -11,11 +10,9 @@ import {
     FileWordOutlined,
     GithubOutlined,
 } from '@ant-design/icons';
-
-const {Title} = Typography;
+import '@site/src/css/custom.css';
 
 const iconStyle = {color: '#006d75', fontSize: 40};
-
 const getFileIcon = (type) => {
     if (type === 'pdf') return <FilePdfOutlined style={iconStyle}/>;
     if (type === 'xls' || type === 'xlsx') return <FileExcelOutlined style={iconStyle}/>;
@@ -40,43 +37,31 @@ const convertSize = (byte) => {
     return sizeStr;
 };
 
-const cardStyle = {
-    paddingLeft: 6, marginBottom: 10,
-    border: '1px solid #dcdcdc', minHeight: '86px'
-};
-const iconContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%'
-};
-const contentStyle = { paddingLeft: 24 };
-const titleStyle = { marginBottom: 8, marginTop: 0 };
-const downloadIconStyle = { fontSize: '20px' };
-
 const FileCard = (props) => {
     const {file_type, name, size, link} = props;
     const fileIcon = useMemo(() => getFileIcon(file_type), [file_type]); // 缓存文件图标
     const fileSize = useMemo(() => convertSize(size), [size]); // 缓存文件大小
 
     return (
-        <a href={link} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Card bordered={true} hoverable={true} type={'inner'} style={cardStyle} >
-                <Row>
-                    <Col span={1} style={{ minHeight: '100%' }}>
-                        <div style={iconContainerStyle}> {fileIcon} </div>
-                    </Col>
-                    <Col span={22}>
-                        <div style={contentStyle}>
-                            <Title level={5} style={titleStyle}>{name}</Title>
+        <a href={link} style={{textDecoration: 'none', color: 'inherit'}}>
+            <div  className="file-card">
+                <div style={{display: 'flex'}}>
+                    <div style={{width: '52px', minHeight: '100%'}}>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', height: '100%'}}>
+                            {fileIcon}
+                        </div>
+                    </div>
+                    <div style={{width: '86%'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                            <h5 style={{margin: 0, fontSize: '16px', fontWeight: '500', paddingBottom: 4}}>{name}</h5>
                             <span>{fileSize}</span>
                         </div>
-                    </Col>
-                    <Col span={1} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <CloudDownloadOutlined style={downloadIconStyle} />
-                    </Col>
-                </Row>
-            </Card>
+                    </div>
+                    <div style={{width: '8.33333%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                        <CloudDownloadOutlined style={{ fontSize: '20px' }}/>
+                    </div>
+                </div>
+            </div>
         </a>
     );
 }
