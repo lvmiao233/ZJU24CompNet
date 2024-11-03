@@ -19,7 +19,7 @@ import TabItem from '@theme/TabItem';
   {"如何使用 WSL 在 Windows 上安装 Linux"}
   </LinkCard>
 
-  
+
 
   你可以使用`wsl --list --online`列出可安装的WSL发行版，并选择合适的版本，使用`wsl --install -d [DistroName]`安装相应发行版
 
@@ -30,7 +30,7 @@ import TabItem from '@theme/TabItem';
   {"WSL迁移全攻略：从C盘到其他盘区的无缝迁移"}
   </LinkCard>
 
-  
+
 
 * 配置WSL用户与密码
 
@@ -46,7 +46,7 @@ import TabItem from '@theme/TabItem';
   </LinkCard>
 
 
-  
+
   如使用默认源速度较慢，请切换至清华源（建议不要使用浙大源），可参考清华源提供的文档
 
   <LinkCard title="Ubuntu 软件仓库" url="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/"  icon="https://mirrors.tuna.tsinghua.edu.cn/static/img/favicon.png">
@@ -60,7 +60,7 @@ import TabItem from '@theme/TabItem';
 
   <LinkCard title="设置Windows Terminal" url="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment?source=recommendations#set-up-windows-terminal"  icon="https://learn.microsoft.com/favicon.ico">
   {"主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU加速文本呈现引擎"}</LinkCard>
-  
+
 
   这一步并不是必选的，但Windows Terminal可提供显著优于自带的命令提示符/PowerShell的使用体验，我们强烈推荐你进行安装
 
@@ -142,7 +142,7 @@ g++ --version
 
   <Tabs className="unique-tabs"  groupId="operating-systems">
   <TabItem value="Linux">
-  
+
   使用以下命令，安装Glog
 
   ```bash
@@ -165,7 +165,7 @@ g++ --version
   <TabItem value="Windows">
 
   <LinkCard title="window下glog编译" url="https://www.cnblogs.com/cyssmile/p/14570719.html"  icon="https://jmeubank.github.io/tdm-gcc/favicon.png">{"Windows下使用CMake编译Glog"}</LinkCard>
-  
+
   </TabItem>
   </Tabs>
 
@@ -226,4 +226,36 @@ g++ --version
   ![](img\15091AC6-BB5A-4A1E-9299-7DE7EB0F8988.png)
 
 </TabItem>
+</Tabs>
+
+## 5 浏览器开发人员工具使用
+
+为了让我们能观察网页加载时浏览器和Web服务器间发生的交互，绝大多数浏览器都为我们提供了开发人员工具（按下F12打开），你可以选择其中的网络Tab后刷新页面重载，观察网页加载过程发生的动作，加深对相应知识的理解
+
+![image-20241028143838447](img/image-20241028143838447.png)
+
+如果你的列表中显示的信息较少，可以右键顶部字段（如“名称”），并勾选想要查看的字段，我们推荐你选择方法、状态、域
+
+为了便于你清晰地观察和筛选头字段，开发人员工具有时会对头部进行结构化解析，这个过程可能会丢弃HTTP版本等信息，你可以开启Raw开关查看原始的响应（Edge不支持该特性）
+
+![image-20241028142906869](img/image-20241028142906869.png)
+
+关于更多信息，请参见你所使用的浏览器的开发者文档
+
+<Tabs className="unique-tabs"  groupId="browser">
+    <TabItem value="Microsoft Edge">
+        <LinkCard title="网络功能参考" url="https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/network/reference"  icon="https://learn.microsoft.com/favicon.ico">
+            {"网络功能参考 - Microsoft Edge Developer Documentation | Microsoft Learn"}
+        </LinkCard>
+    </TabItem>
+    <TabItem value="Google Chrome">
+        <LinkCard title="网络功能参考" url="https://developer.chrome.com/docs/devtools/network/reference?hl=zh-cn"  icon="https://www.gstatic.com/devrel-devsite/prod/v0e3f58103119c4df6fb3c3977dcfd0cb669bdf6385f895761c1853a4b0b11be9/chrome/images/favicon.png">
+            {"网络功能参考 | Chrome Dev Tools | Chrome for Developers"}
+        </LinkCard>
+    </TabItem>
+    <TabItem value="Mozilla Firefox">
+        <LinkCard title="Network Monitor" url="https://firefox-source-docs.mozilla.org/devtools-user/network_monitor/"  icon="https://firefox-source-docs.mozilla.org/_static/firefox.ico">
+            {"Network Monitor - Firefox  Source Docs Documentation"}
+        </LinkCard>
+    </TabItem>
 </Tabs>

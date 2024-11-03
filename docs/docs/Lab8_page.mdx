@@ -10,9 +10,6 @@ import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";
-import LinkCard from '@site/src/components/LinkCard';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Alert message="文档尚未编写完成，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解" type="warning" showIcon/>
 <br/>
@@ -29,10 +26,14 @@ import TabItem from '@theme/TabItem';
         <FileCard file_type={'doc'} name={'Lab8 实验报告模板 Word版本'} size={'61440'} link={require('@site/assets/templete/word/实验报告模版_实验8.doc').default} />
     </Col>
     <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+        <FileCard file_type={'cloud'} name={'实验测试素材'} size={'45216'} link={require('@site/assets/resources/resources.zip').default} />
     </Col>
 </Row>
 <br/>
-:::important 以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发
+:::important 提示
+以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发；文档中的测试点仅供你阶段性验证实现的正确性，如果你认为相应部分比较简单，可以直接跳过该测试
+
+为了便于你逐步上手，文档可能不会严格按照相应部分在请求/响应中的位置进行描述
 :::
 
 ## 0 实验目的与意义
@@ -46,116 +47,132 @@ import TabItem from '@theme/TabItem';
 
 HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客户端（通常是Web浏览器）与服务器之间请求和响应的格式。HTTP的简单与强大使其成为了互联网上应用最广泛的网络协议之一，无论是访问网页，还是在线APP加载，都有HTTP的身影
 
-在这一部分，我们将带你了解HTTP相关的基本概念，你可以边学习边打开开发者工具（Ctrl + Shift + J 或 F12），选择网络Tab后刷新页面重载，观察网页加载过程发生的动作，加深对相应知识的理解
-
-![image-20241028143838447](img/Lab8/image-20241028143838447.png)
-
-如果你的列表中显示的信息较少，可以右键顶部字段（如“名称”），并勾选想要查看的字段，我们推荐你选择方法、状态、域
-
-为了便于你清晰地观察和筛选头字段，开发人员工具有时会对头部进行结构化解析，这个过程可能会丢弃HTTP版本等信息，你可以开启Raw开关查看原始的响应（Edge不支持该特性）
-
-![image-20241028142906869](img/Lab8/image-20241028142906869.png)
-
-关于更多信息，请参见你所使用的浏览器的开发者文档
-
-<Tabs className="unique-tabs"  groupId="browser">
-    <TabItem value="Microsoft Edge">
-        <LinkCard title="网络功能参考" url="https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/network/reference"  icon="https://learn.microsoft.com/favicon.ico">
-            {"网络功能参考 - Microsoft Edge Developer Documentation | Microsoft Learn"}
-        </LinkCard>
-    </TabItem>
-    <TabItem value="Google Chrome">
-        <LinkCard title="网络功能参考" url="https://developer.chrome.com/docs/devtools/network/reference?hl=zh-cn"  icon="
-https://www.gstatic.com/devrel-devsite/prod/v0e3f58103119c4df6fb3c3977dcfd0cb669bdf6385f895761c1853a4b0b11be9/chrome/images/favicon.png">
-            {"网络功能参考 | Chrome Dev Tools | Chrome for Developers"}
-        </LinkCard>
-    </TabItem>
-    <TabItem value="Mozilla Firefox">
-        <LinkCard title="Network Monitor" url="https://firefox-source-docs.mozilla.org/devtools-user/network_monitor/"  icon="https://firefox-source-docs.mozilla.org/_static/firefox.ico">
-            {"Network Monitor - Firefox  Source Docs Documentation"}
-        </LinkCard>
-    </TabItem>
-</Tabs>
-
-
-### 1.1 HTTP版本演进
-
 过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0；在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
 
 <MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} size={'small'} />
 
 <IconHeader type="tryout" title="动手试1 观察自己加载网页使用的HTTP版本" style={{paddingTop: 16}}/>
 
-选中一个网络请求，查看其版本（Edge不支持该查看，需要使用Wireshark抓包）
+参考[开发人员工具使用说明](/docs/Coding/toolchain#5-浏览器开发人员工具使用)打开开发人员工具-网络，选中一个网络请求，查看其版本
 
-<img src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
+<img alt={"image-20241028145513246"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
 
 实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2
 
 <div style={{position: "relative", width:'100%', height: '400px'}}>
     <iframe style={{position: 'absolute', width: '100%', height: '100%'}} src="https://radar.cloudflare.com/embed/HttpVersionXY?botClass=&chartState=%7B%22showAnnotations%22%3Atrue%2C%22xy.hiddenSeries%22%3A%5B%5D%2C%22xy.highlightedSeries%22%3Anull%2C%22xy.previousVisible%22%3Atrue%7D" title="Cloudflare Radar - HTTP/1.x vs. HTTP/2 vs. HTTP/3" loading="lazy"></iframe>
 </div>
-### 1.2 HTTP协议格式介绍
 
-<img src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
+为了方便你上手了解Web服务器的基本运行方式，我们不妨再实现一个“朴素”的Web服务端（相信我，真的很简单），在本步骤中，我们的Web服务端将会支持以下能力：
 
-#### 1.2.1 HTTP请求
+* 接受多个客户端的并发请求
+* 与客户端建立连接后，返回Hello World消息并结束连接
 
-* 请求行：请求方法  URI  HTTP版本
-* 请求头：以key: value键值对的形式，描述请求的属性，键值对间以CRLF（\r\n）间隔
-* 空行：使用一个CRLF表示报头结束，接下来是正文内容
-* 请求正文：请求相关的信息和数据，正文可以为空，如果存在请求正文，则请求头会使用一个`Content-Length`属性标记正文长度
+是不是和我们在Lab7最开始的要求非常相似？没错，由于HTTP/2及以前的版本中整个通信过程都基于TCP协议，我们可以充分利用Lab7 Socket编程的余热，只消在其服务端代码的基础上简单修改一下，就能立刻搭建起一个简单的“Hello World”Web服务器
 
-#### 1.2.1 HTTP响应
-
-* 状态行：HTTP版本  状态码  状态码描述
-* 响应头：以key: value键值对的形式，描述响应的属性，键值对间以CRLF（\r\n）间隔
-* 空行：使用一个CRLF表示报头结束，接下来是正文内容
-* 响应正文：响应的数据，正文可以为空，如果存在正文，则响应头会使用一个`Content-Length`属性标记正文长度
-
-可以注意到，HTTP协议很好地定义了每个数据包自身的几个关键信息：我要去哪（请求URI）以怎样的方式（头部属性）做什么（HTTP方法），具体是（正文），后续部分中，我们会逐一讲解各个部分，带你逐步实现一个较为完整的Web服务器
-
-<IconHeader type="tryout" title="动手试2 观察一对HTTP请求与响应" />
-
-你可以打开开发人员工具-网络，刷新一下页面，观察每个请求和响应的情况
-
-![image-20241029214851758](img/Lab8/image-20241029214851758.png)
-
-在实际应用中，我们的浏览器或应用程序会发起HTTP请求，Web服务器则会根据请求进行相应的操作，并组装并返回相应的HTTP响应数据包
-
-由于HTTP/2及以前的版本中，整个通信过程都是基于TCP协议的，我们只需要以在Lab7 Socket编程的基础上进行一些简单的修改，就能搭建起一个简单的“Hello World”Web服务器
-
-具体来说，此时的客户端由我们的浏览器充当，而服务端则需要简单调整连接后的处理逻辑，在建立Socket连接后，服务器固定返回一段符合HTTP响应格式的数据包，然后关闭连接即可
+具体来说，此时的客户端由我们的浏览器充当，而服务端则需要简单调整连接处理线程的实现，在建立Socket连接后，服务器固定返回一段符合HTTP响应格式的数据包，然后关闭连接即可
 
 ```cpp
 // retrive request and dispach tasks
 void connectionHandler(int socket) {
 	while (!shouldExit) {
+        // highlight-start
         // construct and provide response
         string response = "HTTP/1.0 200\r\nContent-Length: 12\r\n\r\nHello World!";
+        // highlight-end
         // send response
         ...
         // close the connection
+        ...
     }
 }
 ```
 
 <IconHeader type="lab" title="测试1 测试Hello World Web服务器" />
 
-在浏览器内输入127.0.0.1:[你学号的后4位，首位为0则在前面补1]，观察浏览器是否显示了“Hello World”
+在浏览器内输入127.0.0.1:[你学号的后4位，首位为0则在前面补1]，观察浏览器是否显示了“Hello World”，如果你的实现正确，浏览器将会显示“Hello World！”
 
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
+## 2 让我们说HTTP——HTTP协议格式解析
 
-## 2 HTTP方法浅析
+<img alt={"HTTP协议格式"} src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
 
-在HTTP协议中，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为
+### 2.1 HTTP请求
+
+* 请求行：请求方法  URI  HTTP版本
+* 请求头：以`key: value`键值对的形式，描述请求的属性，键值对以CRLF（`\r\n`）结尾
+* 空行：使用一个CRLF表示报头结束，接下来是正文内容（这个CRLF不是最后一个头字段末尾的CRLF）
+* 请求正文：请求相关的信息和数据，正文可以为空，如果存在请求正文，则请求头会使用一个`Content-Length`属性标记正文长度
+
+### 2.2 HTTP响应
+
+* 状态行：HTTP版本  状态码  状态码描述
+* 响应头：以`key: value`键值对的形式，描述响应的属性，键值对以CRLF（`\r\n`）结尾
+* 空行：使用一个CRLF表示报头结束，接下来是正文内容（这个CRLF不是最后一个头字段末尾的CRLF）
+* 响应正文：响应的数据，正文可以为空，如果存在正文，则响应头会使用一个`Content-Length`属性标记正文长度
+
+<IconHeader type="tryout" title="动手试2 观察一对HTTP请求与响应" />
+
+你可以打开开发人员工具-网络，刷新一下页面，观察每个请求和响应的情况
+
+<img src={require("./img/Lab8/image-20241029214851758.png").default} alt="image-20241104014315752" style={{zoom: "55%"}} />
+
+可以注意到，HTTP协议很好的定义了每个数据包自身的几个关键信息：我要去哪（请求URI）以怎样的方式（头部属性）做什么（HTTP方法），具体是（正文），而使用CRLF分隔各部分及字段的设计不仅使其能够轻松进行扩展，也让我们可以轻松地实现对HTTP请求与响应的解析与组装
+
+对于接收到的HTTP请求包，首个CRLF前的是请求行，连续两个CRLF后的是请求正文（可能不存在），二者之间的则是请求头，你可以通过一些C++的字符串操作，从请求数据包中将这几部分剥离开来
+
+```cpp
+void getHandler(info, pkt) {}
+void postHandler(info, pkt) {}
+...
+
+// retrive request and dispach tasks
+void connectionHandler(int socket) {
+	while (!shouldExit) {
+        // highlight-start
+        // receive full HTTP request
+        ...
+        // split request to get each part of HTTP request
+        ...
+        // construct and provide response
+        string response = "HTTP/1.0 200 OK\r\nConnection: close\r\n\r\n" + ? + ?;
+        // highlight-end
+        // send response
+        // close the connection
+    }
+}
+```
+
+为了检验你对HTTP协议请求的解析是否正确，我们的测试框架将会向你的服务端发送一个完全随机的、**无请求正文**的HTTP请求，并观察其返回的响应，对于该请求，你需要完成以下任务：
+
+* 接收完整的请求数据包，并解析请求行、请求头的内容
+* 按照以下的方式，组装响应数据包返回给客户端（测试框架）
+
+    响应字符串 = `HTTP/1.0 200 OK\r\nConnection: close\r\n\r\n` + 完整请求头 + 完整请求行
+
+    对于响应字符串中拼接的请求头和请求行，你可以自由决定是否要保留其中的CRLF；需要注意的是，你不能移除给定字符串开头中的CRLF
+
+* 完成响应发送后，**关闭连接**
+
+<IconHeader type="lab" title="测试2 测试HTTP请求结构解析" />
+
+请在下方输入框中，分别填入测试框架运行地址（如127.0.0.1:5000）、你的Web服务器运行的地址（如127.0.0.1:8080），点击发起测试，观察测试用例通过情况
+
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
+
+## 3 什么事要办？ —— HTTP方法解析
+
+在Lab7中，我们设计了一套自己的通信协议，尽管在具体实现上可能存在一些差异，但为了指示服务端/客户端完成特定的操作，我们的协议中一定会存在特定的一个部分对数据包的类型进行描述
+
+对于HTTP协议而言，这种对类型的描述叫做“方法”，具体来说，方法是指客户端与服务器之间交互时使用的**动词**，它们定义了请求的目的和期望的行为
 
 通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等，一般来说，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
 
 <MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} extras={HTTPMethodsExtras} size={'small'}/>
-<IconHeader type="tryout" title="动手试2 使用不同HTTP方法并观察请求与响应" />
+<IconHeader type="tryout" title="动手试3 使用不同HTTP方法并观察请求与响应" />
 
-你可以点击测试按钮，发起相应方法的请求，并在开发人员工具中观察请求与相应情况
+你可以点击测试按钮，发起相应方法的请求，并在开发人员工具中观察请求与响应情况
 
 你可能已经注意到了——POST方法能携带数据并返回响应，看起来我们提到的其他方法也可以通过POST方法加参数实现。那么，为什么要专门分为这些不同的HTTP方法呢？除了遵守RESTful架构，进行面向资源的标准化设计的目的以外，也有对以下特性的考量：
 
@@ -169,7 +186,9 @@ void connectionHandler(int socket) {
 | 幂等性 |        √        |     √      |     ×      |
 |  缓存  |        √        |     ×      |     ×      |
 
-现在，我们可以根据对几种方法的要求，实现对HTTP请求方法的解析
+我们的实验只需要你支持GET和POST两个方法；在前序步骤中，你已经成功解析得到了请求行，相信对请求行的进一步解析对你而言也会非常简单
+
+和Lab7中的实现相似，我们可以根据请求行中的方法，将请求数据包分发到对应的处理函数中，完成相应的业务逻辑，随后将返回的响应数据发送给相应的客户端
 
 ```cpp
 void getHandler(info, pkt) {}
@@ -179,37 +198,27 @@ void postHandler(info, pkt) {}
 // retrive request and dispach tasks
 void connectionHandler(int socket) {
 	while (!shouldExit) {
+        // receive full HTTP request
+        // split request to get each part of HTTP request
+        // highlight-start
         // extract HTTP methods
         ...
         // handle request according to method, construct response
         if (method == "GET") getHandler(info, pkt);
         if (method == "POST") postHandler(info, pkt);
         ...
+        // highlight-end
         // return response
-        ...
         // close the connection
     }
 }
 ```
 
-<IconHeader type="lab" title="测试2 测试HTTP方法解析" />
+## 4 事情怎样办？——HTTP头字段解析
 
-为了便于测试你对方法的提取是否正确，请你根据不同的方法，以如下格式进行返回：
+HTTP方法能够有效地表示请求的类型，然而，客户端与服务端双方的细节需求难以用具体的方法完全表达，对于请求本身及其携带的数据，我们也需要更多的属性信息才能高效地解析与应用
 
-```cpp
-GET → "HTTP/1.0 200\r\nContent-Length: 4\r\n\r\nGET#"
-POST → "HTTP/1.0 200\r\nContent-Length: 4\r\n\r\nPOST"
-```
-
-我们的测试程序将会测试你实现的程序，检验各种情况下是否能正确解析请求的HTTP方法，返回相应的值
-
-
-
-## 3 头字段解析
-
-HTTP方法能够有效地表示请求的类型，然而，对于请求本身及其携带的数据，我们还需要更多的属性信息才能高效地解析与应用
-
-对于HTTP协议而言，这一需求是通过头字段实现的，HTTP的头字段由键值对(`key: value`)组成，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述：
+对于HTTP协议而言，这一需求是通过**头字段**实现的，HTTP的头字段由键值对(`key: value`)组成，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述：
 
 :::info 提示
 以下内容供你学习参考，实验中，你只需要支持必需的**Content-Length**和**Content-Type**字段即可，其他字段可以忽略
@@ -231,64 +240,98 @@ HTTP方法能够有效地表示请求的类型，然而，对于请求本身及�
 
     <MappedCollapse items={negotiationAttrInfo} size={'small'}/>
 
-在前序步骤中，我们已经将HTTP请求的各部分进行了分离，得到了完全由头字段组成的请求头，由于HTTP使用CRLF分隔，你可以将请求头转化为一个`istringstream`，逐个读入直到遇到结尾，即可很方便地将请求头进一步分解为一个个头字段
-
+在前序步骤中，我们已经将HTTP请求的各部分进行了分离，得到了完全由头字段组成的请求头，由于头字段使用CRLF分隔，你可以将请求头转化为一个`istringstream`，逐个读入直到遇到结尾，即可很方便地将请求头进一步分解为一个个头字段
 
 为了检验你对头字段的解析，我们不妨实现一个简单的WebEcho功能，具体步骤如下：
-
-* 解析头字段，得到`Content-Length`字段的值，并读入相应长度的正文
-
-* 组装响应数据包，至少要包含`Content-Length`、`Content-Type`字段，响应正文为解析到的请求正文的完整内容
-
+* 解析头字段，得到`Content-Length`字段的值，并根据该值读入相应长度的正文
+* 组装响应数据包，至少要包含`Content-Length`、`Content-Type`字段，且相应字段的值需要正确设置；响应正文为解析到的请求正文的完整内容
 * 返回响应数据包并关闭连接
 
 我们的测试服务对你的WebEcho功能有以下几点要求：
-
-* 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（可以选择直接忽略），并正常返回响应
-
-* 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与该请求正文完全匹配
+* 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（可以选择直接忽略，不需要满足相应字段提出的要求），并正常返回响应
+* 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
 <IconHeader type="lab" title="测试3 测试服务器的WebEcho功能" />
 
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
+## 5 东西怎么找？——资源访问处理与响应
 
-## 4 统一资源标识符 URI
+### 5.1 URI解析与映射
 
-随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么我们的组织、管理和访问就会无异于大海捞针
+Lab7中，我们如果要向特定的主机发送消息，就需要在源客户端选择某个与其他客户端唯一关联的标识（如：序号/句柄等），并用这种标识指示服务端消息要转发到的目标主机，想一想，如果服务器上有多个连接的客户端对应同一个标识，我们的服务器还能正确地完成消息转发的任务吗？
+
+随着互联网的发展，人类每天在互联网上产生的数据体量也在急速膨胀，面对浩如烟海的资源，如果没有合理的方式对其进行标记，那么类似这样的问题必然会更加严重，让我们的组织、管理和访问陷入无异于大海捞针的境地
 
 在这个背景下，统一资源标识符URI（Uniform Resource Identifier）应运而生，它为互联网上的资源提供了一种标准化的命名和定位机制，极大地便利了资源的发现与访问过程
 
-URI是一种字符串，用于唯一地标识互联网上的资源。它可以指向任何类型的资源，包括文档、图片、视频流、服务入口点等，URI的设计目的是为了确保每个资源在全球范围内都能被唯一识别
+URI是一种用于唯一地标识互联网上资源的字符串，它可以指向任何类型的资源，包括文档、图片、视频流、服务入口点等，URI的设计目的是为了确保每个资源在全球范围内都能被唯一识别，根据其功能和结构的不同，URI可以进一步划分为URL和URN两种类型：
 
-根据其功能和结构的不同，URI可以进一步划分为URL和URN两种类型。
+#### **统一资源定位符URL（Uniform Resource Locator）**
+最常见的URI形式，提供了访问特定资源的路径和方法，URL不仅告诉计算机资源是什么，更重要的是说明了如何找到并获取这个资源，一个典型的URL结构是：`scheme://host[:port]/path?query#fragment`
+- **scheme**：指定访问资源时使用的协议类型，如HTTP、HTTPS、FTP等
+- **host**：资源所在的主机名或IP地址
+- **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如HTTP默认使用80端口，HTTPS使用443端口
+- **path**：资源在服务器上的具体位置
+- **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现
+- **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过http://zjucomp.net/docs/Lab8_page#5-%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6-uri访问本文档时，可以直接跳转到第5部分
 
-* **统一资源定位符URL（Uniform Resource Locator） **
+URL又可以分为绝对URL和相对URL，这和绝对路径/相对路径的差别非常相似，绝对URL指向特定主机上一个特定的资源，而相对URL对于不同的主机可能对应不同的资源，我们在解析请求行中的URI时，实际上得到的是一个相对URL
 
-  最常见的URI形式，提供了访问特定资源的路径和方法，URL不仅告诉计算机资源是什么，更重要的是说明了如何找到并获取这个资源，一个典型的URL结构如下所示：
+#### **统一资源名称URN（Uniform Resource Name）**
+URN更关注于资源的身份标识而非物理位置，旨在提供一种持久不变的名字空间，即使资源的实际位置发生变化，其URN仍然保持不变，它的格式通常为：`<nns>:<specifics>`
+* **nns**：命名空间标识符，用于定义URN所属的命名空间
+* **specifics**：命名空间内的具体标识符，用于唯一确定资源
 
-  ```makefile
-  scheme://host[:port]/path?query#fragment
-  ```
+你可能会问，既然得到的相对URL和相对路径这么相似，那么我们可不可以直接把资源和服务端程序的相对路径当作相对URL用来请求对应的资源呢？答案是“可以，但最好不要”
 
-  - **scheme**：指定访问资源时使用的协议类型，如HTTP、HTTPS、FTP等
+尽管这样的命名方式非常简单直接，可以极大降低提供资源访问的难度，但这同时也带来了安全风险，通过对服务器的爆破扫描，脚本小子们可以摸索出服务器上的文件结构，从而针对性地选择潜在漏洞进行渗透，带来较大的安全风险，因此，为了保护服务器的安全，避免泄露不必要的信息，通常不建议直接将服务端程序的相对路径作为相对URL来使用
 
-  - **host**：资源所在的主机名或IP地址
+:::note 小心！这样的攻击远比你想象中更常见
 
-  - **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如HTTP默认使用80端口，HTTPS使用443端口
+自动化的漏洞扫描非常简易、低成本，而攻破后加密勒索的收益又相当高，因此全球范围内这样的攻击相当普遍，如果你准备在公网提供Web服务，尤其是存在CDN/OSS的使用时，请务必谨慎配置安全策略，以免因为勒索/服务商账单而不幸“破产”
 
-  - **path**：资源在服务器上的具体位置
+<img src={require('@site/docs/docs/img/Lab8/image-20241104011024024.png').default} alt="试探扫描示例" style={{zoom: "70%"}} />
 
-  - **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现
+实际上，我们的实验文档网站也在受到这样的爆破，高峰情况每小时可达2K次请求（很难理解爆破Cloudflare和Github Pages且被安全策略屏蔽后还在锲而不舍地扫描是怎样一种心态(￣_￣|||)）
 
-  - **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过http://zjucomp.net/docs/Lab8_page#3-%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6-uri访问本文档时，可以直接跳转到第4部分
+:::
 
-* **统一资源名称URN（Uniform Resource Name）**
+正确的做法是通过配置服务器或应用程序来**映射**URL到内部路径，同时确保敏感文件和目录不受未授权访问的影响
 
-  URN更关注于资源的身份标识而非物理位置，旨在提供一种持久不变的名字空间，即使资源的实际位置发生变化，其URN仍然保持不变，它的格式通常为：
+实验报告中要求你准备了一些文件，我们将其打包好提供给你，你可以下载解压后直接放置于与服务端可执行文件同一目录下，用于接下来的测试
 
-  ```cpp
-  <nns>:<specifics>
-  ```
+<FileCard file_type={'cloud'} name={'实验测试素材'} size={'45216'} link={require('@site/assets/resources/resources.zip').default} />
 
-  * **nns**：命名空间标识符，用于定义URN所属的命名空间
-  * **specifics**：命名空间内的具体标识符，用于唯一确定资源
+为了满足自动化测试的需求，请你按照以下表格中的映射关系，对相应资源URL进行映射，我们测试的请求将使用映射后的URL
+
+| 文件路径 | 映射后URL |
+| --- | --- |
+| /html/test.html | /index.html |
+| /html/noimg.html | /index_noimg.html |
+| /txt/test.txt | /info/server |
+| /img/logo.jpg | /assets/logo.jpg |
+
+你的服务端应当能够通过一定的方式，从请求行中解析出映射后URL，并反向映射回相应的文件路径
+
+<IconHeader type="lab" title="测试4 资源访问测试" />
+
+我们的测试框架将会对上述URL检验映射的正确性，具体来说，对于GET方法的请求，请你根据请求URL映射得到相应的文件路径，并将该文件路径（不是文件本身）作为响应正文返回给客户端
+
+需要注意的是，响应行仍为`HTTP/1.0 200 OK`，请求头需正确设置`Content-Type`和`Content-Type`字段的值
+
+例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`
+
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
+
+### 5.2 状态码处理
+
+### 5.3 返回目标资源
+
+## 6 具体功能实现
+
+### 6.1 文件资源访问
+
+### 6.2 登录请求处理
+
+### 6.3 [选做，供体验] API接口实现
