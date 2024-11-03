@@ -62,7 +62,7 @@ int main() {
     struct sockaddr_in serverAddress, clientAddress;
     socklen_t clientAddressLength = sizeof(clientAddress);
     const char* greetingMessage = "Hello from server!";
-    
+
     // 创建socket
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket < 0) {
@@ -169,7 +169,7 @@ int main(int argc, char* argv[]) {
 
 使用`g++`，指定`-lglog`连接Glog库（例：`g++ test.cpp -lglog`），运行编译得到的程序后效果如下：
 
-![image-20241006224621946](Coding/img/image-20241006224621946.png)
+![Glog示例](Coding/img/image-20241006224621946.png)
 
 Glog将会以`Lyyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg`的格式输出日志信息，我们后续的代码的日志输出均会使用Glog，后续不再赘述，关于Glog的完整介绍，请参阅官方文档：
 
@@ -379,7 +379,7 @@ while(msgQueue.empty()) response.wait(msgLock);
 
 * **字符计数法**
 
-  ![image-20241008011658978](Coding/img/image-20241008011658978.png)
+  ![字符计数法](Coding/img/image-20241008011658978.png)
 
   发送方在每帧的首个字段，标记该帧长度，接收方接收到首个字段即了解该帧总长度
 
@@ -387,13 +387,13 @@ while(msgQueue.empty()) response.wait(msgLock);
 
 * **字节填充的标志字节法** `Byte Stuffing`
 
-  ![image-20241008011644650](Coding/img/image-20241008011644650.png)
+  ![字节填充的标志字节法](Coding/img/image-20241008011644650.png)
 
   每一帧使用特殊的标记字节作为帧界，如传输的数据内包含标记字节，则需进行转义与恢复，以保证透明传输
 
 * **比特填充的标志比特法** `Bit Stuffing`
 
-  ![image-20241008011525449](Coding/img/image-20241008011525449.png)
+  ![比特填充的标志比特法](Coding/img/image-20241008011525449.png)
 
   以特殊的位模式作为帧界，对于传输数据内的位模式，自动填0/恢复以保证透明传输
 
@@ -423,19 +423,19 @@ while(msgQueue.empty()) response.wait(msgLock);
   HTTP/1.1 200 OK\r\n
   // highlight-start
   Date: Wed, 02 Aug 2024 12:00:00 GMT\r\n
-  Server: Apache/2.4.41 (Unix)\r\n 
+  Server: Apache/2.4.41 (Unix)\r\n
   Content-Length: 123\r\n
   Content-Type: text/html; charset=UTF-8\r\n
   // highlight-end
   \r\n
-  <html> 
-      <head>     
-      	<title>Example Page</title> 
-      </head> 
-      <body>     
-          <h1>Hello, World!</h1>     
-          <p>This is an example of an HTTP response.</p> 
-      </body> 
+  <html>
+      <head>
+      	<title>Example Page</title>
+      </head>
+      <body>
+          <h1>Hello, World!</h1>
+          <p>This is an example of an HTTP response.</p>
+      </body>
   </html>
   ```
 
@@ -489,7 +489,7 @@ while(msgQueue.empty()) response.wait(msgLock);
 
 因此，你可以考虑**自行**对Socket进行封装，接收传入的数据包，按照协议完成序列化后，调用原生Socket API完成数据发送，在接收方按照协议反序列化。此时我们的服务端/客户端只需要组装/分析定义好的数据包即可完成通信，而无需处理Socket底层实现
 
-![Socket@1x](Coding/img/Socket@1x.png)
+![Socket封装](Coding/img/Socket@1x.png)
 
 以下是一个封装的例子，封装序列化/反序列化逻辑后，我们可以使用和原生Socket传输字节流类似的接口，传输我们的数据包数据结构，还可以通过运算符重载，使你封装好的Socket具有类似`std::cin` / `std::cout`的特性，进一步简化你的开发过程：
 ```cpp
@@ -538,13 +538,13 @@ public:
   // include necessary header
   ...
   #include <csignal> // exit signal handling
-  
+
   void exitHandler(int signal) {
       // handle tasks before exit
       ...
       exit(0);
   }
-  
+
   int main(int argc, char** argv) {
   // highlight-start
       // Register exit handler to exit signals
@@ -607,7 +607,7 @@ public:
 
 
 
-## 6 功能实现 
+## 6 功能实现
 
 ### 6.1 整体逻辑
 

@@ -55,14 +55,14 @@ import TabItem from '@theme/TabItem';
 
 * 下载完成后运行安装程序，阅读并同意EULA，设置安装路径等信息
 
-  ![image-20240828090553451](img/image-20240828090553451.png)
+  ![运行GNS3客户端安装](img/image-20240828090553451.png)
 
 * 指定安装组件，至少需选择GNS3 Desktop，你可以根据需求额外安装其他组件，但**不要选择GNS3 VM**
 
     :::danger 请按照后续步骤指导单独导入并配置GNS3 VM，**不要勾选这里的GNS3 VM**
     :::
 
-  ![image-20240828090704816](img/image-20240828090704816.png)
+  ![选择客户端安装组件](img/image-20240828090704816.png)
 
 * Solarwinds广告选择No即可
 
@@ -74,15 +74,15 @@ import TabItem from '@theme/TabItem';
 
 * 启动虚拟机后，耐心等待GNS3服务器程序启动，启动完成后，记录图中的IP与端口
 
-  <img src={require('./img/image-20240828093827930.png').default} alt="image-20240828093827930" style={{zoom:'67%'}} />
+  <img src={require('./img/image-20240828093827930.png').default} alt="GNS3虚拟机运行界面" style={{zoom:'67%'}} />
 
 * 打开GNS3，点击Edit-Preferences进入首选项
 
-  ![image-20240828122730965](img/image-20240828122730965.png)
+  ![进入GNS3首选项](img/image-20240828122730965.png)
 
 * 点击左侧Server，取消勾选“Enable Local Server“，并填入虚拟机中展示的IP与端口（用户名/密码均为admin，一般请保持默认），点击Apply应用
 
-  <img src={require('./img/image-20240828122816891.png').default} alt="image-20240828122816891" style={{zoom: '80%'}} />
+  <img src={require('./img/image-20240828122816891.png').default} alt="GNS3服务端连接配置" style={{zoom: '80%'}} />
 
 
 
@@ -124,19 +124,19 @@ import TabItem from '@theme/TabItem';
 
 * 点击Dynamips下的IOS routers
 
-  ![image-20231107192237416](img/image-20231107192237416.png)
+  ![IOS routers列表](img/image-20231107192237416.png)
 
 * 点击New，浏览路由器映像文件
 
-  ![image-20240913022000397](img/image-20240913022000397.png)
+  ![添加路由器映像文件](img/image-20240913022000397.png)
 
 * 根据镜像选择正确的平台型号，如提示无法自动检测型号，可忽略警告
 
-  ![image-20240913022106638](img/image-20240913022106638.png)
+  ![选择路由器平台型号](img/image-20240913022106638.png)
 
 * 指定路由器内存大小，保持默认即可，在完成需较多路由器的实验时，如内存不足可修改为128MB
 
-  ![image-20240913022146059](img/image-20240913022146059.png)
+  ![选择路由器内存大小](img/image-20240913022146059.png)
 
 * 为路由器添加一些接口模块
 
@@ -147,15 +147,15 @@ import TabItem from '@theme/TabItem';
   * NM-4T 高速串口模块
   * NM-16ESW 以太网交换模块
 
-  ![image-20240913022232614](img/image-20240913022232614.png)
+  ![添加局域网接口模块](img/image-20240913022232614.png)
 
 * 添加广域网模块，推荐添加1-2个WIC-2T高速串口模块
 
-  ![image-20240913022457023](img/image-20240913022457023.png)
+  ![添加广域网接口模块](img/image-20240913022457023.png)
 
 * 点击Idle-PC finder，设置Idle-PC值，避免路由器过度占用CPU资源
 
-  ![image-20240913022603939](img/image-20240913022603939.png)
+  ![设置Idle-PC值](img/image-20240913022603939.png)
 
 
 
@@ -177,13 +177,13 @@ import TabItem from '@theme/TabItem';
 
 * 打开GNS3，点击Edit-Preferences进入首选项
 
-  ![image-20240828122730965](img/image-20240828122730965.png)
+  ![进入GNS3首选项](img/image-20240828122730965.png)
 
 * 选择Console applications，并点选Edit
 
-  ![image-20240913023057594](img/image-20240913023057594.png)
+  ![设置Console应用](img/image-20240913023057594.png)
 
 * 选择Windows Terminal
 
-  ![image-20240913023150829](img/image-20240913023150829.png)
+  ![选择WindowsTerminal](img/image-20240913023150829.png)
 

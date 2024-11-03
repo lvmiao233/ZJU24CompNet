@@ -21,9 +21,9 @@ title: Angular Commit信息规范
 Commit Message 包含三个部分，分别是 Header、Body 和 Footer，格式如下：
 
 ```html
-<type>[optional scope]: <description> 
+<type>[optional scope]: <description>
 // 空行
-[optional body] 
+[optional body]
 // 空行
 [optional footer(s)]
 ```
@@ -63,11 +63,11 @@ Header 部分只有一行，包括三个字段：type（必选）、scope（可�
 
 常见 type 和它们所属的类别如下：
 
-![img](img\65e5572e51088274339ce8d7)
+![常见Commit Type](img\65e5572e51088274339ce8d7)
 
 确定所属type方式：
 
-![img](img\65e5572e51088274339ce8d8)
+![确定Commit所属Type方式](img\65e5572e51088274339ce8d8)
 
 如果我们变更了应用代码，比如某个 Go 函数代码，那这次修改属于代码类。在代码类中，有 4 种具有明确变更意图的类型：feat、fix、perf 和 style；如果我们的代码变更不属于这 4 类，那就全都归为 refactor 类，也就是优化代码。
 

@@ -7,7 +7,7 @@ title: 功能与设备使用介绍
 
 ### 1.1 GNS3 主界面
 
-  <img src={require('./img/1728918158936.jpg').default} alt="1728918158936" style={{zoom:'80%'}} />
+  <img src={require('./img/1728918158936.jpg').default} alt="GNS3客户端主界面" style={{zoom:'80%'}} />
 
   :::warning 设备较多时，请慎用批量启动，否则初始化过程高CPU占用可能导致虚拟机卡死
   :::
@@ -26,7 +26,7 @@ title: 功能与设备使用介绍
 
 ### 1.2 设备管理菜单（对设备右键）
 
-  <img src={require('./img/image-20241014231540666.png').default} alt="image-20241014231540666" style={{zoom:'67%'}} />
+  <img src={require('./img/image-20241014231540666.png').default} alt="GNS3设备管理菜单" style={{zoom:'67%'}} />
 
 ### 1.3 设备线路管理
 
@@ -34,13 +34,13 @@ title: 功能与设备使用介绍
 
   点击左侧线路连接工具，分别点击要连接的两个设备，并选择要使用的端口
 
-  ![image-20241014232046882](img\image-20241014232046882.png)
+  ![GNS3连接设备](img\image-20241014232046882.png)
 
 * 断开连接
 
   右键点击线路，选择删除
 
-  ![image-20241014231912736](img\image-20241014231912736.png)
+  ![GNS3断开设备连接](img\image-20241014231912736.png)
 
 ## 2 可模拟的网络设备
 
@@ -48,7 +48,7 @@ title: 功能与设备使用介绍
 
   从虚拟PC列表中，拖出`Cloud`设备，使用线路连接工具可将网络设备与虚拟机内的虚拟网卡连接
 
-  ![image-20241014232251332](img\image-20241014232251332.png)
+  ![网络云](img\image-20241014232251332.png)
 
   显示的网络连接即为[配置的3个虚拟网络适配器](https://zjucomp.net/docs/GNS3/VM-VMware#3-%E9%85%8D%E7%BD%AEgns3%E8%99%9A%E6%8B%9F%E6%9C%BA)，根据你的配置，网卡编号与网络模式的对应关系可能不同，请以实际为准
 
@@ -60,7 +60,7 @@ title: 功能与设备使用介绍
 
   从交换机列表中，拖出`Ethernet Switch`设备
 
-  <img src={require('./img/image-20241014233102052.png').default} alt="image-20241014233102052" style={{zoom:'67%'}} />
+  <img src={require('./img/image-20241014233102052.png').default} alt="二层交换机配置" style={{zoom:'67%'}} />
 
   该交换机功能较为简单，仅能进行简单的VLAN设置，可对每个端口指定其VLAN及端口模式（dot1q→Trunk），也可根据需求增加端口数量
 
@@ -68,7 +68,7 @@ title: 功能与设备使用介绍
 
   从交换机列表中，拖出`ATM Switch`设备
 
-  <img src={require('./img/image-20241014233538803.png').default} alt="image-20241014233538803" style={{zoom:'43%'}} />
+  <img src={require('./img/image-20241014233538803.png').default} alt="ATM交换机配置" style={{zoom:'43%'}} />
 
   该ATM交换机功能较为简单，仅支持简易的隧道设置，可设置隧道
 
@@ -80,7 +80,7 @@ title: 功能与设备使用介绍
 
   从交换机列表中，拖出`Frame Relay Switch`设备
 
-  <img src={require('./img/image-20241014234026218.png').default} alt="image-20241014234026218" style={{zoom:'43%'}} />
+  <img src={require('./img/image-20241014234026218.png').default} alt="FrameRelay交换机配置" style={{zoom:'43%'}} />
 
   该Frame Relay交换机功能较为简单，仅支持简易的数据链路设置，可以设置数据链路
 
@@ -88,7 +88,7 @@ title: 功能与设备使用介绍
 
   数据链路一旦建立，路由器或其他交换机就可以连接Frame Relay交换机的端口了，根据需要，可以建立多条数据链路，一个物理Port可以创建多条具有不同DLCI的数据链路，然后利用子接口进行配置，例如下图中R1连接Port1，可以创建2条数据链路连接R2、R3，分别为1:101-10:202, 1:102-11:203
 
-  ![image-20241014234359233](img\image-20241014234359233.png)
+  ![虚链路配置](img\image-20241014234359233.png)
 
 ## 3 运行配置管理
 

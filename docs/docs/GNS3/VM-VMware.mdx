@@ -88,19 +88,19 @@ GNS3 3.0.0无法正确获取Idle PC，会导致卡死，如果你已经安装了
         </Row>
 
         * 下载并解压GNS3虚拟机
-    
+
         * 打开VMware Workstation，选择打开虚拟机
-    
-            ![image-20240913010554139](img/image-20240913010554139.png)
-    
+
+            ![导入GNS3虚拟机](img/image-20240913010554139.png)
+
         * 选择解压得到的GNS3 VM.ova (macOS请不要使用默认解压，否则会将解压得到的.ova文件再次解压)
-    
-            ![image-20240913010922873](img/image-20240913010922873.png)
-    
+
+            ![指定GNS3 VM](img/image-20240913010922873.png)
+
         * 指定虚拟机的名称与存储路径
-    
-            ![image-20240913011027855](img/image-20240913011027855.png)
-    
+
+            ![指定GNS3虚拟机的名称与存储路径](img/image-20240913011027855.png)
+
     </TabItem>
     <TabItem value="macOS (Apple Silicon)">
         <Row gutter={[16, 4]} justify="space-between">
@@ -111,15 +111,15 @@ GNS3 3.0.0无法正确获取Idle PC，会导致卡死，如果你已经安装了
                 <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={909808022} file_type="github"/>
             </Col>
         </Row>
-    
+
         * 下载并解压GNS3虚拟机
-    
+
         * 打开VMware Workstation，选择创建自定虚拟机，指定系统类型为Linux - Ubuntu 64-bit arm
-    
+
         * 选择使用现有的虚拟硬盘，选择解压好的两个虚拟磁盘文件中的disk1，确定并完成向导
-    
+
         * 不要开机，进入虚拟机设置，选择添加设备，选择使用现有的虚拟磁盘，选择解压好的两个虚拟磁盘文件中的disk2
-    
+
     </TabItem>
 </Tabs>
 
@@ -130,45 +130,45 @@ GNS3 3.0.0无法正确获取Idle PC，会导致卡死，如果你已经安装了
         * 选择创建好的虚拟机，点选编辑虚拟机设置
 
             ![image-20240913011152365](img/image-20240913011152365.png)
-    
+
         * 点选添加硬件，此时默认已有“仅主机模式”和“NAT模式”两个虚拟网络适配器，我们需要再添加1个桥接网络适配器
-    
-            <img src={require('./img/image-20240913011239868.png').default}   alt="image-20240913011239868" style={{zoom:'80%'}} />
-    
+
+            <img src={require('./img/image-20240913011239868.png').default}   alt="为GNS3 VM添加桥接网络适配器" style={{zoom:'80%'}} />
+
         * 选择网络适配器
-    
-            ![image-20240913011316856](img/image-20240913011316856.png)
-    
+
+            ![选择网络适配器](img/image-20240913011316856.png)
+
         * 将网络连接更改为“桥接模式”（如果缺少仅主机模式/NAT模式的虚拟网络适配器，请按类似方法分别进行添加）
-    
-            ![image-20240913011357784](img/image-20240913011357784.png)
-    
+
+            ![将网络连接更改为桥接模式](img/image-20240913011357784.png)
+
         * 在左侧点选**处理器**，**取消勾选虚拟化引擎中全部项目**，并增加“处理器数量”（推荐4个）
-    
+
             点选**内存**，增加至4G左右（如果内存充裕，可增加更多，但不要超过VMWare的建议上限）点击确定保存设置
-    
-            ![image-20240913011831596](img/image-20240913011831596.png)
-    
+
+            ![配置GNS3 VM处理器参数](img/image-20240913011831596.png)
+
         * 在VMware Workstation中，点选编辑-虚拟网络编辑器
-    
-            ![image-20240913011454462](img/image-20240913011454462.png)
-    
+
+            ![虚拟网络编辑器入口](img/image-20240913011454462.png)
+
         * 点选更改设置，并授予管理员权限
-    
-            ![image-20240913011520992](img/image-20240913011520992.png)
-    
+
+            ![虚拟网络编辑器界面](img/image-20240913011520992.png)
+
         * 选择VMnet0，更改已桥接至的设备为当前上网所用设备
-    
+
             :::danger 注意
             如果你使用无线网卡上网，你的无线网卡名称可能类似：Intel® Wifi6 xxxx 或 Realtek xxx Wifi6 或 Mediatek Wifi6 xxxx
-    
+
             如果你使用有线网卡上网，你的有线网卡名称可能类似：Realtek PCIe GbE Family Controller 或 Realtek PCIe FE Family Controller
-    
+
             请根据你的实际情况选择，不要照搬图片中的选项，如果找不到使用的网卡，请参考Q&A
             :::
-    
-            ![image-20240913011700873](img/image-20240913011700873.png)
-    
+
+            ![调整GNS3 VM使用的桥接设备](img/image-20240913011700873.png)
+
         * 点选应用保存设置
     </TabItem>
     <TabItem value="macOS">
@@ -176,15 +176,15 @@ GNS3 3.0.0无法正确获取Idle PC，会导致卡死，如果你已经安装了
 
         * 点击添加设备，选择网络适配器，选择桥接模式，选择Wifi
 
-            ![image-20241029131333885](img/image-20241029131333885.png)
-    
+            ![将网络连接更改为桥接模式](img/image-20241029131333885.png)
+
         * 点击添加设备，选择网络适配器，选择仅供我的Mac专用
 
-            ![image-20241029131333885](img/image-20241029131333885.png)
-    
+            ![将网络连接更改为仅主机模式](img/image-20241029131333885.png)
+
         * 点选**处理器**，增加“处理器数量”（推荐4个）
 
         * 点选**内存**，增加至4G左右（如果内存充裕，可增加更多，但不要超过VMWare的建议上限）
-    
+
     </TabItem>
 </Tabs>

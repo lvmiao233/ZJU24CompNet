@@ -15,16 +15,16 @@ title: 使用答疑 Q&A
 
     * 打开GNS3，点击Edit-Preferences进入首选项
 
-        ![image-20240828122730965](img/image-20240828122730965.png)
+        ![打开GNS3首选项](img/image-20240828122730965.png)
 
     * 在左侧导航栏选择GNS3 VM，取消勾选Enable the GNS3 VM
-    
-        ![image-2024102818182251332](img/image-2024102818182251332.png)
-    
+
+        ![关闭GNS3 VM](img/image-2024102818182251332.png)
+
     * 参考[配置GNS3虚拟机](/docs/GNS3/VM-VMware#3-配置gns3虚拟机)中第5步，重新禁用GNS3 VM的虚拟化
-    
+
     * 改用[连接虚拟机](/docs/GNS3/client-install#2-%E8%BF%9E%E6%8E%A5-gns3-%E8%99%9A%E6%8B%9F%E6%9C%BA)步骤的方式，重新连接GNS3 VM
-    
+
 * 配置虚拟机时，没有禁用GNS3 VM的虚拟化
 
     参考[配置GNS3虚拟机](/docs/GNS3/VM-VMware#3-配置gns3虚拟机)中第5步，重新禁用GNS3 VM的虚拟化
@@ -42,11 +42,11 @@ title: 使用答疑 Q&A
 
 * 打开控制面板-网络与Internet-网络和共享中心，点击左侧更改适配器设置
 
-	![image-20240913013917859](img/image-20240913013917859.png)
+	![更改适配器设置](img/image-20240913013917859.png)
 
 * 选择正在使用的网络适配器，右键打开属性，将VMware Bridge Protocal勾选并确定保存
 
-	![image-20240913013807637](img/image-20240913013807637.png)
+	![启用VMware Bridge Protocal](img/image-20240913013807637.png)
 
 ### 无法使用Wireshark捕捉链路上的数据包
 
@@ -54,15 +54,15 @@ title: 使用答疑 Q&A
 
 * GNS3找不到指定的文件（Wireshark安装位置）
 
-  ![image-2024102818412251332](img/image-2024102818412251332.png)
+  ![GNS3找不到指定的文件（Wireshark安装位置）](img/image-2024102818412251332.png)
 
   * 打开GNS3，点击Edit-Preferences进入首选项
 
-    ![image-20240828122730965](img/image-20240828122730965.png)
+    ![打开GNS3首选项](img/image-20240828122730965.png)
 
   * 在左侧导航栏选择Packet capture
 
-    ![image-20241028184100953](img/image-20241028184100953.png)
+    ![GNS3设置Wireshark路径](img/image-20241028184100953.png)
 
   * 将Wireshark文件路径修改为你电脑上实际安装位置，并应用更改
 
@@ -70,17 +70,17 @@ title: 使用答疑 Q&A
 
   * 打开GNS3，点击Edit-Preferences进入首选项
 
-    ![image-20240828122730965](img/image-20240828122730965.png)
+    ![打开GNS3首选项](img/image-20240828122730965.png)
 
   * 在左侧导航栏选择Packet capture
 
-    ![image-20241028182535821](img/image-20241028182535821.png)
+    ![GNS3抓包模式设置](img/image-20241028182535821.png)
 
   * 如"Preconfigured packet capture render commands"一项是"Wireshark Traditional Capture"，将其改选为"Wireshark Live Traffic Capture"，并点击右侧Set，并应用更改
 
 ### 提示"eth0 is not configured"
 
-![image-20241028182935605](img/image-20241028182935605.png)
+![eth0 is not configured](img/image-20241028182935605.png)
 
 请检查以下几种可能的情况：
 
@@ -98,7 +98,7 @@ title: 使用答疑 Q&A
 
   * 虚拟机内选择OK-Networking
   * 解除以下部分的注释，并将`dhcp4: no`修改为`dhcp4: yes`
-  * 按下Ctrl+O，按下Ctrl+X，保存配置，虚拟机会自动重启 
+  * 按下Ctrl+O，按下Ctrl+X，保存配置，虚拟机会自动重启
   * 观察问题是否得到解决
 
 * 虚拟机导入存在问题
@@ -115,7 +115,7 @@ title: 使用答疑 Q&A
 
 ### GNS3客户端和虚拟机的连接频繁断开
 
-![image-20241028204718971](img/image-20241028204718971.png)
+![GNS3频繁断连](img/image-20241028204718971.png)
 
 请检查虚拟网络编辑器内是否正确配置了虚拟网络适配器，具体来说，配置应该是：
 

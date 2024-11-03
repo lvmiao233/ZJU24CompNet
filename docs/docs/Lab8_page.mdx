@@ -55,7 +55,7 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 参考[开发人员工具使用说明](/docs/Coding/toolchain#5-浏览器开发人员工具使用)打开开发人员工具-网络，选中一个网络请求，查看其版本
 
-<img alt={"image-20241028145513246"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
+<img alt={"查看加载网页使用的HTTP版本"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
 
 实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2
 
@@ -116,7 +116,7 @@ void connectionHandler(int socket) {
 
 你可以打开开发人员工具-网络，刷新一下页面，观察每个请求和响应的情况
 
-<img src={require("./img/Lab8/image-20241029214851758.png").default} alt="image-20241104014315752" style={{zoom: "55%"}} />
+<img src={require("./img/Lab8/image-20241029214851758.png").default} alt="一对HTTP请求与响应" style={{zoom: "55%"}} />
 
 可以注意到，HTTP协议很好的定义了每个数据包自身的几个关键信息：我要去哪（请求URI）以怎样的方式（头部属性）做什么（HTTP方法），具体是（正文），而使用CRLF分隔各部分及字段的设计不仅使其能够轻松进行扩展，也让我们可以轻松地实现对HTTP请求与响应的解析与组装
 
