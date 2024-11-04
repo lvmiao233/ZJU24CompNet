@@ -46,7 +46,7 @@ const FileCard = (props) => {
         <a href={link} style={{textDecoration: 'none', color: 'inherit'}}>
             <div className="file-card">
                 <div style={{display: 'flex'}}>
-                    <div style={{width: '52px', minHeight: '100%'}}>
+                    <div style={{width: '52px', height: '48px', minHeight: '100%'}}>
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', height: '100%'}}>
                             {fileIcon}
                         </div>
