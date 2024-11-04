@@ -3,7 +3,6 @@ sidebar_position: 12
 title: Lab7 基于Socket接口实现自定义协议通信
 ---
 
-import {DotChartOutlined} from "@ant-design/icons";
 import LinkCard from '@site/src/components/LinkCard';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
@@ -401,9 +400,9 @@ while(msgQueue.empty()) response.wait(msgLock);
 
 * **固定头部 + 变长数据体结构**
 
-  | 例：0 - 1b |   1 - 2b   | 2 - 10b  | 10 - ?b  |
-    |:--------:| :--------: | :------: | :------: |
-  |   消息类型   | 消息子类型 | 消息长度 | 变长数据 |
+  | 例：0 - 1b | 1 - 2b | 2 - 10b | 10 - ?b |
+    |:--------:|:------:|:-------:|:-------:|
+  |   消息类型   | 消息子类型  |  消息长度   |  变长数据   |
 
     - **头部设计**：定义一个固定长度的头部，其中包含必要的控制信息（如消息类型、长度等），这使得接收方能够正确解析消息
 

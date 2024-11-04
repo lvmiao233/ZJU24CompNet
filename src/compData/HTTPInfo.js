@@ -163,7 +163,7 @@ export const negotiationAttrInfo = {
     "Accept-Language": "表示客户端首选的语言，服务端可以据此返回适当语言的内容，如，Accept-Language: en-US,en;q=0.5 表示美国英语是首选语言，但也可以接受其他英语变体",
     "Accept-Encoding": "告知服务端客户端支持的压缩算法，帮助减少传输的数据量，如，Accept-Encoding: gzip, deflate 表示客户端支持gzip和deflate压缩",
     "Accept-Charset": "指示客户端支持的字符集，虽然现代Web开发中较少使用，但在特定情况下仍然有用，如，Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7 表示首选ISO-8859-1字符集，其次是UTF-8",
-    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
+    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
     "Connection": "控制当前连接的状态，常见的值有 keep-alive（保持连接）和 close（关闭连接）",
     "User-Agent": ["提供发起请求的客户端的信息，包括浏览器类型、版本、操作系统等，用于服务器进行内容适配或统计分析，如：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0，你可能会注意到这个字段的内容非常复杂难懂，这同样来自兼容性与商业竞争考虑，关于这座屎山的传奇历史，请参考：", <LinkCard url={"https://www.bilibili.com/video/BV1E7421Z7Zb"} title={"为啥所有浏览器都假扮成Mozilla？"} icon={"https://b.bilibili.com/favicon.ico"}>Isword先生</LinkCard>]
 }
