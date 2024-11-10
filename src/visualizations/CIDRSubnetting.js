@@ -19,13 +19,9 @@ function intToIp(int) {
     return [(int >>> 24) & 0xff, (int >>> 16) & 0xff, (int >>> 8) & 0xff, int & 0xff,].join('.');
 }
 
-function maskLengthToMask(maskLength) {
-    return (0xffffffff << (32 - maskLength)) >>> 0;
-}
+function maskLengthToMask(maskLength) { return (0xffffffff << (32 - maskLength)) >>> 0; }
 
-function intToMask(int) {
-    return intToIp(int);
-}
+function intToMask(int) { return intToIp(int); }
 
 function calculateRequiredMaskLength(hostCount) {
     const requiredAddresses = hostCount + 2; // 包括网络地址和广播地址
@@ -42,7 +38,7 @@ function subnetting(networkStr, hostRequirements) {
     // 验证网络地址
     const networkAddress = networkIpInt & networkMask;
     if (networkAddress !== networkIpInt) {
-        throw new Error('无效的网络地址');
+        throw new Error('无效的网络地址,请检查网络地址与子网掩码是否匹配');
     }
 
     const totalAddresses = 1 << (32 - maskLength);
@@ -73,12 +69,12 @@ function subnetting(networkStr, hostRequirements) {
 
         subnets.push({
             index,
-            '划分后的子网': `${intToIp(subnetNetworkAddress)}/${requiredMaskLength}`,
-            '划分后子网网络地址': intToIp(subnetNetworkAddress),
-            '划分后子网广播地址': intToIp(subnetBroadcastAddress),
-            '划分后子网掩码': intToMask(subnetMaskInt),
-            '划分后子网可容纳的主机数量': usableHosts,
-            '请求的主机数量': hostCount,
+            '子网': `${intToIp(subnetNetworkAddress)}/${requiredMaskLength}`,
+            '网络地址': intToIp(subnetNetworkAddress),
+            '广播地址': intToIp(subnetBroadcastAddress),
+            '子网掩码': intToMask(subnetMaskInt),
+            '实际容纳数量': usableHosts,
+            '需求主机数量': hostCount,
         });
 
         currentIpInt += blockSize;
@@ -106,8 +102,11 @@ const SubnetCalculator = () => {
     const next = async () => {
         try {
             if (step === 0) {
-                await form.validateFields(['network', 'hosts']);
+                try{ await form.validateFields(['network', 'hosts']); }
+                catch (e) { throw new Error('请输入正确的网络地址和掩码长度（如：192.168.0.0/24）'); }
+
                 const values = form.getFieldsValue(['network', 'hosts']);
+                console.log(values);
                 const networkStr = values.network.trim();
                 const hostRequirements = values.hosts.map((item) => parseInt(item.host, 10));
 
@@ -138,10 +137,7 @@ const SubnetCalculator = () => {
             message.error(err.message);
         }
     };
-
-    const prev = () => {
-        setStep(step - 1);
-    };
+    const prev = () => { setStep(step - 1); };
 
     const reset = () => {
         form.resetFields();
@@ -151,12 +147,7 @@ const SubnetCalculator = () => {
     };
 
     return (<div>
-        <Form
-            form={form}
-            name="subnet_calculator"
-            autoComplete="off"
-            layout="vertical"
-        >
+        <Form form={form} name="subnet_calculator" autoComplete="off" layout="vertical" >
             <h4>被划分子网（如：192.168.0.0/24)</h4>
             <Form.Item
                 name="network"
@@ -186,35 +177,25 @@ const SubnetCalculator = () => {
                                 <Col xs={24} sm={12} md={8} lg={12} xl={8} xxl={6} key={field.key}>
                                     <Form.Item required={false} style={{marginBottom: 8}}>
                                         <div style={{display: 'flex', alignItems: 'center'}}>
-                                            <span style={{marginRight: 8, minWidth: 50}}>
-                                              子网{index + 1}：
-                                            </span>
+                                            <span style={{marginRight: 8, minWidth: 50}}> 子网{index + 1}：</span>
                                             <Form.Item
                                                 {...field}
                                                 validateTrigger={['onChange', 'onBlur']}
                                                 name={[field.name, 'host']}
-                                                rules={[{required: true, message: '请输入主机数量'}, {
-                                                    pattern: /^\d+$/, message: '主机数量必须是正整数',
-                                                },]}
+                                                rules={[{required: true, message: '请输入主机数量'}, { pattern: /^\d+$/, message: '主机数量必须是正整数', },]}
                                                 noStyle
                                             >
                                                 <Input placeholder="容纳主机数量"/>
                                             </Form.Item>
-                                            {fields.length > 1 ? (<MinusCircleOutlined
-                                                onClick={() => remove(field.name)}
-                                                style={{margin: '0 8px'}}
-                                            />) : null}
+                                            { fields.length > 1 ?
+                                                ( <MinusCircleOutlined onClick={() => remove(field.name)} style={{margin: '0 8px'}} />) : null
+                                            }
                                         </div>
                                     </Form.Item>
                                 </Col>))}
                             <Col span={24}>
                                 <Form.Item>
-                                    <Button
-                                        type="dashed"
-                                        onClick={() => add()}
-                                        icon={<PlusOutlined/>}
-                                        style={{width: '100%'}}
-                                    >
+                                    <Button type="dashed" onClick={() => add()} icon={<PlusOutlined/>} style={{width: '100%'}} >
                                         添加子网需求
                                     </Button>
                                     <Form.ErrorList errors={errors}/>
@@ -232,7 +213,7 @@ const SubnetCalculator = () => {
                     dataSource={calculatedHosts} style={{marginBottom: 12}}
                     renderItem={(hostCount, index) => (<List.Item>
                         子网 {index + 1}：
-                        请求的主机数量：{form.getFieldValue(['hosts', index, 'host'])}，
+                        需求主机数量：{form.getFieldValue(['hosts', index, 'host'])}，
                         实际可容纳的主机数量：{hostCount}
                     </List.Item>)}
                 />
@@ -244,39 +225,27 @@ const SubnetCalculator = () => {
                           <List.Item style={{paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16}}>
                               <Row gutter={16}>
                                   <Col span={24} style={{marginBottom: 8}}>
-                                      <span style={{
-                                          fontSize: 16,
-                                          fontWeight: 'bold'
-                                      }}>子网 {index + 1}: {subnet['划分后的子网']}</span>
+                                      <span style={{ fontSize: 16, fontWeight: 'bold' }}>子网 {index + 1}: {subnet['子网']}</span>
                                   </Col>
                                   <Col span={8} style={{marginBottom: 8}}>
-                                      <UserOutlined style={{fontSize: 15}}/> <span style={{
-                                      fontSize: 15,
-                                      marginLeft: 4
-                                  }}>需求主机数量: {subnet['请求的主机数量']}</span>
+                                      <UserOutlined style={{fontSize: 15}}/>
+                                      <span style={{ fontSize: 15, marginLeft: 4 }}>需求主机数量: {subnet['需求主机数量']}</span>
                                   </Col>
                                   <Col span={8} style={{marginBottom: 8}}>
                                       <DesktopOutlined style={{fontSize: 15}}/>
-                                      <span style={{
-                                          fontSize: 15,
-                                          marginLeft: 4
-                                      }}>实际容纳数量: {subnet['划分后子网可容纳的主机数量']}</span>
+                                      <span style={{ fontSize: 15, marginLeft: 4 }}>实际容纳数量: {subnet['实际容纳数量']}</span>
                                   </Col>
                                   <Col span={8} style={{marginBottom: 8}}>
-                                      <ColumnWidthOutlined style={{fontSize: 15}}/> <span
-                                      style={{fontSize: 15, marginLeft: 4}}>子网掩码: {subnet['划分后子网掩码']}</span>
+                                      <ColumnWidthOutlined style={{fontSize: 15}}/>
+                                      <span style={{fontSize: 15, marginLeft: 4}}>子网掩码: {subnet['子网掩码']}</span>
                                   </Col>
                                   <Col span={8}>
-                                      <LinkOutlined style={{fontSize: 15}}/> <span style={{
-                                      fontSize: 15,
-                                      marginLeft: 4
-                                  }}>网络地址: {subnet['划分后子网网络地址']}</span>
+                                      <LinkOutlined style={{fontSize: 15}}/>
+                                      <span style={{ fontSize: 15, marginLeft: 4 }}>网络地址: {subnet['网络地址']}</span>
                                   </Col>
                                   <Col span={8}>
-                                      <NotificationOutlined style={{fontSize: 15}}/> <span style={{
-                                      fontSize: 15,
-                                      marginLeft: 4
-                                  }}>广播地址: {subnet['划分后子网广播地址']}</span>
+                                      <NotificationOutlined style={{fontSize: 15}}/>
+                                      <span style={{ fontSize: 15, marginLeft: 4 }}>广播地址: {subnet['广播地址']}</span>
                                   </Col>
                               </Row>
                           </List.Item>
@@ -284,15 +253,9 @@ const SubnetCalculator = () => {
                 />
             </>)}
             <Form.Item>
-                {step < steps.length - 1 && (<Button type="primary" onClick={next}>
-                    下一步
-                </Button>)}
-                {step === steps.length - 1 && (<Button type="primary" onClick={reset}>
-                    重置
-                </Button>)}
-                {step > 0 && (<Button style={{margin: '0 8px'}} onClick={prev}>
-                    上一步
-                </Button>)}
+                {step < steps.length - 1 && (<Button type="primary" onClick={next}> 下一步 </Button>)}
+                {step === steps.length - 1 && (<Button type="primary" onClick={reset}> 重置 </Button>)}
+                {step > 0 && (<Button style={{margin: '0 8px'}} onClick={prev}> 上一步 </Button>)}
             </Form.Item>
         </Form>
     </div>);
