@@ -21,9 +21,6 @@ import TabItem from '@theme/TabItem';
                     <FileCard link="https://oss.zjucomp.net/GNS3-2.2.50-all-in-one.exe" name="本站镜像源" size={109551360} file_type="cloud"/>
                 </Col>
                 <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/e95e2dbd715935a727e25b28d8" name="浙大云盘" size={109551360} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
                     <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={117268057} file_type="github"/>
                 </Col>
             </Row>
@@ -34,9 +31,6 @@ import TabItem from '@theme/TabItem';
                     <FileCard link="https://oss.zjucomp.net/GNS3-2.2.50.dmg" name="本站镜像源" size={117268057} file_type="cloud"/>
                 </Col>
                 <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/6374a5dbded4183968d9b0d8a7" name="浙大云盘" size={117268057} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
                     <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={117268057} file_type="github"/>
                 </Col>
             </Row>
@@ -44,7 +38,7 @@ import TabItem from '@theme/TabItem';
         <TabItem value="macOS (Apple Silicon)">
             <Row gutter={[16, 4]} justify="space-between">
                 <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/c4e91671f6afe119e169a44249" name="浙大云盘" size={75917281} file_type="cloud"/>
+                    <FileCard link="https://oss.zjucomp.net/GNS3-2.2.48.dmg" name="本站镜像源" size={75917281} file_type="cloud"/>
                 </Col>
                 <Col xs={24} sm={12}>
                     <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={75917281} file_type="github"/>
@@ -93,34 +87,17 @@ import TabItem from '@theme/TabItem';
 
 * 下载路由器IOS镜像（推荐使用3745）
 
-    <Tabs className="unique-tabs"  groupId="host-platform">
-        <TabItem value="浙大云盘下载">
-            <Row gutter={[16, 4]} justify="space-between">
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/988765a21c41acc77b79802027" name="Cisco 3745" size={39900084} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/ac90cf01fe4625b6b1f23f1e30" name="Cisco 3725" size={22674684} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://pan.zju.edu.cn/share/ebd2ea386617c03d88d9afb3d3" name="Cisco 3660" size={90835908} file_type="cloud"/>
-                </Col>
-            </Row>
-        </TabItem>
-        <TabItem value="本站镜像源">
-            <Row gutter={[16, 4]} justify="space-between">
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://oss.zjucomp.net/c3745-adventerprisek.124-25d.bin" name="Cisco 3745" size={39900084} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://oss.zjucomp.net/cisco2-c3725.bin" name="Cisco 3725" size={22674684} file_type="cloud"/>
-                </Col>
-                <Col xs={24} sm={12}>
-                    <FileCard link="https://oss.zjucomp.net/c3660-jk9o3s-mz.124-15.T5.bin" name="Cisco 3660" size={90835908} file_type="cloud"/>
-                </Col>
-            </Row>
-        </TabItem>
-    </Tabs>
+    <Row gutter={[16, 4]} justify="space-between">
+        <Col xs={24} sm={12}>
+            <FileCard link="https://oss.zjucomp.net/c3745-adventerprisek.124-25d.bin" name="Cisco 3745" size={39900084} file_type="cloud"/>
+        </Col>
+        <Col xs={24} sm={12}>
+            <FileCard link="https://oss.zjucomp.net/cisco2-c3725.bin" name="Cisco 3725" size={22674684} file_type="cloud"/>
+        </Col>
+        <Col xs={24} sm={12}>
+            <FileCard link="https://oss.zjucomp.net/c3660-jk9o3s-mz.124-15.T5.bin" name="Cisco 3660" size={90835908} file_type="cloud"/>
+        </Col>
+    </Row>
 
 * 点击Dynamips下的IOS routers
 
