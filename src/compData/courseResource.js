@@ -60,6 +60,12 @@ const resourceData = [
         "link": require('@site/assets/slides/Lab4-静态路由配置.pdf').default
     },
     {
+        "file_type": "pdf",
+        "name": "Lab5 在Cisco路由器上的路由协议",
+        "size": "5090922",
+        "link": require('@site/assets/slides/在Cisco路由器上的路由协议.pdf').default
+    },
+    {
         "file_type": 'pdf',
         "name":'GNS3模拟环境WireShark抓STP协议报文',
         "size":'1204626',
