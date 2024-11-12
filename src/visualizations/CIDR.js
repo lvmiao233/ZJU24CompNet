@@ -311,7 +311,7 @@ const IPMatchingComponent = () => {
                 </div>
             </div>
             <div style={{ marginTop: '20px' }}>
-                <h4>目标 IP 二进制表示</h4>
+                <h3 style={{ marginTop: '20px', fontSize: 18}}>目标 IP 二进制表示</h3>
                 {binaryTargetIP.length > 0 ? (
                     <div>{renderBinaryBits(binaryTargetIP, [],
                         (binaryRoutingTable.length > 0 && currentEntryIndex >= 0) ? binaryRoutingTable[currentEntryIndex].maskLength : 32,
@@ -322,7 +322,8 @@ const IPMatchingComponent = () => {
             </div>
 
             <div style={{ marginTop: '20px' }}>
-                <h4>路由表项</h4>
+                <h3 style={{fontSize: 18}}>路由表项</h3>
+                <p>从掩码长度最长的表项开始，逐个比较，找到匹配项则停止比较，选择该表项用于转发</p>
                 {binaryRoutingTable.map((entry, index) => (
                     <div key={index} style={{ marginBottom: '10px' }}>
                         <Text strong>
@@ -344,7 +345,7 @@ const IPMatchingComponent = () => {
 
             {comparisonComplete && (
                 <div style={{ marginTop: '20px' }}>
-                    <h3>匹配结果</h3>
+                    <h3 style={{fontSize: 18}}>匹配结果</h3>
                     {matchedEntry ? (
                         <Alert
                             type="success"

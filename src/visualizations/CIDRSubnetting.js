@@ -148,7 +148,7 @@ const SubnetCalculator = () => {
 
     return (<div>
         <Form form={form} name="subnet_calculator" autoComplete="off" layout="vertical" >
-            <h4>被划分子网（如：192.168.0.0/24)</h4>
+            <h3 style={{fontSize: 18}}>被划分子网（如：192.168.0.0/24)</h3>
             <Form.Item
                 name="network"
                 rules={[{required: true, message: '请输入被划分子网'},
