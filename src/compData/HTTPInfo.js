@@ -168,4 +168,23 @@ export const negotiationAttrInfo = {
     "User-Agent": ["提供发起请求的客户端的信息，包括浏览器类型、版本、操作系统等，用于服务器进行内容适配或统计分析，如：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0，你可能会注意到这个字段的内容非常复杂难懂，这同样来自兼容性与商业竞争考虑，关于这座屎山的传奇历史，请参考：", <LinkCard url={"https://www.bilibili.com/video/BV1E7421Z7Zb"} title={"为啥所有浏览器都假扮成Mozilla？"} icon={"https://b.bilibili.com/favicon.ico"}>Isword先生</LinkCard>]
 }
 
+export const responseCode = [
+    { code: 100, phrase: "Continue", desc: "请求正在进行中" },
+    { code: 200, phrase: "OK", desc: "请求成功" },
+    { code: 202, phrase: "Accepted", desc: "请求已被接受且正在处理中，但尚未完成" },
+    { code: 301, phrase: "Moving Permanently", desc: "资源有个新地址" },
+    { code: 302, phrase: "Moving Temporarily", desc: "资源有个新的临时地址" },
+    { code: 400, phrase: "Bad Request", desc: "服务器不认可这个请求" },
+    { code: 401, phrase: "Unauthorized", desc: "授权失败" },
+    { code: 404, phrase: "Not Found", desc: "所请求的资源不存在" },
+    { code: 406, phrase: "Not Acceptable", desc: "内容将不被浏览器所接受" },
+    { code: 500, phrase: "Internal Server Error", desc: "服务器遭遇错误" },
+    { code: 503, phrase: "Service Unavailable", desc: "服务器过载或不工作" },
+];
+export const responseCodeColumn = [
+    { title: '响应码', dataIndex: 'code', key: 'code', sorter: (a, b) => (a.code - b.code) },
+    { title: '原因短语 Reason-Phrase', dataIndex: 'phrase', key: 'phrase'},
+    { title: '描述', dataIndex: 'desc', key: 'desc', },
+];
+
 export default HTTPVersions;

@@ -3,15 +3,15 @@ sidebar_position: 13
 title: Lab8 实现一个轻量级的WEB服务器
 ---
 
-import {Alert} from 'antd';
+import {Alert, Table} from 'antd';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
-import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo} from '@site/src/compData/HTTPInfo.js';
-import IconHeader from "@site/src/components/IconHeader";
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
+import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 
-<Alert message="文档尚未编写完成，请先参考实验PPT与报告模板步骤，如对实验有疑问可先钉钉提问，感谢理解" type="warning" showIcon/>
+<Alert message="测试组件尚未正式上线，你可以先熟悉实验内容，我们会尽快完成各个测试组件" type="warning" showIcon/>
 <br/>
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
@@ -31,17 +31,17 @@ import IconHeader from "@site/src/components/IconHeader";
 </Row>
 <br/>
 :::important 提示
-以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发；文档中的测试点仅供你阶段性验证实现的正确性，如果你认为相应部分比较简单，可以直接跳过该测试
+以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发；文档中的测试点仅供你阶段性验证实现的正确性，**如果某些步骤的测试对你而言比较简单，你可以直接跳过响应测试**
 
 为了便于你逐步上手，文档可能不会严格按照相应部分在请求/响应中的位置进行描述
 :::
 
 ## 0 实验目的与意义
 
-* 深化知识理解：通过Socket API使用实践，增加对网络应用程序的了解，对网络通信的过程与原理获得更鲜活直接的体验与理解
-* 提高开发技能：接触日志工具/版本控制工具/自动化测试工具，锻炼协作开发能力与技巧，增强自主学习能力
-* 设计自定义协议：通过自己动手设计网络通信协议，体会数据的编码与解码、错误检测与恢复机制的作用与原则
-* 实现并发处理：学会处理并发客户端连接，提高处理并发请求的能力，适应当下计算资源并行化与网络应用高并发化的发展趋势
+* 理解HTTP协议及Web服务器工作原理：通过构建一个轻量级Web服务器，加深对HTTP请求与响应的理解，掌握Web服务器在网络中如何处理客户端请求的基本原理
+* 增强网络应用开发能力：动手实现HTTP协议的基本功能，掌握服务器资源管理与访问控制的技术，提升网络应用开发能力
+* 培养工程实践与调试能力：通过实验中的各个步骤，锻炼代码调试、日志分析以及利用工具进行性能测试的能力，培养开发中的工程化思维
+* 理解Web安全性与最佳实践：通过设计并实现资源的安全访问机制，了解如何防范常见的安全隐患，提高Web服务器的安全性和可靠性
 
 ## 1 初识HTTP——概念浅析
 
@@ -75,11 +75,11 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 ```cpp
 // retrive request and dispach tasks
 void connectionHandler(int socket) {
-	while (!shouldExit) {
-        // highlight-start
+    while (!shouldExit) {
+// highlight-start
         // construct and provide response
         string response = "HTTP/1.0 200\r\nContent-Length: 12\r\n\r\nHello World!";
-        // highlight-end
+// highlight-end
         // send response
         ...
         // close the connection
@@ -129,15 +129,15 @@ void postHandler(info, pkt) {}
 
 // retrive request and dispach tasks
 void connectionHandler(int socket) {
-	while (!shouldExit) {
-        // highlight-start
+    while (!shouldExit) {
+// highlight-start
         // receive full HTTP request
         ...
         // split request to get each part of HTTP request
         ...
         // construct and provide response
         string response = "HTTP/1.0 200 OK\r\nConnection: close\r\n\r\n" + ? + ?;
-        // highlight-end
+// highlight-end
         // send response
         // close the connection
     }
@@ -197,17 +197,17 @@ void postHandler(info, pkt) {}
 
 // retrive request and dispach tasks
 void connectionHandler(int socket) {
-	while (!shouldExit) {
+    while (!shouldExit) {
         // receive full HTTP request
         // split request to get each part of HTTP request
-        // highlight-start
+// highlight-start
         // extract HTTP methods
         ...
         // handle request according to method, construct response
         if (method == "GET") getHandler(info, pkt);
         if (method == "POST") postHandler(info, pkt);
         ...
-        // highlight-end
+// highlight-end
         // return response
         // close the connection
     }
@@ -274,7 +274,7 @@ URI是一种用于唯一地标识互联网上资源的字符串，它可以指�
 - **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如HTTP默认使用80端口，HTTPS使用443端口
 - **path**：资源在服务器上的具体位置
 - **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现
-- **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过http://zjucomp.net/docs/Lab8_page#5-%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6-uri访问本文档时，可以直接跳转到第5部分
+- **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过 https://zjucomp.net/docs/Lab8_page#51-uri解析与映射 访问本文档时，可以直接跳转到第5部分
 
 URL又可以分为绝对URL和相对URL，这和绝对路径/相对路径的差别非常相似，绝对URL指向特定主机上一个特定的资源，而相对URL对于不同的主机可能对应不同的资源，我们在解析请求行中的URI时，实际上得到的是一个相对URL
 
@@ -314,24 +314,70 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 你的服务端应当能够通过一定的方式，从请求行中解析出映射后URL，并反向映射回相应的文件路径
 
-<IconHeader type="lab" title="测试4 资源访问测试" />
-
-我们的测试框架将会对上述URL检验映射的正确性，具体来说，对于GET方法的请求，请你根据请求URL映射得到相应的文件路径，并将该文件路径（不是文件本身）作为响应正文返回给客户端
-
-需要注意的是，响应行仍为`HTTP/1.0 200 OK`，请求头需正确设置`Content-Type`和`Content-Type`字段的值
-
-例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`
-
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
-
 ### 5.2 状态码处理
 
-### 5.3 返回目标资源
+响应请求的过程往往并不是一帆风顺，来自请求方、响应方及中间节点的问题都可能阻碍响应的顺利完成，为了将这些问题直观简洁地反馈给客户端，HTTP协议设计了一些状态码，并在其后附加一个原因短语`reason-phrase`，描述响应的结果
+
+一般来说，响应码首位表示一种通用分类：1——提供信息；2——成功；3——重定向；4——客户端错误；5——服务器错误，常见的HTTP响应码可以参考下表：
+
+<Table dataSource={responseCode} columns={responseCodeColumn} size={'small'} pagination={false}/>
+
+关于响应码的详细描述，你可以参考MDN的这份文档：
+
+<LinkCard title={'HTTP response status codes'} url={'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status'} icon={'https://developer.mozilla.org/favicon-192x192.png'}>{"HTTP response status codes indicate whether a specific HTTP request has been successfully completed."}</LinkCard>
+
+实验中，你需要对请求URL进行验证，如果解析得到的是GET方法，则验证相应文件是否存在；如果解析得到的是POST方法，则验证接口URI是否为`/dopost`，如不匹配，则返回404 Not Found，否则均返回200 OK
+
+<IconHeader type="lab" title="测试4 URI映射测试" />
+
+我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于GET方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
+
+例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`；`GET /whatever.png HTTP/1.0`的请求，应返回`404 Not Found`，响应正文为空
+
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
 ## 6 具体功能实现
 
 ### 6.1 文件资源访问
 
+对于正确的资源请求，我们需要返回目标资源，同时设置响应头，以指示客户端如何处理该资源，具体来说，分为以下几步：
+* **资源映射**：将请求的URI映射到服务器本地的文件系统路径上，以便定位请求的资源文件。确保映射逻辑符合实验要求，例如 /index.html 映射到 /html/test.html。
+* **文件读取**：使用文件I/O操作读取指定路径上的资源文件。如果文件存在，则将其内容读取到内存中，以便后续进行响应。
+* **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
+
+<IconHeader type="lab" title="测试5 资源访问测试" />
+
+我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
+
+<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
+<br/>
+根据实验报告要求，运行服务器后，请用`netstat -an`显示服务器的监听端口，并截图记录，如果项目过多，可通过`netstat -an | grep [端口号]`进行过滤
+
+启用Wireshark捕获，在浏览器中，分别访问你的Web服务器IP:端口/index.html、IP:端口/index_noimg.html、IP:端口/info/server，并记录以下内容：
+* 页面上显示内容截图
+* Wireshark的TCP流追踪（每个页面分别截图、HTML文件和图片文件分别截图）
+* Wireshark的请求/响应包（每个页面分别截图、HTML文件和图片文件分别截图）
+
+
 ### 6.2 登录请求处理
 
+登录功能需要实现一个简单的POST请求处理，用户通过一个表单向`/dopost`接口URI提交用户名和密码，你的服务器接收请求并验证信息是否正确，具体步骤如下：
+
+* **解析POST请求**：从POST请求中解析出请求路径和请求体的内容，验证请求路径是否为`/dopost`，如果不匹配，则返回404 Not Found，响应正文为空
+* **验证登录信息**：从请求正文中，解析用户名`login`和密码`pass`的值，与你在代码中预设的值进行比对验证，你可以将用户名和密码硬编码在服务器代码中，或者通过配置文件进行模拟
+* **构建响应**：响应正文为`<html><body>响应消息内容</body></html> `，根据验证结果，设置响应消息为“登录成功”或“登录失败”
+
+<IconHeader type="lab" title="测试6 用户登录测试" />
+
+启用Wireshark捕获，在浏览器中，访问你的Web服务器IP:端口/index.html，在页面中分别输入正确/错误的账号密码，并记录以下内容：
+* 页面上显示的提示信息截图
+* Wireshark的TCP流追踪（正确/错误情况分别截图）
+* Wireshark的请求/响应包（正确/错误情况分别截图）
+
 ### 6.3 [选做，供体验] API接口实现
+
+<Alert message="内容编写中，请稍后再来吧" type="warning" showIcon />
+<br/>
+<IconHeader type="lab" title="测试7 多线程访问测试" />
+
+打开多个浏览器窗口，同时访问包含图片的HTML文件（Web服务器IP:端口/index.html），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
