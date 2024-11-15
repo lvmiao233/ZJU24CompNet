@@ -5,6 +5,7 @@ title: Lab5 动态路由协议OSPF配置
 
 
 import FileCard from '@site/src/components/FileCard';
+import LinkCard from '@site/src/components/LinkCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 
@@ -71,6 +72,12 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 -   实时显示路由器之间交换的路由信息事件，理解OSPF协议交互过程；
 -   断开某些网络连接，查看OSPF的数据变化以及路由表的变化，并测试PC间的联通性；
 
+:::warning 注意
+对于路由表、宣告网络等涉及多项的配置，不存在“输入错误后可以再输入正确内容覆盖”，所有输入的命令均会被加入表项，对实验产生影响
+
+如果你对此类指令不慎输错，请使用`no [完整错输指令内容]`撤销；在遇到难以解决的问题时，请先检查运行配置是否符合预期
+:::
+
 ### RIP相关命令参考
 
 -   在路由器上启用RIP协议：`Router(config)# router rip`
@@ -94,9 +101,12 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 - 观察路由器的OSPF接口状态（可以查看cost值）：`Router# show ip ospf interface`
 - 打开事件调试，实时显示路由器之间交换的路由信息事件：`Router# debug ip ospf events`
   观察完毕后，可以关闭调试信息显示：`Router# no debug ip ospf events`
-- 在两个区域边界路由器之间建立虚链路，[area-id]填写用于传递数据的区域ID，[router ID]分别设为对方的Router ID：`Router(config-router)# area [area-id] virtual-link [router ID]`
+- 在两个区域边界路由器之间建立虚链路，`[area-id]`填写用于传递数据的区域ID，`[router ID]`分别设为对方的Router ID：`Router(config-router)# area [area-id] virtual-link [router ID]`
 - 在区域边界路由器上手工进行路由合并：`Router(config-router)# area [area-id] range [ip_net] [mask]`
 
+### Cisco IP路由故障排除文档集合
+
+<LinkCard icon="https://www.cisco.com/favicon.ico" title="IP 路由 - 故障排除技术说明" url="https://www.cisco.com/c/zh_cn/tech/ip/ip-routing/tsd-technology-support-troubleshooting-technotes-list.html">故障排除技术说明</LinkCard>
 
 
 ## 五、实验数据记录和处理
@@ -343,6 +353,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 13. 在R1上打开OSPF事件调试（命令：`debug ip ospf events`），然后重新连接R1和R3的接口（在R1或R3上`no shutdown`该接口），等与R3的邻居关系为Full后关闭debug，最后查看邻居关系。
 
+    :::tip 提示
+    OSPF协议中，当路由器收到来自邻居的hello数据包时，它必须在自己的hello数据包中列出发送方路由器ID，以向该邻居进行确认
+
+    Init状态表示路由器已收到来自其邻居的hello数据包，但接收路由器ID未包含在hello数据包中，因此，要想看到Init状态，需要R3在未收到R1 hello数据包时发送自己的hello数据包（此时不含R1路由器ID），并被R1接收
+
+    你可以在R1发送了一个hello数据包时立刻打开R3对应的接口，此时R3发送的首个hello数据包应该就满足这一条件
+    :::
+
     R1和R3重新建立邻接关系的事件记录：（从图可知，邻接关系建立经历了5个状态，分别是\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_）
 
     ![](img/Lab5/image30.png)
@@ -487,7 +505,12 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-19. 如果之前未配置Frame Relay数据链路，请在此时进行配置（参考GNS3指南）。
+19. 如果之前未配置Frame Relay数据链路，请在此时进行配置（参考[功能与设备介绍-Frame Relay交换机](/docs/GNS3/client-usage#24-frame-relay交换机)）。
+
+    |    源接口    | Source Port:DLCI | Destination Port:DLCI |  目标接口   |
+     |:---------:|:----------------:|:---------------------:|:-------:|
+     | R5 s2/0.1 |      1:101       |        10:202         | R7 s2/0 |
+     | R5 s2/0.2 |      1:102       |        11:203         | R9 s2/0 |
 
     截图：FR交换机的虚链路配置表
 
