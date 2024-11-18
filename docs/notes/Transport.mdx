@@ -4,8 +4,12 @@ title: 传输层 Transport Layer
 ---
 
 import TCPControlSimulation from "@site/src/visualizations/TCPControlSimulation";
+import FileCard from '@site/src/components/FileCard';
 
-### TCP 拥塞控制模拟
+<h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>课程资源</h3>
+<FileCard file_type={'pdf'} name={'6 Transport Layer'} size={'5152498'} link={require('@site/assets/slides/6_TransportLayer.pdf').default} />
+
+## TCP 拥塞控制模拟
 
 发生拥塞时，慢开始门限`ssthresh`即会设置为出现拥塞时发送方`cwnd`的一半（通常向下取整），但不能小于2
 

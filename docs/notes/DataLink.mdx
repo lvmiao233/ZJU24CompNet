@@ -4,7 +4,19 @@ title: 数据链路层 Data Link Layer
 ---
 
 import LinkPeekCard from "@site/src/components/LinkPeekCard";
+import FileCard from '@site/src/components/FileCard';
+import { Row, Col } from 'antd';
 
-* Go Back N / Selective Repeat 协议可视化
+<h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>课程资源</h3>
+<Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
+  <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+  <FileCard file_type={'pdf'} name={'3 Data Link Layer'} size={'5465726'} link={require('@site/assets/slides/luxq_3_Data Link Layer.pdf').default} />
+  </Col>
+  <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+  <FileCard file_type={'pdf'} name={'4 Medium Access Control Sublayer'} size={'3401217'} link={require('@site/assets/slides/4_MACLayer.pdf').default} />
+  </Col>
+</Row>
+
+## Go Back N / Selective Repeat 协议可视化
 
 <LinkPeekCard url="https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/" icon="https://www2.tkn.tu-berlin.de/favicon.ico" title="Selective Repeat / Go Back N">coded by Johannes Kessler 2012</LinkPeekCard>

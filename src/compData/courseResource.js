@@ -37,6 +37,12 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "6 Transport Layer",
+        "size": "5152498",
+        "link": require('@site/assets/slides/6_TransportLayer.pdf').default
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark",
         "size": "2874374",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
