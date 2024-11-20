@@ -6,8 +6,7 @@ title: Lab7 基于Socket接口实现自定义协议通信
 import LinkCard from '@site/src/components/LinkCard';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
-import SocketServerInit from '@site/src/components/SocketServerInit';
-import SocketServerThreads from '@site/src/components/SocketServerThreads';
+import MultiTestCard from "@site/src/components/MultiTestCard";
 import IconHeader from "@site/src/components/IconHeader";
 import { Row, Col } from 'antd';
 
@@ -111,7 +110,7 @@ int main() {
 
 现在，你可以运行测试程序，在下方填入框架、服务端的运行地址，点击发起测试并观察
 
-<SocketServerInit />
+<MultiTestCard header={"测试1 服务端连接与发送测试"} testUri={"/test/lab7/standalone"}/>
 
 我们的测试程序将会模拟一个Socket客户端，与你提供的服务端建立连接并转发所有收到的消息，如果一切正常，我们的服务端将会提示有客户端连接，你也可以在上方组件中看到服务端发来的问候信息
 
@@ -299,7 +298,7 @@ int main(int argc, char* argv[]) {
 
 完成多线程能力的实现后，你可以在下方测试组件中填入服务端地址/设置的最大客户端数量，点击发起测试检查服务端的并发处理能力
 
-<SocketServerThreads />
+<MultiTestCard header={"测试3 服务端多线程测试"} testUri={"/test/lab7/threaded"} multiThread/>
 
 我们的测试框架将会根据你设定的最大客户端数量，创建相应数量的客户端，并反馈每个客户端连接结果与响应，如果一切正常，你应当看到每个客户端都成功连接并受到了来自服务端的消息
 

@@ -22,7 +22,7 @@ function MultiTestCard(props) {
                 num_threads: threadCount,
             });
 
-            const { cases: caseList, success_cnt, total_cnt } = response.data;
+            const { cases: caseList, success_cnt, timeout_cnt, error_cnt, total_cnt } = response.data;
             setCases(caseList); // 更新测试用例列表
             const percentFull = (success_cnt / total_cnt) * 100;
             setProgress(parseFloat(percentFull.toFixed(1))); // 更新进度
@@ -38,8 +38,16 @@ function MultiTestCard(props) {
         }
     };
 
-    const renderResponseItem = (response, index) => {
-        const { name, status } = response; // 获取用例名称和状态
+    const timeFormat = (seconds) => {
+        const ms = seconds * 1000;
+        let formattedMs = parseFloat(ms.toFixed(4));
+        if (formattedMs.toString().length > 4)
+            formattedMs = parseFloat(formattedMs.toPrecision(4));
+        return formattedMs;
+    }
+
+    const renderResponseItem = (response) => {
+        const { name, status, index, time } = response; // 获取用例名称和状态
         const iconMap = {
             AC: <CheckCircleTwoTone twoToneColor='#52c41a' style={{ marginRight: '4px' }} />,
             WA: <CloseCircleTwoTone twoToneColor='#ff9900' style={{ marginRight: '4px' }} />,
@@ -48,18 +56,21 @@ function MultiTestCard(props) {
         };
         const messageMap = {
             AC: '请求成功',
-            WA: '响应不符合预期',
-            RE: '被测服务端运行错误',
+            WA: '响应错误',
+            RE: '运行错误',
             TLE: '请求超时',
         };
 
         return (
             <List.Item key={index}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center' , width: '100%'}}>
                     {iconMap[status] || iconMap.AC} {/* 默认为AC状态图标 */}
-                    <h5 style={{ margin: 0 }}>
-                        {`用例 ${index + 1}: ${name || '无标题'} - ${messageMap[status] || '未知状态'}`}
-                    </h5>
+                        <h5 style={{ margin: 0, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <span style={{fontWeight: 'bold', minWidth: '24px'}}>{`${index}`}</span>
+                            <span style={{fontWeight: 'normal'}}>{name || '无标题'}</span>
+                            <span style={{fontWeight: 'normal'}}>{messageMap[status] || '未知状态'}</span>
+                            <span style={{fontWeight: 'normal'}}>{timeFormat(time) || '无耗时信息'} ms</span>
+                        </h5>
                 </div>
             </List.Item>
         );

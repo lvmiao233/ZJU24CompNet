@@ -8,6 +8,7 @@ import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
+import MultiTestCard from "@site/src/components/MultiTestCard";
 import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 
@@ -155,11 +156,9 @@ void connectionHandler(int socket) {
 
 * 完成响应发送后，**关闭连接**
 
-<IconHeader type="lab" title="测试2 测试HTTP请求结构解析" />
+<MultiTestCard header={"测试2 测试HTTP请求结构解析"} testUri={"/test/lab8/structure-parse"}/>
 
 请在下方输入框中，分别填入测试框架运行地址（如127.0.0.1:5000）、你的Web服务器运行的地址（如127.0.0.1:8080），点击发起测试，观察测试用例通过情况
-
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
 ## 3 什么事要办？ —— HTTP方法解析
 
@@ -251,9 +250,7 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 * 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（可以选择直接忽略，不需要满足相应字段提出的要求），并正常返回响应
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
-<IconHeader type="lab" title="测试3 测试服务器的WebEcho功能" />
-
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
+<MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab7/web-echo"}/>
 
 ## 5 东西怎么找？——资源访问处理与响应
 
@@ -328,7 +325,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 实验中，你需要对请求URL进行验证，如果解析得到的是GET方法，则验证相应文件是否存在；如果解析得到的是POST方法，则验证接口URI是否为`/dopost`，如不匹配，则返回404 Not Found，否则均返回200 OK
 
-<IconHeader type="lab" title="测试4 URI映射测试" />
+<MultiTestCard header={"测试4 URI映射测试"} testUri={"/test/lab7/uri-mapping"}/>
 
 我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于GET方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
@@ -345,12 +342,10 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * **文件读取**：使用文件I/O操作读取指定路径上的资源文件。如果文件存在，则将其内容读取到内存中，以便后续进行响应。
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
 
-<IconHeader type="lab" title="测试5 资源访问测试" />
+<MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab7/resource-retrieve"}/>
 
 我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
 
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
-<br/>
 根据实验报告要求，运行服务器后，请用`netstat -an`显示服务器的监听端口，并截图记录，如果项目过多，可通过`netstat -an | grep [端口号]`进行过滤
 
 启用Wireshark捕获，在浏览器中，分别访问你的Web服务器IP:端口/index.html、IP:端口/index_noimg.html、IP:端口/info/server，并记录以下内容：
