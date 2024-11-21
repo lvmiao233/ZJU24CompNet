@@ -3,7 +3,7 @@ sidebar_position: 13
 title: Lab8 实现一个轻量级的WEB服务器
 ---
 
-import {Alert, Table} from 'antd';
+import {Table} from 'antd';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
@@ -11,9 +11,6 @@ import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
 import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
-
-<Alert message="测试组件尚未正式上线，你可以先熟悉实验内容，我们会尽快完成各个测试组件" type="warning" showIcon/>
-<br/>
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 
@@ -92,8 +89,6 @@ void connectionHandler(int socket) {
 <IconHeader type="lab" title="测试1 测试Hello World Web服务器" />
 
 在浏览器内输入127.0.0.1:[你学号的后4位，首位为0则在前面补1]，观察浏览器是否显示了“Hello World”，如果你的实现正确，浏览器将会显示“Hello World！”
-
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
 ## 2 让我们说HTTP——HTTP协议格式解析
 
@@ -250,7 +245,7 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 * 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（可以选择直接忽略，不需要满足相应字段提出的要求），并正常返回响应
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
-<MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab7/web-echo"}/>
+<MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
 
 ## 5 东西怎么找？——资源访问处理与响应
 
@@ -325,13 +320,11 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 实验中，你需要对请求URL进行验证，如果解析得到的是GET方法，则验证相应文件是否存在；如果解析得到的是POST方法，则验证接口URI是否为`/dopost`，如不匹配，则返回404 Not Found，否则均返回200 OK
 
-<MultiTestCard header={"测试4 URI映射测试"} testUri={"/test/lab7/uri-mapping"}/>
+<MultiTestCard header={"测试4 URI映射测试"} testUri={"/test/lab8/uri-mapping"}/>
 
 我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于GET方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
 例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`；`GET /whatever.png HTTP/1.0`的请求，应返回`404 Not Found`，响应正文为空
-
-<Alert message="测试组件正在开发，请稍后再来吧" type="warning" showIcon />
 
 ## 6 具体功能实现
 
@@ -342,7 +335,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * **文件读取**：使用文件I/O操作读取指定路径上的资源文件。如果文件存在，则将其内容读取到内存中，以便后续进行响应。
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
 
-<MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab7/resource-retrieve"}/>
+<MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab8/resource-retrieve"}/>
 
 我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
 
@@ -369,10 +362,12 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * Wireshark的TCP流追踪（正确/错误情况分别截图）
 * Wireshark的请求/响应包（正确/错误情况分别截图）
 
-### 6.3 [选做，供体验] API接口实现
+[//]: # (### 6.3 [选做，供体验] API接口实现)
 
-<Alert message="内容编写中，请稍后再来吧" type="warning" showIcon />
-<br/>
+[//]: # ()
+[//]: # (<Alert message="内容编写中，请稍后再来吧" type="warning" showIcon />)
+
+[//]: # (<br/>)
 <IconHeader type="lab" title="测试7 多线程访问测试" />
 
 打开多个浏览器窗口，同时访问包含图片的HTML文件（Web服务器IP:端口/index.html），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
