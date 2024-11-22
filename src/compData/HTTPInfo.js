@@ -187,4 +187,16 @@ export const responseCodeColumn = [
     { title: '描述', dataIndex: 'desc', key: 'desc', },
 ];
 
+export const uriMap = [
+    { desc: "带有图片的首页HTML文件", internal_uri: "/html/test.html", external_uri: "/index.html" },
+    { desc: "去掉图片的首页HTML文件", internal_uri: "/html/noimg.html", external_uri: "/index_noimg.html" },
+    { desc: "纯文本文件", internal_uri: "/txt/test.txt", external_uri: "/info/server" },
+    { desc: "浙大校标图片文件", internal_uri: "/img/logo.jpg", external_uri: "/assets/logo.jpg" },
+];
+export const uriMapColumn = [
+    { title: '文件描述', dataIndex: 'desc', key: 'desc', },
+    { title: '文件路径', dataIndex: 'internal_uri', key: 'internal_uri'},
+    { title: '映射后URL', dataIndex: 'external_uri', key: 'external_uri'},
+];
+
 export default HTTPVersions;

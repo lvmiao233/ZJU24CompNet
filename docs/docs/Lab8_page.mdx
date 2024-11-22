@@ -9,8 +9,10 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
-import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, uriMap, uriMapColumn, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 
@@ -26,10 +28,15 @@ import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@
     <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
         <FileCard file_type={'cloud'} name={'实验测试素材'} size={'45216'} link={require('@site/assets/resources/resources.zip').default} />
     </Col>
+    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
+        <FileCard file_type={'github'} name={'实验测试框架'} size={'114755'} link={"https://github.com/lvmiao233/NetLabFramework"} />
+    </Col>
 </Row>
 <br/>
 :::important 提示
-以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发；文档中的测试点仅供你阶段性验证实现的正确性，**如果某些步骤的测试对你而言比较简单，你可以直接跳过响应测试**
+以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发
+
+文档中的测试点仅供你阶段性验证实现的正确性，**如果某些步骤的测试对你而言比较简单，你可以直接跳过相应测试**
 
 为了便于你逐步上手，文档可能不会严格按照相应部分在请求/响应中的位置进行描述
 :::
@@ -90,9 +97,15 @@ void connectionHandler(int socket) {
 
 在浏览器内输入127.0.0.1:[你学号的后4位，首位为0则在前面补1]，观察浏览器是否显示了“Hello World”，如果你的实现正确，浏览器将会显示“Hello World！”
 
-## 2 让我们说HTTP——HTTP协议格式解析
+## 2 让我们说HTTP🔊——HTTP协议格式解析
 
 <img alt={"HTTP协议格式"} src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
+
+Lab7的实验中我们已经亲自进行了通信协议的设计和实现，不知道你感觉如何？相比我们Socket服务端所使用的协议，Web服务几十年持续演进中扩展的丰富功能显然对协议的表达能力与灵活性提出了极高的要求
+
+HTTP协议不负众望地满足了用户与企业的需求，不仅为我们的日常网页浏览提供了坚实的基础，也在许多场景被用作通用的通讯协议
+
+本章节中，我们将带你了解HTTP协议的整体结构，为接下来实现解析与组装做好准备
 
 ### 2.1 HTTP请求
 
@@ -212,11 +225,13 @@ void connectionHandler(int socket) {
 
 HTTP方法能够有效地表示请求的类型，然而，客户端与服务端双方的细节需求难以用具体的方法完全表达，对于请求本身及其携带的数据，我们也需要更多的属性信息才能高效地解析与应用
 
-对于HTTP协议而言，这一需求是通过**头字段**实现的，HTTP的头字段由键值对(`key: value`)组成，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述：
+本章节中，我们将带你逐步了解一些常见的HTTP头字段，从而对HTTP请求与响应更好地解读与解析
 
 :::info 提示
 以下内容供你学习参考，实验中，你只需要支持必需的**Content-Length**和**Content-Type**字段即可，其他字段可以忽略
 :::
+
+对于HTTP协议而言，请求/响应自身的属性表达通常是通过**头字段**实现的，HTTP的头字段由键值对(`key: value`)组成，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述：
 
 * **资源属性**  如资源的类型、编码方式、最后修改时间等，帮助接收方正确处理接收到的数据
 
@@ -234,15 +249,97 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 
     <MappedCollapse items={negotiationAttrInfo} size={'small'}/>
 
+<IconHeader type="tryout" title="动手试4 分析一个HTTP请求的属性" />
+
+<Tabs className="unique-tabs"  groupId="qa">
+  <TabItem value="一个HTTP请求">
+    ```yaml
+    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    accept-encoding: gzip, deflate, br, zstd
+    accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+    cache-control: max-age=0
+    cookie: cf_clearance=tKTgM....bR5B9S4QIw
+    if-modified-since: Thu, 21 Nov 2024 06:48:58 GMT
+    priority: u=0, i
+    sec-ch-ua: "Microsoft Edge";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+    sec-ch-ua-mobile: ?0
+    sec-ch-ua-platform: "Windows"
+    sec-fetch-dest: document
+    sec-fetch-mode: navigate
+    sec-fetch-site: same-origin
+    sec-fetch-user: ?1
+    upgrade-insecure-requests: 1
+    user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0
+    ```
+  </TabItem>
+  <TabItem value="头字段分析">
+    * Accept: 客户端表示它可以处理HTML、XML和各种图像格式，并且如果这些不可用，可以接受任何类型的资源，但优先级较低
+    * Accept-Encoding: 客户端支持gzip、deflate、br（Brotli）和zstd压缩格式
+    * Accept-Language: 客户端首选简体中文，但也能接受英语，特别是英国英语
+    * Cache-Control: 客户端要求服务器提供新鲜的数据，不使用缓存中的数据
+    * Cookie: 发送名为cf_clearance的cookie，用于会话跟踪
+    * If-Modified-Since: 客户端只请求在此日期之后修改的资源，否则服务器可以返回304 Not Modified响应告知客户端可以直接使用缓存
+    * Priority: 请求的优先级为用户优先级0，重要性级别为“i”
+    * Sec-Ch-UA: 表示浏览器是基于Chromium 131的Microsoft Edge版本131
+    * Sec-Ch-UA-Mobile: 表示设备不是移动设备
+    * Sec-Ch-UA-Platform: 表示操作系统平台是Windows
+    * Sec-Fetch-Dest: 表示请求的资源用于主文档
+    * Sec-Fetch-Mode: 表示请求是导航请求，用于加载新页面
+    * Sec-Fetch-Site: 表示请求与当前页面同源
+    * Sec-Fetch-User: 表示请求是由用户操作发起的
+    * Upgrade-Insecure-Requests: 客户端请求将不安全的HTTP请求升级为HTTPS
+    * User-Agent: 表示浏览器是Microsoft Edge版本131，运行在Windows 10操作系统上
+  </TabItem>
+</Tabs>
+
 在前序步骤中，我们已经将HTTP请求的各部分进行了分离，得到了完全由头字段组成的请求头，由于头字段使用CRLF分隔，你可以将请求头转化为一个`istringstream`，逐个读入直到遇到结尾，即可很方便地将请求头进一步分解为一个个头字段
 
+完成对请求行、请求头、请求正文的处理后，我们就基本完成了对HTTP请求的解析，与我们在Socket实验中的建议类似，你可以编写`HTTPRequest`/`HTTPResponse`两个类，用于结构化地存储请求与响应数据包，并实现相应的序列化与反序列化操作
+
+```cpp
+class HTTPRequest {
+public:
+    HTTPRequest(std::string& is); // Ctor - Parse input string & construct
+    // Getters - Retrive info from object ...
+    const std::string& operator[](const std::string& key) const { } // Optional - Reload [] for easier header fields access ?
+private: // Necessary data elements
+};
+class HTTPResponse {
+public:
+    HTTPResponse(const std::string& version, int code, const std::string& reasonPhrase);
+    // Setters - modify response ...
+    std::string serialize() const; // Serialize to bytestream for send
+    std::string& operator[](const std::string& key) { }  // Optional - Reload [] for easier header fields access & modification ?
+private: // Necessary data elements
+};
+```
+
+通过剥离功能上低相关度的字符串处理代码，我们可以使连接处理函数的逻辑更加清晰：
+
+```cpp
+void getHandler(info, response) { /* modify response obj based on info */ }
+...
+// retrive request and dispach tasks
+void connectionHandler(int socket) {
+    while (!shouldExit) {
+        // receive & parse full HTTP request
+        HTTPRequest request(receivedMsg);
+        HTTPResponse response; // handle request according to method, construct response
+        if (request.getMethod() == "GET") getHandler(info, response);
+        ...
+        // return response & close the connection
+    }
+}
+```
+
 为了检验你对头字段的解析，我们不妨实现一个简单的WebEcho功能，具体步骤如下：
-* 解析头字段，得到`Content-Length`字段的值，并根据该值读入相应长度的正文
+
+* 解析头字段，得到`Content-Length`字段的值，并根据该值读入相应长度的正文（保证由ASCII字母+数字组成）
 * 组装响应数据包，至少要包含`Content-Length`、`Content-Type`字段，且相应字段的值需要正确设置；响应正文为解析到的请求正文的完整内容
 * 返回响应数据包并关闭连接
 
 我们的测试服务对你的WebEcho功能有以下几点要求：
-* 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（可以选择直接忽略，不需要满足相应字段提出的要求），并正常返回响应
+* 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（直接忽略相应字段提出的要求），并正常返回响应
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
 <MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
@@ -257,16 +354,16 @@ Lab7中，我们如果要向特定的主机发送消息，就需要在源客户�
 
 在这个背景下，统一资源标识符URI（Uniform Resource Identifier）应运而生，它为互联网上的资源提供了一种标准化的命名和定位机制，极大地便利了资源的发现与访问过程
 
-URI是一种用于唯一地标识互联网上资源的字符串，它可以指向任何类型的资源，包括文档、图片、视频流、服务入口点等，URI的设计目的是为了确保每个资源在全球范围内都能被唯一识别，根据其功能和结构的不同，URI可以进一步划分为URL和URN两种类型：
+URI是一种用于唯一地标识互联网上资源的字符串，它可以指向任何类型的资源，包括文档、图片、视频流、服务入口点等，URI的设计目的是为了确保每个资源在全球范围内都能被唯一识别，根据其功能和结构的不同，URI中可以进一步划分为URL和URN两种类型：
 
 #### **统一资源定位符URL（Uniform Resource Locator）**
 最常见的URI形式，提供了访问特定资源的路径和方法，URL不仅告诉计算机资源是什么，更重要的是说明了如何找到并获取这个资源，一个典型的URL结构是：`scheme://host[:port]/path?query#fragment`
-- **scheme**：指定访问资源时使用的协议类型，如HTTP、HTTPS、FTP等
+- **scheme**：指定访问资源时使用的协议类型，如`HTTP`、`HTTPS`、`FTP`等
 - **host**：资源所在的主机名或IP地址
-- **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如HTTP默认使用80端口，HTTPS使用443端口
-- **path**：资源在服务器上的具体位置
-- **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现
-- **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过 https://zjucomp.net/docs/Lab8_page#51-uri解析与映射 访问本文档时，可以直接跳转到第5部分
+- **port**：可选字段，指定主机上的端口号，默认情况下，不同的协议会使用不同的端口，例如`HTTP`默认使用`80`端口，`HTTPS`使用`443`端口
+- **path**：资源在服务器上的具体位置，如`path/to/file`
+- **query**：可选字段，用于传递给服务器的查询参数，通常以键值对的形式出现，如`key1=value1&key2=value2`
+- **fragment**：可选字段，用于指示页面内部的一个特定部分或元素，通常用于页面内的导航，比如通过`https://zjucomp.net/docs/Lab8_page#51-uri解析与映射` 访问本文档时，可以直接跳转到第5部分
 
 URL又可以分为绝对URL和相对URL，这和绝对路径/相对路径的差别非常相似，绝对URL指向特定主机上一个特定的资源，而相对URL对于不同的主机可能对应不同的资源，我们在解析请求行中的URI时，实际上得到的是一个相对URL
 
@@ -285,7 +382,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 <img src={require('@site/docs/docs/img/Lab8/image-20241104011024024.png').default} alt="试探扫描示例" style={{zoom: "70%"}} />
 
-实际上，我们的实验文档网站也在受到这样的爆破，高峰情况每小时可达2K次请求（很难理解爆破Cloudflare和Github Pages且被安全策略屏蔽后还在锲而不舍地扫描是怎样一种心态(￣_￣|||)）
+实际上，我们的实验文档网站每天都在受到这样的爆破，高峰时2k请求/小时（很难理解爆破Cloudflare和Github Pages且被安全策略屏蔽后还在锲而不舍地扫描是怎样一种心态(￣_￣|||)）
 
 :::
 
@@ -297,12 +394,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 为了满足自动化测试的需求，请你按照以下表格中的映射关系，对相应资源URL进行映射，我们测试的请求将使用映射后的URL
 
-| 文件路径             | 映射后URL            |
-|------------------|-------------------|
-| /html/test.html  | /index.html       |
-| /html/noimg.html | /index_noimg.html |
-| /txt/test.txt    | /info/server      |
-| /img/logo.jpg    | /assets/logo.jpg  |
+<Table dataSource={uriMap} columns={uriMapColumn} size={'small'} pagination={false}/>
 
 你的服务端应当能够通过一定的方式，从请求行中解析出映射后URL，并反向映射回相应的文件路径
 
@@ -318,26 +410,34 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 <LinkCard title={'HTTP response status codes'} url={'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status'} icon={'https://developer.mozilla.org/favicon-192x192.png'}>{"HTTP response status codes indicate whether a specific HTTP request has been successfully completed."}</LinkCard>
 
-实验中，你需要对请求URL进行验证，如果解析得到的是GET方法，则验证相应文件是否存在；如果解析得到的是POST方法，则验证接口URI是否为`/dopost`，如不匹配，则返回404 Not Found，否则均返回200 OK
+实验中，你需要对请求URL进行验证，如果解析得到的是`GET`方法，则验证相应文件是否存在；如果解析得到的是`POST`方法，则验证接口URI是否为`/dopost`，如不匹配，则返回`404 Not Found`，否则均返回`200 OK`
 
 <MultiTestCard header={"测试4 URI映射测试"} testUri={"/test/lab8/uri-mapping"}/>
 
-我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于GET方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
+我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于`GET`方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
-例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`；`GET /whatever.png HTTP/1.0`的请求，应返回`404 Not Found`，响应正文为空
+例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`；`GET /what.png HTTP/1.0`的请求，应返回`404 Not Found`，响应正文为空
 
 ## 6 具体功能实现
 
 ### 6.1 文件资源访问
 
 对于正确的资源请求，我们需要返回目标资源，同时设置响应头，以指示客户端如何处理该资源，具体来说，分为以下几步：
-* **资源映射**：将请求的URI映射到服务器本地的文件系统路径上，以便定位请求的资源文件。确保映射逻辑符合实验要求，例如 /index.html 映射到 /html/test.html。
-* **文件读取**：使用文件I/O操作读取指定路径上的资源文件。如果文件存在，则将其内容读取到内存中，以便后续进行响应。
+* **资源映射**：将请求的URI映射到服务器本地的文件系统路径上，以便定位请求的资源文件
+* **文件读取**：使用文件I/O操作读取指定路径上的资源文件,如果文件存在，则将其内容读取到内存中，以便后续进行响应
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
 
 <MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab8/resource-retrieve"}/>
 
 我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
+
+:::important 注意
+
+请你在Web服务器访问的`/txt/test.txt`文件、测试框架访问的`/txt/test.txt`文件中留空位置均填入英文姓名、学号，修改需保持一致，否则无法通过测试
+
+如果你想返回包含中文的内容，可能需要注意处理编码问题/添加额外的头字段信息
+
+:::
 
 根据实验报告要求，运行服务器后，请用`netstat -an`显示服务器的监听端口，并截图记录，如果项目过多，可通过`netstat -an | grep [端口号]`进行过滤
 
@@ -353,21 +453,24 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 * **解析POST请求**：从POST请求中解析出请求路径和请求体的内容，验证请求路径是否为`/dopost`，如果不匹配，则返回404 Not Found，响应正文为空
 * **验证登录信息**：从请求正文中，解析用户名`login`和密码`pass`的值，与你在代码中预设的值进行比对验证，你可以将用户名和密码硬编码在服务器代码中，或者通过配置文件进行模拟
-* **构建响应**：响应正文为`<html><body>响应消息内容</body></html> `，根据验证结果，设置响应消息为“登录成功”或“登录失败”
+* **构建响应**：响应正文为`<html><body>响应消息</body></html> `，根据验证结果，设置响应消息为“Login Success”或“Login Failed”
+
+:::tip 如果你想返回包含中文的内容，可能需要注意处理编码问题/添加额外的头字段信息
+:::
 
 <IconHeader type="lab" title="测试6 用户登录测试" />
 
-启用Wireshark捕获，在浏览器中，访问你的Web服务器IP:端口/index.html，在页面中分别输入正确/错误的账号密码，并记录以下内容：
+启用Wireshark捕获，在浏览器中，访问你的`Web服务器IP:端口/index.html`，在页面中分别输入正确/错误的账号密码，并记录以下内容：
 * 页面上显示的提示信息截图
 * Wireshark的TCP流追踪（正确/错误情况分别截图）
 * Wireshark的请求/响应包（正确/错误情况分别截图）
 
 [//]: # (### 6.3 [选做，供体验] API接口实现)
 
-[//]: # ()
+[//]: #
 [//]: # (<Alert message="内容编写中，请稍后再来吧" type="warning" showIcon />)
 
 [//]: # (<br/>)
 <IconHeader type="lab" title="测试7 多线程访问测试" />
 
-打开多个浏览器窗口，同时访问包含图片的HTML文件（Web服务器IP:端口/index.html），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
+打开多个浏览器窗口，同时访问包含图片的HTML文件（`Web服务器IP:端口/index.html`），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
