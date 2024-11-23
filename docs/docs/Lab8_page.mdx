@@ -9,7 +9,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
-import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, uriMap, uriMapColumn, responseCode, responseCodeColumn} from '@site/src/compData/HTTPInfo.js';
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -34,11 +34,10 @@ import TabItem from '@theme/TabItem';
 </Row>
 <br/>
 :::important 提示
-以下指导仅供参考，在满足实验报告中要求的前提下，我们对你的具体实现方式没有要求，你可以自由进行设计与开发
+以下指导仅供参考，除实验报告中具体要求外，我们对具体实现方式没有要求，你可以自由设计与开发，文档内测试仅供你逐步验证实现正确性，评分以报告+代码为准，**对于感觉较简单的步骤可以跳过相应测试**
 
-文档中的测试点仅供你阶段性验证实现的正确性，**如果某些步骤的测试对你而言比较简单，你可以直接跳过相应测试**
+<MultiTestCard header={'快速完整测试'} testUri={'/test/lab8/resource-retrieve'} innerStyle={{marginTop: -20, marginBottom: -20}}/>
 
-为了便于你逐步上手，文档可能不会严格按照相应部分在请求/响应中的位置进行描述
 :::
 
 ## 0 实验目的与意义
@@ -56,17 +55,24 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 <MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} size={'small'} />
 
-<IconHeader type="tryout" title="动手试1 观察自己加载网页使用的HTTP版本" style={{paddingTop: 16}}/>
+对于各个版本的HTTP协议而言，我们使用浏览器用户访问网页的一般流程是：
+* **DNS解析**[本实验不涉及]：当用户在浏览器地址栏输入一个URL时，浏览器首先需要通过DNS解析得到相应服务器IP地址
+* **建立连接**：浏览器根据获得的IP地址和指定的端口号（默认HTTP端口为80，HTTPS端口为443），通过TCP/IP协议（HTTP/3改用QUIC协议）与服务器建立连接
+* **浏览器发送请求**：连接建立后，浏览器会构建HTTP请求报文，通过已建立的连接发送给服务器
+* **服务器处理请求**：服务器接收到请求后，根据请求内容执行相应业务逻辑，如查询数据库、处理表单提交、生成动态页面等，处理完成后构建HTTP响应报文并通过连接返回客户端
+* **关闭连接**：对于HTTP/1.0，每次请求后连接立即关闭，对于HTTP/1.1及后续版本，连接可以保持开启状态，以供后续请求复用，直到所有资源请求完成或连接达到预设的超时时间
 
-参考[开发人员工具使用说明](/docs/Coding/toolchain#5-浏览器开发人员工具使用)打开开发人员工具-网络，选中一个网络请求，查看其版本
+以HTML为基础的网页是Web服务最基础的应用场景，而HTML网页除了本身是一个资源外，也包含了对其他资源（HTML、CSS、JavaScript、图片等）的链接与使用，为了保证网页的正确展示，仅仅请求HTML网页是不够的，浏览器接收到HTML文档后，会立即解析其中的资源链接（如CSS、JavaScript文件和图片等），并发起相应新的HTTP请求来获取这些资源，
+
+<img src={require("./img/Lab8/HTTP_persistent_connection.png").default} alt="HTTP_persistent_connection" style={{zoom: "24%"}} />
+
+对于不同的HTTP协议版本，这一过程的方式会有一些区别：HTTP/1.0每次请求都需要重新建立TCP连接；HTTP/1.1通过持久连接和请求管道化技术，允许在一个TCP连接上发送多对请求-响应，减少了连接建立的时间开销；HTTP/2在此基础上引入了多路复用技术，使得多个请求和响应可以在同一连接上任意交错传输，不需要等待前一对响应传输完成
+
+<IconHeader type="tryout" title="动手试1 观察加载网页过程中的HTTP请求与响应" style={{paddingTop: 16}}/>
+
+参考[开发人员工具使用说明](/docs/Coding/toolchain#5-浏览器开发人员工具使用)打开开发人员工具-网络，刷新页面，观察网络活动列表中的**变化**；从中选中一个网络活动，查看其请求/响应的版本等信息
 
 <img alt={"查看加载网页使用的HTTP版本"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
-
-实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2
-
-<div style={{position: "relative", width:'100%', height: '400px'}}>
-    <iframe style={{position: 'absolute', width: '100%', height: '100%'}} src="https://radar.cloudflare.com/embed/HttpVersionXY?botClass=&chartState=%7B%22showAnnotations%22%3Atrue%2C%22xy.hiddenSeries%22%3A%5B%5D%2C%22xy.highlightedSeries%22%3Anull%2C%22xy.previousVisible%22%3Atrue%7D" title="Cloudflare Radar - HTTP/1.x vs. HTTP/2 vs. HTTP/3" loading="lazy"></iframe>
-</div>
 
 为了方便你上手了解Web服务器的基本运行方式，我们不妨再实现一个“朴素”的Web服务端（相信我，真的很简单），在本步骤中，我们的Web服务端将会支持以下能力：
 
@@ -85,10 +91,7 @@ void connectionHandler(int socket) {
         // construct and provide response
         string response = "HTTP/1.0 200\r\nContent-Length: 12\r\n\r\nHello World!";
 // highlight-end
-        // send response
-        ...
-        // close the connection
-        ...
+        // send response & close the connection
     }
 }
 ```
@@ -160,7 +163,7 @@ void connectionHandler(int socket) {
 
     响应字符串 = `HTTP/1.0 200 OK\r\nConnection: close\r\n\r\n` + 完整请求头 + 完整请求行
 
-    对于响应字符串中拼接的请求头和请求行，你可以自由决定是否要保留其中的CRLF；需要注意的是，你不能移除给定字符串开头中的CRLF
+    响应字符串开头需要与要求完全匹配，而后半部分拼接的请求头和请求行，你可以自由决定是否要保留包含的CRLF
 
 * 完成响应发送后，**关闭连接**
 
@@ -183,15 +186,13 @@ void connectionHandler(int socket) {
 
 你可能已经注意到了——POST方法能携带数据并返回响应，看起来我们提到的其他方法也可以通过POST方法加参数实现。那么，为什么要专门分为这些不同的HTTP方法呢？除了遵守RESTful架构，进行面向资源的标准化设计的目的以外，也有对以下特性的考量：
 
-- **幂等性**：指的是连续多次相同的请求对服务器状态**不会造成额外的影响**。例如，删除某个文件的操作是幂等的，即无论删除请求发送多少次，最终的结果都是该文件在服务器上处于已删除状态，不会导致服务器凭空生成新文件或恢复已删除的文件等“闹鬼”一样的现象。对于不甚可靠的网络环境来说，幂等性尤为重要，因为请求可能会因网络延迟、重试机制等原因而被重复发送。幂等性能够确保数据的**一致性和可预测性**，即使不慎进行了重复操作，也能保证业务的安全进行。
+- **安全性**: 相应方法只表示获取资源信息的意图，不包含任何请求副作用的**意图**，需要注意的是这并不是一种保障，而是责任的划分，使用安全方法的用户不应当为其副作用承担责任
 
-- **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点，以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求。这不仅减少了服务器的负载，还提高了响应速度。例如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态。合理利用缓存可以显著提升用户体验和系统性能。
+- **幂等性**：无错误等意外情况时，多次相同请求无副作用/和单次请求的相同，如，删除某文件的操作无论请求多少次，该文件在服务器都处于删除状态，没有生成新文件等诡异的额外副作用；不甚可靠的网络环境下请求可能会因网络延迟、重试机制等原因而被重复发送，幂等性能确保数据的**一致性和可预测性**
 
+- **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点，以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求，提升用户体验和系统性能；这不仅减少了服务器的负载，还提高了响应速度，如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态
 
-| 方法  | GET/HEAD/OPTION | PUT/DELETE | POST/PATCH |
-|:---:|:---------------:|:----------:|:----------:|
-| 幂等性 |        √        |     √      |     ×      |
-| 缓存  |        √        |     ×      |     ×      |
+<Table dataSource={HTTPMethodAttribute} columns={HTTPMethodAttributeColumn} size={'small'} pagination={false} align={'center'}/>
 
 我们的实验只需要你支持GET和POST两个方法；在前序步骤中，你已经成功解析得到了请求行，相信对请求行的进一步解析对你而言也会非常简单
 
@@ -199,24 +200,18 @@ void connectionHandler(int socket) {
 
 ```cpp
 void getHandler(info, pkt) {}
-void postHandler(info, pkt) {}
 ...
 
-// retrive request and dispach tasks
 void connectionHandler(int socket) {
     while (!shouldExit) {
-        // receive full HTTP request
-        // split request to get each part of HTTP request
+        // receive full HTTP request, split request to get each part of HTTP request
 // highlight-start
         // extract HTTP methods
-        ...
         // handle request according to method, construct response
         if (method == "GET") getHandler(info, pkt);
-        if (method == "POST") postHandler(info, pkt);
         ...
 // highlight-end
-        // return response
-        // close the connection
+        // return response, close the connection
     }
 }
 ```
@@ -231,7 +226,7 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 以下内容供你学习参考，实验中，你只需要支持必需的**Content-Length**和**Content-Type**字段即可，其他字段可以忽略
 :::
 
-对于HTTP协议而言，请求/响应自身的属性表达通常是通过**头字段**实现的，HTTP的头字段由键值对(`key: value`)组成，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述：
+对于HTTP协议而言，请求/响应自身的属性表达通常是通过**头字段**实现的，HTTP的头字段由键值对(`key: value`)组成，**名称不区分大小写**，值区分大小写，键值对之间使用CRLF分隔，一些头字段只能用于请求头或响应头，而另一些头字段则在请求头和响应头均可使用，具体来说，头字段可以描述的属性包括但不限于：
 
 * **资源属性**  如资源的类型、编码方式、最后修改时间等，帮助接收方正确处理接收到的数据
 
@@ -292,7 +287,7 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
   </TabItem>
 </Tabs>
 
-在前序步骤中，我们已经将HTTP请求的各部分进行了分离，得到了完全由头字段组成的请求头，由于头字段使用CRLF分隔，你可以将请求头转化为一个`istringstream`，逐个读入直到遇到结尾，即可很方便地将请求头进一步分解为一个个头字段
+在前序步骤中，我们已经将HTTP请求的各部分进行了分离，得到了完全由头字段组成的请求头，由于头字段使用CRLF分隔，你可以使用`algorithm`头文件提供的`find`逐个找到起始位置，并依次读入处理（键值对的切分与之类似），得到全部头字段
 
 完成对请求行、请求头、请求正文的处理后，我们就基本完成了对HTTP请求的解析，与我们在Socket实验中的建议类似，你可以编写`HTTPRequest`/`HTTPResponse`两个类，用于结构化地存储请求与响应数据包，并实现相应的序列化与反序列化操作
 
@@ -340,11 +335,12 @@ void connectionHandler(int socket) {
 
 我们的测试服务对你的WebEcho功能有以下几点要求：
 * 测试服务可能会随机添加各种头字段，对于不要求支持的字段，你的程序应当能正确处理（直接忽略相应字段提出的要求），并正常返回响应
+* 头字段名称不区分大小写，请求中的名称采用完全随机的大小写，请确保你的程序均能够正常处理
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
 <MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
 
-## 5 东西怎么找？——资源访问处理与响应
+## 5 东西怎么找&送？——资源访问处理与响应
 
 ### 5.1 URI解析与映射
 
@@ -465,12 +461,6 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * Wireshark的TCP流追踪（正确/错误情况分别截图）
 * Wireshark的请求/响应包（正确/错误情况分别截图）
 
-[//]: # (### 6.3 [选做，供体验] API接口实现)
-
-[//]: #
-[//]: # (<Alert message="内容编写中，请稍后再来吧" type="warning" showIcon />)
-
-[//]: # (<br/>)
 <IconHeader type="lab" title="测试7 多线程访问测试" />
 
 打开多个浏览器窗口，同时访问包含图片的HTML文件（`Web服务器IP:端口/index.html`），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）

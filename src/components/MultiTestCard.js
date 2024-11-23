@@ -5,7 +5,7 @@ import IconHeader from "@site/src/components/IconHeader";
 import { CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 
 function MultiTestCard(props) {
-    const {header, testUri, multiThread} = props;
+    const {header, testUri, multiThread, innerStyle} = props;
 
     const [testerServerUrl, setTesterServerUrl] = useState('');
     const [testedServerUrl, setTestedServerUrl] = useState('');
@@ -77,7 +77,7 @@ function MultiTestCard(props) {
     };
 
     return (
-        <div>
+        <div style={innerStyle}>
             <IconHeader type="lab" title={header} />
             <Watermark content={testInfo} gap={[75, 75]} font={{ fontSize: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>

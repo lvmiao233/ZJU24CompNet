@@ -1,15 +1,19 @@
 import axios from 'axios';
 import React from 'react';
-import { Button, notification, Table } from 'antd';
+import { Button, notification, Table, Tag } from 'antd';
 import LinkCard from "@site/src/components/LinkCard";
 import Admonition from '@theme/Admonition';
 
 const HTTPVersions = {
-    "HTTP/0.9": "最早的HTTP协议版本，发布于1991年，只支持GET方法，没有请求头和状态码，也不支持持久连接，只能传输纯文本内容",
-    "HTTP/1.0": "为了满足多媒体等日渐丰富的需求，增加了对多种请求方法的支持，如GET、POST和HEAD\n引入了请求头和响应头，使客户端和服务器间通信更灵活\n引入状态码，允许更复杂的错误处理和报告",
-    "HTTP/1.1": "目前使用最广泛的版本之一。默认开启持久连接，允许在1个TCP连接上发送多个请求和响应，减少连接建立和关闭开销\n引入管道化机制，允许客户端在同一连接上并发发送多个请求（但必须按请求顺序响应，可能导致“队头阻塞”问题）\n支持响应分块、额外的缓存控制机制以及内容协商机制",
-    "HTTP/2": "旨在解决HTTP/1.1中存在的性能瓶颈。使用二进制格式代替文本格式，提高数据传输效率\n实现多路复用，允许多个请求和响应在同一连接上并发进行，消除“队头阻塞”问题\n引入头部压缩技术，减少传输数据量\n支持服务器推送，服务器可以主动向客户端推送资源/提前加载页面内容",
-    "HTTP/3": "HTTP的最新版本，从TCP协议转向QUIC协议（一种基于UDP的多路复用传输协议），旨在解决TCP协议固有的连接建立延迟和拥塞控制等问题\n进一步提高了网络传输性能，特别是在高延迟和不稳定网络环境下",
+    "HTTP/0.9": ["最早的HTTP协议版本，发布于1991年，只支持GET方法，没有请求头和状态码，也不支持持久连接，只能传输纯文本内容",],
+    "HTTP/1.0": ["为了满足多媒体等日渐丰富的需求，增加了对多种请求方法的支持，如GET、POST和HEAD\n引入了请求头和响应头，使客户端和服务器间通信更灵活\n引入状态码，允许更复杂的错误处理和报告",],
+    "HTTP/1.1": ["目前使用最广泛的版本之一。默认开启持久连接，允许在1个TCP连接上发送多个请求和响应，减少连接建立和关闭开销\n引入管道化机制，允许客户端在同一连接上并发发送多个请求（但必须按请求顺序响应，可能导致“队头阻塞”问题）\n支持响应分块、额外的缓存控制机制以及内容协商机制",],
+    "HTTP/2": ["旨在解决HTTP/1.1中存在的性能瓶颈。使用二进制格式代替文本格式，提高数据传输效率\n实现多路复用，允许多个请求和响应在同一连接上并发进行，消除“队头阻塞”问题\n引入头部压缩技术，减少传输数据量\n支持服务器推送，服务器可以主动向客户端推送资源/提前加载页面内容",],
+    "HTTP/3": ["HTTP的最新版本，从TCP协议转向QUIC协议（一种基于UDP的多路复用传输协议），旨在解决TCP协议固有的连接建立延迟和拥塞控制等问题\n进一步提高了网络传输性能，特别是在高延迟和不稳定网络环境下","实际上，我们浏览网页时使用的HTTP版本与客户端-中间网络设备-服务端中每个环节的支持情况都息息相关，尽管HTTP/3带来了各方面的显著优化，但架构的调整也使得互联网尚需时日才能更好地兼容与适配，目前最主流使用的版本仍然是HTTP/2",
+    <div style={{position: "relative", width:'100%', height: '400px'}}>
+        <iframe style={{position: 'absolute', width: '100%', height: '100%'}} src="https://radar.cloudflare.com/embed/HttpVersionXY?botClass=&chartState=%7B%22showAnnotations%22%3Atrue%2C%22xy.hiddenSeries%22%3A%5B%5D%2C%22xy.highlightedSeries%22%3Anull%2C%22xy.previousVisible%22%3Atrue%7D" title="Cloudflare Radar - HTTP/1.x vs. HTTP/2 vs. HTTP/3" loading="lazy"></iframe>
+    </div>
+    ],
 };
 
 const BASE_URL= 'https://demo.zjucomp.net';
@@ -156,14 +160,14 @@ export const securityAttrInfo = {
     "Authorization": "用于向服务器发送身份验证凭证，通常在响应包含 WWW-Authenticate 头字段的401状态码后使用",
     "Access-Control-Allow-Origin": "控制来自哪些域名的请求可以访问资源，是实现跨源资源共享(CORS)的关键，它允许服务器指定一个或多个源，或者使用通配符 * 表示所有源都可以访问",
     "Strict-Transport-Security (HSTS)": "强制浏览器通过HTTPS连接到网站，增加安全性，一旦设置了此头字段，浏览器会在一段时间内自动将所有对该站点的HTTP请求转换为HTTPS请求",
-    "Cookie": "用于在客户端存储少量数据，通常用于会话管理和个性化设置，客户端被指定设置Cookie后，每次请求时都会自动将之前设置的Cookie发送回服务器，服务器即可根据Cookie进行跟踪"
+    "Cookie": "用于在客户端存储少量数据，通常用于会话管理和个性化设置，客户端被指定设置Cookie后，每次请求时都会自动将之前设置的Cookie发送回服务器，服务器即可根据Cookie进行跟踪",
+    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
 }
 export const negotiationAttrInfo = {
     "Accept": "列出客户端可以接受的内容类型，服务端会根据这个列表选择最合适的内容类型进行响应，如，Accept: text/html,application/xhtml+xml 表示客户端优先接受HTML和XHTML内容",
     "Accept-Language": "表示客户端首选的语言，服务端可以据此返回适当语言的内容，如，Accept-Language: en-US,en;q=0.5 表示美国英语是首选语言，但也可以接受其他英语变体",
     "Accept-Encoding": "告知服务端客户端支持的压缩算法，帮助减少传输的数据量，如，Accept-Encoding: gzip, deflate 表示客户端支持gzip和deflate压缩",
     "Accept-Charset": "指示客户端支持的字符集，虽然现代Web开发中较少使用，但在特定情况下仍然有用，如，Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7 表示首选ISO-8859-1字符集，其次是UTF-8",
-    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
     "Connection": "控制当前连接的状态，常见的值有 keep-alive（保持连接）和 close（关闭连接）",
     "User-Agent": ["提供发起请求的客户端的信息，包括浏览器类型、版本、操作系统等，用于服务器进行内容适配或统计分析，如：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0，你可能会注意到这个字段的内容非常复杂难懂，这同样来自兼容性与商业竞争考虑，关于这座屎山的传奇历史，请参考：", <LinkCard url={"https://www.bilibili.com/video/BV1E7421Z7Zb"} title={"为啥所有浏览器都假扮成Mozilla？"} icon={"https://b.bilibili.com/favicon.ico"}>Isword先生</LinkCard>]
 }
@@ -197,6 +201,27 @@ export const uriMapColumn = [
     { title: '文件描述', dataIndex: 'desc', key: 'desc', },
     { title: '文件路径', dataIndex: 'internal_uri', key: 'internal_uri'},
     { title: '映射后URL', dataIndex: 'external_uri', key: 'external_uri'},
+];
+
+const colorRender = (text) => (<Tag color={text === ' √ ' ? 'green' : (text === ' × ' ? 'red' : 'blue')} >{text}</Tag>)
+
+export const HTTPMethodAttribute = [
+    { method: '请求体', GET: '可选', POST: '通常', OPTIONS: '可选', HEAD: '可选', PUT: ' √ ', DELETE: '可选', PATCH: ' √ ' },
+    { method: '响应体', GET: ' √ ', POST: ' √ ', OPTIONS: ' √ ', HEAD: ' × ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' √ ' },
+    { method: '安全性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
+    { method: '幂等性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' × ' },
+    { method: '可缓存', GET: ' √ ', POST: '有时', OPTIONS: ' × ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
+];
+
+export const HTTPMethodAttributeColumn = [
+    { title: '属性', dataIndex: 'method', key: 'method', render: (text) => <span>{text}</span> },
+    { title: 'GET', dataIndex: 'GET', key: 'GET', render: colorRender },
+    { title: 'POST', dataIndex: 'POST', key: 'POST', render: colorRender },
+    { title: 'OPTIONS', dataIndex: 'OPTIONS', key: 'OPTIONS', render: colorRender },
+    { title: 'HEAD', dataIndex: 'HEAD', key: 'HEAD', render: colorRender },
+    { title: 'PUT', dataIndex: 'PUT', key: 'PUT', render: colorRender },
+    { title: 'DELETE', dataIndex: 'DELETE', key: 'DELETE', render: colorRender },
+    { title: 'PATCH', dataIndex: 'PATCH', key: 'PATCH', render: colorRender },
 ];
 
 export default HTTPVersions;
