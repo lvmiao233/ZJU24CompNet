@@ -113,6 +113,13 @@ const config = {
               { label: '延伸阅读', to: '/blog/', },
             ],
           }, {
+            title: '实验资源',
+            items: [
+              { label: 'WireShark', href: 'https://www.wireshark.org/', },
+              { label: 'GNS3', href: 'https://github.com/GNS3/gns3-gui', },
+              { label: '编程实验测试框架', href: 'https://github.com/lvmiao233/NetLabFramework', },
+            ],
+          }, {
             title: '其他课程资源',
             items: [
               { label: '计算机网络课程网站', href: 'http://10.214.0.253/network/exercise/index.php', },
@@ -120,11 +127,11 @@ const config = {
               { label: '浙江大学课程攻略共享计划', href: 'https://github.com/QSCTech/zju-icicles', },
             ],
           }, {
-            title: '实验资源',
+            title: '镜像加速页面',
             items: [
-              { label: 'WireShark', href: 'https://www.wireshark.org/', },
-              { label: 'GNS3', href: 'https://github.com/GNS3/gns3-gui', },
-              { label: '编程实验测试框架', href: 'https://github.com/lvmiao233/NetLabFramework', },
+              { label: 'Github Pages源', href: 'https://zjucomp.net', },
+              { label: 'Cloudflare Page源', href: 'https://cfpage.zjucomp.net', },
+              { label: 'Azure Static Web Page源', href: 'https://purple-sand-0934aaf00.5.azurestaticapps.net', },
             ],
           },
         ],
