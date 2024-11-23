@@ -3,6 +3,9 @@ sidebar_position: 1
 title: 课程解析文档引言
 ---
 
+import MappedCollapse from "@site/src/components/CollapseContent";
+import {NoteChangeLog} from "@site/src/compData/changelog";
+
 :::important 温馨提示
 欢迎通过钉钉/Github Issue等方式反馈文档相关意见建议，或直接修改后提交PR，我们会尽快完善文档的相应部分
 
@@ -17,13 +20,9 @@ title: 课程解析文档引言
 
 ### 2 更新记录
 
-* 2024.10.15 初始化文档
-* 2024.10.17 添加不可变参版本的TCP拥塞控制可视化
-* 2024.10.18 完成TCP拥塞控制可视化
-* 2024.11.09 完成CIDR子网划分计算器
-* 2024.11.12 完成CIDR分组匹配转发模拟
+<MappedCollapse items={NoteChangeLog} size={'small'} />
 
-### 3 进行中工作
+### 3 内容更新计划
 以下内容预计将在近期正式推送上线：
 
 * [x] 数据链路层 Sliding Window Protocols

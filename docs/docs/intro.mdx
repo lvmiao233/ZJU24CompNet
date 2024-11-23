@@ -4,7 +4,8 @@ title: 实验文档引言
 ---
 
 import MappedCollapse from "@site/src/components/CollapseContent";
-import {ChangeLog} from "@site/src/compData/changelog";
+import {DocChangeLog} from "@site/src/compData/changelog";
+import {Tag} from 'antd';
 
 :::important 温馨提示
 
@@ -23,7 +24,14 @@ import {ChangeLog} from "@site/src/compData/changelog";
 
 ## 2 更新记录
 
-<MappedCollapse items={ChangeLog} size={'small'} />
+<ul>
+    <li>2024.11.22 优化Lab8讲解结构与内容，完成文档内容</li>
+    <li>2024.11.21 完成Lab8在线单元测试工具</li>
+    <li>2024.11.20 使用新的公共基础组件，并适配后端新架构 <Tag color='red'>Break Change - 你将需要拉取更新后的测试框架</Tag></li>
+    <li>更多更新记录参见完整更新日志，或直接访问Github仓库<a href="https://github.com/lvmiao233/ZJU24CompNet/commits/main/" target="_blank" style={{textDecoration: 'none'}}>Commit列表</a></li>
+</ul>
+
+<MappedCollapse items={DocChangeLog} size={'small'} />
 
 
 ## 3 内容更新计划
