@@ -113,18 +113,18 @@ const config = {
               { label: '延伸阅读', to: '/blog/', },
             ],
           }, {
-            title: '实验资源',
-            items: [
-              { label: 'WireShark', href: 'https://www.wireshark.org/', },
-              { label: 'GNS3', href: 'https://github.com/GNS3/gns3-gui', },
-              { label: '编程实验测试框架', href: 'https://github.com/lvmiao233/NetLabFramework', },
-            ],
-          }, {
             title: '其他课程资源',
             items: [
               { label: '计算机网络课程网站', href: 'http://10.214.0.253/network/exercise/index.php', },
               { label: '计算机网络朋辈辅学', href: 'https://www.yuque.com/xianyuxuan/coding/network', },
               { label: '浙江大学课程攻略共享计划', href: 'https://github.com/QSCTech/zju-icicles', },
+            ],
+          }, {
+            title: '实验资源',
+            items: [
+              { label: 'WireShark', href: 'https://www.wireshark.org/', },
+              { label: 'GNS3', href: 'https://github.com/GNS3/gns3-gui', },
+              { label: '编程实验测试框架', href: 'https://github.com/lvmiao233/NetLabFramework', },
             ],
           }, {
             title: '镜像加速页面',

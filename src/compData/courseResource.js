@@ -43,6 +43,12 @@ const resourceData = [
     },
     {
         "file_type": "pdf",
+        "name": "BBR拥塞控制算法",
+        "size": "2132938",
+        "link": require('@site/assets/slides/BBR congestion-based congestion control_2016.pdf').default
+    },
+    {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark",
         "size": "2874374",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
