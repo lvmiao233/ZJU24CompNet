@@ -3,78 +3,49 @@ sidebar_position: 1
 title: 实验文档引言
 ---
 
-import LinkCard from '@site/src/components/LinkCard';
+import MappedCollapse from "@site/src/components/CollapseContent";
+import {ChangeLog} from "@site/src/compData/changelog";
 
 :::important 温馨提示
-欢迎通过钉钉/Github Issue等方式反馈文档相关意见建议，或直接修改后提交PR，我们会尽快完善文档的相应部分
 
-如果你撰写或发现了计算机网络相关的知识技术内容，欢迎你以原文档（Md/MDX）或外链形式分享
+本文档是浙江大学 2024-2025学年 秋冬学期《计算机网络》课程 [陆系群老师](https://person.zju.edu.cn/0097159/0.html)教学班的课程文档，由课程助教王信博负责维护
 
-欢迎通过钉钉私聊交流学习过程中遇到的问题，我们将会进一步解释大家遇到的共性问题，并可能增加可视化演示等辅助资料
+欢迎通过钉钉/Github Issue等方式反馈文档相关意见建议/内容需求，或直接修改后提交PR，我们会尽快完善文档的相应部分
+
+如果加载页面时存在困难，请尝试使用其他镜像页面：[Github源](https://zjucomp.net/) / [Cloudflare源](https://cfpage.zjucomp.net/) / [Azure源](https://purple-sand-0934aaf00.5.azurestaticapps.net/)
 :::
 
 ## 1 主要内容
 
-* 实验工具链的安装与配置
-  * Lab1/7-8 Wireshark
-  * Lab2-6 GNS3客户端及VM
-  * Lab7-8 编译工具链配置
-* 实验涉及的原理分析
-* 复杂知识点解析
+信息时代，网络已经成为空气一般的必需品——我们的生活离不开网络，却也因其普及性而忽视了网络运转背后复杂而精妙的实现，缺少获得理解、修复、改造网络经验的机会
 
-我们还提供了Lab7-8的测试框架，供你下载使用，测试自己实现的服务端的功能正确性
-
-<LinkCard title="编程实验测试框架" url="https://github.com/lvmiao233/NetLabFramework"  icon="https://github.githubassets.com/favicons/favicon.svg">
-    {"计算机网络 Lab7-8 测试框架"}
-</LinkCard>
+我们希望借助《计算机网络》课程的探索过程，帮助你在交叉进行的实验与理论教学中自底向上理解计算机网络运转的机理，从对数据流转的最小单元的分析，逐步提升、扩展到大型网络的构建，将理论的记忆与学习转化为生活中可以实际应用的故障排除技巧和方法论，内化为自己实现与创新网络技术的灵感来源
 
 ## 2 更新记录
-* 2024.09.06 上线页面，完成Wireshark安装文档，完成GNS3客户端安装文档，完成术语翻译页面，基本完成首页信息展示
-* 2024.09.07 完成Wireshark使用文档，更新安装文档格式，使用CDN加速网页访问（感谢CloudFlare的免费套餐）
-* 2024.09.10 上线Lab1实验指导，对HTTP抓包部分进行更新，并更新实验报告模板资源
-* 2024.09.13 上线GNS3完整配置教程
-* 2024.09.14 更新链接/文件卡片样式，减少对正文阅读干扰
-* 2024.09.18 更新Chap2/Lab7实验指导
-* 2024.09.19 上线Lab2实验指导，更新实验报告模板资源，上线IOS指令介绍
-* 2024.10.01 修正Lab2内容，上线Lab5以外全部实验报告模板
-* 2024.10.02 上线Lab5实验报告模板，增加术语缩写wiki页面跳转，优化IOS指令介绍格式，实验页添加课件资源，上线Lab3-6实验指导，上线Lab7-8工具配置指导
-* 2024.10.03 上线Angular Commit 信息规范
-* 2024.10.07 上线部分Lab7 实验讲解，首页支持响应式布局，优化移动端阅读体验
-* 2024.10.09 增加协议设计讲解与功能实现讲解
-* 2024.10.10 完成Lab7实验讲解文档，实现Lab7单元测试页面与工具
-* 2024.10.12 完成测试框架配置与使用文档
-* 2024.10.14 更新课件与时间，优化进度展示，上线GNS3功能与设备介绍
-* 2024.10.15 增加知识解析Tab，调整文件夹结构与路由，Typo修复
-* 2024.10.16 文件现在直接托管在网站，减少浙大云盘登录步骤，新增组件
-* 2024.10.22 更新VMWare Workstation资源信息，优化布局空间，初始化Lab8文档，支持Algolia Search（爬虫完成爬取后搜索效果会更好）
-* 2024.10.24 **重要更新**：修正了GNS3安装的版本问题；全局样式优化
-* 2024.10.26 样式与代码优化；添加组件以简化后续文档
-* 2024.10.28 实现Lab8动手体验组件的前后端开发；补全GNS3 Q&A并修正问题
-* 2024.10.29 调整Lab8文档结构和顺序
-* 2024.11.01 将较大文件托管于Cloudflare R2对象存储，提供较浙大云盘更流畅的访问体验;启用强制HTTPS
-* 2024.11.03 完善Lab8内容，完成大部分功能讲解
-* 2024.11.15 基本完成Lab8文档内容
-* 2024.11.19 修正一些Typo；准备测试相关公共基础组件
-* 2024.11.20 **重要更新**：使用新的公共基础组件，并适配后端新架构 [Break Change - 你将需要拉取更新后的测试框架]
-* 2024.11.21 完成Lab8在线单元测试工具
 
-## 3 进行中工作
+<MappedCollapse items={ChangeLog} size={'small'} />
+
+
+## 3 内容更新计划
+
 以下内容预计将在近期正式推送上线：
 - [x] 实验报告模板Markdown版本
-- [x] Wireshark使用文档
-- [x] Wireshark用例延伸阅读
-- [x] GNS3 VM VMware Workstation版本配置
-- [x] GNS3 客户端 自定义终端
-- [x] GNS3 设备介绍
+- [x] Wireshark使用文档 & 用例延伸阅读
+- [x] GNS3 客户端、虚拟机服务端配置与使用
 - [x] Cisco IOS 命令介绍
-- [x] Lab1-6 实验操作步骤文档
-- [x] Lab7-8 编译工具链配置
+- [x] Lab1-8 实验操作步骤文档
+- [x] Lab7-8 开发工具配置与使用&测试页面与工具
 - [x] Commit 信息规范
-- [x] Lab7 实验讲解与设计步骤文档
-- [x] Lab7 单元测试工具
-- [x] Lab7 单元测试页面
-- [x] Lab7-8 测试框架介绍
-- [x] Lab8 实验讲解与设计步骤文档
-- [x] Lab8 单元测试工具
-- [x] Lab8 单元测试页面
-- [ ] VLAN用例延伸阅读
+
+## 4 致谢，贡献与声明
+
+* 感谢[陆系群老师](https://person.zju.edu.cn/0097159/0.html)的指导与建议
+* 课程助教[王信博](https://github.com/lvmiao233)负责了网站开发与文档除另行标注/声明部分内容编写
+* 感谢李乐凡、[@JiepengLab](https://github.com/JiepengLab)、[@ZhengliangDuanfang](https://github.com/ZhengliangDuanfang)对文档的纠错与建议
+* 感谢贾世安、李晟榕、杨景琦、石劲等对文档的测试、反馈与建议
+* 感谢[Cloudflare](https://www.cloudflare.com/zh-cn/)提供的CDN加速/域名解析/对象存储/WAF/静态页面等服务
+* 感谢[Github](https://github.com/)提供的静态页面托管与CI/CD服务
+* 感谢[Algolia](https://www.algolia.com/)提供的文档内搜索引擎服务
+* 感谢[Azure](https://azure.microsoft.com/zh-cn/free/students)提供的静态页面托管额度
+* Lab 1-6 中，文本与图片内容来自浙江大学《计算机网络》课程组提供的实验报告模板
+* 网站使用Meta开源的Docusaurus框架构建，页面内使用了Ant Design/AntV组件用于提供交互与格式化展示
