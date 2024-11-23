@@ -246,7 +246,7 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 
 <IconHeader type="tryout" title="动手试4 分析一个HTTP请求的属性" />
 
-<Tabs className="unique-tabs"  groupId="qa">
+<Tabs defaultValue="一个HTTP请求">
   <TabItem value="一个HTTP请求">
     ```yaml
     accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
@@ -420,7 +420,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 对于正确的资源请求，我们需要返回目标资源，同时设置响应头，以指示客户端如何处理该资源，具体来说，分为以下几步：
 * **资源映射**：将请求的URI映射到服务器本地的文件系统路径上，以便定位请求的资源文件
-* **文件读取**：使用文件I/O操作读取指定路径上的资源文件,如果文件存在，则将其内容读取到内存中，以便后续进行响应
+* **文件读取**：使用文件I/O操作读取指定路径上的资源文件，如果文件存在，则将其内容读取到内存中，以便后续进行响应
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
 
 <MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab8/resource-retrieve"}/>
