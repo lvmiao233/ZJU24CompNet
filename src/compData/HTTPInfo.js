@@ -150,12 +150,26 @@ export const resourceAttrInfo = {
     "Content-Encoding": "为了节约网络带宽，提高弱网环境下的浏览体验，发送方可以对资源进行压缩，并通过该字段指示资源被编码的方式，常见的值包括 gzip 和 deflate，这有助于接收方知道如何解码资源",
     "Last-Modified": "提供资源最后一次被修改的时间，这在条件请求中特别有用，通过HEAD请求发现上次请求内容此时仍未被修改，则不需要重新再加载一次，可以避免不必要的完整资源传输",
 }
+export const resourceAttrExtra = {
+    "Content-Length": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "Content-Type": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "Content-Encoding": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "Last-Modified": <Tag color="green">响应头</Tag>,
+}
+
 export const cacheAttrInfo = {
     "Cache-Control": "允许设定资源的缓存策略，如最大年龄 (max-age)、是否只允许私有缓存 (private)、不允许缓存 (no-cache) 或禁止存储 (no-store)",
     "Expires": "指定了资源过期的具体日期和时间，帮助缓存服务器决定何时重新验证缓存的资源是否是最新版本",
     "Pragma": "主要用于兼容HTTP/1.0的缓存控制，常见的值是 no-cache，用于指示缓存不应使用已有的缓存副本",
     "Vary": "指示缓存服务器在决定是否使用缓存副本时需要考虑的请求头字段，如，如果设置了 Vary: Accept-Encoding，那么对于相同的URL，但具有不同压缩设置的请求，缓存服务器应返回不同的响应"
 }
+export const cacheAttrExtra = {
+    "Cache-Control": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "Expires": <Tag color="green">响应头</Tag>,
+    "Pragma": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "Vary": <Tag color="green">响应头</Tag>
+}
+
 export const securityAttrInfo = {
     "Authorization": "用于向服务器发送身份验证凭证，通常在响应包含 WWW-Authenticate 头字段的401状态码后使用",
     "Access-Control-Allow-Origin": "控制来自哪些域名的请求可以访问资源，是实现跨源资源共享(CORS)的关键，它允许服务器指定一个或多个源，或者使用通配符 * 表示所有源都可以访问",
@@ -163,6 +177,14 @@ export const securityAttrInfo = {
     "Cookie": "用于在客户端存储少量数据，通常用于会话管理和个性化设置，客户端被指定设置Cookie后，每次请求时都会自动将之前设置的Cookie发送回服务器，服务器即可根据Cookie进行跟踪",
     "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
 }
+export const securityAttrExtra = {
+    "Authorization": <Tag color="blue">请求头</Tag>,
+    "Access-Control-Allow-Origin": <Tag color="green">响应头</Tag>,
+    "Strict-Transport-Security (HSTS)": <Tag color="green">响应头</Tag>,
+    "Cookie": <Tag color="blue">请求头</Tag>,
+    "Referer": <Tag color="blue">请求头</Tag>,
+}
+
 export const negotiationAttrInfo = {
     "Accept": "列出客户端可以接受的内容类型，服务端会根据这个列表选择最合适的内容类型进行响应，如，Accept: text/html,application/xhtml+xml 表示客户端优先接受HTML和XHTML内容",
     "Accept-Language": "表示客户端首选的语言，服务端可以据此返回适当语言的内容，如，Accept-Language: en-US,en;q=0.5 表示美国英语是首选语言，但也可以接受其他英语变体",
@@ -170,6 +192,14 @@ export const negotiationAttrInfo = {
     "Accept-Charset": "指示客户端支持的字符集，虽然现代Web开发中较少使用，但在特定情况下仍然有用，如，Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7 表示首选ISO-8859-1字符集，其次是UTF-8",
     "Connection": "控制当前连接的状态，常见的值有 keep-alive（保持连接）和 close（关闭连接）",
     "User-Agent": ["提供发起请求的客户端的信息，包括浏览器类型、版本、操作系统等，用于服务器进行内容适配或统计分析，如：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0，你可能会注意到这个字段的内容非常复杂难懂，这同样来自兼容性与商业竞争考虑，关于这座屎山的传奇历史，请参考：", <LinkCard url={"https://www.bilibili.com/video/BV1E7421Z7Zb"} title={"为啥所有浏览器都假扮成Mozilla？"} icon={"https://b.bilibili.com/favicon.ico"}>Isword先生</LinkCard>]
+}
+export const negotiationAttrExtra = {
+    "Accept": <Tag color="blue">请求头</Tag>,
+    "Accept-Language": <Tag color="blue">请求头</Tag>,
+    "Accept-Encoding": <Tag color="blue">请求头</Tag>,
+    "Accept-Charset": <Tag color="blue">请求头</Tag>,
+    "Connection": <><Tag color="blue">请求头</Tag><Tag color="green">响应头</Tag></>,
+    "User-Agent": <Tag color="blue">请求头</Tag>
 }
 
 export const responseCode = [

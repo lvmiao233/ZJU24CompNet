@@ -9,7 +9,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
-import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, negotiationAttrInfo, resourceAttrInfo, securityAttrInfo, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/compData/HTTPInfo.js';
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, cacheAttrExtra, negotiationAttrInfo, negotiationAttrExtra, resourceAttrInfo, resourceAttrExtra, securityAttrInfo, securityAttrExtra, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/compData/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -104,9 +104,7 @@ void connectionHandler(int socket) {
 
 <img alt={"HTTP协议格式"} src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
 
-Lab7的实验中我们已经亲自进行了通信协议的设计和实现，不知道你感觉如何？相比我们Socket服务端所使用的协议，Web服务几十年持续演进中扩展的丰富功能显然对协议的表达能力与灵活性提出了极高的要求
-
-HTTP协议不负众望地满足了用户与企业的需求，不仅为我们的日常网页浏览提供了坚实的基础，也在许多场景被用作通用的通讯协议
+Lab7的实验中我们已经亲自进行了通信协议的设计和实现，不知道你感觉如何？相比我们Socket服务端所使用的协议，Web服务几十年持续演进中扩展的丰富功能显然对协议的表达能力与灵活性提出了极高的要求，而HTTP协议不负众望地满足了用户与企业的这些需要，不仅为我们的日常网页浏览提供了坚实的基础，也在许多场景被用作通用的通讯协议
 
 本章节中，我们将带你了解HTTP协议的整体结构，为接下来实现解析与组装做好准备
 
@@ -186,11 +184,11 @@ void connectionHandler(int socket) {
 
 你可能已经注意到了——POST方法能携带数据并返回响应，看起来我们提到的其他方法也可以通过POST方法加参数实现。那么，为什么要专门分为这些不同的HTTP方法呢？除了遵守RESTful架构，进行面向资源的标准化设计的目的以外，也有对以下特性的考量：
 
-- **安全性**: 相应方法只表示获取资源信息的意图，不包含任何请求副作用的**意图**，需要注意的是这并不是一种保障，而是责任的划分，使用安全方法的用户不应当为其副作用承担责任
+- **安全性**：相应方法只表示获取资源信息的意图，不包含任何请求副作用的**意图**，需要注意的是这并不是一种保障，而是责任的划分，使用安全方法的用户不应当为其副作用承担责任
 
 - **幂等性**：无错误等意外情况时，多次相同请求无副作用/和单次请求的相同，如，删除某文件的操作无论请求多少次，该文件在服务器都处于删除状态，没有生成新文件等诡异的额外副作用；不甚可靠的网络环境下请求可能会因网络延迟、重试机制等原因而被重复发送，幂等性能确保数据的**一致性和可预测性**
 
-- **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点，以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求，提升用户体验和系统性能；这不仅减少了服务器的负载，还提高了响应速度，如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态
+- **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点（如CDN），以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求，提升用户体验和系统性能；这不仅减少了服务器的负载，还提高了响应速度，如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态
 
 <Table dataSource={HTTPMethodAttribute} columns={HTTPMethodAttributeColumn} size={'small'} pagination={false} align={'center'}/>
 
@@ -230,19 +228,19 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 
 * **资源属性**  如资源的类型、编码方式、最后修改时间等，帮助接收方正确处理接收到的数据
 
-    <MappedCollapse items={resourceAttrInfo} size={'small'}/>
+    <MappedCollapse items={resourceAttrInfo} size={'small'} extras={resourceAttrExtra}/>
 
 * **缓存属性**  指示资源是否能/如何被缓存，从而提高网络性能，优化用户体验
 
-    <MappedCollapse items={cacheAttrInfo} size={'small'}/>
+    <MappedCollapse items={cacheAttrInfo} size={'small'} extras={cacheAttrExtra}/>
 
 * **安全/隐私属性**  如要求身份验证、限制跨域请求等，用于增强用户的安全性和隐私保护
 
-    <MappedCollapse items={securityAttrInfo} size={'small'}/>
+    <MappedCollapse items={securityAttrInfo} size={'small'} extras={securityAttrExtra}/>
 
 * **机制协商**  如接收方的内容类型偏好或处理能力，以便发出方选择最适合的内容进行响应
 
-    <MappedCollapse items={negotiationAttrInfo} size={'small'}/>
+    <MappedCollapse items={negotiationAttrInfo} size={'small'} extras={negotiationAttrExtra}/>
 
 <IconHeader type="tryout" title="动手试4 分析一个HTTP请求的属性" />
 
