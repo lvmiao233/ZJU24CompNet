@@ -131,7 +131,7 @@ const config = {
             items: [
               { label: 'Github Pages源', href: 'https://zjucomp.net', },
               { label: 'Cloudflare Page源', href: 'https://cfpage.zjucomp.net', },
-              { label: 'Azure Static Web Page源', href: 'https://purple-sand-0934aaf00.5.azurestaticapps.net', },
+              { label: 'Azure Static Web Page源', href: 'https://azure.zjucomp.net', },
             ],
           },
         ],
