@@ -21,7 +21,6 @@
     "@docusaurus/plugin-client-redirects": "^3.6.3",
     "@docusaurus/preset-classic": "^3.6.3",
     "@mdx-js/react": "^3.0.0",
-    "@rspack/binding-win32-x64-msvc": "^1.1.4",
     "antd": "^5.16.0",
     "antd-style": "^3.6.1",
     "axios": "^1.7.7",
@@ -34,6 +33,17 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.6.3",
     "@docusaurus/types": "^3.6.3"
+  },
+  "optionalDependencies": {
+    "@rspack/binding-darwin-arm64": "1.1.4",
+    "@rspack/binding-darwin-x64": "1.1.4",
+    "@rspack/binding-linux-arm64-gnu": "1.1.4",
+    "@rspack/binding-linux-arm64-musl": "1.1.4",
+    "@rspack/binding-linux-x64-gnu": "1.1.4",
+    "@rspack/binding-linux-x64-musl": "1.1.4",
+    "@rspack/binding-win32-arm64-msvc": "1.1.4",
+    "@rspack/binding-win32-ia32-msvc": "1.1.4",
+    "@rspack/binding-win32-x64-msvc": "1.1.4"
   },
   "browserslist": {
     "production": [
