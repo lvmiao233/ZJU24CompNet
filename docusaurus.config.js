@@ -144,6 +144,10 @@ const config = {
       },
       docs: { sidebar: { hideable: true, }, },
     }),
+
+  future: {
+    experimental_faster: true,
+  },
 };
 
 export default config;

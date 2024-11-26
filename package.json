@@ -16,10 +16,12 @@
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@antv/g2plot": "^2.4.32",
-    "@docusaurus/core": "^3.5.2",
-    "@docusaurus/plugin-client-redirects": "^3.5.2",
-    "@docusaurus/preset-classic": "^3.5.2",
+    "@docusaurus/core": "^3.6.3",
+    "@docusaurus/faster": "^3.6.3",
+    "@docusaurus/plugin-client-redirects": "^3.6.3",
+    "@docusaurus/preset-classic": "^3.6.3",
     "@mdx-js/react": "^3.0.0",
+    "@rspack/binding-win32-x64-msvc": "^1.1.4",
     "antd": "^5.16.0",
     "antd-style": "^3.6.1",
     "axios": "^1.7.7",
@@ -30,8 +32,8 @@
     "zju-24-comp-net": "file:"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.5.2",
-    "@docusaurus/types": "^3.5.2"
+    "@docusaurus/module-type-aliases": "^3.6.3",
+    "@docusaurus/types": "^3.6.3"
   },
   "browserslist": {
     "production": [
