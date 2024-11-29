@@ -3,7 +3,7 @@ import Heading from '@theme/Heading';
 import { Row, Col, Alert } from 'antd';
 import React, {useEffect, useState} from "react";
 import CourseWorkTable from "@site/src/components/CourseWorkTable";
-import resourceData from "@site/src/compData/courseResource.js";
+import resourceData from "@site/src/data/courseResource.js";
 import FileCard from "@site/src/components/FileCard";
 import IconHeader from "@site/src/components/IconHeader";
 import {
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <div className="container">
             <div style={{margin: isMobile ? '48px 16px' : '48px 48px'}}>
-                <Alert message={<>如需访问实验文档正文内容，请点击左上方Tab-实验文档 或 <Link href="/docs/intro/">点我进行跳转</Link> </>} type="info" showIcon style={{marginBottom: 8}}/>
+                <Alert message={<>如需访问实验文档正文内容，请点击左上方Tab-实验指导 或 <Link href="/docs/intro/">点我进行跳转</Link> </>} type="info" showIcon style={{marginBottom: 8}}/>
                 <IconHeader icon={<AimOutlined/>} title="课程描述" size="h2"/>
                 本课程的主要任务是研究计算机网络相关的基本理论及专业基础知识。
                 本课程从网络体系结构的角度介绍计算机网络的组成原理，以及在数据传输、网络互连和高层协议等方面的主要概念及方法；介绍网络体系中的一些重要功能及相关协议。通过学习，使学生掌握计算机网络的基本理论及专业基础知识，熟悉网络系统（特别是TCP/IP）的体系结构、工作原理及多种网络协议，全面理解各种常见的网络技术。

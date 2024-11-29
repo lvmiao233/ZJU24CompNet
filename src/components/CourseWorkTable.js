@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Badge, Collapse, List, Col, Row} from 'antd';
-import courseWorkData from '@site/src/compData/courseWork.js';
+import courseWorkData from '@site/src/data/courseWork.js';
 
 const { Panel } = Collapse;
 

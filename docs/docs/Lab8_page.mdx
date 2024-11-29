@@ -9,7 +9,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
-import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, cacheAttrExtra, negotiationAttrInfo, negotiationAttrExtra, resourceAttrInfo, resourceAttrExtra, securityAttrInfo, securityAttrExtra, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/compData/HTTPInfo.js';
+import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, cacheAttrExtra, negotiationAttrInfo, negotiationAttrExtra, resourceAttrInfo, resourceAttrExtra, securityAttrInfo, securityAttrExtra, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/data/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -165,7 +165,7 @@ void connectionHandler(int socket) {
 
 * 完成响应发送后，**关闭连接**
 
-<MultiTestCard header={"测试2 测试HTTP请求结构解析"} testUri={"/test/lab8/structure-parse"}/>
+<MultiTestCard header={"测试2 HTTP请求结构解析"} testUri={"/test/lab8/structure-parse"}/>
 
 请在下方输入框中，分别填入测试框架运行地址（如127.0.0.1:5000）、你的Web服务器运行的地址（如127.0.0.1:8080），点击发起测试，观察测试用例通过情况
 
@@ -336,7 +336,7 @@ void connectionHandler(int socket) {
 * 头字段名称不区分大小写，请求中的名称采用完全随机的大小写，请确保你的程序均能够正常处理
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
-<MultiTestCard header={"测试3 测试服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
+<MultiTestCard header={"测试3 服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
 
 ## 5 东西怎么找&送？——资源访问处理与响应
 
@@ -406,7 +406,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 实验中，你需要对请求URL进行验证，如果解析得到的是`GET`方法，则验证相应文件是否存在；如果解析得到的是`POST`方法，则验证接口URI是否为`/dopost`，如不匹配，则返回`404 Not Found`，否则均返回`200 OK`
 
-<MultiTestCard header={"测试4 URI映射测试"} testUri={"/test/lab8/uri-mapping"}/>
+<MultiTestCard header={"测试4 资源URI映射"} testUri={"/test/lab8/uri-mapping"}/>
 
 我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于`GET`方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
@@ -421,7 +421,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * **文件读取**：使用文件I/O操作读取指定路径上的资源文件，如果文件存在，则将其内容读取到内存中，以便后续进行响应
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
 
-<MultiTestCard header={"测试5 资源访问测试"} testUri={"/test/lab8/resource-retrieve"}/>
+<MultiTestCard header={"测试5 资源访问"} testUri={"/test/lab8/resource-retrieve"}/>
 
 我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
 
