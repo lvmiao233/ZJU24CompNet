@@ -84,6 +84,11 @@ const resourceData = [
         "name": "Lab7 基于Socket接口实现自定义协议通信",
         "size": "1967383",
         "link": require('@site/assets/slides/luxq_Socket编程.pdf').default
+    }, {
+        "file_type": "pdf",
+        "name": "Lab8 实现一个轻量级的Web服务器",
+        "size": "2554537",
+        "link": require('@site/assets/slides/Lab8-WebServer.pdf').default
     },
 ];
 
