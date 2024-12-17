@@ -3,6 +3,7 @@ import { Tag } from 'antd';
 export const DocChangeLog = {
     "完整更新日志": [
         <ul>
+            <li>2024.12.17 更新测试信息/课件信息/考试经验等内容</li>
             <li>2024.11.22 优化Lab8讲解结构与内容，完成文档内容</li>
             <li>2024.11.21 完成Lab8在线单元测试工具</li>
             <li>2024.11.20 使用新的公共基础组件，并适配后端新架构 <Tag color='red'>Break Change -
