@@ -46,6 +46,11 @@ const resourceData = [
         "link": require('@site/assets/slides/7_ApplicationLayer.pdf').default
     }, {
         "file_type": "pdf",
+        "name": "8 Network Security",
+        "size": "6362492",
+        "link": require('@site/assets/slides/8_NetworkSecurity.pdf').default
+    }, {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark",
         "size": "2874374",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
