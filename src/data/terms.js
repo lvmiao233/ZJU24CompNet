@@ -42,8 +42,11 @@ const Terms = [
     { term: "RSA", full: "Rivest-Shamir-Adleman", layer: "Network Security", link: "RSA加密演算法", description: "一种公钥加密算法" },
     { term: "AES", full: "Advanced Encryption Standard", layer: "Network Security", link: "高级加密标准", description: "一种对称密钥加密标准" },
     { term: "PSK", full: "Phase Shift Keying", layer: "Physical", link: "相位偏移調變", description: "一种数字调制方案" },
+    { term: "PM", full: "Phase Modulation", layer: "Physical", link: "相位偏移調變", description: "一种数字调制方案，也称PSK" },
     { term: "FSK", full: "Frequency Shift Keying", layer: "Physical", link: "頻率偏移調變", description: "一种数字调制方案" },
+    { term: "FM", full: "Frequency Modulation", layer: "Physical", link: "頻率偏移調變", description: "一种数字调制方案，也称FSK" },
     { term: "ASK", full: "Amplitude Shift Keying", layer: "Physical", link: "幅移键控", description: "一种数字调制方案" },
+    { term: "AM", full: "Amplitude Modulation", layer: "Physical", link: "幅移键控", description: "一种数字调制方案，也称ASK" },
     { term: "QAM", full: "Quadrature Amplitude Modulation", layer: "Physical", link: "正交幅度调制", description: "一种混合幅度和相位调制的方案" },
     { term: "PIM", full: "Protocol Independent Multicast", layer: "Network", link: "独立组播协议", description: "一种组播路由协议" },
     { term: "NRZ", full: "Non-Return to Zero", layer: "Physical", link: "不歸零_(信號)", description: "一种用于表示二进制数据的编码方案" },
@@ -62,7 +65,14 @@ const Terms = [
     { term: "AP", full: "Access Point", layer: "", link: "無線接入點", description: "一种无线网络设备，用于无线设备连接到有线网络" },
     { term: "NAT", full: "Network Address Translation", layer: "Network", link: "网络地址转换", description: "一种用于重写IP地址的技术" },
     { term: "TTL", full: "Time To Live", layer: "Network", link: "存活時間", description: "数据包在网络中存活的时间" },
-    { term: "SAP", full: "Service Access Point", layer: "", link: "無線接入點", description: "网络层的服务访问点" }
+    { term: "SAP", full: "Service Access Point", layer: "", link: "服务接入点", description: "网络层的服务访问点" },
+    { term: "WAN", full: "Wide Area Network", layer: "", link: "廣域網", description: "覆盖广泛地理区域的网络" },
+    { term: "MAN", full: "Metropolitan Area Network", layer: "", link: "城域网", description: "覆盖城市范围的网络" },
+    { term: "WPAN", full: "Wireless Personal Area Network", layer: "", link: "无线个人网", description: "覆盖个人工作空间的无线网络" },
+    { term: "RTT", full: "Round-Trip Time", layer: "", link: "來回通訊延遲", description: "数据包从发送方到接收方再返回发送方的时间" },
+    { term: "PCI", full: "Protocol Control Information", layer: "", link: "協議控制信息", description: "包含在每个PDU中的控制信息" },
+    { term: "DTE", full: "Data Terminal Equipment", layer: "Physical", link: "數據終端設備", description: "数据通信系统中的终端设备" },
+    { term: "DCE", full: "Data Communication Equipment", layer: "Physical", link: "數據通信設備", description: "数据通信系统中的通信设备" },
 ];
 
 export const termColumns = [
