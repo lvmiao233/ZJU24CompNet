@@ -51,6 +51,11 @@ const resourceData = [
         "link": require('@site/assets/slides/8_NetworkSecurity.pdf').default
     }, {
         "file_type": "pdf",
+        "name": "9 课程总览与复习",
+        "size": "3627732",
+        "link": require('@site/assets/slides/ComputerNetworks_overview&summary.pdf').default
+    }, {
+        "file_type": "pdf",
         "name": "Lab1 Wireshark",
         "size": "2874374",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default

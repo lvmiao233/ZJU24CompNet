@@ -47,6 +47,7 @@ export const DocChangeLog = {
 export const NoteChangeLog = {
     "完整更新日志": [
         <ul>
+            <li>2024.12.23 添加全部章节页面</li>
             <li>2024.11.12 完成CIDR分组匹配转发模拟</li>
             <li>2024.11.09 完成CIDR子网划分计算器</li>
             <li>2024.10.18 完成TCP拥塞控制可视化</li>
