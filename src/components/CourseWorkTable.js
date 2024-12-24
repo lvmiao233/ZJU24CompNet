@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Badge, Collapse, List, Col, Row} from 'antd';
+import {Badge, Collapse, List, Col, Row} from 'antd';
 import courseWorkData from '@site/src/data/courseWork.js';
 
 const { Panel } = Collapse;
@@ -33,7 +33,6 @@ const CourseWorkTable = () => (
     <Collapse style={{ marginTop: 12}}>
         {courseWorkData.items.map((item, index) => (
             <Panel header={item.name} key={index.toString()} extra={`共${item.cnt}次  占比${item.ratio}`}>
-                {index === 1 && <Alert message="Quiz时间尚未更新，请以钉钉群通知及网上作业系统为准" type="warning" showIcon style={{marginBottom: 8}}/>}
                 <List itemLayout="vertical" size="small" dataSource={courseWorkData.detail[item.key]} renderItem={renderItem} />
             </Panel>
         ))}
