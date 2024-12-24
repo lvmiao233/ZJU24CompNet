@@ -18,6 +18,7 @@ const Terms = [
     { term: "CDMA", full: "Code Division Multiple Access", layer: "Data Link", link: "分碼多重進接", description: "一种多址接入技术" },
     { term: "FDM", full: "Frequency Division Multiplexing", layer: "Data Link", link: "频分多路复用", description: "一种在同一通道上传输多个信号的技术" },
     { term: "TDM", full: "Time Division Multiplexing", layer: "Data Link", link: "时分多路复用", description: "一种通过时间分割来共享信道的技术" },
+    { term: "STDM", full: "Statistic Time Division Multiplexing", layer: "Data Link", link: "统计时分多路复用", description: "对TDM改进，按需动态分配时隙" },
     { term: "WDM", full: "Wavelength Division Multiplexing", layer: "Data Link", link: "波分复用", description: "一种利用不同波长来携带多个信号的技术" },
     { term: "PPP", full: "Point-to-Point Protocol", layer: "Data Link", link: "点对点协议", description: "用于通过点对点连接进行数据传输" },
     { term: "HDLC", full: "High-Level Data Link Control", layer: "Data Link", link: "高级数据链路控制", description: "一种设计用于同步网络的数据链路层协议" },
@@ -28,6 +29,7 @@ const Terms = [
     { term: "LLC", full: "Logical Link Control", layer: "Data Link", link: "逻辑链路控制", description: "数据链路层的一部分，负责流量控制和服务选择" },
     { term: "CRC", full: "Cyclic Redundancy Check", layer: "Data Link", link: "循環冗餘校驗", description: "用于检测数据传输错误的一种校验方法" },
     { term: "GBN", full: "Go-Back-N", layer: "Data Link", link: "Go-Back-N_ARQ", description: "一种用于可靠数据传输的协议" },
+    { term: "ARQ", full: "Automatic Repeat reQuest", layer: "Data Link", link: "Go-Back-N_ARQ", description: "链路层确认/重传" },
     { term: "BGP", full: "Border Gateway Protocol", layer: "Network", link: "边界网关协议", description: "用于在不同的自治系统之间交换路由信息" },
     { term: "IGP", full: "Interior Gateway Protocol", layer: "Network", link: "内部网关协议", description: "用于在一个自治系统内部交换路由信息" },
     { term: "OSPF", full: "Open Shortest Path First", layer: "Network", link: "开放式最短路径优先", description: "一种链路状态路由协议" },
@@ -73,6 +75,14 @@ const Terms = [
     { term: "PCI", full: "Protocol Control Information", layer: "", link: "協議控制信息", description: "包含在每个PDU中的控制信息" },
     { term: "DTE", full: "Data Terminal Equipment", layer: "Physical", link: "數據終端設備", description: "数据通信系统中的终端设备" },
     { term: "DCE", full: "Data Communication Equipment", layer: "Physical", link: "數據通信設備", description: "数据通信系统中的通信设备" },
+    { term: "IFS", full: "Inter Frame Space", layer: "Data Link", link: "", description: "帧间间隔" },
+    { term: "SIFS", full: "Short Inter Frame Space", layer: "Data Link", link: "", description: "短帧间间隔" },
+    { term: "PIFS", full: "Point Inter Frame Space", layer: "Data Link", link: "", description: "点协调帧间间隔" },
+    { term: "DIFS", full: "Distributed Inter Frame Space", layer: "Data Link", link: "", description: "分布式协调IFS" },
+    { term: "Token", full: "Token", layer: "Data Link", link: "", description: "令牌，令牌传输协议中特殊的控制帧" },
+    { term: "FDDI", full: "Fiber Distributed Data Interface", layer: "Data Link", link: "光纤分布式数据接口", description: "光纤分布数字接口" },
+    { term: "FCS", full: "Frame Check Sequence", layer: "Data Link", link: "帧校验序列", description: "帧校验序列" },
+    { term: "ac hoc", full: "ad hoc", layer: "Data Link", link: "", description: "自组网络" },
 ];
 
 export const termColumns = [
