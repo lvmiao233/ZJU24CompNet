@@ -4,8 +4,17 @@ title: 术语翻译对照
 ---
 import Terms from '@site/src/data/terms.js';
 import { termColumns } from '@site/src/data/terms.js';
+import Trans from '@site/src/data/trans.js';
+import { transColumns } from '@site/src/data/trans.js';
 import { Alert, Table} from 'antd';
 
 <Alert message="点击缩写可跳转至Wikipedia相应页面，如需了解更详细信息，请考虑切换为英文版本页面" type="info" showIcon />
 <br/>
-<Table columns={termColumns} dataSource={Terms} pagination={false} style={{ width: '100%' }}/>
+### 缩写-全称对照
+
+<Table columns={termColumns} dataSource={Terms} pagination={false} style={{ width: '100%' }} size="small"/>
+
+### 术语中英对照
+
+<Table columns={transColumns} dataSource={Trans} pagination={false} style={{ width: '100%' }} size="small"/>
+
