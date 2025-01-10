@@ -11,6 +11,17 @@ import Link from "antd/es/typography/Link";
 
 <Alert message={<>点击<Link href="/docs/terms#英文-中文对照">英文-中文对照</Link>快速跳转至术语部分，点击缩写链接可跳转至Wikipedia相应页面</>} type="info" showIcon/>
 
+### 层级速记
+
+<Alert message={"NAT/ARP采用王道分类方式-最高看到哪层信息则属于哪层"} type="warning" showIcon/>
+
+* 应用层协议：FTP TELNET SMTP DNS TFTP HTTP HTTPS POP3 SNMP SSH BGP IMAP RTP
+* 传输层协议：TCP UDP NAT
+* 网络层协议：IP ICMP IGMP ARP OSPF
+* 数据链路层协议：HDLC PPP Ethernet 802.11
+
+以下表格中，层级用于快速定位章节，不一定是特定协议所属的层级，请注意鉴别
+
 ### 缩写-全称对照
 
 <Table columns={termColumns} dataSource={Terms} pagination={false} style={{ width: '100%' }} size="small"/>
