@@ -83,6 +83,14 @@ const config = {
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
+      announcementBar: {
+        id: 'semester_end',
+        content:
+            '📅2024-2025学年秋冬学期的课程已经结束，如需了解新学期安排与内容，请留意网站后续更新。',
+        backgroundColor: '#fafbfc',
+        textColor: '#091E42',
+        isCloseable: false,
+      },
       navbar: {
         title: '计算机网络课程实验',
         logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
