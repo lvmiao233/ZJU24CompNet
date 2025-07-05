@@ -20,7 +20,7 @@ export const renderItem = (item) => (
             <Col>
                 <Row align="middle">
                     <Col> <span>{item.start}</span> </Col>
-                    <Col> <span style={{ margin: '0 8px' }}> >> </span> </Col>
+                    <Col> <span style={{ margin: '0 8px' }}> {">>"} </span> </Col>
                     <Col> <span>{item.end}</span> </Col>
                 </Row>
             </Col>

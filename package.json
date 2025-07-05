@@ -16,10 +16,10 @@
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@antv/g2plot": "^2.4.32",
-    "@docusaurus/core": "^3.7.0",
-    "@docusaurus/faster": "^3.7.0",
-    "@docusaurus/plugin-client-redirects": "^3.7.0",
-    "@docusaurus/preset-classic": "^3.7.0",
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/faster": "^3.8.1",
+    "@docusaurus/plugin-client-redirects": "^3.8.1",
+    "@docusaurus/preset-classic": "^3.8.1",
     "@mdx-js/react": "^3.0.0",
     "antd": "^5.24.0",
     "antd-style": "^3.6.1",
@@ -31,8 +31,8 @@
     "zju-24-comp-net": "file:"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.7.0",
-    "@docusaurus/types": "^3.7.0"
+    "@docusaurus/module-type-aliases": "^3.8.1",
+    "@docusaurus/types": "^3.8.1"
   },
   "optionalDependencies": {
     "@rspack/binding-darwin-arm64": "1.1.4",
