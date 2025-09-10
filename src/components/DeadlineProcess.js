@@ -56,7 +56,7 @@ const DeadlineProcess = (props) => {
             <div style={containerStyle}>
                 <FieldTimeOutlined style={{ fontSize: 22, marginRight: '4px' }} />
                 <h5 style={headerStyle}>
-                    已超过建议完成时间，请务必在2024-12-29前提交该实验报告与数据
+                    已超过建议完成时间，请务必在2025-12-28前提交该实验报告与数据
                 </h5>
             </div>
             :

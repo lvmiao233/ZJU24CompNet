@@ -27,7 +27,7 @@ export default function Home() {
 
     return (<Layout
         title={`计算机网络 Computer Network`}
-        description="浙江大学 24-25学年秋冬学期计算机网络课程实验网站">
+        description="浙江大学 25-26学年秋冬学期计算机网络课程实验网站">
         <div
             style={{background: `linear-gradient(to bottom, rgba(19, 194, 194, 0.35) 0%, rgba(255, 255, 255, 0.3) 97%, rgba(255, 255, 255, 0.6) 100%)`,}}>
             <div style={{
@@ -55,9 +55,9 @@ export default function Home() {
                     <Col md={24} lg={12}>
                         <IconHeader icon={<FieldTimeOutlined/>} title="课程信息" size="h2"/>
                         <div style={{fontSize: 16}}>
-                            理论课程：周二 3-5节 玉泉教4-310<br/>
-                            实验教学：周二 6-8节 玉泉曹光彪西-304<br/>
-                            实验实践：周二 6-8节 / 周五 6-10节 玉泉曹光彪西-302<br/>
+                            理论课程：周二 3-5节 玉泉教4-306<br/>
+                            实验教学：周二 11-13节 玉泉曹光彪西-304<br/>
+                            实验实践：周二 11-13节 玉泉曹光彪西-302<br/>
                             课程网站：<a
                             href="http://10.214.0.253/network/exercise/index.php">计算机网络课程网站</a>
                         </div>

@@ -9,7 +9,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '计算机网络课程实验文档',
-  tagline: '浙江大学 2024-2025学年 秋冬学期',
+  tagline: '浙江大学 2025-2026学年 秋冬学期',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -86,7 +86,7 @@ const config = {
       announcementBar: {
         id: 'semester_end',
         content:
-            '📅2024-2025学年秋冬学期的课程已经结束，如需了解新学期安排与内容，请留意网站后续更新。',
+            '📅当前显示的课程任务开始与截止时间为预估值，请以作业系统内安排为准，预计1-2周内完成同步',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: false,
@@ -143,7 +143,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} 浙江大学2024年计算机网络课程实验文档。使用 Docusaurus 搭建.`,
+        copyright: `Copyright © ${new Date().getFullYear()} 浙江大学2025年计算机网络课程实验文档。使用 Docusaurus 搭建.`,
       },
       prism: {
         additionalLanguages: ['HTTP'],
