@@ -18,11 +18,17 @@ import Link from "antd/es/typography/Link";
 export default function Home() {
     // const {siteConfig} = useDocusaurusContext();
     const [isMobile, setIsMobile] = useState(false);
+    const [isHydrating, setIsHydrating] = useState(true);
+
     useEffect(() => {
         const handleResize = () => { setIsMobile(window.innerWidth < 768); };
         handleResize(); // 初始检查
         window.addEventListener('resize', handleResize); // 添加事件监听器
         return () => { window.removeEventListener('resize', handleResize); };
+    }, []);
+
+    useEffect(() => {
+        setIsHydrating(false);
     }, []);
 
     return (<Layout
@@ -32,7 +38,7 @@ export default function Home() {
             style={{background: `linear-gradient(to bottom, rgba(19, 194, 194, 0.35) 0%, rgba(255, 255, 255, 0.3) 97%, rgba(255, 255, 255, 0.6) 100%)`,}}>
             <div style={{
                 backgroundPosition: '100% -30%', backgroundRepeat: 'no-repeat', backgroundSize: '274px auto',
-                backgroundImage: "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
+                backgroundImage: "url('/img/index_bkgd.webp')",
                 display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', minHeight: '100%',
             }}
             >
@@ -71,7 +77,10 @@ export default function Home() {
                     </Col>
                 </Row> <br/>
                 <IconHeader icon={<ScheduleOutlined/>} title="考核形式" size="h2"/>
-                <CourseWorkTable/> <br/>
+                <div style={isHydrating ? { height: '200px', overflow: 'hidden' } : { minHeight: '200px' }}>
+                    <CourseWorkTable/>
+                </div>
+                <br/>
                 <IconHeader icon={<FileTextOutlined/>} title="课程课件" size="h2"/>
                 <Row gutter={[16, 4]} justify="space-between">
                     {resourceData.map((item, index) => (
