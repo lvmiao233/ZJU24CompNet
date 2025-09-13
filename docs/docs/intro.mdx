@@ -5,55 +5,50 @@ title: 实验文档引言
 
 import MappedCollapse from "@site/src/components/CollapseContent";
 import {DocChangeLog} from "@site/src/data/changelog";
-import {Tag} from 'antd';
+import {Tag, Alert} from 'antd';
+import Link from "antd/es/typography/Link";
 
-:::important 温馨提示
-
-本文档是浙江大学 2024-2025学年 秋冬学期《计算机网络》课程 [陆系群老师](https://person.zju.edu.cn/0097159/0.html)教学班的课程文档，由课程助教王信博负责维护
-
-欢迎通过钉钉/Github Issue等方式反馈文档相关意见建议/内容需求，或直接修改后提交PR，我们会尽快完善文档的相应部分
-
-如果加载页面时存在困难，请尝试使用其他镜像页面：[Github源](https://zjucomp.net/) / [Cloudflare源](https://cfpage.zjucomp.net/) / [Azure源](https://azure.zjucomp.net/)
-:::
-
-## 1 主要内容
-
-信息时代，网络已经成为空气一般的必需品——我们的生活离不开网络，却也因其普及性而忽视了网络运转背后复杂而精妙的实现，缺少获得理解、修复、改造网络经验的机会
-
-我们希望借助《计算机网络》课程的探索过程，帮助你在交叉进行的实验与理论教学中自底向上理解计算机网络运转的机理，从对数据流转的最小单元的分析，逐步提升、扩展到大型网络的构建，将理论的记忆与学习转化为生活中可以实际应用的故障排除技巧和方法论，内化为自己实现与创新网络技术的灵感来源
-
-## 2 更新记录
-
-<ul>
-    <li>2025.04.19 更新项目基础依赖，增加提醒信息</li>
-    <li>2024.12.17 更新测试信息/课件信息/考试经验等内容</li>
-    <li>2024.11.22 优化Lab8讲解结构与内容，完成文档内容</li>
-    <li>更多更新记录参见完整更新日志，或直接访问Github仓库<a href="https://github.com/lvmiao233/ZJU24CompNet/commits/main/" target="_blank" style={{textDecoration: 'none'}}>Commit列表</a></li>
-</ul>
-
-<MappedCollapse items={DocChangeLog} size={'small'} />
+import LinkCard from '@site/src/components/LinkCard';
+import LinkPeekCard from '@site/src/components/LinkPeekCard';
 
 
-## 3 内容更新计划
+<Alert message={<>本文档是浙江大学 2025-2026学年 秋冬学期《计算机网络》课程 <Link href="[/docs/intro/](https://person.zju.edu.cn/0097159/0.html)">陆系群老师</Link>教学班的课程文档，由课程助教王信博负责维护，欢迎通过钉钉/Github Issue等方式反馈文档相关意见建议/内容需求，或直接修改后提交PR，我们会尽快完善文档的相应部分</>} type="info" showIcon style={{marginBottom: 8}}/>
 
-以下内容预计将在近期正式推送上线：
-- [x] 实验报告模板Markdown版本
-- [x] Wireshark使用文档 & 用例延伸阅读
-- [x] GNS3 客户端、虚拟机服务端配置与使用
-- [x] Cisco IOS 命令介绍
-- [x] Lab1-8 实验操作步骤文档
-- [x] Lab7-8 开发工具配置与使用&测试页面与工具
-- [x] Commit 信息规范
+本文档提供《计算机网络》课程的学习辅助材料与信息，包含课程实验指导、环境配置教学、教学课件及参考资料、知识点可视化等
 
-## 4 致谢，贡献与声明
+按照同学们的反馈，大部分同学（76.92%）偏好于逐步引入实验所需的知识点，因此本学期的实验指导将在现有指导基础上，额外增加详解引导版，你可以任选其一进行学习并完成实验
+
+## 答疑与求助
+
+当你在课程任何内容上遇到问题时，欢迎你随时向助教寻求帮助，请你相信：
+
+* **你的问题并不蠢**：比起问题蠢不蠢，助教更在意是否能通过解决你的问题帮助你真正理解课程内容，与其让助教期末答疑/批改实验时感受风暴，不如在问题还很小时就一起解决
+* **不必担心难以清晰地表达你的问题**：如果你的问题难以描述，你可以尽最大努力描述给助教，助教会努力和你一起探索真正的问题，并帮助你解决
+* **助教没有你想的那么忙**：不要因为担心会打扰助教而放弃提问，你的私信留言助教都会尽量在数小时内回复
+  
+为了最快地解决你的问题，请在提问前注意：
+
+* **直入主题**：请不要问助教“在吗？”（助教人还在，但如果只问在吗助教真的会有点活人微死QwQ），如果有问题，请直接把你的疑惑发给助教，助教会直接为你提供帮助
+* **精确定位**：提供问题位置的精准描述，如：XX实验的XX步进行XX操作时遇到了怎样的问题，这能帮助助教快速了解操作的预期结果及与你观察到结果的差异
+* **状态描述**：请为助教提供你当前状态的全面描述，帮助助教理解你当前所处的系统状态，如：提供你当前的网络拓扑图（尽量包含各接口IP配置），对于Lab5/6还请提供相关设备的配置文件
+* **过程描述**：请描述问题产生/复现的步骤，如果有必要，请描述在此之前你进行的操作
+
+<LinkCard title="提问的艺术" url="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md" icon="https://github.com/favicon.ico">
+    {"Eric Steven Raymond"}
+</LinkCard>
+
+一些更好解决问题的建议：
+
+* **实事求是，以实际情况为准**：实验模板中提供的示例是针对模板配置特定的，由于每个人实际配置的差异，你完成实验时得到的结果往往也不同，只要原理上得到的实际情况符合预期即可
+* **掌握系统真正的状态**：由于手误/遗忘等的存在，许多时候我们可能误认为自己执行了正确的配置，但得到了非预期的结果，这种对系统状态的错误估计会给调试带来巨大的麻烦，如果遇到了难以排查的问题，请先通过检查运行配置等方式，让自己对系统状态的认识和实际情况同步
+
+## 致谢，贡献与声明
 
 * 感谢[陆系群老师](https://person.zju.edu.cn/0097159/0.html)的指导与建议
 * 课程助教[王信博](https://github.com/lvmiao233)负责了网站开发与文档除另行标注/声明部分内容编写
 * 感谢资隽森、李乐凡、[@JiepengLab](https://github.com/JiepengLab)、[@ZhengliangDuanfang](https://github.com/ZhengliangDuanfang)对文档的纠错与建议
-* 感谢贾世安、李晟榕、杨景琦、石劲等对文档的测试、反馈与建议
-* 感谢[Cloudflare](https://www.cloudflare.com/zh-cn/)提供的CDN加速/域名解析/对象存储/WAF/静态页面等服务
-* 感谢[Github](https://github.com/)提供的静态页面托管与CI/CD服务
-* 感谢[Algolia](https://www.algolia.com/)提供的文档内搜索引擎服务
-* 感谢[Azure](https://azure.microsoft.com/zh-cn/free/students)提供的静态页面托管额度
+* 感谢[贾世安](https://github.com/Clinxi)、李晟榕、杨景琦、石劲等对文档的测试、反馈与建议
+* 感谢“计网&操作系统急急急”群中25级同学修读本课程后的反馈与建议
+* 感谢[Cloudflare](https://www.cloudflare.com/zh-cn/)提供的CDN加速/域名解析/对象存储/WAF/静态页面等服务，[Github](https://github.com/)提供的静态页面托管与CI/CD服务，[Algolia](https://www.algolia.com/)提供的文档内搜索引擎服务，[Azure](https://azure.microsoft.com/zh-cn/free/students)提供的静态页面托管额度
 * Lab 1-6 中，文本与图片内容来自浙江大学《计算机网络》课程组提供的实验报告模板
 * 网站使用Meta开源的Docusaurus框架构建，页面内使用了Ant Design/AntV组件用于提供交互与格式化展示
