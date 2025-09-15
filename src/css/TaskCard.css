@@ -1,0 +1,56 @@
+.task-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: hidden; /* Ensures the child corners are also rounded */
+}
+
+.task-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Aligns children to the start and end */
+    padding: 16px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.task-card-title-group {
+    display: flex;
+    align-items: center;
+}
+
+.task-card-icons {
+    display: flex;
+    gap: 8px; /* Adds space between icons */
+    align-items: center;
+}
+
+.task-card-icons .anticon {
+    font-size: 1.4em;
+}
+
+.task-number-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #006d75; /* Theme color */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 12px;
+    flex-shrink: 0; /* Prevents the circle from shrinking */
+}
+
+.task-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.task-card-content {
+    padding: 16px;
+}
