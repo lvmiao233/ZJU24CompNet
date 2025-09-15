@@ -14,7 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.4.0",
+    "@ant-design/icons": "^5.6.1",
     "@antv/g2plot": "^2.4.32",
     "@docusaurus/core": "^3.8.1",
     "@docusaurus/faster": "^3.8.1",

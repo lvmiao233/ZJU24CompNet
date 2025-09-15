@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-title: Lab1 网络协议分析
+sidebar_position: 2
+title: Lab1 精简版本
 ---
 
 
@@ -10,7 +10,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
-<DeadlineProcess start={'2025-09-16 18:50:00'} end={'2025-09-30 23:59:599'}/>
+<DeadlineProcess start={'2025-09-16 18:50:00'} end={'2025-09-30 23:59:59'}/>
 <Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
       <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
       <FileCard file_type={'md'} name={'Lab1 实验报告模板 Markdown版本'} size={'562679'} link={require('@site/assets/templete/md/Lab1 实验报告模板.zip').default} />
@@ -82,7 +82,7 @@ import { Row, Col } from 'antd';
 
    截图参考（此处应替换成实际截获的数据）：
 
-   ![IP层数据包抓取截图](img/Lab1/1.1.jpg)
+   ![IP层数据包抓取截图](img/1.1.jpg)
 
 3. 配置应用显示过滤器，让界面只显示某一协议类型的数据包（输入协议名称）。
 
@@ -141,7 +141,7 @@ import { Row, Col } from 'antd';
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一个）：
 
-  ![DNS数据包抓取截图](img/Lab1/1.2.jpg)
+  ![DNS数据包抓取截图](img/1.2.jpg)
 
 
 :::warning 注意
@@ -165,13 +165,13 @@ import { Row, Col } from 'antd';
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一）：
 
-  ![ARP数据包抓取截图](img/Lab1/1.3.jpg)
+  ![ARP数据包抓取截图](img/1.3.jpg)
 
   分别选择一个ICMP请求和响应数据包，展开最高层协议的详细内容，标出类型、序号。
 
   截图参考（此处应替换成实际截获的数据，请求和响应各一）：
 
-  ![ICMP数据包抓取截图](img/Lab1/1.4.jpg)
+  ![ICMP数据包抓取截图](img/1.4.jpg)
 
 
 
@@ -183,7 +183,7 @@ import { Row, Col } from 'antd';
 
   截图参考（此处应替换成实际截获的数据）：
 
-  ![Tracert数据包抓取截图](img/Lab1/1.5.jpg)
+  ![Tracert数据包抓取截图](img/1.5.jpg)
 
   观察并记录响应包的信息，第一组响应包的发送者IP是：___________，标记ICMP层的类型字段。最后一组响应包的发送者IP是：_______，标记ICMP层的类型字段。附上截图：
 
@@ -191,11 +191,11 @@ import { Row, Col } from 'antd';
 
   * 第一组：
 
-    ![Tracert首响应抓取截图](img/Lab1/1.6.jpg)
+    ![Tracert首响应抓取截图](img/1.6.jpg)
 
   * 最后一组：
 
-    ![Tracert末响应抓取截图](img/Lab1/1.7.jpg)
+    ![Tracert末响应抓取截图](img/1.7.jpg)
 
 
 
@@ -231,9 +231,9 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
    截图参考（此处应替换成实际截获的数据）：
 
-   ![DNS数据包截图](img/Lab1/1_clip_image0021.jpg)
+   ![DNS数据包截图](img/1_clip_image0021.jpg)
 
-   ![HTTP数据包截图](img/Lab1/1_clip_image2.jpg)
+   ![HTTP数据包截图](img/1_clip_image2.jpg)
 
 
 
@@ -259,7 +259,7 @@ HTTPS会对数据进行加密，无法观察到TCP流的情况，因此完成以
 
    截图示例（此处应替换成实际截获的数据）：
 
-   ![HTTP TCP流截图](img/Lab1/1_clip_image002.jpg)
+   ![HTTP TCP流截图](img/1_clip_image002.jpg)
 
 
 
