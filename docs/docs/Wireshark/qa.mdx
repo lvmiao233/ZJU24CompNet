@@ -5,6 +5,15 @@ title: 使用答疑 Q&A
 
 本页面将收集并解答一些Wireshark使用中遇到的问题，欢迎你提问/分享你解决遇到问题的方法
 
+* Windows上，Wireshark安装Npcap时，报错0x8007007e
+  
+  这可能是VMWare Workstation导致的通病，你可以尝试以下步骤：
+
+  * Windows+R打开运行，输入`regedit`打开注册表编辑器
+  * 在左侧找到`HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\`，右键`CLSID`文件夹，选择查找，输入`vmware` 
+  * 查找应该会找到一个名为`{3d09c1ca-2bcc-40b7-b9bb-3f3ec143a87b}`的目录，右键删除它* 
+  * 重启电脑，重新尝试安装
+
 * Lab8可以正常加载网页/图片，完成登录验证，但Wireshark里响应包不能被正常识别为HTTP数据包/解析混乱
 
   部分版本的Wireshark默认启用了TCP reassembly，请在数据包详情栏右键HTTP协议，选择ProtocolPreferences/协议首选项，关闭"Allow subdissector to reassemble TCP streams"
