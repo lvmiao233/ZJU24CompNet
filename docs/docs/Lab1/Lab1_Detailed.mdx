@@ -12,6 +12,8 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col, Input } from 'antd';
 
 import ModernInput from '@site/src/components/ModernInput';
+import ImageUploader from '@site/src/components/ImageUploader';
+import ExportButton from '@site/src/components/ExportButton';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 <DeadlineProcess start={'2025-09-16 18:50:00'} end={'2025-09-30 23:59:59'}/>
@@ -26,6 +28,8 @@ import ModernInput from '@site/src/components/ModernInput';
       <FileCard file_type={'pdf'} name={'Lab1 Wireshark 实验课件'} size={'2874374'} link={require('@site/assets/slides/luxq_Wireshark.pdf').default} />
     </Col>
 </Row>
+
+<ExportButton templatePath={require('@site/assets/base_report/Lab1.zip').default} labName="Lab1" labId="lab1-" />
 
 ## 1 实验目的
 
@@ -55,7 +59,7 @@ Wireshark 是一款免费、开源、功能强大的网络协议分析工具，�
 <details>
 <summary>深入理解：网络协议——实体间的通用语言</summary>
 
-想象一下，互联网就像一个巨大的地球村，村里的居民（也就是我们的电脑、手机、服务器、路由器等网络设备）来自四面八方，为了让大家能顺畅地交流信息，他们需要一套通用的“语言”和“交流规则”，这套规则就是我们所说的**网络协议（Network Protocol）**
+想象一下，互联网就像一个巨大的地球村，村里居民（也就是我们的电脑、手机、服务器、路由器等网络设备）来自四面八方，为了让大家能顺畅地交流信息，他们需要一套通用的“语言”和“交流规则”，这套规则就是我们所说的**网络协议（Network Protocol）**
 
 简单来说，网络协议就是网络中进行数据交换所必须遵循的规则、标准或约定，它确保了不同设备之间能够“听懂”彼此，并正确地发送、接收和处理数据
 
@@ -78,6 +82,8 @@ Wireshark 是一款免费、开源、功能强大的网络协议分析工具，�
 正是有了这成百上千或强大鲁棒或奇奇怪怪的网络协议，信息得以在不同设备间畅通无阻，形成我们今天所依赖的丰富多彩的数字世界
 </details>
 
+<ImageUploader questionId="lab1-ping-screenshot" />
+
 
 1.  打开 Wireshark
 2.  在主界面，你会看到一个网络接口列表（如 “WLAN”、“以太网”），选择你当前正在用于上网的那个接口（通常是流量图表有波动的那个）
@@ -94,7 +100,7 @@ Wireshark 是一款免费、开源、功能强大的网络协议分析工具，�
     
     ![开始与停止捕获](../Wireshark/img/image-20240907002743240.png)
 
-6.  在协议（Protocol）列，捕获到的数据包包含的协议有：<ModernInput size="large"/>（请记录至少5个）
+6.  在协议（Protocol）列，捕获到的数据包包含的协议有：<ModernInput questionId="lab1-q1-protocols" size="large"/>（请记录至少5个）
 
 </TaskCard>
 
@@ -126,9 +132,9 @@ Wireshark 是一款免费、开源、功能强大的网络协议分析工具，�
     *   Transmission Control Protocol / User Datagram Protocol / … (传输层)
     *   应用层协议
 4.  分析：
-    * 这个数据包有<ModernInput size="small"/>层
-    * 最高层的协议是<ModernInput/>
-    * 从Ethernet开始往上，各层协议的名字分别是：<ModernInput size="large"/>
+    * 这个数据包有<ModernInput size="small" questionId="lab1-packet-analysis-layer-count"/>层
+    * 最高层的协议是<ModernInput questionId="lab1-packet-analysis-top-protocol"/>
+    * 从Ethernet开始往上，各层协议的名字分别是：<ModernInput questionId="lab1-q2-protocol-names" size="large"/>
 5.  展开 **Internet Protocol** 层，找到并在图中标出以下信息位置：
     *   源 IP 地址 (Source Address)
     *   目标 IP 地址 (Destination Address)
@@ -155,7 +161,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 *   **捕获过滤器 (Capture Filter)**: **在捕获开始前设置，捕获开始后不可改变**，它告诉 Wireshark “弱水三千，只取一瓢”，只有符合规则的数据包才会被 Wireshark 记录下来，其他的数据包则会被**直接丢弃**
 
     :::note 提示
-    为了实现捕获过滤以尽可能减少内核态向用户态的传输，Linux引入了eBPF（扩展伯克利包过滤器），这一为实现动态调整内核内包过滤逻辑的技术意外开辟了内核可编程化的一条可行技术路线，让我们能在运行时低开销、高灵活地观测与改变内核运行，如果你有相关的需求，不妨了解一下
+    为了实现捕获过滤以尽可能减少内核态向用户态的传输，Linux引入了eBPF（扩展伯克利包过滤器），这一为实现动态调整内核内包过滤逻辑的技术意外开启了内核可编程化的一条可行技术路线，让我们能在运行时低开销、高灵活地观测与改变内核运行，如果你有相关的需求，不妨了解一下
     :::
 
 *   **显示过滤器 (Display Filter)**: **在捕获时/完成后使用，可以随时修改**，它主要用于**已经捕获**到的数据包中筛选出感兴趣的部分，不会改变任何已经捕获的数据，只是改变了它们的显示方式
@@ -172,7 +178,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 2. 按下回车，观察主窗口的变化，现在应该只剩下 DNS 协议的数据包了
 3. 尝试不同的协议，例如 `http`，`arp`，`icmp` 等
 
-**记录数据：** 使用的过滤器：<ModernInput/>，希望显示的协议类型：<ModernInput/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-filter-used-protocol"/>，希望显示的协议类型：<ModernInput questionId="lab1-filter-protocol-type"/>
 
 </TaskCard>
 
@@ -191,7 +197,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 1. 在显示过滤器输入框中，输入 `ip.addr == x.x.x.x`，其中 `x.x.x.x` 替换为数据包列表中你感兴趣的具体IP地址
 2. 按下回车，观察筛选结果
 
-**记录数据：** 使用的过滤器：<ModernInput/>，希望显示的协议类型：<ModernInput/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-filter-used-ip"/>，希望显示的协议类型：<ModernInput questionId="lab1-filter-ip-address"/>
 
 
 </TaskCard>
@@ -207,7 +213,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 > **常用测试IP**：浙江大学DNS `10.10.0.21`，114 DNS `114.114.114.114`，Cloudflare `1.1.1.1`
 
-**记录数据：** 使用的过滤器：<ModernInput/>，希望显示的协议类型：<ModernInput/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-task5-filter"/>，希望显示的协议类型：<ModernInput questionId="lab1-task5-protocol"/>
 
 </TaskCard>
 
@@ -219,13 +225,19 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 > **常用测试协议**：HTTPS `tcp port 443`（访问HTTPS网站使用），HTTP `tcp port 80`（访问HTTP网站使用），DNS `udp port 53`（域名查询使用，如`nslookup baidu.com`）
 
-**记录数据：** 使用的过滤器：<ModernInput/>，希望显示的协议类型：<ModernInput/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-task6-filter"/>，希望显示的协议类型：<ModernInput questionId="lab1-task6-protocol"/>
 
 </TaskCard>
 
 ### 2.2 常见网络协议的交互分析
 
 掌握了 Wireshark 的基本操作后，我们现在可以开始对不同协议的数据包进行分析了，本部分我们将逐个捕捉常用协议的数据包，并观察这些数据包的结构，从数据包内的信息一窥协议的行为与设计
+
+:::important 注意
+
+请在下面的每次捕获任务完成后，保存Wireshark抓包记录（.pcap格式），随报告一起提交，每一个任务一个单独文件（如dns.pcap、ping.pcap、tracert.pcap），请捕获尽可能短的时间，以免文件大小超过系统限制
+
+:::
 
 <TaskCard number={1} title="使用nslookup命令，查询某个域名，并使用Wireshark捕获DNS数据包">
 <details>
@@ -247,6 +259,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 2. **执行 `nslookup` 命令**:
     * 在Windows的`命令提示符`/`PowerShell`中，或macOS/Linux的`Terminal`中，执行 `nslookup www.zju.edu.cn`
     * 命令成功后，回到 Wireshark 停止捕获，你应该能看到几个数据包
+    * 请分析：组成DNS数据包的各层协议分别是：<ModernInput size="large" questionId="lab1-dns-protocols"/>，使用的服务方端口是：<ModernInput questionId="lab1-dns-ports"/>
 3. **分析DNS数据包**：分别选择一个 **DNS Query (查询)** 包和一个 **DNS Response (响应)** 包（分别截图），展开最高层协议 **Domain Name System** 的详细内容，在两个包中分别找到并标记以下关键字段：
     *   **交易ID（Transaction ID）**: 用来匹配一组查询和响应
     *   **查询类型**：用来标记查询的类型，例如 A（IPv4 地址）、AAAA（IPv6 地址）、CNAME（别名）等
@@ -304,9 +317,9 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 4.  **分析捕获到的相关协议数据包**：
     *   Ping 结束后，停止 Wireshark 捕获，你应该能看到一个清晰的过程：先是 ARP 请求与响应，然后是 ICMP 请求与响应
-    *   Ping IP地址时，捕获到的**相关**数据包的协议有：<ModernInput/>
-    *   Ping 域名时，捕获到的**相关**数据包的协议有：<ModernInput/>
-    *   组成ICMP数据包的各层协议有<ModernInput size="large"/>
+    *   Ping IP地址时，捕获到的**相关**数据包的协议有：<ModernInput questionId="lab1-ping-ip-protocols"/>
+    *   Ping 域名时，捕获到的**相关**数据包的协议有：<ModernInput questionId="lab1-ping-domain-protocols"/>
+    *   组成ICMP数据包的各层协议有<ModernInput size="large" questionId="lab1-icmp-layers"/>
 
 5.  **分析 ARP 包**: 选择一个 ARP 请求包和响应包（分别截图），展开 **Address Resolution Protocol** 层，标记：
     * 操作码：请求`request (1)` 或 响应`reply (2)`
@@ -354,14 +367,14 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     *   输入命令 `tracert [IP地址]` 并回车
     *   观察命令输出，它会逐行列出经过的路由器的IP地址以及延迟信息
     *   待运行完成后返回Wireshark停止捕获，在Wireshark的显示过滤器中输入 `icmp`，筛选出与本次追踪相关的数据包
-    *   分析：跟踪路由使用的数据包协议类型是<ModernInput/>，构成数据包的几层协议分别是<ModernInput size="large"/>
-3.  **分析请求包**：观察并记录请求包（请对数据包**列表**截图）中IP协议层的TTL字段变化规律，第一个请求的TTL等于<ModernInput size="small"/>，同样TTL的请求连续发送了<ModernInput size="small"/>个，然后每次TTL增加了<ModernInput size="small"/>，最后一个请求的TTL等于<ModernInput size="small"/>
+    *   分析：跟踪路由使用的数据包协议类型是<ModernInput questionId="lab1-tracert-protocol"/>，构成数据包的几层协议分别是<ModernInput size="large" questionId="lab1-tracert-layers"/>
+3.  **分析请求包**：观察并记录请求包（请对数据包**列表**截图）中IP协议层的TTL字段变化规律，第一个请求的TTL等于<ModernInput size="small" questionId="lab1-tracert-ttl-start"/>，同样TTL的请求连续发送了<ModernInput size="small" questionId="lab1-tracert-ttl-repeats"/>个，然后每次TTL增加了<ModernInput size="small" questionId="lab1-tracert-ttl-increment"/>，最后一个请求的TTL等于<ModernInput size="small" questionId="lab1-tracert-ttl-end"/>
    
     **截图示例**：
 
     ![请求包列表](img/1.5.jpg)
 
-4.  **分析响应包**：观察并记录响应包的信息（截图第一组、最后一组，并分别标记ICMP层的类型字段），第一组响应包的发送者IP是：<ModernInput/>；最后一组响应包的发送者IP是：<ModernInput/>
+4.  **分析响应包**：观察并记录响应包的信息（截图第一组、最后一组，并分别标记ICMP层的类型字段），第一组响应包的发送者IP是：<ModernInput questionId="lab1-tracert-resp-ip-first"/>；最后一组响应包的发送者IP是：<ModernInput questionId="lab1-tracert-resp-ip-last"/>
    
     **第一组截图示例**：
     
@@ -419,16 +432,14 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     网站使用的协议以最终加载为准，即使你将HTTPS网址中的`https://`强制替换为`http://`，仍有可能被服务器强制301重定向到`https://`页面（比如我们的文档网站就启用了[自动HTTPS重写](https://developers.cloudflare.com/ssl/edge-certificates/additional-options/automatic-https-rewrites/#_top)）
     :::
 
-
-
 4.  **分析捕获结果**：
-    * 组成捕获到的DNS协议数据包的各层协议是：<ModernInput size="large" />，选取一个DNS查询数据包截图并标记源/目标IP地址、源/目标端口
+    * 组成捕获到的DNS协议数据包的各层协议是：<ModernInput size="large" questionId="lab1-web-dns-layers"/>，选取一个DNS查询数据包截图并标记源/目标IP地址、源/目标端口
 
         **截图示例：**
 
         ![DNS数据包截图](img/1_clip_image0021.jpg)
 
-    * 组成捕获到的HTTP协议数据包的各层协议是：<ModernInput size="large" />，选取一个HTTP请求数据包截图并标记源/目标IP地址、源/目标端口
+    * 组成捕获到的HTTP协议数据包的各层协议是：<ModernInput size="large" questionId="lab1-web-http-layers"/>，选取一个HTTP请求数据包截图并标记源/目标IP地址、源/目标端口
 
         **截图示例：**
 
@@ -441,14 +452,14 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 除了你的操作，系统后台众多程序运行时的域名查询也可能造成干扰，请认真区分哪些是真正和你打开的网页相关的域名查询
 :::
 
-为了打开网页，浏览器查询的域名有：<ModernInput size="large" />
+为了打开网页，浏览器查询的域名有：<ModernInput size="large" questionId="lab1-web-queried-domains"/>
 
 </TaskCard>
 
 
 <TaskCard number={3} title="分析TCP连接数" needScreenshot={false}>
 
-使用显示过滤器`tcp.stream eq X`，让X从0开始变化，直到没有数据，分析浏览器为了获取网页数据总共建立了<ModernInput size="small" />个连接（一个TCP流对应一个TCP连接）
+使用显示过滤器`tcp.stream eq X`，让X从0开始变化，直到没有数据，分析浏览器为了获取网页数据总共建立了<ModernInput size="small" questionId="lab1-web-tcp-connections"/>个连接（一个TCP流对应一个TCP连接）
 
 </TaskCard>
 
@@ -458,7 +469,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 一个TCP流上可能存在多个HTTP会话
 :::
 
-右键点击某个HTTP数据包，选择跟踪TCP流查看HTTP会话的数据，分析浏览器与WEB服务器之间进行了<ModernInput size="small" />次HTTP会话（一对HTTP请求和响应对应一次HTTP会话）
+右键点击某个HTTP数据包，选择跟踪TCP流查看HTTP会话的数据，分析浏览器与WEB服务器之间进行了<ModernInput size="small" questionId="lab1-web-http-sessions"/>次HTTP会话（一对HTTP请求和响应对应一次HTTP会话）
 
 
 
@@ -477,18 +488,19 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 ## 3 实验结果分析与思考
 
 * 如果只想捕获某个特定WEB服务器IP地址相关的HTTP数据包，捕获过滤器应该怎么写？
-
+    <ModernInput size="exlarge" questionId="lab1-analysis-q1"/>
 
 * Ping发送的是什么类型的协议数据包？什么情况下会出现ARP数据包？ Ping一个域名和Ping一个IP地址出现的数据包有什么不同？
-
+    <ModernInput size="exlarge" questionId="lab1-analysis-q2"/>
 
 * Tracert/Traceroute发送的是什么类型的协议数据包，整个路由跟踪过程是如何进行的？
-
+    <ModernInput size="exlarge" questionId="lab1-analysis-q3"/>
 
 * 如何理解TCP连接和HTTP会话？他们之间存在什么关系？
-
+    <ModernInput size="exlarge" questionId="lab1-analysis-q4"/>
 
 * DNS为什么选择使用UDP协议进行传输？而HTTP为什么选择使用TCP协议？
+    <ModernInput size="exlarge" questionId="lab1-analysis-q5"/>
 
 ## 4 常见问题
 
