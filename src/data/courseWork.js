@@ -18,7 +18,7 @@ const courseWorkData = {
     ],
     detail: [
         [
-            { name: 'Homework 1', start: '2025-09-16 12:00:00', end: '2025-09-26 23:59:00', },
+            { name: 'Homework 1', start: '2025-09-16 14:45:00', end: '2025-09-30 23:00:00', },
             { name: 'Homework 2', start: '2025-09-23 12:00:00', end: '2025-10-07 23:59:00', },
             { name: 'Homework 3', start: '2025-10-07 12:00:00', end: '2025-10-22 23:59:00', },
             { name: 'Homework 4', start: '2025-10-21 12:00:00', end: '2025-11-03 23:59:00', },
