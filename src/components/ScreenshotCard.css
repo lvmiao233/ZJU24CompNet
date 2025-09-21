@@ -1,0 +1,105 @@
+.card {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 4px;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.content {
+  margin-top: 4px;
+}
+
+.referenceImageContainer {
+  overflow: hidden;
+  text-align: center;
+}
+
+.referenceImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.uploadContainer {
+  text-align: center;
+}
+
+.placeholder {
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  padding: 8%;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  color: #8c8c8c;
+}
+
+.placeholder:hover {
+  border-color: #40a9ff;
+}
+
+.uploadedImage {
+  max-width: 100%;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+.toolbar {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dropzone {
+  padding: 20px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: #8c8c8c;
+}
+
+.annotationModal .ant-modal-body {
+  padding: 0;
+}
+
+.annotationContainer {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.annotationToolbar {
+  padding: 12px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.annotationContainer canvas {
+  flex: 1;
+  border: 1px solid #f0f0f0;
+}
