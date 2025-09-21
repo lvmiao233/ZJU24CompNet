@@ -97,6 +97,7 @@
   min-height: 400px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .annotationToolbar {
@@ -108,6 +109,8 @@
   gap: 16px;
   flex-wrap: wrap;
   flex-shrink: 0;
+  width: 100%;
+  align-self: stretch;
 }
 
 .annotationContainer canvas {

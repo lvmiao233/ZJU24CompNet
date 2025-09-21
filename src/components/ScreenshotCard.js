@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
-import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
+import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined } from '@ant-design/icons';
 import { useDropzone } from 'react-dropzone';
 import { Canvas, FabricImage, Line, Rect } from 'fabric';
 import { AnswerContext } from '@site/src/context/AnswerContext';
 import './ScreenshotCard.css';
+
+const PRESET_COLORS = [
+  { name: '红色', value: '#ee0000' },
+  { name: '橙色', value: '#ffc000' },
+  { name: '黄色', value: '#ffff00' },
+  { name: '浅绿色', value: '#92d050' },
+  { name: '绿色', value: '#00b050' },
+  { name: '浅蓝色', value: '#00b0f0' },
+  { name: '蓝色', value: '#0070c0' },
+  { name: '紫色', value: '#7030a0' }
+];
 
 const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
   const [mode, setMode] = useState(children ? 'reference' : uploadOptions[0].id);
@@ -19,6 +30,13 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
   const [annotationTool, setAnnotationTool] = useState(null);
   const annotationToolRef = useRef(null);
   const [strokeColor, setStrokeColor] = useState('#ff0000');
+  const strokeColorRef = useRef('#ff0000');
+  const originalImageRef = useRef(null);
+  const scaleRatioRef = useRef(1);
+
+  useEffect(() => {
+    strokeColorRef.current = strokeColor;
+  }, [strokeColor]);
 
   useEffect(() => {
     if (questionId && images && mode !== 'reference') {
@@ -148,8 +166,36 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
         return;
       }
       
-      // 计算缩放比例，保持图像宽度不超过容器宽度
-      const scale = Math.min(maxWidth / img.width, maxWidth / img.height);
+      // 保存原始图片信息
+      originalImageRef.current = {
+        width: img.width,
+        height: img.height,
+        element: img
+      };
+      
+      // 响应式计算最大显示尺寸
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      
+      // 基于屏幕大小和容器大小计算合理的最大显示尺寸
+      const maxDisplayWidth = Math.min(
+        maxWidth * 0.9,                    // 容器宽度的90%
+        viewportWidth * 0.8,               // 视口宽度的80%
+        Math.max(600, viewportWidth * 0.8) // 最小600px，或视口宽度的60%
+      );
+      
+      const maxDisplayHeight = Math.min(
+        viewportHeight * 0.7,              // 视口高度的60%
+        Math.max(400, viewportHeight * 0.7) // 最小400px，或视口高度的50%
+      );
+      
+      const scale = Math.min(
+        maxDisplayWidth / img.width, 
+        maxDisplayHeight / img.height,
+        maxWidth / img.width // 还要考虑容器限制
+      );
+      
+      scaleRatioRef.current = scale;
       const canvasWidth = img.width * scale;
       const canvasHeight = img.height * scale;
       
@@ -200,7 +246,7 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
           let shape;
           if (currentTool === 'line') {
               shape = new Line([origX, origY, origX, origY], {
-                  stroke: strokeColor,
+                  stroke: strokeColorRef.current,
                   strokeWidth: 2,
                   selectable: false, // 绘图时不可选择
                   evented: false,    // 绘图时不响应事件
@@ -213,7 +259,7 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
                   originY: 'top',
                   width: 0,
                   height: 0,
-                  stroke: strokeColor,
+                  stroke: strokeColorRef.current,
                   strokeWidth: 2,
                   fill: 'transparent',
                   selectable: false, // 绘图时不可选择
@@ -285,7 +331,7 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
     }).catch((error) => {
       console.error('Error loading image:', error);
     });
-  }, [uploadedImage, annotationTool, strokeColor]);
+  }, [uploadedImage, annotationTool]);
 
   const deleteSelectedObject = () => {
     const canvas = fabricCanvasRef.current;
@@ -296,13 +342,90 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
 
   const saveAnnotation = () => {
     const canvas = fabricCanvasRef.current;
-    if (canvas) {
-      const canvasElement = canvas.toCanvasElement();
-      canvasElement.toBlob((blob) => {
-        handleFileAccept([blob]);
-        setAnnotationModalVisible(false);
-      });
+    const originalImage = originalImageRef.current;
+    const currentScale = scaleRatioRef.current;
+    
+    if (!canvas || !originalImage) {
+      console.error('Canvas or original image not available');
+      return;
     }
+
+    // 创建原始尺寸的临时Canvas
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = originalImage.width;
+    tempCanvas.height = originalImage.height;
+    
+    const fabricTempCanvas = new Canvas(tempCanvas, {
+      width: originalImage.width,
+      height: originalImage.height,
+      backgroundColor: '#ffffff'
+    });
+
+    // 重新加载原始尺寸的背景图片
+    FabricImage.fromURL(uploadedImage).then((bgImg) => {
+      // 设置背景图片为原始尺寸（不缩放）
+      bgImg.set({
+        left: 0,
+        top: 0,
+        selectable: false,
+        evented: false
+      });
+      
+      fabricTempCanvas.set('backgroundImage', bgImg);
+
+      // 复制所有标注对象到临时Canvas，按比例放大
+      const objects = canvas.getObjects();
+      const scaleFactor = 1 / currentScale; // 放大倍数
+
+      objects.forEach((obj) => {
+        let clonedObj;
+        
+        if (obj.type === 'line') {
+          clonedObj = new Line([
+            obj.x1 * scaleFactor,
+            obj.y1 * scaleFactor,
+            obj.x2 * scaleFactor,
+            obj.y2 * scaleFactor
+          ], {
+            stroke: obj.stroke,
+            strokeWidth: Math.max(2, obj.strokeWidth * scaleFactor),
+            selectable: true,
+            evented: true,
+          });
+        } else if (obj.type === 'rect') {
+          clonedObj = new Rect({
+            left: obj.left * scaleFactor,
+            top: obj.top * scaleFactor,
+            width: obj.width * scaleFactor,
+            height: obj.height * scaleFactor,
+            stroke: obj.stroke,
+            strokeWidth: Math.max(2, obj.strokeWidth * scaleFactor),
+            fill: obj.fill,
+            selectable: true,
+            evented: true,
+          });
+        }
+        
+        if (clonedObj) {
+          fabricTempCanvas.add(clonedObj);
+        }
+      });
+
+      fabricTempCanvas.renderAll();
+
+      // 导出高分辨率图片
+      setTimeout(() => {
+        const tempCanvasElement = fabricTempCanvas.toCanvasElement();
+        tempCanvasElement.toBlob((blob) => {
+          handleFileAccept([blob]);
+          setAnnotationModalVisible(false);
+          // 清理临时Canvas
+          fabricTempCanvas.dispose();
+        });
+      }, 100);
+    }).catch((error) => {
+      console.error('Error creating high-res canvas:', error);
+    });
   };
 
   const generateSegmentedOptions = () => {
@@ -417,11 +540,29 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
                     <Button icon={<BorderOutlined />} onClick={() => handleAnnotationToolChange('rect')} type={annotationTool === 'rect' ? 'primary' : 'default'} />
                 </Tooltip>
                 <Tooltip title="选择模式">
-                    <Button onClick={() => handleAnnotationToolChange(null)} type={!annotationTool ? 'primary' : 'default'}>选择</Button>
+                    <Button icon={<AimOutlined />} onClick={() => handleAnnotationToolChange(null)} type={!annotationTool ? 'primary' : 'default'}>选择元素</Button>
                 </Tooltip>
-                <ColorPicker value={strokeColor} onChange={(color) => setStrokeColor(color.toHexString())} />
-                <Tooltip title="删除选中">
-                    <Button icon={<DeleteOutlined />} onClick={deleteSelectedObject} danger />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    {PRESET_COLORS.map((color) => (
+                        <Tooltip key={color.value} title={color.name}>
+                            <div
+                                style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    backgroundColor: color.value,
+                                    border: strokeColor === color.value ? '2px solid #333' : '1px solid #ccc',
+                                    borderRadius: '3px',
+                                    cursor: 'pointer',
+                                    boxSizing: 'border-box'
+                                }}
+                                onClick={() => setStrokeColor(color.value)}
+                            />
+                        </Tooltip>
+                    ))}
+                    <ColorPicker value={strokeColor} onChange={(color) => setStrokeColor(color.toHexString())} />
+                </div>
+                <Tooltip title="删除选中的元素">
+                    <Button icon={<DeleteOutlined />} onClick={deleteSelectedObject} danger>删除元素</Button>
                 </Tooltip>
                 <Button icon={<SaveOutlined />} onClick={saveAnnotation} type="primary" style={{ marginLeft: 'auto' }}>
                     保存

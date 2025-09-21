@@ -56,7 +56,7 @@ const AnswerProvider = ({ children }) => {
             ...prevImages,
             [id]: imageBlob
         }));
-        console.log('Image saved successfully to context:', id);
+        // console.log('Image saved successfully to context:', id);
     }).catch(error => {
         console.error('Failed to save image to IndexedDB', error);
         throw error; // 重新抛出错误以便调用者处理

@@ -36,12 +36,45 @@ const ExportButton = ({ templatePath, labName, labId }) => {
         return new Blob([u8arr], {type:mime});
       }
 
-      // 3. Get all data (text answers and images) and filter by labId
+      // Helper to generate replacement key (remove -default suffix)
+      const getReplacementKey = (imageId) => {
+        return imageId.endsWith('-default') 
+          ? imageId.slice(0, -8) // Remove "-default" (8 characters)
+          : imageId;
+      };
+
+      // Helper to process image data (Blob or data URL)
+      const processImageData = (imageData) => {
+        if (imageData instanceof Blob) {
+          // Direct Blob - get extension from MIME type
+          const mimeType = imageData.type || 'image/png';
+          const fileExtension = mimeType.split('/')[1] || 'png';
+          return {
+            blob: imageData,
+            fileExtension
+          };
+        } else if (typeof imageData === 'string' && imageData.startsWith('data:')) {
+          // Data URL string - convert to Blob
+          const fileExtension = imageData.split(';')[0].split('/')[1] || 'png';
+          const blob = dataURLtoBlob(imageData);
+          return {
+            blob,
+            fileExtension
+          };
+        } else {
+          // Fallback for unexpected formats
+          console.warn('Unexpected image data format:', typeof imageData);
+          return null;
+        }
+      }
+
+      // 3. Get all data (text answers and images) and filter by labId (case-insensitive)
       const allImages = await getAllImages();
+      const labIdUpper = labId.toUpperCase();
       
-      const filteredImages = allImages.filter(image => image.id.startsWith(labId));
+      const filteredImages = allImages.filter(image => image.id.toUpperCase().startsWith(labIdUpper));
       const filteredAnswers = Object.keys(answers)
-        .filter(key => key.startsWith(labId))
+        .filter(key => key.toUpperCase().startsWith(labIdUpper))
         .reduce((obj, key) => {
           obj[key] = answers[key];
           return obj;
@@ -49,21 +82,42 @@ const ExportButton = ({ templatePath, labName, labId }) => {
 
       const allData = { ...filteredAnswers };
 
+      // console.log(`导出处理：labId: ${labId} (转换为大写: ${labIdUpper})`);
+      // console.log(`所有图片 (${allImages.length}):`, allImages.map(img => img.id));
+      // console.log(`过滤后图片 (${filteredImages.length}):`, filteredImages.map(img => img.id));
+      // console.log(`过滤后答案:`, Object.keys(filteredAnswers));
+      // filteredImages.forEach(img => console.log(`图片ID: ${img.id}, 数据类型:`, typeof img.data, img.data instanceof Blob ? 'Blob' : 'Other'));
+
       for (const image of filteredImages) {
         try {
-            const imageBlob = dataURLtoBlob(image.data);
-            const fileExtension = image.data.split(';')[0].split('/')[1] || 'png';
+            const processResult = processImageData(image.data);
+            
+            if (!processResult) {
+                console.error(`无法处理图片 ${image.id}: 不支持的数据格式`);
+                const replacementKey = getReplacementKey(image.id);
+                allData[replacementKey] = `[图片格式不支持: ${image.id}]`;
+                continue;
+            }
+
+            const { blob, fileExtension } = processResult;
             const imageName = `${image.id}.${fileExtension}`;
             
-            imgFolder.file(imageName, imageBlob);
+            imgFolder.file(imageName, blob);
+            
+            // Generate the key for replacement - remove "-default" suffix if present
+            const replacementKey = getReplacementKey(image.id);
             
             // For replacement, we create a markdown image link
-            allData[image.id] = `![${image.id}](./img/${imageName})`;
+            allData[replacementKey] = `![${replacementKey}](./img/${imageName})`;
+            // console.log(`成功处理图片: ${image.id} -> ${imageName}, 替换key: ${replacementKey}`);
         } catch (e) {
             console.error(`处理图片 ${image.id} 失败:`, e);
-            allData[image.id] = `[图片加载失败: ${image.id}]`;
+            const replacementKey = getReplacementKey(image.id);
+            allData[replacementKey] = `[图片加载失败: ${image.id}]`;
         }
       }
+
+      // console.log(`最终用于替换的数据keys:`, Object.keys(allData));
 
       // 4. Replace placeholders in markdown files
       const promises = [];
@@ -71,16 +125,20 @@ const ExportButton = ({ templatePath, labName, labId }) => {
         if ((zipEntry.name.endsWith('.md') || zipEntry.name.endsWith('.txt')) && !zipEntry.name.startsWith('__MACOSX/')) {
           const promise = zipEntry.async('string').then(content => {
             let newContent = content;
-            // Replace text answers and image links
+            // Replace text answers and image links (case-insensitive)
             for (const key in allData) {
-              // Handle both {{key}} and {{image:key}}
-              const textPlaceholder = `{{${key}}}`;
-              const imagePlaceholder = `{{image:${key}}}`;
-              newContent = newContent.replace(new RegExp(textPlaceholder, 'g'), allData[key]);
-              newContent = newContent.replace(new RegExp(imagePlaceholder, 'g'), allData[key]);
+              // Escape special regex characters in key
+              const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              
+              // Handle both {{key}} and {{image:key}} with case-insensitive matching
+              const textPlaceholderRegex = new RegExp(`\\{\\{${escapedKey}\\}\\}`, 'gi');
+              const imagePlaceholderRegex = new RegExp(`\\{\\{image:${escapedKey}\\}\\}`, 'gi');
+              
+              newContent = newContent.replace(textPlaceholderRegex, allData[key]);
+              newContent = newContent.replace(imagePlaceholderRegex, allData[key]);
             }
-            // Replace any remaining lab-specific placeholders with "未作答"
-            const unansweredPlaceholderRegex = new RegExp(`\{\{(image:)?${labId}.*?\}\}`, 'g');
+            // Replace any remaining lab-specific placeholders with "未作答" (case-insensitive)
+            const unansweredPlaceholderRegex = new RegExp(`\{\{(image:)?${labId}.*?\}\}`, 'gi');
             newContent = newContent.replace(unansweredPlaceholderRegex, '未作答');
             
             zip.file(zipEntry.name, newContent);
