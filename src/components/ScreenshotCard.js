@@ -66,6 +66,12 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
     noClick: true,
   });
 
+  const { getRootProps: getMainRootProps, getInputProps: getMainInputProps, isDragActive: isMainDragActive } = useDropzone({
+    onDrop,
+    accept: { 'image/*': [] },
+    noClick: true,
+  });
+
   const handlePaste = useCallback(async (event) => {
     const items = event.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
@@ -328,7 +334,13 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
         {uploadedImage ? (
           <img src={uploadedImage} alt="已上传" className="uploadedImage" />
         ) : (
-          <div className="placeholder" onClick={() => setUploadModalVisible(true)}>
+          <div 
+            {...getMainRootProps({ 
+              className: `placeholder ${isMainDragActive ? 'drag-active' : ''}`,
+              onClick: () => setUploadModalVisible(true)
+            })}
+          >
+            <input {...getMainInputProps()} />
             点击或拖拽文件到此区域上传
           </div>
         )}

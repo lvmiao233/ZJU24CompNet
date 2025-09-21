@@ -62,6 +62,11 @@
   border-color: #40a9ff;
 }
 
+.placeholder.drag-active {
+  border-color: #1890ff;
+  background-color: #f6ffed;
+}
+
 .uploadedImage {
   max-width: 100%;
   border-radius: 4px;
