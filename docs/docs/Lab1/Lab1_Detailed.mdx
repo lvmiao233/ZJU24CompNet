@@ -14,6 +14,7 @@ import { Row, Col, Input } from 'antd';
 import ModernInput from '@site/src/components/ModernInput';
 import ImageUploader from '@site/src/components/ImageUploader';
 import ExportButton from '@site/src/components/ExportButton';
+import ScreenshotCard from '@site/src/components/ScreenshotCard';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 <DeadlineProcess start={'2025-09-16 18:50:00'} end={'2025-09-30 23:59:59'}/>
@@ -140,10 +141,15 @@ Wireshark 是一款免费、开源、功能强大的网络协议分析工具，�
     *   源 MAC 地址 (Source)
     *   目标 MAC 地址 (Destination)
 
-**截图参考:**
-
-![IP层数据包抓取截图](img/1.1.jpg)
-
+<ScreenshotCard 
+  questionId="Lab1-p1-s2"
+  title="IP层数据包抓取截图参考"
+  uploadOptions={[
+    { id: 'ip', label: '上传并标记截图' }
+  ]}
+>
+    ![IP层数据包抓取截图](img/1.1.jpg)
+</ScreenshotCard>
 
 </TaskCard>
 
@@ -178,6 +184,8 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 **记录数据：** 使用的过滤器：<ModernInput questionId="lab1-filter-used-protocol"/>，希望显示的协议类型：<ModernInput questionId="lab1-filter-protocol-type"/>
 
+<ScreenshotCard questionId="Lab1-p1-s3"/>
+
 </TaskCard>
 
 <TaskCard number={4} title="配置应用显示过滤器，让界面只显示某个IP地址的数据包">
@@ -195,8 +203,9 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 1. 在显示过滤器输入框中，输入 `ip.addr == x.x.x.x`，其中 `x.x.x.x` 替换为数据包列表中你感兴趣的具体IP地址
 2. 按下回车，观察筛选结果
 
-**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-filter-used-ip"/>，希望显示的协议类型：<ModernInput questionId="lab1-filter-ip-address"/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-filter-used-ip"/>，希望显示的IP地址：<ModernInput questionId="lab1-filter-ip-address"/>
 
+<ScreenshotCard questionId="Lab1-p1-s4"/>
 
 </TaskCard>
 
@@ -211,7 +220,9 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 > **常用测试IP**：浙江大学DNS `10.10.0.21`，114 DNS `114.114.114.114`，Cloudflare `1.1.1.1`
 
-**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-task5-filter"/>，希望显示的协议类型：<ModernInput questionId="lab1-task5-protocol"/>
+**记录数据：** 使用的过滤器：<ModernInput questionId="lab1-task5-filter"/>，希望捕获的IP地址：<ModernInput questionId="lab1-task5-protocol"/>
+
+<ScreenshotCard questionId="Lab1-p1-s5"/>
 
 </TaskCard>
 
@@ -224,6 +235,8 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 > **常用测试协议**：HTTPS `tcp port 443`（访问HTTPS网站使用），HTTP `tcp port 80`（访问HTTP网站使用），DNS `udp port 53`（域名查询使用，如`nslookup baidu.com`）
 
 **记录数据：** 使用的过滤器：<ModernInput questionId="lab1-task6-filter"/>，希望显示的协议类型：<ModernInput questionId="lab1-task6-protocol"/>
+
+<ScreenshotCard questionId="Lab1-p1-s6"/>
 
 </TaskCard>
 
@@ -264,7 +277,18 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     *   **Queries (查询内容)**: 你想要查询的域名
     *   **Answers (应答内容)**: 服务器返回的 IP 地址
 
-    ![DNS数据包](img/1.2.jpg)
+    <!-- ![DNS数据包](img/1.2.jpg) -->
+
+    <ScreenshotCard 
+    questionId="Lab1-p2-s1"
+    title="DNS查询包截图示例"
+    uploadOptions={[
+        { id: 'query', label: '上传查询包截图' },
+        { id: 'response', label: '上传响应包截图' }
+    ]}
+    >
+        ![DNS数据包](img/1.2.jpg)
+    </ScreenshotCard>
 
 </TaskCard>
 
@@ -294,11 +318,7 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     具体来说，请搜索Windows安全中心，进入防火墙和网络保护，将各个网络的防火墙逐个关闭
     :::
 
-
-
 </details>
-
-
 
 :::warning 注意
 为了避免大量ARP包在网络中造成拥塞，绝大多数系统都实现了ARP表缓存过去的ARP查询，因此为了确保能捕获到 ARP 包，我们将必须在 Ping 之前清空 ARP 缓存，并赶在其他网络流量触发ARP请求前发送 Ping 命令，否则当缓存中已有记录时系统将不会发送 ARP 请求
@@ -327,17 +347,31 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     * Ethernet层的目标MAC地址：ARP请求包中->广播地址（FF:FF:FF:FF:FF:FF） / ARP响应包中->请求方的MAC地址
     * 查询结果：ARP响应包中被请求方的MAC地址
 
-    **截图参考:**
-
-    ![ARP包](img/1.3.jpg)
+    <ScreenshotCard 
+    questionId="Lab1-p2-s2"
+    title="ARP查询包截图示例"
+    uploadOptions={[
+        { id: 'arp-request', label: '上传ARP请求包截图' },
+        { id: 'arp-response', label: '上传ARP响应包截图' }
+    ]}
+    >
+        ![ARP包](img/1.3.jpg)
+    </ScreenshotCard>
 
 6.  **分析 ICMP 包**: 选择一个 ICMP 请求包和响应包（分别截图），展开 **Internet Control Message Protocol** 层，标记：
     * **类型（Type）**： `8`（ICMP请求），`0`（ICMP响应）
     * **序号（Sequence Number）**：相同的序号标记一对请求与响应
 
-    **截图参考:**
-
-    ![ICMP包](img/1.4.jpg)
+    <ScreenshotCard 
+    questionId="Lab1-p2-s2"
+    title="ARP查询包截图示例"
+    uploadOptions={[
+        { id: 'icmp-request', label: '上传ICMP请求包截图' },
+        { id: 'icmp-response', label: '上传ICMP响应包截图' }
+    ]}
+    >
+        ![ICMP包](img/1.4.jpg)
+    </ScreenshotCard>
 
 </TaskCard>
 
@@ -368,19 +402,38 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
     *   分析：跟踪路由使用的数据包协议类型是<ModernInput questionId="lab1-tracert-protocol"/>，构成数据包的几层协议分别是<ModernInput size="large" questionId="lab1-tracert-layers"/>
 3.  **分析请求包**：观察并记录请求包（请对数据包**列表**截图）中IP协议层的TTL字段变化规律，第一个请求的TTL等于<ModernInput size="small" questionId="lab1-tracert-ttl-start"/>，同样TTL的请求连续发送了<ModernInput size="small" questionId="lab1-tracert-ttl-repeats"/>个，然后每次TTL增加了<ModernInput size="small" questionId="lab1-tracert-ttl-increment"/>，最后一个请求的TTL等于<ModernInput size="small" questionId="lab1-tracert-ttl-end"/>
    
-    **截图示例**：
-
-    ![请求包列表](img/1.5.jpg)
+    <ScreenshotCard 
+    questionId="Lab1-p2-s3"
+    title="捕获包列表截图示例"
+    uploadOptions={[
+        { id: 'request-list', label: '上传捕获包列表截图' }
+    ]}
+    >
+        ![请求包列表](img/1.5.jpg)
+    </ScreenshotCard>
 
 4.  **分析响应包**：观察并记录响应包的信息（截图第一组、最后一组，并分别标记ICMP层的类型字段），第一组响应包的发送者IP是：<ModernInput questionId="lab1-tracert-resp-ip-first"/>；最后一组响应包的发送者IP是：<ModernInput questionId="lab1-tracert-resp-ip-last"/>
    
-    **第一组截图示例**：
-    
-    ![响应包](img/1.6.jpg)
-   
-    **最后一组截图示例**：
-    
-    ![响应包](img/1.7.jpg)
+    <ScreenshotCard 
+    questionId="Lab1-p2-s3"
+    title="第一组截图示例"
+    uploadOptions={[
+        { id: 'response-first', label: '上传第一组截图' }
+    ]}
+    >
+        ![响应包](img/1.6.jpg)
+    </ScreenshotCard>
+
+    <ScreenshotCard 
+    questionId="Lab1-p2-s3"
+    title="最后一组截图示例"
+    uploadOptions={[
+        { id: 'response-last', label: '上传最后一组截图' }
+    ]}
+    >
+        ![响应包](img/1.7.jpg)
+    </ScreenshotCard>
+
 
 </TaskCard>
 
@@ -413,8 +466,6 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 </details>
 
-
-
 1.  **清空DNS缓存**：
     * （Windows）以管理员身份打开命令提示符或PowerShell，运行命令 `ipconfig /flushdns`
     * （macOS）在终端中运行命令`sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
@@ -433,15 +484,28 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 4.  **分析捕获结果**：
     * 组成捕获到的DNS协议数据包的各层协议是：<ModernInput size="large" questionId="lab1-web-dns-layers"/>，选取一个DNS查询数据包截图并标记源/目标IP地址、源/目标端口
 
-        **截图示例：**
-
-        ![DNS数据包截图](img/1_clip_image0021.jpg)
+        <ScreenshotCard 
+            questionId="Lab1-p3-s1"
+            title="DNS数据包截图示例"
+            uploadOptions={[
+                { id: 'dns', label: '上传DNS数据包截图' }
+            ]}
+        >
+            ![DNS数据包截图](img/1_clip_image0021.jpg)
+        </ScreenshotCard>
 
     * 组成捕获到的HTTP协议数据包的各层协议是：<ModernInput size="large" questionId="lab1-web-http-layers"/>，选取一个HTTP请求数据包截图并标记源/目标IP地址、源/目标端口
 
-        **截图示例：**
+        <ScreenshotCard 
+            questionId="Lab1-p3-s1"
+            title="HTTP数据包截图示例"
+            uploadOptions={[
+                { id: 'http', label: '上传HTTP数据包截图' }
+            ]}
+        >
+            ![HTTP数据包截图](img/1_clip_image2.jpg)
+        </ScreenshotCard>
 
-        ![HTTP数据包截图](img/1_clip_image2.jpg)
 </TaskCard>
 
 <TaskCard number={2} title="分析打开网页中查询的域名" needScreenshot={false}>
@@ -477,9 +541,15 @@ Wireshark 提供两种主要的过滤器，它们的区别非常重要：
 
 选择一个HTTP的TCP流进行截图，标出请求和响应部分（最好在一个TCP流中包含多个HTTP会话）
 
-**截图示例：**
-
-![HTTP TCP流截图](img/1_clip_image002.jpg)
+<ScreenshotCard 
+    questionId="Lab1-p3-s5"
+    title="TCP流截图示例"
+    uploadOptions={[
+        { id: 'tcp', label: '上传TCP流截图' }
+    ]}
+>
+    ![HTTP TCP流截图](img/1_clip_image002.jpg)
+</ScreenshotCard>
 
 </TaskCard>
 

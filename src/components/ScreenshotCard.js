@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
-import { Card, Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
+import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
 import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 import { useDropzone } from 'react-dropzone';
 import { Canvas, FabricImage, Line, Rect } from 'fabric';
 import { AnswerContext } from '@site/src/context/AnswerContext';
 import './ScreenshotCard.css';
 
-const ScreenshotCard = ({ questionId, title, children }) => {
-  const [mode, setMode] = useState(children ? 'reference' : 'upload');
+const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
+  const [mode, setMode] = useState(children ? 'reference' : uploadOptions[0].id);
   const { images, addImage, getImage } = useContext(AnswerContext);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isUploadModalVisible, setUploadModalVisible] = useState(false);
@@ -21,13 +21,9 @@ const ScreenshotCard = ({ questionId, title, children }) => {
   const [strokeColor, setStrokeColor] = useState('#ff0000');
 
   useEffect(() => {
-    console.log('=== useEffect for image loading ===');
-    console.log('questionId:', questionId);
-    console.log('images context:', images);
-    
-    if (questionId && images) {
-      const savedImage = getImage(questionId);
-      console.log('savedImage from getImage:', savedImage);
+    if (questionId && images && mode !== 'reference') {
+      const imageKey = `${questionId}-${mode}`;
+      const savedImage = getImage(imageKey);
       
       if (savedImage && savedImage.data) {
         if (typeof savedImage.data === 'string') {
@@ -36,16 +32,21 @@ const ScreenshotCard = ({ questionId, title, children }) => {
           const url = URL.createObjectURL(savedImage.data);
           setUploadedImage(url);
         }
+      } else {
+        setUploadedImage(null);
       }
+    } else {
+      setUploadedImage(null);
     }
-  }, [questionId, images, getImage]);
+  }, [questionId, images, getImage, mode]);
 
   const handleFileAccept = async (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
       
       try {
-        await addImage(questionId, file); // Wait for the image to be saved
+        const imageKey = `${questionId}-${mode}`;
+        await addImage(imageKey, file); // Wait for the image to be saved
         const url = URL.createObjectURL(file);
         setUploadedImage(url); // Manually update the state
         setUploadModalVisible(false);
@@ -298,6 +299,25 @@ const ScreenshotCard = ({ questionId, title, children }) => {
     }
   };
 
+  const generateSegmentedOptions = () => {
+    const options = [];
+    
+    if (children) {
+      options.push({ label: title || '参考', value: 'reference' });
+    }
+    
+    uploadOptions.forEach(option => {
+      options.push({ label: option.label, value: option.id });
+    });
+    
+    return options;
+  };
+
+  const shouldShowSegmented = () => {
+    const totalOptions = (children ? 1 : 0) + uploadOptions.length;
+    return totalOptions > 1;
+  };
+
   const renderContent = () => {
     if (mode === 'reference') {
       return children;
@@ -312,37 +332,40 @@ const ScreenshotCard = ({ questionId, title, children }) => {
             点击或拖拽文件到此区域上传
           </div>
         )}
-        <div className="toolbar">
-          <Button icon={<UploadOutlined />} onClick={() => setUploadModalVisible(true)}>
-            上传 / 替换
-          </Button>
-          {uploadedImage && (
-            <Button icon={<EditOutlined />} onClick={() => setAnnotationModalVisible(true)}>
-              标注
-            </Button>
-          )}
-        </div>
       </div>
     );
   };
 
   return (
     <>
-      <Card className="card">
+      <div className="screenshot-card">
         <div className="header">
-          <span className="title">{title || '截图'}</span>
-          {children && (
+          {shouldShowSegmented() ? (
             <Segmented
-              options={[{label: '参考', value: 'reference'}, {label: '上传', value: 'upload'}]}
+              options={generateSegmentedOptions()}
               value={mode}
               onChange={setMode}
             />
+          ) : (
+            <span className="single-option-label">{uploadOptions[0].label}</span>
+          )}
+          {mode !== 'reference' && (
+            <div className="toolbar">
+              <Button icon={<UploadOutlined />} onClick={() => setUploadModalVisible(true)}>
+                上传 / 替换
+              </Button>
+              {uploadedImage && (
+                <Button icon={<EditOutlined />} onClick={() => setAnnotationModalVisible(true)}>
+                  标注
+                </Button>
+              )}
+            </div>
           )}
         </div>
         <div className="content">
           {renderContent()}
         </div>
-      </Card>
+      </div>
 
       <Modal
         title="上传图片"

@@ -1,14 +1,6 @@
-.card {
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
-  padding: 4px;
-  margin-bottom: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-  transition: box-shadow 0.3s;
-}
-
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.screenshot-card {
+  width: 100%;
+  padding-top: 6px;
 }
 
 .header {
@@ -21,6 +13,21 @@
 .title {
   font-size: 18px;
   font-weight: 500;
+}
+
+.single-option-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #262626;
+  padding: 4px 8px;
+}
+
+.screenshot-card .ant-segmented {
+  font-size: 15px;
+}
+
+.screenshot-card .ant-segmented .ant-segmented-item-label {
+  font-size: 15px;
 }
 
 .content {
@@ -62,10 +69,9 @@
 }
 
 .toolbar {
-  margin-top: 8px;
   display: flex;
   gap: 8px;
-  justify-content: center;
+  align-items: center;
 }
 
 .dropzone {
