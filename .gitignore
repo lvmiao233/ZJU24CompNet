@@ -3,6 +3,7 @@
 
 # Production
 /build
+/local
 
 # Generated files
 .docusaurus

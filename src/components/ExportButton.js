@@ -134,6 +134,42 @@ const ExportButtonImpl = ({ templatePath, labName, labId }) => {
 
       // console.log(`最终用于替换的数据keys:`, Object.keys(allData));
 
+      // Helper function to replace with proper indentation
+      const replaceWithIndentation = (content, placeholder, replacement) => {
+        if (typeof replacement !== 'string') {
+          return content.replace(placeholder, replacement);
+        }
+
+        return content.replace(placeholder, (match, ...args) => {
+          // Get the full match info
+          const matchIndex = args[args.length - 2]; // Second to last argument is the index
+          
+          // Find the start of the line containing the placeholder
+          const beforeMatch = content.substring(0, matchIndex);
+          const lastNewlineIndex = beforeMatch.lastIndexOf('\n');
+          const lineStart = lastNewlineIndex === -1 ? 0 : lastNewlineIndex + 1;
+          
+          // Extract the indentation (spaces/tabs before the placeholder)
+          const lineBeforeMatch = content.substring(lineStart, matchIndex);
+          const indentMatch = lineBeforeMatch.match(/^(\s*)/);
+          const indent = indentMatch ? indentMatch[1] : '';
+          
+          // Split replacement into lines
+          const replacementLines = replacement.split('\n');
+          
+          // Apply indentation to all lines except the first
+          const indentedReplacement = replacementLines.map((line, index) => {
+            if (index === 0) {
+              return line; // First line keeps original position
+            } else {
+              return indent + line; // Subsequent lines get the same indentation
+            }
+          }).join('\n');
+          
+          return indentedReplacement;
+        });
+      };
+
       // 4. Replace placeholders in markdown files
       const promises = [];
       zip.forEach((relativePath, zipEntry) => {
@@ -149,8 +185,8 @@ const ExportButtonImpl = ({ templatePath, labName, labId }) => {
               const textPlaceholderRegex = new RegExp(`\\{\\{${escapedKey}\\}\\}`, 'gi');
               const imagePlaceholderRegex = new RegExp(`\\{\\{image:${escapedKey}\\}\\}`, 'gi');
               
-              newContent = newContent.replace(textPlaceholderRegex, allData[key]);
-              newContent = newContent.replace(imagePlaceholderRegex, allData[key]);
+              newContent = replaceWithIndentation(newContent, textPlaceholderRegex, allData[key]);
+              newContent = replaceWithIndentation(newContent, imagePlaceholderRegex, allData[key]);
             }
             // Replace any remaining lab-specific placeholders with "未作答" (case-insensitive)
             const unansweredPlaceholderRegex = new RegExp(`\{\{(image:)?${labId}.*?\}\}`, 'gi');
