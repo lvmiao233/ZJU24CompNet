@@ -14,6 +14,11 @@ const AnswerProvider = ({ children }) => {
   const [images, setImages] = useState({});
 
   useEffect(() => {
+    // 检查是否在浏览器环境中
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // Load text answers from localStorage
     try {
       const savedAnswers = localStorage.getItem('studentAnswers');
@@ -41,10 +46,13 @@ const AnswerProvider = ({ children }) => {
   const setAnswer = useCallback((id, value) => {
     setAnswers(prevAnswers => {
       const newAnswers = { ...prevAnswers, [id]: value };
-      try {
-        localStorage.setItem('studentAnswers', JSON.stringify(newAnswers));
-      } catch (error) {
-        console.error('Failed to save answers to localStorage', error);
+      // 检查是否在浏览器环境中
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('studentAnswers', JSON.stringify(newAnswers));
+        } catch (error) {
+          console.error('Failed to save answers to localStorage', error);
+        }
       }
       return newAnswers;
     });

@@ -32,3 +32,64 @@
   font-size: 20px;
   line-height: 1.5;
 }
+
+/* 代码编辑器不应用尺寸类的宽度限制 */
+.code-editor-wrapper .modern-input {
+  width: auto;
+}
+
+/* 代码编辑器包装容器 */
+.code-editor-wrapper {
+  display: flex;
+  width: 100%;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+/* 行号容器样式 */
+.line-numbers {
+  background-color: #f1f3f4;
+  border-right: 1px solid #e9ecef;
+  color: #6c757d;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 12px 8px 12px 4px;
+  text-align: right;
+  user-select: none;
+  min-width: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.line-numbers .line-number {
+  height: 21px; /* 匹配代码行高 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* CodeJar代码编辑器样式 */
+.modern-input.code-editor {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 12px;
+  line-height: 1.5;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  flex: 1;
+}
+
+.modern-input.code-editor:focus {
+  outline: none;
+}
+
+.code-editor-wrapper:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

@@ -1,10 +1,26 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
 import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined } from '@ant-design/icons';
-import { useDropzone } from 'react-dropzone';
-import { Canvas, FabricImage, Line, Rect } from 'fabric';
 import { AnswerContext } from '@site/src/context/AnswerContext';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import './ScreenshotCard.css';
+
+// 条件导入浏览器依赖的库
+let useDropzone = null;
+let Canvas = null;
+let FabricImage = null; 
+let Line = null;
+let Rect = null;
+
+if (ExecutionEnvironment.canUseDOM) {
+  useDropzone = require('react-dropzone').useDropzone;
+  const fabric = require('fabric');
+  Canvas = fabric.Canvas;
+  FabricImage = fabric.FabricImage;
+  Line = fabric.Line;
+  Rect = fabric.Rect;
+}
 
 const PRESET_COLORS = [
   { name: '红色', value: '#ee0000' },
@@ -17,7 +33,8 @@ const PRESET_COLORS = [
   { name: '紫色', value: '#7030a0' }
 ];
 
-const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
+// 内部实现组件，包含所有浏览器API相关逻辑
+const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
   const [mode, setMode] = useState(children ? 'reference' : uploadOptions[0].id);
   const { images, addImage, getImage } = useContext(AnswerContext);
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -78,17 +95,21 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
     handleFileAccept(acceptedFiles);
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  // 条件使用useDropzone
+  const dropzoneConfig = useDropzone ? useDropzone({
     onDrop,
     accept: { 'image/*': [] },
     noClick: true,
-  });
+  }) : { getRootProps: () => ({}), getInputProps: () => ({}), isDragActive: false };
 
-  const { getRootProps: getMainRootProps, getInputProps: getMainInputProps, isDragActive: isMainDragActive } = useDropzone({
+  const mainDropzoneConfig = useDropzone ? useDropzone({
     onDrop,
     accept: { 'image/*': [] },
     noClick: true,
-  });
+  }) : { getRootProps: () => ({}), getInputProps: () => ({}), isDragActive: false };
+
+  const { getRootProps, getInputProps, isDragActive } = dropzoneConfig;
+  const { getRootProps: getMainRootProps, getInputProps: getMainInputProps, isDragActive: isMainDragActive } = mainDropzoneConfig;
 
   const handlePaste = useCallback(async (event) => {
     const items = event.clipboardData.items;
@@ -143,7 +164,7 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
   };
 
   const initFabric = useCallback(() => {
-    if (!uploadedImage || !canvasRef.current || !annotationContainerRef.current) {
+    if (!uploadedImage || !canvasRef.current || !annotationContainerRef.current || !Canvas || !FabricImage) {
       return;
     }
 
@@ -572,6 +593,64 @@ const ScreenshotCard = ({ questionId, title, children, uploadOptions = [{ id: 'd
         </div>
       </Modal>
     </>
+  );
+};
+
+// SSR安全的fallback组件
+const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
+  const shouldShowSegmented = () => {
+    const totalOptions = (children ? 1 : 0) + uploadOptions.length;
+    return totalOptions > 1;
+  };
+
+  const generateSegmentedOptions = () => {
+    const options = [];
+    if (children) {
+      options.push({ label: title || '参考', value: 'reference' });
+    }
+    uploadOptions.forEach(option => {
+      options.push({ label: option.label, value: option.id });
+    });
+    return options;
+  };
+
+  return (
+    <div className="screenshot-card">
+      <div className="header">
+        {shouldShowSegmented() ? (
+          <Segmented
+            options={generateSegmentedOptions()}
+            value="reference"
+            disabled
+          />
+        ) : (
+          <span className="single-option-label">{uploadOptions[0].label}</span>
+        )}
+        <div className="toolbar">
+          <Button icon={<UploadOutlined />} disabled>
+            上传 / 替换
+          </Button>
+        </div>
+      </div>
+      <div className="content">
+        {children || (
+          <div className="uploadContainer">
+            <div className="placeholder">
+              正在加载上传功能...
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// 主要的导出组件，使用BrowserOnly确保SSR安全
+const ScreenshotCard = (props) => {
+  return (
+    <BrowserOnly fallback={<ScreenshotCardFallback {...props} />}>
+      {() => <ScreenshotCardImpl {...props} />}
+    </BrowserOnly>
   );
 };
 

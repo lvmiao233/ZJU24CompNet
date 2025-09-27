@@ -1,15 +1,30 @@
 import React, { useContext } from 'react';
 import { Button, message } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 import { AnswerContext } from '../context/AnswerContext';
 import { getAllImages } from '../utils/db';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
-const ExportButton = ({ templatePath, labName, labId }) => {
+// 条件导入浏览器依赖的库
+let JSZip = null;
+let saveAs = null;
+
+if (ExecutionEnvironment.canUseDOM) {
+  JSZip = require('jszip');
+  saveAs = require('file-saver').saveAs;
+}
+
+// 内部实现组件，包含所有浏览器API相关逻辑
+const ExportButtonImpl = ({ templatePath, labName, labId }) => {
   const { answers } = useContext(AnswerContext);
 
   const handleExport = async () => {
+    if (!JSZip || !saveAs) {
+      message.error('导出功能需要在浏览器环境中使用');
+      return;
+    }
+
     try {
       message.loading({ content: '正在导出实验报告...', key: 'exporting' });
 
@@ -169,6 +184,28 @@ const ExportButton = ({ templatePath, labName, labId }) => {
     >
       导出实验报告
     </Button>
+  );
+};
+
+// SSR安全的fallback组件
+const ExportButtonFallback = () => {
+  return (
+    <Button 
+      type="primary" 
+      icon={<DownloadOutlined />} 
+      disabled
+    >
+      导出实验报告（加载中...）
+    </Button>
+  );
+};
+
+// 主要的导出组件，使用BrowserOnly确保SSR安全
+const ExportButton = (props) => {
+  return (
+    <BrowserOnly fallback={<ExportButtonFallback />}>
+      {() => <ExportButtonImpl {...props} />}
+    </BrowserOnly>
   );
 };
 

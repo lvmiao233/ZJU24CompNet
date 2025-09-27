@@ -6,6 +6,11 @@ let db = null;
 
 const openDB = () => {
   return new Promise((resolve, reject) => {
+    // 检查是否在浏览器环境中
+    if (typeof window === 'undefined' || !window.indexedDB) {
+      return reject('IndexedDB not available in this environment');
+    }
+
     if (db) {
       return resolve(db);
     }
