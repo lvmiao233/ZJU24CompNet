@@ -27,7 +27,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-<PlaceHolder>
+<!-- <PlaceHolder> -->
 
 ## 1 实验目的
 * 掌握交换机的工作原理、管理配置方法
@@ -44,23 +44,29 @@ import { Row, Col } from 'antd';
 
 在实验拓扑图上标记交换机的IP地址、PC的IP地址及所属VLAN、交换机的与PC的连接端口
 
-拓扑图参考，请替换成实际使用的：
-
-![img](img/1.1.jpg)
+<ScreenshotCard 
+  questionId="Lab2-s1"
+  title="拓扑图参考"
+  uploadOptions={[
+    { id: 'topology', label: '上传实际拓扑图' }
+  ]}
+>
+  ![img](img/1.1.jpg)
+</ScreenshotCard>
 
 </TaskCard>
 
 <TaskCard number={2} title="建立Console连接并查看交换机信息" needScreenshot={false}>
 
-找一台有串口的PC机和一根串口控制线，将控制线的一头连接交换机的Console口，另一头连接PC机的串口。
+找一台有串口的PC机和一根串口控制线，将控制线的一头连接交换机的Console口，另一头连接PC机的串口
 
-在PC机上运行Putty软件，选择Serial方式，默认为9600, COM1。按两下回车，检查是否已经连上交换机。并输入`enable`命令进入到特权模式。如果有密码，请参考[4.清除密码步骤](/docs/Lab2_page#part-1--单交换机)。
+在PC机上运行Putty软件，选择Serial方式，默认为9600, COM1。按两下回车，检查是否已经连上交换机。并输入`enable`命令进入到特权模式。如果有密码，请参考[4.清除密码步骤](/docs/Lab2/Lab2_Concise#part-1--单交换机)
 
 输入命令`show version`查看当前交换机型号信息并记录：
 
-设备型号：<ModernInput size="large" questionId="lab2-device-model"/>，IOS软件版本：<ModernInput size="large" questionId="lab2-ios-version"/>，
+设备型号：<ModernInput size="large" questionId="lab2-s2-device-model"/>，IOS软件版本：<ModernInput size="large" questionId="lab2-s2-ios-version"/>，
 
-软件映像文件名：<ModernInput size="large" questionId="lab2-image-file"/>，端口数量：<ModernInput size="large" questionId="lab2-port-count"/>。
+软件映像文件名：<ModernInput size="large" questionId="lab2-s2-image-file"/>，端口数量：<ModernInput size="large" questionId="lab2-s2-port-count"/>。
 
 </TaskCard>
 
@@ -69,10 +75,10 @@ import { Row, Col } from 'antd';
 输入命令`show flash`或`dir flash`: 查看当前文件系统的内容
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s3"
+  questionId="Lab2-s3"
   title="交换机文件系统截图"
   uploadOptions={[
-    { id: 'flash', label: '上传文件系统截图' }
+    { id: 'flash', label: '截图文件系统内容' }
   ]}
 >
   ![img](img/1.3.jpg)
@@ -87,10 +93,10 @@ import { Row, Col } from 'antd';
 所有的端口应该都属于VLAN 1，如果存在其他VLAN，请先通过命令`no vlan id`删除
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s4"
+  questionId="Lab2-s4"
   title="VLAN配置截图"
   uploadOptions={[
-    { id: 'vlan', label: '上传VLAN配置截图' }
+    { id: 'vlan', label: '截图VLAN数据' }
   ]}
 >
   ![img](img/1.4.jpg)
@@ -105,11 +111,11 @@ import { Row, Col } from 'antd';
 手工关闭某端口（命令：`shutdown`），输入命令查看该端口状态（命令：`show interface端口号`，如`show interface e0/1`），在其他PC上使用Ping命令检测连接在该端口的PC是否能够联通。
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s5"
+  questionId="Lab2-s5"
   title="端口关闭测试截图"
   uploadOptions={[
-    { id: 'interface-status', label: '上传端口状态截图' },
-    { id: 'ping-result', label: '上传Ping测试结果截图' }
+    { id: 'interface-status', label: '截图命令输出' },
+    { id: 'ping-result', label: '截图Ping结果' }
   ]}
 />
 
@@ -120,11 +126,11 @@ import { Row, Col } from 'antd';
 重新打开该端口（命令：`no shutdown`），输入命令查看交换机上端口状态。使用Ping命令检测连接在该端口的PC是否能够联通
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s6"
+  questionId="Lab2-s6"
   title="端口启用测试截图"
   uploadOptions={[
-    { id: 'interface-up', label: '上传端口启用状态截图' },
-    { id: 'ping-success', label: '上传Ping成功结果截图' }
+    { id: 'interface-up', label: '截图命令输出' },
+    { id: 'ping-success', label: '截图Ping结果' }
   ]}
 ></ScreenshotCard>
 
@@ -134,15 +140,11 @@ import { Row, Col } from 'antd';
 
 进入VLAN1接口配置模式（命令：`interface vlan 1`），给VLAN 1配置IP地址即是给交换机配置管理IP地址（命令：`ip address 地址 掩码`）。测试PC是否能Ping通交换机的IP地址；如果不通，查看VLAN 1端口的状态是否是up，如果不是，则打开VLAN端口（`no shutdown`）。
 
-请记录输入的命令：
-
-<ModernInput codeEditor={true} initialLines={2} questionId="lab2-task7-cmd1"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p1-s7"
+  questionId="Lab2-s7"
   title="交换机IP配置截图"
   uploadOptions={[
-    { id: 'ip-config', label: '上传IP配置命令截图' }
+    { id: 'cmd', label: '记录输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2}},
   ]}
 ></ScreenshotCard>
 
@@ -153,10 +155,10 @@ import { Row, Col } from 'antd';
 输入以下命令：打开虚拟终端（命令`line vty 0 4`），允许远程登录（命令： `login`），设置登密码（命令：`password 密码`）
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s8"
+  questionId="Lab2-s8"
   title="远程登录配置截图"
   uploadOptions={[
-    { id: 'telnet-config', label: '上传Telnet配置命令截图' }
+    { id: 'telnet-config', label: '截图配置命令' }
   ]}
 ></ScreenshotCard>
 
@@ -167,10 +169,10 @@ import { Row, Col } from 'antd';
 在PC上运行Putty软件，选择telnet协议，输入交换机的IP地址，通过网络远程连接交换机，并输入密码。
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s9"
+  questionId="Lab2-s9"
   title="Telnet连接成功截图"
   uploadOptions={[
-    { id: 'telnet-success', label: '上传Telnet连接成功截图' }
+    { id: 'telnet-success', label: '截图Telnet连接效果' }
   ]}
 ></ScreenshotCard>
 
@@ -181,10 +183,10 @@ import { Row, Col } from 'antd';
 在PC1上运行Wireshark，在另外2台（PC2、PC3）上互相持续的Ping（运行`ping IP地址 -t`），观察在PC1上是否能抓取到PC2和PC3发出的ARP广播包以及ICMP响应包。如果不能抓取到PC2、PC3发送的ARP广播包，在PC2、PC3上先运行`arp –d *`删除所有主机的ARP缓存。正常情况下，ICMP响应包是不能被抓取到的。
 
 <ScreenshotCard 
-  questionId="Lab2-p1-s10"
+  questionId="Lab2-s10"
   title="Wireshark抓包截图"
   uploadOptions={[
-    { id: 'wireshark-capture', label: '上传Wireshark抓包截图' }
+    { id: 'wireshark-capture', label: '截图抓包结果' }
   ]}
 ></ScreenshotCard>
 
@@ -196,34 +198,29 @@ import { Row, Col } from 'antd';
 
 请记录输入的命令：
 
-<ModernInput codeEditor={true} initialLines={3} questionId="lab2-task11-cmd1"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p1-s11"
+  questionId="Lab2-s11"
   title="端口镜像配置截图"
   uploadOptions={[
-    { id: 'mirror-config', label: '上传镜像配置命令截图' },
-    { id: 'mirror-capture', label: '上传镜像后抓包截图' }
+    { id: 'cmd', label: '记录输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3}},
+    { id: 'mirror-capture', label: '截图镜像后抓包' }
   ]}
 ></ScreenshotCard>
 
 </TaskCard>
 
-<TaskCard number={12} title="关闭端口镜像功能" needRecord={true}>
+<TaskCard number={12} title="关闭端口镜像功能" needRecord={true} needScreenshot={false}>
 
 关闭PC1端口的镜像功能（命令：`no monitor session 1 destination interface 端口`），否则该端口不能正常收发数据。
 
-请记录输入的命令：
-
-命令1：<ModernInput codeEditor={true} questionId="lab2-task12-cmd1"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p1-s12"
-  title="关闭镜像功能截图"
+  questionId="Lab2-s12"
+  title="交换机IP配置截图"
   uploadOptions={[
-    { id: 'disable-mirror', label: '上传关闭镜像命令截图' }
+    { id: 'cmd', label: '记录输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1}},
   ]}
 ></ScreenshotCard>
+
 
 </TaskCard>
 
@@ -231,17 +228,15 @@ import { Row, Col } from 'antd';
 
 在交换机上增加VLAN 2（命令：`vlan database`或`config terminal`，`vlan 2`），将PC3、PC4所连端口加入到VLAN 2（命令：`interface 端口`，`switchport access vlan 2`）。用Ping检查PC之间的联通性（同一VLAN的PC之间能够通，不同VLAN的PC之间不能通）。
 
-请记录输入的命令：
-
-<ModernInput codeEditor={true} initialLines={5} questionId="lab2-task13-cmd"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p1-s13"
+  questionId="Lab2-s13"
   title="VLAN隔离测试截图"
   uploadOptions={[
-    { id: 'vlan-config', label: '上传VLAN配置命令截图' },
-    { id: 'ping-same-vlan', label: '上传同VLAN连通性截图' },
-    { id: 'ping-diff-vlan', label: '上传不同VLAN隔离截图' }
+    { id: 'cmd', label: '记录输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5}},
+    { id: 'ping-pc12', label: '截图PC1→2' },
+    { id: 'ping-pc13', label: '截图PC1→3' },
+    { id: 'ping-pc42', label: '截图PC4→2' },
+    { id: 'ping-pc43', label: '截图PC4→3' }
   ]}
 ></ScreenshotCard>
 
@@ -253,9 +248,13 @@ import { Row, Col } from 'antd';
 
 保存交换机配置到启动配置文件（命令：`copy running-config startup-config`），确保重启后配置不丢失。
 
-请记录运行配置：
-
-<ModernInput codeEditor={true} initialLines={5} questionId="lab2-task14-config"/>
+<ScreenshotCard 
+  questionId="Lab2-s14"
+  title="记录运行配置"
+  uploadOptions={[
+    { id: 'config', label: '记录相关运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 5}}
+  ]}
+></ScreenshotCard>
 
 </TaskCard>
 
@@ -266,13 +265,11 @@ import { Row, Col } from 'antd';
 
 增加一台交换机（Switch2），将PC2、PC4连接到该交换机，并用一根交叉网线（Cross-over）将两个交换机连接起来。在拓扑图上记录各PC的IP地址、连接端口及所在VLAN：
 
-拓扑图参考，请替换成实际使用的：
-
 <ScreenshotCard 
-  questionId="Lab2-p2-s15"
-  title="双交换机拓扑图"
+  questionId="Lab2-s15"
+  title="拓扑图参考"
   uploadOptions={[
-    { id: 'topology', label: '上传网络拓扑图' }
+    { id: 'topology', label: '上传实际拓扑图' }
   ]}
 >
   ![img](img/2.15.jpg)
@@ -281,12 +278,13 @@ import { Row, Col } from 'antd';
 在Switch2上增加VLAN 2，将PC4所连端口加入到VLAN 2。用Ping检查不同交换机上属于同一VLAN的PC之间的联通性（即PC1与PC2应该通，PC3与PC4不能通）。然后显示2个交换机的VLAN数据（命令`show vlan`）
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s15"
+  questionId="Lab2-s15"
   title="双交换机VLAN配置截图"
   uploadOptions={[
-    { id: 'switch1-vlan', label: '上传Switch1的VLAN数据截图' },
-    { id: 'switch2-vlan', label: '上传Switch2的VLAN数据截图' },
-    { id: 'ping-cross-switch', label: '上传跨交换机连通性测试截图' }
+    { id: 'switch1-vlan', label: '截图Switch1 VLAN数据' },
+    { id: 'switch2-vlan', label: '截图Switch2 VLAN数据' },
+    { id: 'ping-pc12', label: '截图PC1→2' },
+    { id: 'ping-pc34', label: '截图PC3→4' }
   ]}
 />
 
@@ -296,16 +294,13 @@ import { Row, Col } from 'antd';
 
 将交换机之间的互联端口配置为VLAN Trunk模式（命令：`switchport mode trunk`，部分型号的设备可能要先设置封装协议，命令：`switchport trunk encapsulation dot1q`），再次用Ping检查属于同一VLAN但在不同交换机的PC之间的联通性（即PC1与PC2应该通，PC3与PC4也应该通）。
 
-请记录输入的命令：
-
-<ModernInput codeEditor={true} initialLines={3} questionId="lab2-task16-cmd"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p2-s16"
+  questionId="Lab2-s16"
   title="VLAN Trunk配置截图"
   uploadOptions={[
-    { id: 'trunk-config', label: '上传Trunk配置命令截图' },
-    { id: 'ping-after-trunk', label: '上传Trunk后连通性测试截图' }
+    { id: 'cmd', label: '记录输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3}},
+    { id: 'ping-pc12', label: '截图PC1→2' },
+    { id: 'ping-pc34', label: '截图PC3→4' }
   ]}
 >
 </ScreenshotCard>
@@ -319,10 +314,10 @@ import { Row, Col } from 'antd';
 Spanning-tree数据截图示例（请替换成实际显示的）：
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s17"
+  questionId="Lab2-s17"
   title="Switch1的STP状态截图"
   uploadOptions={[
-    { id: 'switch1-stp', label: '上传Switch1的STP状态截图' }
+    { id: 'switch1-stp', label: '截图Switch1 STP状态' }
   ]}
 >
   ![img](img/2.17.1.jpg)
@@ -331,10 +326,10 @@ Spanning-tree数据截图示例（请替换成实际显示的）：
 ___
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s17"
+  questionId="Lab2-s17"
   title="Switch2的STP状态截图"
   uploadOptions={[
-    { id: 'switch2-stp', label: '上传Switch2的STP状态截图' }
+    { id: 'switch2-stp', label: '截图Switch2 STP状态' }
   ]}
 >
   ![img](img/2.17.2.jpg)
@@ -347,11 +342,10 @@ ___
 关闭2个VLAN的STP（命令：`no spanning-tree vlan ID`），观察两个交换机的端口状态指示灯（急速闪动），并在PC上用Ping测试网络的延迟是否加大（甚至可能出现超时或丢包）。
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s18"
+  questionId="Lab2-s18"
   title="关闭STP影响测试截图"
   uploadOptions={[
-    { id: 'disable-stp', label: '上传关闭STP命令截图' },
-    { id: 'ping-delay', label: '上传Ping延迟测试截图' }
+    { id: 'ping-delay', label: '截图Ping结果' }
   ]}
 >
 </ScreenshotCard>
@@ -363,10 +357,10 @@ ___
 重新打开2个VLAN的STP（命令：`spanning-tree vlan ID`）, 观察两个交换机的端口状态指示灯（缓慢闪动），并在PC上用Ping测试网络的延迟是否恢复正常。
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s19"
+  questionId="Lab2-s19"
   title="STP恢复测试截图"
   uploadOptions={[
-    { id: 'ping-recovery', label: '上传Ping恢复正常截图' }
+    { id: 'ping-recovery', label: '截图Ping结果' }
   ]}
 />
 
@@ -377,11 +371,11 @@ ___
 拔掉连接在2个处于FWD状态端口之间的网线，等待一会儿，查看4个互联端口的状态（命令：`show spaning-tree`）（有些端口可能已经消失）。标出原BLK状态的端口是否变成了FWD状态。
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s20"
+  questionId="Lab2-s20"
   title="STP故障恢复截图"
   uploadOptions={[
-    { id: 'switch1-recovery', label: '上传Switch1故障恢复状态截图' },
-    { id: 'switch2-recovery', label: '上传Switch2故障恢复状态截图' }
+    { id: 'switch1', label: '截图Switch1端口状态' },
+    { id: 'switch2', label: '截图Switch2端口状态' }
   ]}
 />
 
@@ -391,20 +385,12 @@ ___
 
 配置2个交换机的互联端口优先级(默认优先级128)，使VLAN1的数据优先通过第1对互联端口传送（命令：`interface 端口`, `spanning-tree vlan 1 port-priority 16`）。使VLAN2的数据优先通过第2对互联端口传送（命令：`interface 端口`, `spanning-tree vlan 2 port-priority 16`）。此处只记录2个交换机各自所使用的命令及参数即可。
 
-请记录Switch1输入的命令：
-
-<ModernInput codeEditor={true} initialLines={4} questionId="lab2-task21-switch1-cmd"/>
-
-请记录Switch2输入的命令：
-
-<ModernInput codeEditor={true} initialLines={4} questionId="lab2-task21-switch2-cmd"/>
-
 <ScreenshotCard 
-  questionId="Lab2-p2-s21"
-  title="端口优先级配置截图"
+  questionId="Lab2-s21"
+  title="端口优先级配置"
   uploadOptions={[
-    { id: 'switch1-priority', label: '上传Switch1优先级配置截图' },
-    { id: 'switch2-priority', label: '上传Switch2优先级配置截图' }
+    { id: 'switch1-cmd', label: '记录Switch1输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4}},
+    { id: 'switch2-cmd', label: '记录Switch2输入命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4}}
   ]}
 />
 
@@ -415,11 +401,11 @@ ___
 拔掉剩下的1根连接互联端口的网线，稍后2根网线重新插上，等待一会儿，查看4个互联端口的状态，分别在2个VLAN中标出:各端口的优先级，哪些端口处于转发状态，哪些端口处于阻塞状态。
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s22"
+  questionId="Lab2-s22"
   title="优先级配置效果验证截图"
   uploadOptions={[
-    { id: 'switch1-priority-effect', label: '上传Switch1优先级效果截图' },
-    { id: 'switch2-priority-effect', label: '上传Switch2优先级效果截图' }
+    { id: 'switch1', label: '截图Switch1端口状态' },
+    { id: 'switch2', label: '截图Switch2端口状态' }
   ]}
 />
 
@@ -430,11 +416,11 @@ ___
 拔掉其中1根连接互联端口的网线，查看4个互联端口中原先处于BLK状态的端口，是否变成了FWD状态（哪个VLAN发生了变化）
 
 <ScreenshotCard 
-  questionId="Lab2-p2-s23"
+  questionId="Lab2-s23"
   title="负载均衡切换测试截图"
   uploadOptions={[
-    { id: 'switch1-failover', label: '上传Switch1故障切换状态截图' },
-    { id: 'switch2-failover', label: '上传Switch2故障切换状态截图' }
+    { id: 'switch1', label: '截图Switch1端口状态' },
+    { id: 'switch2', label: '截图Switch2端口状态' }
   ]}
 />
 
@@ -444,13 +430,14 @@ ___
 
 记录2个交换机上的运行配置（命令:`show running-config`），复制粘贴本节相关的文本（完整的内容请放在文件中，每个交换机一个文件，分别命名为S1.txt、S2.txt）。
 
-请记录Switch1的运行配置：
-
-<ModernInput codeEditor={true} initialLines={5} questionId="lab2-task24-switch1-config"/>
-
-请记录Switch2的运行配置：
-
-<ModernInput codeEditor={true} initialLines={5} questionId="lab2-task24-switch2-config"/>
+<ScreenshotCard 
+  questionId="Lab2-s24"
+  title="记录运行配置"
+  uploadOptions={[
+    { id: 'switch1', label: '记录Switch1运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 5}},
+    { id: 'switch2', label: '记录Switch1运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 5}}
+  ]}
+></ScreenshotCard>
 
 </TaskCard>
 
@@ -460,35 +447,35 @@ ___
 
 * 端口状态显示为administratively down，意味着什么意思？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q1"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q1"/>
 
 * 在交换机配置为镜像端口前，为什么可以抓取到其他PC之间的ARP请求包，而不能抓取ARP响应包？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q2"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q2"/>
 
 * PC属于哪个VLAN，是由PC自己可以配置的，还是由交换机决定的？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q3"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q3"/>
 
 * 同一个VLAN的PC，如果配置了不同长度的子网掩码，能够互相Ping通吗？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q4"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q4"/>
 
 * 为什么在划分为2个VLAN后，两组PC之间就不能进行IP通信了呢？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q5"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q5"/>
 
 * 交换机在VLAN Trunk模式下使用的封装协议是什么？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q6"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q6"/>
 
 * 未启用STP（Spanning Tree Protocol）协议时，交换机之间连接了多条网线后，为什么Ping测试的响应会延迟很大甚至超时？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q7"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q7"/>
 
 * 从插上网线后开始，交换机的端口状态出现了哪些变化？大约需要多少时间才能成为FWD状态？期间，连接在该端口的计算机是否能够Ping通？
 
-<ModernInput size="exlarge" questionId="lab2-analysis-q8"/>
+  <ModernInput size="exlarge" questionId="lab2-analysis-q8"/>
 
 ## 4 常见问题
 
@@ -496,4 +483,4 @@ ___
 
 <ExportButton templatePath={require('@site/assets/base_report/Lab2.zip').default} labName="Lab2" labId="lab2-" />
 
-</PlaceHolder>
+<!-- </PlaceHolder> -->

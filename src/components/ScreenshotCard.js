@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext, useCallback } from 'rea
 import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
 import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined } from '@ant-design/icons';
 import { AnswerContext } from '@site/src/context/AnswerContext';
+import ModernInput from './ModernInput';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import './ScreenshotCard.css';
@@ -51,12 +52,30 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
   const originalImageRef = useRef(null);
   const scaleRatioRef = useRef(1);
 
+  // 获取当前选项的配置
+  const getCurrentOption = () => {
+    if (mode === 'reference') return null;
+    return uploadOptions.find(option => option.id === mode);
+  };
+
+  // 判断当前模式是否为文本模式
+  const isTextMode = () => {
+    const currentOption = getCurrentOption();
+    return currentOption && currentOption.type === 'text';
+  };
+
+  // 判断当前模式是否为图片模式
+  const isImageMode = () => {
+    const currentOption = getCurrentOption();
+    return !currentOption || currentOption.type !== 'text'; // 默认为图片模式
+  };
+
   useEffect(() => {
     strokeColorRef.current = strokeColor;
   }, [strokeColor]);
 
   useEffect(() => {
-    if (questionId && images && mode !== 'reference') {
+    if (questionId && images && mode !== 'reference' && isImageMode()) {
       const imageKey = `${questionId}-${mode}`;
       const savedImage = getImage(imageKey);
       
@@ -473,6 +492,30 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
       return children;
     }
 
+    if (isTextMode()) {
+      const currentOption = getCurrentOption();
+      const textConfig = currentOption.textConfig || {};
+      
+      // 设置默认配置
+      const defaultTextConfig = {
+        codeEditor: false,
+        initialLines: 1,
+        showLineNumbers: true,
+        size: 'medium'
+      };
+      
+      const finalConfig = { ...defaultTextConfig, ...textConfig };
+      
+      return (
+        <div className="textContainer">
+          <ModernInput
+            questionId={`${questionId}-${mode}`}
+            {...finalConfig}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="uploadContainer">
         {uploadedImage ? (
@@ -505,7 +548,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
           ) : (
             <span className="single-option-label">{uploadOptions[0].label}</span>
           )}
-          {mode !== 'reference' && (
+          {mode !== 'reference' && isImageMode() && (
             <div className="toolbar">
               <Button icon={<UploadOutlined />} onClick={() => setUploadModalVisible(true)}>
                 上传 / 替换
@@ -614,6 +657,11 @@ const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'defau
     return options;
   };
 
+  // 检查第一个选项是否为图片模式
+  const firstOptionIsImage = () => {
+    return !uploadOptions[0] || uploadOptions[0].type !== 'text';
+  };
+
   return (
     <div className="screenshot-card">
       <div className="header">
@@ -626,17 +674,19 @@ const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'defau
         ) : (
           <span className="single-option-label">{uploadOptions[0].label}</span>
         )}
-        <div className="toolbar">
-          <Button icon={<UploadOutlined />} disabled>
-            上传 / 替换
-          </Button>
-        </div>
+        {firstOptionIsImage() && (
+          <div className="toolbar">
+            <Button icon={<UploadOutlined />} disabled>
+              上传 / 替换
+            </Button>
+          </div>
+        )}
       </div>
       <div className="content">
         {children || (
           <div className="uploadContainer">
             <div className="placeholder">
-              正在加载上传功能...
+              正在加载功能...
             </div>
           </div>
         )}
