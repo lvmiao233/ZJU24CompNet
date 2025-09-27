@@ -22,7 +22,12 @@ const config = {
   projectName: 'ZJU24CompNet', // repo name.
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -80,6 +85,7 @@ const config = {
         searchPagePath: 'search',
         // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
         insights: true,
+        askAi: 'DyTKTLEf4gPu',
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
