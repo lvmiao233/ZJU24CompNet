@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-title: Lab2 使用二层交换机组网
+title: Lab2 使用二层交换机组网 精简版本
 ---
 
 
@@ -9,7 +9,7 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import { Row, Col } from 'antd';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
-<DeadlineProcess start={'2025-10-07 18:50:00'} end={'2025-10-21 23:59:59'}/>
+<DeadlineProcess start={'2025-10-14 18:50:00'} end={'2025-10-28 23:59:59'}/>
 <Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
     <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
         <FileCard file_type={'md'} name={'Lab2 实验报告模板 Markdown版本'} size={'180289'} link={require('@site/assets/templete/md/Lab2 实验报告模板.zip').default} />
@@ -120,7 +120,7 @@ PC机、路由器、交换机、Console连接线、直联网络线、交叉网�
 
    拓扑图参考，请替换成实际使用的：
 
-   ![img](img/Lab2/1.1.jpg)
+   ![img](img/1.1.jpg)
 
 
 
@@ -136,7 +136,7 @@ PC机、路由器、交换机、Console连接线、直联网络线、交叉网�
 
    截图参考：
 
-   ![img](img/Lab2/1.3.jpg)
+   ![img](img/1.3.jpg)
 
 4. 显示交换机的VLAN数据（命令`show vlan`），并将展示结果截图
 
@@ -144,7 +144,7 @@ PC机、路由器、交换机、Console连接线、直联网络线、交叉网�
 
    截图参考：
 
-   ![img](img/Lab2/1.4.jpg)
+   ![img](img/1.4.jpg)
 
 5. 用直连网线（straight through）将PC按照前述拓扑结构连接到交换机。然后给各PC配置IP地址，并用Ping检查各PC之间的联通性，确保都能Ping通，否则请检查网线连接。
 
@@ -212,7 +212,7 @@ PC机、路由器、交换机、Console连接线、直联网络线、交叉网�
 
     拓扑图参考，请替换成实际使用的：
 
-    ![img](img/Lab2/2.15.jpg)
+    ![img](img/2.15.jpg)
 
     在Switch2上增加VLAN 2，将PC4所连端口加入到VLAN 2。用Ping检查不同交换机上属于同一VLAN的PC之间的联通性（即PC1与PC2应该通，PC3与PC4不能通）。然后显示2个交换机的VLAN数据（命令`show vlan`)
 
@@ -230,11 +230,11 @@ PC机、路由器、交换机、Console连接线、直联网络线、交叉网�
 
     Spanning-tree数据截图示例（请替换成实际显示的）：
 
-    ![img](img/Lab2/2.17.1.jpg)
+    ![img](img/2.17.1.jpg)
 
     ___
 
-    ![img](img/Lab2/2.17.2.jpg)
+    ![img](img/2.17.2.jpg)
 
 
 

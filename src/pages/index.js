@@ -21,6 +21,11 @@ export default function Home() {
     const [isHydrating, setIsHydrating] = useState(true);
 
     useEffect(() => {
+        // 检查是否在浏览器环境中
+        if (typeof window === 'undefined') {
+            return;
+        }
+        
         const handleResize = () => { setIsMobile(window.innerWidth < 768); };
         handleResize(); // 初始检查
         window.addEventListener('resize', handleResize); // 添加事件监听器
