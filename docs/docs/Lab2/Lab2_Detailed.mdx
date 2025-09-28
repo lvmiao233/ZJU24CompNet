@@ -27,14 +27,19 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-<PlaceHolder>
 
 ## 1 实验目的
-* 掌握交换机的工作原理、管理配置方法
-* 掌握VLAN的工作原理、配置方法
-* 掌握跨交换机的VLAN Trunk配置方法
-* 掌握多个交换机的冗余组网、负载平衡的配置方法
 
+在Lab1中，我们通过Wireshark“看见”了网络中无形的数据包，理解了数据在协议栈中是如何层层封装的，而在本次及以后的实验中，我们将会自底向上逐步探索网络模型的各层；本次实验，我们就将深入数据链路层，亲手搭建和配置一个由二层交换机组成的局域网
+
+二层交换机是构建现代局域网的核心设备。它工作在OSI模型的第二层——数据链路层，通过学习和记录网络中设备的MAC地址，实现数据帧在端口之间的快速、精确转发；相比于早已被淘汰的集线器的广播模式，交换机极大地提升了网络效率和安全性
+
+通过本次实验，你将：
+
+* 掌握交换机的工作原理与命令行配置方法
+* 理解并实践VLAN的划分与隔离作用
+* 配置Trunk链路，实现VLAN跨交换机通信
+* 探索多交换机间冗余组网、负载平衡的配置方法，理解生成树协议的工作机制
 
 ## 2 实验步骤
 
@@ -42,7 +47,29 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={1} title="绘制网络拓扑图" needScreenshot={false}>
 
-在实验拓扑图上标记交换机的IP地址、PC的IP地址及所属VLAN、交换机的与PC的连接端口
+<details>
+<summary>背景知识：什么是网络拓扑图？</summary>
+
+网络拓扑图（Network Topology Diagram）是用于表示网络结构和布局的示意图，它如同网络的“地图”，直观地展示了网络中各个组件（如计算机、交换机、路由器等）以及它们之间的连接关系，反映以下的信息：
+
+* **物理拓扑**: 关注的是设备的物理布局和线缆的实际连接方式，告诉我们“设备在哪里？”和“线缆如何连接，连接在哪个接口上？”的问题
+* **逻辑拓扑**: 关注的是数据在网络中的流向路径，而不关心设备的物理位置，它描述了IP地址的分配、VLAN的划分等逻辑层面的信息
+
+在本实验中，我们绘制的拓扑图兼具物理和逻辑两种属性，既展示PC与交换机端口的物理连接，也需要标明IP地址、VLAN划分等逻辑配置；一份清晰、准确的拓扑图是进行网络配置、管理和故障排查的必备工
+
+</details>
+
+清晰的网络拓扑图是网络设计与排错的基础，请先根据实验要求理解物理拓扑，再动手连接设备
+
+:::tip 提示
+
+由于实验室的网络设备及其扩展卡存在差异，可用的端口范围可能有一定不同，对于我们的实验而言，E/FE/Gi (Ethernet/FastEthernet/GigibitEthernet)均可使用，不需要使用和示例绝对相同的接口编号；查看接口编号的方式：
+
+[图片待补充]
+
+:::
+
+在实验第一部分**相应步骤完成时**，请你再根据实验的实际完成情况，在实验拓扑图上**逐步**清晰地标记出每台PC和交换机的IP地址、PC所属的VLAN，以及PC与交换机连接的具体接口编号，作为你后续配置的蓝图
 
 <ScreenshotCard 
   questionId="Lab2-s1"
@@ -58,21 +85,97 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={2} title="建立Console连接并查看交换机信息" needScreenshot={false}>
 
-找一台有串口的PC机和一根串口控制线，将控制线的一头连接交换机的Console口，另一头连接PC机的串口
+<details>
+<summary>背景知识：带外管理，串口连接</summary>
 
-在PC机上运行Putty软件，选择Serial方式，默认为9600, COM1。按两下回车，检查是否已经连上交换机。并输入`enable`命令进入到特权模式。如果有密码，请参考[4.清除密码步骤](/docs/Lab2/Lab2_Concise#part-1--单交换机)
+与我们日常使用的PC不同，交换机、路由器这类专业的网络设备通常没有显示器和键盘接口；那么一台全新的、尚未配置IP地址的交换机需要如何进行初始设置呢？答案是带外管理（Out-of-Band Management）
 
-输入命令`show version`查看当前交换机型号信息并记录：
+Console端口就是实现带外管理的关键，它提供了一个独立于数据网络的串行通信接口，通过专门的Console线（通常一端是RJ45接口，另一端是RS-232或USB接口）将PC与交换机的Console口连接，我们就可以绕开网络，直接访问设备的命令行界面，进行最底层的配置
 
-设备型号：<ModernInput size="large" questionId="lab2-s2-device-model"/>，IOS软件版本：<ModernInput size="large" questionId="lab2-s2-ios-version"/>，
+由于用于带外管理，请注意Console端口是**不能代替网线**进行数据传输的，相应接口与接线不反映在拓扑图中，只用于配置连接上的网络设备，因此每台网络设备使用一根Console线配置即可，对Console线连接到的电脑没有任何要求，你可以选择连接在实验室电脑上，也可以选择连接在自己的电脑上
 
-软件映像文件名：<ModernInput size="large" questionId="lab2-s2-image-file"/>，端口数量：<ModernInput size="large" questionId="lab2-s2-port-count"/>。
+一般而言，Console口在网络设备上都会使用蓝色标注出来，你可以在设备前/后寻找；而连接电脑时，如连接机柜的电脑，请直接将RS-232接口连接到机箱背后的串口卡上；连接实验室笔记本或自己的电脑时，请使用连接了串口转接线的Console线USB接口一侧连接
+
+由于RJ45接口的弹片容易在拔插时损坏，实验室现有的Console线固定在接口的能力普遍较差，容易因轻微触动而连接不良；如果发现和网络设备的连接不正常/终端无反应，请检查Console口是否松动
+
+
+</details>
+
+<details>
+<summary>IOS基本命令与操作技巧</summary>
+
+本次实验中，我们接触到的交换机运行的Cisco的IOS（Internetwork Operating System，不是Apple更晚发布的iOS），这是一个功能强大的网络操作系统，几乎所有的配置和管理都是通过命令行完成的，因此熟悉IOS的基本操作是网络工程师的必备技能，也是减少不必要搬砖步骤的重要基础
+
+**用户模式与特权模式**: 类似Linux等系统，iOS也存在用户权限的区别，连接成功后，提示符通常为`Switch>`，这表示当前处于用户模式，只能执行一些基本的查看命令，权限受限；输入 `enable`命令后提示符变为`Switch#`，进入特权模式，可以查看所有状态信息并进入全局配置模式
+
+**全局配置模式**：在特权模式下，输入`configure terminal`（可简写为`conf t`），进入全局配置模式。提示符变为`Switch(config)#`，**几乎所有的设备级配置**都在这个模式下进行
+
+**接口配置模式**：要对特定端口进行配置需要全局配置模式进入相应接口的配置模式，例如使用`interface FastEthernet 0/1`（除部分较老的路由器，其他设备上均可简写为`int f0/1`）进入1号端口的配置模式，提示符变为`Switch(config-if)#`
+
+命令行技巧:
+
+:::tip 温馨提示
+
+实验报告中填写使用的命令、命令截图等均不要求使用完整命令，且允许使用Tab/?等提示，你可以采用最简洁的方式输入命令以减少工作量
+
+:::
+
+* **命令补全**: 输入命令的前几个字母，按下Tab键，系统会自动补全命令
+* **命令缩写**: 只要输入的字符能够唯一识别一个命令就可以使用缩写，例如`sh`可代替`show`，请积极使用缩写减轻自己负担
+* **寻求帮助**: 在任何模式下输入`?`可以显示当前可用的所有命令。在命令后输入`?`可以查看该命令需要哪些参数
+* **历史命令**: 按键盘的向上箭头`↑`可以快速调出之前执行过的命令
+* **终端操作**: 在Putty等终端软件中，鼠标左键拖动选择文本即为复制，鼠标右键单击即为粘贴。
+
+</details>
+
+1. 使用Console控制线连接PC的串口（或USB转串口）与交换机的Console口
+
+2. 在PC上运行终端模拟软件（如Putty，Tabby），连接方式选择`Serial`，速率（Speed）设为`9600`，并选择正确的COM端口号（如`COM1`无法连接，请右键此电脑-管理-设备管理器-端口（COM和LPT），寻找相应设备的端口号）
+
+3. 打开连接后，按几下回车键，若屏幕上出现 Switch> 提示符，则表示连接成功
+
+   :::tip 首次启动提示
+
+   对于一台没有配置的交换机，首次启动时可能会出现`Would you like to enter the initial configuration dialogue? [yes/no]:`的提示。这里我们选择输入 no 并回车，直接进入命令行界面进行手动配置。
+
+   :::
+
+4. 输入 `enable` 命令进入特权模式，如交换机设置有密码导致无法进入，请参考以下步骤
+
+    <details>
+    <summary>清除Cisco设备的密码</summary>
+
+      * **物理连接**: 保持PC与交换机的Console连接
+      * **进入ROMMON模式**: 断开交换机电源。用手指按住交换机面板上的`Mode`按钮不放，然后重新接通电源。观察交换机面板的指示灯，等待`SYST`灯由闪烁变为常亮，再变为快速闪烁后，松开`Mode`按钮
+      * **初始化Flash**: 在Putty中，你会看到 `switch:` 提示符，这表示进入了ROM监控（ROMMON）模式。输入 `flash_init` 命令初始化闪存文件系统
+      * **重命名配置文件**: 输入 `dir flash:` 查看闪存内容，找到名为 `config.text` 的文件（交换机的启动配置文件），输入 `rename flash:config.text flash:config.old` 将其重命名，这样交换机下次启动时就找不到配置文件，会以默认的空配置启动，密码自然也就清除了
+      * **重启**: 输入 boot 命令，交换机将加载IOS并以出厂设置启动
+
+    </details>
+
+5.输入命令`show version`查看当前交换机型号信息并记录：
+
+   * 设备型号：<ModernInput size="large" questionId="lab2-s2-device-model"/>
+   * IOS软件版本：<ModernInput size="large" questionId="lab2-s2-ios-version"/>
+   * 软件映像文件名：<ModernInput size="large" questionId="lab2-s2-image-file"/>
+   * 端口数量：<ModernInput size="large" questionId="lab2-s2-port-count"/>
 
 </TaskCard>
 
 <TaskCard number={3} title="查看交换机文件系统">
 
-输入命令`show flash`或`dir flash`: 查看当前文件系统的内容
+<details>
+<summary>背景知识：交换机的存储器</summary>
+
+交换机内部有几种不同类型的存储器，各自承担着不同的角色：
+
+* **Flash（闪存）**: 这是一种非易失性存储器，主要用于存放IOS操作系统映像文件（如.bin文件）和配置文件，通过`show flash`或`dir flash:`命令查看的就是这部分内容
+* **NVRAM（非易失性随机访问存储器）**: 用于存放设备的启动配置文件（startup-config），交换机开机时会从这里加载配置
+* **RAM（随机访问存储器）**: 这是易失性存储器，用于存放当前正在运行的配置（running-config）、IOS操作系统、MAC地址表、ARP缓存等，**设备断电后，不会留下任何RAM中的内容**，请务必`write`保存所需的配置，以免不慎断电后损失全部工作
+
+</details>
+
+输入命令`show flash`或`dir flash:` 查看当前文件系统的内容
 
 <ScreenshotCard 
   questionId="Lab2-s3"
@@ -88,9 +191,24 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={4} title="查看VLAN配置">
 
-显示交换机的VLAN数据（命令`show vlan`）
+<details>
+<summary>背景知识：VLAN——虚拟局域网</summary>
 
-所有的端口应该都属于VLAN 1，如果存在其他VLAN，请先通过命令`no vlan id`删除
+在一个传统的局域网中，所有设备都处于同一个广播域，这意味着任何一台设备发送一个广播帧（例如ARP请求），网络中所有其他设备都会收到并处理它；当网络规模变大时，大量的广播流量会消耗宝贵的网络带宽和设备CPU资源，形成“广播风暴”，严重影响网络性能
+
+**VLAN**（**虚拟局域网**）技术应运而生，它将一个物理上的局域网在逻辑上划分成多个独立的广播域，为什么要这样做呢？主要有以下几个原因：
+
+- **控制广播风暴 (Broadcast Control)**：这是VLAN最主要的功能。将网络划分为多个VLAN，广播流量就被限制在各自的VLAN内部，极大地减少了不必要的流量，提升了网络整体性能。
+- **增强网络安全 (Security)**：不同VLAN之间的设备在二层上是完全隔离的，无法直接通信，这就像为不同部门或用户组建立了逻辑上的“墙”，防止了未授权的访问
+- **提升网络管理的灵活性 (Flexibility)**：VLAN允许网络管理员根据部门、功能或项目等逻辑关系来组织网络，而不是受限于用户的物理位置，当一个员工从一楼搬到三楼时，无需重新布线，只需在交换机上修改端口的VLAN配置，就可以让他继续留在原来的工作网络中，极大地简化了网络管理
+
+默认情况下，一台全新的思科交换机上所有端口都属于 **VLAN 1**，这是一个默认的、不能被删除的管理VLAN
+
+</details>
+
+使用命令 `show vlan` 显示交换机当前的VLAN数据库,确认所有端口都默认属于VLAN 1
+
+如果之前存在其它VLAN配置，请进入全局配置模式，使用 `no vlan <vlan-id>` 命令（例如 `no vlan 2`）将其删除，以保证实验环境的纯净
 
 <ScreenshotCard 
   questionId="Lab2-s4"
@@ -106,9 +224,56 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={5} title="连接PC并测试端口关闭功能">
 
-用直连网线（straight through）将PC按照前述拓扑结构连接到交换机。然后给各PC配置IP地址，并用Ping检查各PC之间的联通性，确保都能Ping通，否则请检查网线连接。
+<details>
 
-手工关闭某端口（命令：`shutdown`），输入命令查看该端口状态（命令：`show interface端口号`，如`show interface e0/1`），在其他PC上使用Ping命令检测连接在该端口的PC是否能够联通。
+<summary>背景知识：端口状态，网线种类</summary>
+
+交换机端口有两个主要的状态指标：
+
+* **管理状态(Administrative Status)**：指端口是否被人为地开启或关闭，我们使用`shutdown` 命令将其置为`administratively down`状态，使用`no shutdown`命令将其开启
+
+* **线路协议状态(Line Protocol Status)**：指端口在物理层和数据链路层是否正常工作，如果网线没插好、对端设备未开机或双工模式不匹配，这个状态可能就是`down`
+
+
+一个端口只有在这两个状态都为 up 时，才能正常转发数据。
+
+---
+
+实验报告中，你可能会看到直通/交叉网线这样的说法，它们的区别在于内部8芯线缆在RJ45水晶头中的排列顺序，即线序；以太网通信通常分别使用其中的4根线来发送(TX)和接收(RX)数据，而定义具体哪几根的通用线序标准主要有两种：
+
+[图片待补充]
+
+* T568A线序：绿白、绿、橙白、蓝、蓝白、橙、棕白、棕
+* T568B线序：橙白、橙、绿白、蓝、蓝白、绿、棕白、棕
+
+基于这两种线序，我们可以制作出两种不同的网线：
+
+* 直通线 (Straight-Through): 两端水晶头都采用相同的线序标准（通常都是T568B标准），用于连接不同类型的设备，例如PC连交换机；这是因为这些设备的网口针脚定义是互补的，一方的发送端(TX)正好对应另一方的接收端(RX)
+
+* 交叉线 (Crossover): 一端水晶头采用T568A标准，另一端采用T568B标准，这使得一端的发送针脚(TX)正好连接到另一端的接收针脚(RX)；它用于连接相同类型的设备，例如PC连PC 或交换机连交换机
+
+关于直通线和交叉线，我们有一个好消息和坏消息：好消息是，现代大多数网络设备（包括我们实验用的较新的交换机）都支持Auto-MDIX功能，端口可以自动检测对端设备的类型和所用线缆的类型，并相应地在内部“翻转”其发送和接收针脚的功能，此时你使用直通线或交叉线通常都能正常工作；坏消息是，实验室的一小部分二层交换机仍然不能混用直通线和交叉线，此时你需要严格按实验指导的要求使用网线（实验室的交叉线为浅蓝色**圆**线）
+
+
+</details>
+
+1. 根据你绘制的拓扑图，用直通网线将PC连接到交换机的相应端口
+2. 为各台PC配置静态IP地址（），确保它们在同一个子网内（例如，192.168.1.10, 192.168.1.11, ...，子网掩码均为255.255.255.0）
+   * Windows10： 控制面板-网络与共享中心-更改网络适配器设置-有线网卡-配置IPv4
+   * Windows11： 设置-网络和Internet-属性，如IP分配方式为自动（DHCP），点击编辑修改为手动，启用IPv4并进行配置，DNS可任意填写
+
+    :::warning 注意
+
+    对于实验室的笔记本电脑，建议此时禁用其无线网卡，以免同时连接有线网与校网导致非预期行为
+
+    请检查确认涉及的PC是否已关闭网络防火墙（Windows安全中心-防火墙和网络保护-关闭全部类型网络的防火墙），否则无法响应ICMP请求
+
+    :::
+
+3. 在PC上使用`ping`命令测试彼此之间的连通性，确保所有PC都能互相Ping通，如果Ping不通，请仔细检查IP配置和网线连接
+4. 进入交换机上某个连接了PC的端口的接口配置模式（如 `interface fastethernet 0/1`），输入 `shutdown` 命令
+5. 使用 `show interface fastethernet 0/1` 命令查看该端口的状态。观察其管理状态的变化
+6. 在其它PC上再次Ping连接在该关闭端口上的PC，验证其网络连接是否已中断
 
 <ScreenshotCard 
   questionId="Lab2-s5"
@@ -123,7 +288,7 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={6} title="重新启用端口并测试连通性">
 
-重新打开该端口（命令：`no shutdown`），输入命令查看交换机上端口状态。使用Ping命令检测连接在该端口的PC是否能够联通
+在被关闭端口的接口配置模式下，输入 `no shutdown` 命令重新启用该端口，输入命令查看交换机上端口状态，并使用Ping命令检测连接在该端口的PC是否能够联通
 
 <ScreenshotCard 
   questionId="Lab2-s6"
@@ -138,7 +303,22 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={7} title="配置交换机管理IP地址" needRecord={true}>
 
-进入VLAN1接口配置模式（命令：`interface vlan 1`），给VLAN 1配置IP地址即是给交换机配置管理IP地址（命令：`ip address 地址 掩码`）。测试PC是否能Ping通交换机的IP地址；如果不通，查看VLAN 1端口的状态是否是up，如果不是，则打开VLAN端口（`no shutdown`）。
+<details>
+
+<summary>背景知识：SVI——交换机的虚拟网卡</summary>
+
+二层交换机的本质工作是处理数据链路层的以太网帧，它本身并不理解三层（网络层）的IP地址，那为什么我们还要给它配置IP地址呢？
+
+这个IP地址并非用于转发业务数据，而是专用于**管理**，拥有IP地址后，我们就可以通过网络（例如使用Telnet或SSH）远程登录到交换机进行配置和监控，而无需每次都跑到设备旁连接Console线
+
+由于物理端口是用于转发数据的，我们不能直接在物理端口上配置IP。取而代之的是我们在一个虚拟的接口上配置IP，这个接口就是**交换虚拟接口（Switched Virtual Interface, SVI）**；每个VLAN都可以创建一个对应的SVI，命令 `interface vlan <vlan-id>` 创建的就是VLAN的SVI，将IP地址配置在 `interface vlan 1`上，就意味着我们创建了一个属于VLAN 1的管理接口，其IP地址就是交换机的管理IP
+
+</details>
+
+1. 进入VLAN 1的SVI配置模式：`interface vlan 1`
+2. 为该接口配置一个**与PC同网段**的IP地址及**与各PC均相同的子网掩码**：`ip address <地址> <掩码>`
+3. 在PC上测试是否能Ping通交换机的管理IP地址
+4. 若不通请检查VLAN 1接口的状态（`show ip interface brief`），如果状态为down，请在该接口配置模式下使用 `no shutdown` 命令启用它
 
 <ScreenshotCard 
   questionId="Lab2-s7"
@@ -152,7 +332,19 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={8} title="配置远程登录功能">
 
-输入以下命令：打开虚拟终端（命令`line vty 0 4`），允许远程登录（命令： `login`），设置登密码（命令：`password 密码`）
+<details>
+
+<summary>背景知识：VTY——虚拟终端线路</summary>
+
+VTY（Virtual Teletype）是交换机上用于接受远程登录（如Telnet、SSH）的虚拟线路，一台交换机可以支持多个并发的远程登录会话，`line vty 0 4`命令表示我们正在配置编号从0到4的这5条虚拟线路；`login`要求登录这些线路时需要进行身份验证；`password`设置登录时需要输入的密码
+
+请注意：Telnet协议以明文形式传输所有数（包括密码），存在严重的安全风险，生产环境中请使用更安全的SSH协议进行远程管理
+
+</details>
+
+1. 打开虚拟终端：`line vty 0 4`
+2. 允许远程登录：`login`
+3. 设置登录密码：`password 密码`
 
 <ScreenshotCard 
   questionId="Lab2-s8"
@@ -166,7 +358,7 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={9} title="测试Telnet远程连接">
 
-在PC上运行Putty软件，选择telnet协议，输入交换机的IP地址，通过网络远程连接交换机，并输入密码。
+在PC上运行Putty/Tabby软件，这次连接类型选择telnet协议，并输入刚刚配置的交换机的管理IP地址，通过网络远程连接交换机，并输入密码
 
 <ScreenshotCard 
   questionId="Lab2-s9"
@@ -180,7 +372,22 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={10} title="使用Wireshark观察网络流量">
 
-在PC1上运行Wireshark，在另外2台（PC2、PC3）上互相持续的Ping（运行`ping IP地址 -t`），观察在PC1上是否能抓取到PC2和PC3发出的ARP广播包以及ICMP响应包。如果不能抓取到PC2、PC3发送的ARP广播包，在PC2、PC3上先运行`arp –d *`删除所有主机的ARP缓存。正常情况下，ICMP响应包是不能被抓取到的。
+<details>
+
+<summary>背景知识：交换机的工作原理</summary>
+
+二层交换机通过维护一张**MAC地址表**（**MAC Address Table**）来实现数据帧的精确转发，这张表记录了“哪个MAC地址的主机连接在哪个端口上”
+
+学习: 当一个数据帧进入交换机某个端口时，交换机会检查该帧的源MAC地址，如果表中没有这个MAC地址的记录，交换机就会将这个MAC地址与进入端口的对应关系学习并添加到表中
+转发: 交换机检查帧的目标MAC地址，如果目标MAC在表中能找到对应的出端口，交换机就只将该帧从那个特定端口转发出去（这称为单播）；如果目标MAC在表中找不到（未知单播），或者目标MAC是广播地址（FF:FF:FF:FF:FF:FF）或多播地址，交换机就会将该帧向除进入端口外的所有其他同VLAN端口转发（这称为泛洪/Flooding）
+
+本步骤PC2 Ping PC3时，ICMP响应包的目标MAC是PC2的MAC，是单播帧；交换机会根据MAC地址表精确地将它只转发到连接PC2的端口，因此PC1是抓不到的；而ARP请求是广播帧，交换机会将其泛洪，所以PC1能抓到
+
+</details>
+
+1. 在PC1上运行Wireshark，开始捕获流经其网卡的数据包
+2. 在PC2上持续ping PC3（`ping [PC3_IP] -t`）
+3. 观察PC1上的Wireshark，看看是否能捕获到PC2和PC3之间通信的ARP广播包和ICMP单播包；如果看不到ARP包，请在PC2和PC3上执行 `arp -d *` 清除ARP缓存
 
 <ScreenshotCard 
   questionId="Lab2-s10"
@@ -194,9 +401,20 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={11} title="配置端口镜像功能" needRecord={true}>
 
-选择一个交换机端口配置为镜像端口（命令：`monitor session 1 destination interface 端口`），将PC1的网线切换到该端口，将PC2和PC3所连端口配置为被镜像端口（命令：`monitor session 1 source interface 端口`）。继续运行Wireshark，观察在PC1上是否能抓取到PC2和PC3的ICMP响应包。
+<details>
 
-请记录输入的命令：
+<summary>背景知识：端口镜像（SPAN）</summary>
+
+正如上一步所见，交换机的精确转发使得网络管理员难以在不影响网络结构的情况下监听特定端口的流量，为了解决这个问题，交换机提供了端口镜像（Port Mirroring）功能，在Cisco设备上称为SPAN（Switched Port Analyzer）
+
+SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入和流出的）复制一份，发送到一个指定的目的端口（Destination Port）**；我们将网络分析设备（比如装有Wireshark的PC）连接到目的端口，就可以“旁观”源端口的所有通信内容，这对于网络监控和故障排查至关重要
+
+</details>
+
+1. 在全局配置模式下配置镜像会话，将一个交换机端口设置为目的端口：`monitor session 1 destination interface [端口]`
+2. 将PC1的网线切换到这个镜像端口上
+3. 将被监听的PC2和PC3所连的端口设置为被镜像的源端口：`monitor session 1 source interface [端口]`。
+4. 在PC1上继续运行Wireshark，观察现在是否能抓取到PC2和PC3之间的ICMP单播包
 
 <ScreenshotCard 
   questionId="Lab2-s11"
@@ -211,7 +429,7 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={12} title="关闭端口镜像功能" needRecord={true} needScreenshot={false}>
 
-关闭PC1端口的镜像功能（命令：`no monitor session 1 destination interface 端口`），否则该端口不能正常收发数据。
+配置为镜像目的端口的接口将不能用于正常的网络通信，完成上一步骤后，请在全局配置模式下输入命令关闭PC1端口的镜像功能（命令：`no monitor session 1 destination interface 端口`），否则该端口不能正常收发数据
 
 <ScreenshotCard 
   questionId="Lab2-s12"
@@ -221,12 +439,21 @@ import { Row, Col } from 'antd';
   ]}
 ></ScreenshotCard>
 
-
 </TaskCard>
 
 <TaskCard number={13} title="创建VLAN并测试隔离效果" needRecord={true}>
 
-在交换机上增加VLAN 2（命令：`vlan database`或`config terminal`，`vlan 2`），将PC3、PC4所连端口加入到VLAN 2（命令：`interface 端口`，`switchport access vlan 2`）。用Ping检查PC之间的联通性（同一VLAN的PC之间能够通，不同VLAN的PC之间不能通）。
+现在，我们将体验VLAN的隔离作用
+
+1. 进入全局配置模式，增加VLAN 2：`vlan database`或`config terminal`，`vlan 2`
+2. 将PC3、PC4所连接的端口划入VLAN 2，请进入这些端口的接口配置模式：
+   - `interface [端口]`
+   - `switchport mode access` (将端口模式恢复为默认的接入模式，因为之前班级的同学可能对端口配置有修改)
+   - `switchport access vlan 2` (将端口加入VLAN 2)
+3. 使用`ping`命令全面测试PC间的连通性。你会发现：
+   - 同在VLAN 1的PC1和PC2之间可以ping通
+   - 同在VLAN 2的PC3和PC4之间可以ping通
+   - 处于不同VLAN的PC之间（如PC1 ping PC3）则无法ping通，证明VLAN成功地隔离了二层通信
 
 <ScreenshotCard 
   questionId="Lab2-s13"
@@ -244,9 +471,9 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={14} title="保存交换机配置" needScreenshot={false}>
 
-查看交换机上的运行配置（命令`show running-config`），复制粘贴本节相关的文本。
+查看交换机上的运行配置（命令：`show running-config`），复制粘贴本节相关的文本
 
-保存交换机配置到启动配置文件（命令：`copy running-config startup-config`），确保重启后配置不丢失。
+保存交换机配置到启动配置文件（命令：`copy running-config startup-config`），确保重启后配置不丢失
 
 <ScreenshotCard 
   questionId="Lab2-s14"
@@ -263,32 +490,36 @@ import { Row, Col } from 'antd';
 
 <TaskCard number={15} title="构建双交换机网络拓扑">
 
-增加一台交换机（Switch2），将PC2、PC4连接到该交换机，并用一根交叉网线（Cross-over）将两个交换机连接起来。在拓扑图上记录各PC的IP地址、连接端口及所在VLAN：
+现在，我们将网络扩展到两台交换机
 
-<ScreenshotCard 
-  questionId="Lab2-s15"
-  title="拓扑图参考"
-  uploadOptions={[
-    { id: 'topology', label: '上传实际拓扑图' }
-  ]}
->
-  ![img](img/2.15.jpg)
-</ScreenshotCard>
-
-在Switch2上增加VLAN 2，将PC4所连端口加入到VLAN 2。用Ping检查不同交换机上属于同一VLAN的PC之间的联通性（即PC1与PC2应该通，PC3与PC4不能通）。然后显示2个交换机的VLAN数据（命令`show vlan`）
-
-<ScreenshotCard 
-  questionId="Lab2-s15"
-  title="双交换机VLAN配置截图"
-  uploadOptions={[
-    { id: 'switch1-vlan', label: '截图Switch1 VLAN数据' },
-    { id: 'switch2-vlan', label: '截图Switch2 VLAN数据' },
-    { id: 'ping-pc12', label: '截图PC1→2' },
-    { id: 'ping-pc34', label: '截图PC3→4' }
-  ]}
-/>
+1. 新增一台交换机（Switch2），并按照拓扑图将PC2、PC4连接到Switch2上；用一根交叉网线（Cross-over）将两个交换机连接起来；在拓扑图上记录各PC的IP地址、连接端口及所在VLAN：
+    <ScreenshotCard 
+      questionId="Lab2-s15"
+      title="拓扑图参考"
+      uploadOptions={[
+        { id: 'topology', label: '上传实际拓扑图' }
+      ]}
+    >
+      ![img](img/2.15.jpg)
+    </ScreenshotCard>
+2. 使用一根交叉网线（在支持Auto-MDIX的设备上也可使用直通网线）将两台交换机连接起来
+3. 在Switch2上同样创建VLAN 2，并将连接PC4的端口划入VLAN 2
+4. 用Ping测试PC间的连通性，你会发现连接在不同交换机上、但属于同一个VLAN的PC之间无法通信（例如PC3 Ping PC4不通）
+5. 分别在两台交换机上使用 `show vlan` 查看VLAN信息
+    <ScreenshotCard 
+      questionId="Lab2-s15"
+      title="双交换机VLAN配置截图"
+      uploadOptions={[
+        { id: 'switch1-vlan', label: '截图Switch1 VLAN数据' },
+        { id: 'switch2-vlan', label: '截图Switch2 VLAN数据' },
+        { id: 'ping-pc12', label: '截图PC1→2' },
+        { id: 'ping-pc34', label: '截图PC3→4' }
+      ]}
+    />
 
 </TaskCard>
+
+<PlaceHolder>
 
 <TaskCard number={16} title="配置VLAN Trunk模式" needRecord={true}>
 
@@ -441,6 +672,8 @@ ___
 
 </TaskCard>
 
+</PlaceHolder>
+
 ## 3 实验结果与分析
 
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
@@ -482,5 +715,3 @@ ___
 ## 5 导出实验报告
 
 <ExportButton templatePath={require('@site/assets/base_report/Lab2.zip').default} labName="Lab2" labId="lab2-" />
-
-</PlaceHolder>
