@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 title: Lab2 使用二层交换机组网 详解版本
 ---
 
@@ -9,7 +9,6 @@ import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import TaskCard from '@site/src/components/TaskCard';
 import ScreenshotCard from '@site/src/components/ScreenshotCard';
 import ModernInput from '@site/src/components/ModernInput';
-import PlaceHolder from '@site/src/components/PlaceHolder'
 import ExportButton from '@site/src/components/ExportButton';
 import { Row, Col } from 'antd';
 
@@ -519,11 +518,26 @@ SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入
 
 </TaskCard>
 
-<PlaceHolder>
-
 <TaskCard number={16} title="配置VLAN Trunk模式" needRecord={true}>
 
-将交换机之间的互联端口配置为VLAN Trunk模式（命令：`switchport mode trunk`，部分型号的设备可能要先设置封装协议，命令：`switchport trunk encapsulation dot1q`），再次用Ping检查属于同一VLAN但在不同交换机的PC之间的联通性（即PC1与PC2应该通，PC3与PC4也应该通）。
+<details>
+
+<summary>背景知识：Trunk——跨越交换机的VLAN高速公路</summary>
+
+上一步中，为什么同属VLAN 2的PC3和PC4无法通信？因为连接两个交换机的端口默认是接入端口（Access Port），它只能承载一个VLAN的流量；
+
+让我们跟着数据帧走一遍就明白了：当PC3的帧进入Switch1时，Switch1看到这个帧是从一个属于VLAN 2的端口进来的，于是在内部“知道”了这个帧属于VLAN 2，这个对应关系是存在Switch1**自己的内存里**的
+
+但是，当Switch1要将这个帧通过另一个接入端口转发给Switch2时，它不会携带任何VLAN相关信息，因为接入端口默认连接的是终端设备（如PC），这些设备是无法识别VLAN标签的；所以，当这个“裸奔”的数据帧到达Switch2时，Switch2无法知道它在Switch1那边是属于VLAN 2的，只会根据自己端口的默认设置来处理，VLAN信息就这样“丢失”了——原始的VLAN归属信息留在了Switch1的内存里，没有跟着数据帧一起走
+
+为了解决这个问题，我们需要引入**干道链路（Trunk Link）**，Trunk链路就像一条多车道高速公路，可以同时承载来自多个不同VLAN的流量，这是通过**帧标记（Frame Tagging）**实现的，当一个以太网帧要通过Trunk链路时，交换机会在帧头和数据之间插入一个额外的“标签”，指明这个帧属于哪个VLAN；目前最主流的标记协议是 **IEEE 802.1Q**，对端交换机收到这个带标签的帧后，读取标签就知道该如何处理它，从而实现了VLAN信息在交换机之间的传递
+
+</details>
+
+1. 在两台交换机上，**分别**进入连接彼此的那个端口的接口配置模式
+2. 输入 `switchport mode trunk` 命令，将端口模式配置为Trunk
+   - 注：部分老型号交换机可能需要先执行 `switchport trunk encapsulation dot1q` 来指定封装协议为802.1Q
+3. 配置完成后，再次测试属于同一VLAN但在不同交换机的PC1与PC2、PC3与PC4之间的连通性，此时它们应该能够均能成功ping通
 
 <ScreenshotCard 
   questionId="Lab2-s16"
@@ -540,13 +554,35 @@ SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入
 
 <TaskCard number={17} title="添加冗余链路并观察STP状态">
 
-再增加一根网线，把2个交换机的另外2个端口连接起来。并将这2个端口都配置成VLAN Trunk模式。稍等片刻，查看4个互联端口的状态（命令：`show spanning-tree`），分别在2个VLAN中标出: 哪个交换机是根网桥？哪些端口处于转发状态（FWD），哪些端口处于阻塞状态（BLK）。
+<details>
 
-Spanning-tree数据截图示例（请替换成实际显示的）：
+<summary>背景知识：STP——交换网络中的“交通指挥”</summary>
+
+为了提高网络的可靠性，我们经常在交换机之间建立冗余链路，但这样做会带来致命的环路问题，当环路存在时，一个广播帧可以被无休止地循环转发，并且每循环一次都会被复制，迅速形成广播风暴，耗尽所有网络带宽和设备CPU，导致整个网络瘫痪；同时，环路也会导致交换机的MAC地址表剧烈地、反复地更新，造成MAC地址表不稳定
+
+**生成树协议**（**Spanning Tree Protocol, STP**）就是为了解决这个问题而设计的，它的核心思想是在一个具有物理环路的网络中，通过分布式的算法逻辑地**阻塞**（**Block**）掉一些端口，从而在数据转发层面计算并维护一个无环路的树状拓扑；同时STP会持续监控网络状态，一旦当前正在使用的活动链路出现故障，它会自动取消对备份链路端口的阻塞，恢复网络连通性，实现了链路的自动冗余切换
+
+STP算法的核心是网络中的所有交换机通过交换**BPDU**（**Bridge Protocol Data Unit，桥协议数据单元**）消息，来共同完成以下两个步骤：
+
+1. **选举一台根桥（Root Bridge）**: 网络中会选举出一个唯一的根桥。选举的依据是**网桥ID（Bridge ID）**，Bridge ID由一个可配置的优先级和交换机的MAC地址组成，Bridge ID最小的交换机将成为根桥（即优先级没有差异时，MAC地址最小的为根桥）
+2. **为每台非根桥交换机确定一个根端口（Root Port），为每个网段确定一个指定端口（Designated Port）**:
+   - **根端口**：在每一台非根桥上，离根桥“最近”的端口，“近”是通过路径开销，通常与链路带宽有关，带宽越高，开销越小
+   - **指定端口**：在每一个物理网段（链路）上，离根桥“最近”的端口
+   - 所有既不是根端口也不是指定端口的端口，最终都会被置于**阻塞状态（Blocking, BLK）**，它们不转发用户数据，只接收BPDU，从而打破环路。
+
+整个过程是自动的，初始时每台交换机都认为自己是根桥，并向邻居发送自己的BPDU；收到邻居的BPDU后，交换机进行比较，如果发现邻居的Bridge ID更优（更小），它就会更新自己的信息，并开始转发这个更优的BPDU；最终全网将对谁是根桥以及每个端口的角色达成一致，形成一棵稳定的生成树
+
+</details>
+
+1. 再增加一根网线，连接两台交换机的另外两个空闲端口，形成冗余链路
+2. 将这两个新连接的端口也配置为Trunk模式
+3. **等待约1分钟**，让STP协议完成计算和收敛
+4. 在两台交换机上，输入 `show spanning-tree` 命令，查看4个互联端口状态
+5. 根据命令输出，分别在2个VLAN中标出：哪个交换机是根桥（Root Bridge）？哪些端口是转发状态（FWD），哪些是阻塞状态（BLK）？
 
 <ScreenshotCard 
   questionId="Lab2-s17"
-  title="Switch1的STP状态截图"
+  title="Switch1的STP数据示例"
   uploadOptions={[
     { id: 'switch1-stp', label: '截图Switch1 STP状态' }
   ]}
@@ -558,7 +594,7 @@ ___
 
 <ScreenshotCard 
   questionId="Lab2-s17"
-  title="Switch2的STP状态截图"
+  title="Switch2的STP数据示例"
   uploadOptions={[
     { id: 'switch2-stp', label: '截图Switch2 STP状态' }
   ]}
@@ -570,7 +606,11 @@ ___
 
 <TaskCard number={18} title="测试关闭STP的影响">
 
-关闭2个VLAN的STP（命令：`no spanning-tree vlan ID`），观察两个交换机的端口状态指示灯（急速闪动），并在PC上用Ping测试网络的延迟是否加大（甚至可能出现超时或丢包）。
+为了直观感受没有生成树协议后的影响，我们不妨手动关闭生成树协议以观察恐怖的网络风暴
+
+1. 在两台交换机上，分别关闭VLAN 1和VLAN 2的STP：`no spanning-tree vlan [VLAN ID]`
+2. 观察交换机互联端口的状态指示灯，它们会开始急速闪烁，这正是广播风暴的迹象
+3. 在PC上尝试ping其他设备，你会发现延迟急剧增大，甚至出现大量丢包和超时
 
 <ScreenshotCard 
   questionId="Lab2-s18"
@@ -585,7 +625,7 @@ ___
 
 <TaskCard number={19} title="重新启用STP并测试恢复">
 
-重新打开2个VLAN的STP（命令：`spanning-tree vlan ID`）, 观察两个交换机的端口状态指示灯（缓慢闪动），并在PC上用Ping测试网络的延迟是否恢复正常。
+我们姑且还是不要再折磨可怜的交换机了，现在，让我们重新启用生成树协议：`spanning-tree vlan [VLAN ID]`，让整个网络恢复正常工作，此时你应该能观察到两个交换机的端口状态指示灯恢复缓慢闪动，在PC上用Ping测试网络的延迟应当也会恢复正常
 
 <ScreenshotCard 
   questionId="Lab2-s19"
@@ -599,7 +639,12 @@ ___
 
 <TaskCard number={20} title="测试STP故障恢复机制">
 
-拔掉连接在2个处于FWD状态端口之间的网线，等待一会儿，查看4个互联端口的状态（命令：`show spaning-tree`）（有些端口可能已经消失）。标出原BLK状态的端口是否变成了FWD状态。
+如果生成树协议只是找到并阻塞形成环路的线路中的一条，那么这和直接拔掉这根冗余线路，放弃冗余性没有区别了，生成树协议另外强大的一点就是能够动态更新，从而在链路变化或遇到故障时实现自愈；现在，我们模拟主链路故障，观察生成树协议下的链路状态会发生怎样的变化
+
+1. 拔掉那根两个端口**都处于FWD状态**的网线
+2. 等待约1分钟，让STP重新收敛
+3. 在交换机上再次输入 `show spanning-tree` 命令（有些端口可能已经消失）
+4. 观察并在图中标记原先处于BLK状态的端口是否已经转换为了FWD状态，从而接管了数据转发任务
 
 <ScreenshotCard 
   questionId="Lab2-s20"
@@ -614,7 +659,20 @@ ___
 
 <TaskCard number={21} title="配置端口优先级实现负载均衡" needRecord={true}>
 
-配置2个交换机的互联端口优先级(默认优先级128)，使VLAN1的数据优先通过第1对互联端口传送（命令：`interface 端口`, `spanning-tree vlan 1 port-priority 16`）。使VLAN2的数据优先通过第2对互联端口传送（命令：`interface 端口`, `spanning-tree vlan 2 port-priority 16`）。此处只记录2个交换机各自所使用的命令及参数即可。
+<details>
+
+<summary>背景知识：利用PVST+实现VLAN负载均衡</summary>
+
+标准的STP协议会将冗余链路置于阻塞状态，这意味着备份链路在正常情况下是完全闲置的，对于极其宝贵的带宽而言是巨大损失，思科的**PVST+**（**Per-VLAN Spanning Tree Plus**）协议为每个VLAN都运行一个独立的STP实例，这为我们实现负载均衡（Load Balancing）提供了可能
+
+我们可以通过调整**端口优先级（Port Priority）**来影响STP的端口角色选举，优先级数值越小，代表优先级越高（默认128）；通过为不同VLAN在不同链路上设置不同的端口优先级，我们可以“引导”STP为VLAN 1选择一条路径，同时为VLAN 2选择另一条路径，这样两条物理链路就都得到了利用，实现了流量的分担
+
+</details>
+
+我们将两条互联链路分别称为链路A和链路B，我们的目标是：VLAN 1的流量走链路A，链路B作为备份；VLAN 2的流量走链路B，链路A作为备份
+
+1. 配置VLAN 1的流量优先走链路A，在2台交换机上对该网线的接口分别进行配置：`interface 端口1`, `spanning-tree vlan 1 port-priority 16`
+2. 配置VLAN 2的流量优先走链路B，在2台交换机上对该网线的接口分别进行配置：`interface 端口2`, `spanning-tree vlan 2 port-priority 16`
 
 <ScreenshotCard 
   questionId="Lab2-s21"
@@ -629,7 +687,10 @@ ___
 
 <TaskCard number={22} title="验证端口优先级配置效果">
 
-拔掉剩下的1根连接互联端口的网线，稍后2根网线重新插上，等待一会儿，查看4个互联端口的状态，分别在2个VLAN中标出:各端口的优先级，哪些端口处于转发状态，哪些端口处于阻塞状态。
+将所有网线重新插好，等待STP收敛然后执行`show spanning-tree`，仔细观察VLAN 1和VLAN 2的STP状态，在相应的截图中标记各端口的优先级，哪些端口处于转发状态，哪些端口处于阻塞状态；此时你应该能看到：
+
+* 在VLAN 1的STP实例中，链路A的端口是FWD，链路B的端口是BLK
+* 在VLAN 2的STP实例中，链路B的端口是FWD，链路A的端口是BLK
 
 <ScreenshotCard 
   questionId="Lab2-s22"
@@ -644,7 +705,7 @@ ___
 
 <TaskCard number={23} title="测试链路故障时的负载均衡切换">
 
-拔掉其中1根连接互联端口的网线，查看4个互联端口中原先处于BLK状态的端口，是否变成了FWD状态（哪个VLAN发生了变化）
+拔掉其中一根互联的网线（例如链路A），等待STP收敛后，查看端口状态；查看4个互联端口中原先处于BLK状态的端口，是否变成了FWD状态（哪个VLAN发生了变化）
 
 <ScreenshotCard 
   questionId="Lab2-s23"
@@ -659,7 +720,7 @@ ___
 
 <TaskCard number={24} title="保存交换机运行配置" needScreenshot={false}>
 
-记录2个交换机上的运行配置（命令:`show running-config`），复制粘贴本节相关的文本（完整的内容请放在文件中，每个交换机一个文件，分别命名为S1.txt、S2.txt）。
+记录2个交换机上的运行配置（命令:`show running-config`），复制粘贴本节相关的文本，随后将完整的内容放在文件中（每个交换机一个文件，分别命名为S1.txt、S2.txt）随报告压缩提交
 
 <ScreenshotCard 
   questionId="Lab2-s24"
@@ -671,8 +732,6 @@ ___
 ></ScreenshotCard>
 
 </TaskCard>
-
-</PlaceHolder>
 
 ## 3 实验结果与分析
 
