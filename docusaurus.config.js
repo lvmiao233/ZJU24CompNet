@@ -89,14 +89,14 @@ const config = {
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
-      announcementBar: {
-        id: 'semester_end',
-        content:
-            '📅当前显示的课程任务开始与截止时间为预估值，请以作业系统内安排为准，预计1-2周内完成同步',
-        backgroundColor: '#fafbfc',
-        textColor: '#091E42',
-        isCloseable: false,
-      },
+      // announcementBar: {
+      //   id: 'semester_end',
+      //   content:
+      //       '📅当前显示的课程任务开始与截止时间为预估值，请以作业系统内安排为准，预计1-2周内完成同步',
+      //   backgroundColor: '#fafbfc',
+      //   textColor: '#091E42',
+      //   isCloseable: false,
+      // },
       navbar: {
         title: '计算机网络课程实验',
         logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
