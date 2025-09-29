@@ -5,8 +5,8 @@ import { Result } from 'antd';
 const PlaceHolder = (props) => (
   <Result
     status="404"
-    title="文档正在施工中"
-    subTitle="抱歉，请稍后再来查看"
+    title="这部分文档还在施工中"
+    subTitle="抱歉，请稍后再来查看吧"
   />
 );
 
