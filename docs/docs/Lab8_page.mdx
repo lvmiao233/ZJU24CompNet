@@ -190,6 +190,31 @@ void connectionHandler(int socket) {
 
 - **缓存**：缓存机制允许将响应结果存储在客户端或其他中间节点（如CDN），以便后续请求可以直接使用缓存的数据，而无需再次向服务器发起请求，提升用户体验和系统性能；这不仅减少了服务器的负载，还提高了响应速度，如，`GET` 请求通常被认为是可缓存的，因为它们主要用于获取资源，且不会改变服务器状态
 
+<details>
+<summary>RESTful是什么？</summary>
+
+你可能已经注意到了——POST方法能携带数据并返回响应，看起来我们提到的其他方法似乎都可以通过POST方法加上不同的参数来实现，那么，为什么要专门设计这么多不同的HTTP方法呢
+
+这背后最主要的原因，就是一种被称为**表述性状态传递**（Representational State Transfer, REST）的软件架构风格，在RESTful架构中，网络上的所有事物都被视为**资源**，而每一个URI都代表一种特定的资源，我们对资源的操作，则通过不同的HTTP方法来定义，这使得接口变得直观且标准化
+
+例如，对于一个/users资源
+
+```yaml
+GET    /users          # 获取所有用户列表 (查询)
+POST   /users          # 新建一个用户 (新增)
+GET    /users/123      # 获取ID为123的用户信息 (查询特定)
+PUT    /users/123      # 完整替换ID为123的用户信息 (完整更新)
+PATCH  /users/123      # 部分修改ID为123的用户信息 (部分更新)
+DELETE /users/123      # 删除ID为123的用户 (删除)
+```
+RESTful的关键特性还包括：客户-服务器模式，无状态通信，缓存机制，统一接口，分层系统，[可选]按需代码
+
+理论上，RESTful是一种非常优雅和清晰的设计，但在复杂的现实网络环境中，开发者有时会做出一些“妥协”，由此便诞生了所谓“POSTful”的实践（没有POSTful这个术语），即无论什么操作，都使用POST方法一把梭，这通常是出于一些无奈的原因，比如一些运营商或企业安全设备可能会对GET/POST以外的方法进行误处理，或是中间代理服务器对GET请求的异常缓存行为都可能影响业务的正常运行；在这种情况下，`GET /users` 可能会被改造为 `POST /getUserList`，`DELETE /users/123` 会被改造为 `POST /deleteUser` 等等
+
+现实世界没有完美的解决方案，根据实际情况做最适合的选择才是工程实践的常态，不过在我们的实验中，你只需要正确区分GET和POST方法，并执行相应的功能逻辑即可
+
+</details>
+
 <Table dataSource={HTTPMethodAttribute} columns={HTTPMethodAttributeColumn} size={'small'} pagination={false} align={'center'}/>
 
 我们的实验只需要你支持GET和POST两个方法；在前序步骤中，你已经成功解析得到了请求行，相信对请求行的进一步解析对你而言也会非常简单
@@ -325,7 +350,7 @@ void connectionHandler(int socket) {
 }
 ```
 
-为了检验你对头字段的解析，我们不妨实现一个简单的WebEcho功能，具体步骤如下：
+为了检验你对头字段的解析，我们不妨采用网络编程中一种被称为“回声协议(Echo Protocol)”或“镜像调试(Mirror Debugging)”的经典技巧；在开发复杂的通信协议时，让服务器原样回显它所接收到的数据是验证解析器是否正确、无误地听懂了客户端请求的最直接方式，虽然这不是一个真正的Web服务器功能，但能帮助我们确信协议解析这一基础环节是稳固可靠的；实现这个简单的WebEcho功能的具体步骤如下：
 
 * 解析头字段，得到`Content-Length`字段的值，并根据该值读入相应长度的正文（保证由ASCII字母+数字组成）
 * 组装响应数据包，至少要包含`Content-Length`、`Content-Type`字段，且相应字段的值需要正确设置；响应正文为解析到的请求正文的完整内容
@@ -386,7 +411,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 <FileCard file_type={'cloud'} name={'实验测试素材'} size={'45216'} link={require('@site/assets/resources/resources.zip').default} />
 
-为了满足自动化测试的需求，请你按照以下表格中的映射关系，对相应资源URL进行映射，我们测试的请求将使用映射后的URL
+为了满足自动化测试的需求，请你按照以下表格中的映射关系，对相应资源URL进行映射，我们测试的请求将使用映射后的URL（你完全可以选择其他映射方式，但需要自己进行测试）；这里的文件组织方式模仿了小型项目的常见组织方式——开发者为了内部管理方便常会按类型（如html, img）组织文件，但对用户呈现的URL则会设计得更简洁、友好且不暴露内部结构
 
 <Table dataSource={uriMap} columns={uriMapColumn} size={'small'} pagination={false}/>
 
@@ -408,7 +433,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 <MultiTestCard header={"测试4 资源URI映射"} testUri={"/test/lab8/uri-mapping"}/>
 
-我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于`GET`方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的字符串（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
+为了便于你分部分调试，我们不妨分开来独立测试路径映射、文件读取与内容传输功能，这里请你先实现资源URI映射；我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于`GET`方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的**字符串**（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
 例：`GET /index.html HTTP/1.0`的请求，响应正文应当为`/html/test.html`；`GET /what.png HTTP/1.0`的请求，应返回`404 Not Found`，响应正文为空
 
@@ -419,7 +444,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 对于正确的资源请求，我们需要返回目标资源，同时设置响应头，以指示客户端如何处理该资源，具体来说，分为以下几步：
 * **资源映射**：将请求的URI映射到服务器本地的文件系统路径上，以便定位请求的资源文件
 * **文件读取**：使用文件I/O操作读取指定路径上的资源文件，如果文件存在，则将其内容读取到内存中，以便后续进行响应
-* **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等；响应头`Content-Length`设置为文件大小（以字节为单位）
+* **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；响应头`Content-Length`设置为文件大小（以字节为单位）；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，对于本实验，你无需实现复杂的MIME类型检测。只需根据请求文件的扩展名进行简单的映射即可，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等，请至少支持实验所需文件（.html, .txt, .jpg）的类型映射
 
 <MultiTestCard header={"测试5 资源访问"} testUri={"/test/lab8/resource-retrieve"}/>
 
