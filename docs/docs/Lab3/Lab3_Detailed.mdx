@@ -67,8 +67,6 @@ import { Row, Col } from 'antd';
 
 这一步是后续所有配置的基础，它模拟了企业网络中不同部门被划分到不同VLAN的典型场景
 
-![](img/image2.png)
-
 <ScreenshotCard 
   questionId="Lab3-p1-s1" 
   title="网络拓扑图参考" 
@@ -89,9 +87,9 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab3-p1-s2" 
-  title="PC间Ping测试结果" 
+  title="PC间Ping结果示例" 
   uploadOptions={[
-    { id: 'ping_test', label: 'Ping测试截图' }
+    { id: 'ping_test', label: '截图Ping结果' }
   ]}
 >
   ![img](img/image3.png)
@@ -178,10 +176,10 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p1-s5" 
-  title="PC网络配置截图" 
+  title="PC网络配置示例" 
   uploadOptions={[
-    { id: 'pc1_config', label: 'PC1网络配置截图' },
-    { id: 'pc2_config', label: 'PC2网络配置截图' }
+    { id: 'pc1_config', label: '截图PC1网络配置' },
+    { id: 'pc2_config', label: '截图PC2网络配置' }
   ]}
 >
    ![img](img/image6.png)
@@ -196,10 +194,10 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p1-s6" 
-  title="PC Ping路由器子接口测试结果" 
+  title="PC Ping子接口结果示例" 
   uploadOptions={[
-    { id: 'pc1_ping_router', label: 'PC1 Ping路由器子接口结果' },
-    { id: 'pc2_ping_router', label: 'PC2 Ping路由器子接口结果' }
+    { id: 'pc1_ping_router', label: '截图PC1 Ping结果' },
+    { id: 'pc2_ping_router', label: '截图PC2 Ping结果' }
   ]}
 >
    ![img](img/image8.png)
@@ -216,9 +214,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p1-s7" 
-  title="PC间互相Ping测试结果" 
+  title="PC间Ping结果示例" 
   uploadOptions={[
-    { id: 'pc_ping_test', label: 'PC间Ping测试截图' }
+    { id: 'pc_ping_test', label: '截图PC间Ping结果' }
   ]}
 >
   ![img](img/image10.png)
@@ -234,9 +232,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p1-s8" 
-  title="路由器路由表内容" 
+  title="路由表内容示例" 
   uploadOptions={[
-    { id: 'routing_table', label: '路由表截图' }
+    { id: 'routing_table', label: '截图路由表' }
   ]}
 >
   ![img](img/image11.png)
@@ -252,7 +250,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   questionId="Lab3-p1-s9" 
   title="路由器运行配置" 
   uploadOptions={[
-    { id: 'running_config', label: '本节相关运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
+    { id: 'running_config', label: '记录相关配置', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
   ]}
 />
 
@@ -294,9 +292,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s1" 
-  title="三层交换网络拓扑图" 
+  title="三层交换网络拓扑图示例" 
   uploadOptions={[
-    { id: 'l3_topology', label: '三层交换网络拓扑截图' }
+    { id: 'l3_topology', label: '上传网络拓扑图' }
   ]}
 >
   ![img](img/image13.png)
@@ -314,10 +312,10 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s2" 
-  title="三层交换机VLAN配置" 
+  title="VLAN配置结果示例" 
   uploadOptions={[
-    { id: 'vlan_config_cmd', label: 'VLAN配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
-    { id: 'vlan_show_result', label: 'VLAN配置结果截图' }
+    { id: 'vlan_config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
+    { id: 'vlan_show_result', label: '截图配置结果' }
   ]}
 >
   ![img](img/image14.png)
@@ -337,7 +335,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   questionId="Lab3-p2-s3" 
   title="VLAN接口IP地址配置" 
   uploadOptions={[
-    { id: 'vlan_ip_config', label: 'VLAN接口IP配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
+    { id: 'vlan_ip_config', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
   ]}
 />
 
@@ -355,10 +353,10 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s5" 
-  title="PC网络配置截图" 
+  title="PC网络配置示例" 
   uploadOptions={[
-    { id: 'pc3_config', label: 'PC3网络配置截图' },
-    { id: 'pc4_config', label: 'PC4网络配置截图' }
+    { id: 'pc3_config', label: '截图PC3网络配置' },
+    { id: 'pc4_config', label: '截图PC4网络配置' }
   ]}
 >
    ![img](img/image15.png)
@@ -373,10 +371,10 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s6" 
-  title="PC Ping VLAN接口测试结果" 
+  title="Ping VLAN接口结果示例" 
   uploadOptions={[
-    { id: 'pc3_ping_vlan', label: 'PC3 Ping VLAN接口结果' },
-    { id: 'pc4_ping_vlan', label: 'PC4 Ping VLAN接口结果' }
+    { id: 'pc3_ping_vlan', label: '截图PC3 Ping结果' },
+    { id: 'pc4_ping_vlan', label: '截图PC4 Ping结果' }
   ]}
 >
   ![img](img/image17.png)
@@ -391,9 +389,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s7" 
-  title="PC间互相Ping测试结果" 
+  title="PC间Ping结果示例" 
   uploadOptions={[
-    { id: 'pc34_ping_test', label: 'PC3和PC4互相Ping测试截图' }
+    { id: 'pc34_ping_test', label: '截图PC3/4间Ping结果' }
   ]}
 >
   ![img](img/image19.png)
@@ -407,13 +405,14 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s8" 
-  title="跨交换机VLAN间连通性测试" 
+  title="跨交换机Ping结果示例" 
   uploadOptions={[
-    { id: 'pc1_to_pc4', label: 'PC1→PC4 Ping测试截图' },
-    { id: 'pc2_to_pc3', label: 'PC2→PC3 Ping测试截图' }
+    { id: 'pc1_to_pc4', label: '截图PC1→4 Ping结果' },
+    { id: 'pc2_to_pc3', label: '截图PC2→3 Ping结果' }
   ]}
 >
   ![img](img/image20.png)
+
   ![img](img/image21.png)
 </ScreenshotCard>
 
@@ -434,7 +433,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   questionId="Lab3-p2-s9" 
   title="三层交换机Trunk配置命令" 
   uploadOptions={[
-    { id: 'trunk_config_cmd', label: 'Trunk配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+    { id: 'trunk_config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
   ]}
 />
 
@@ -446,9 +445,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s10" 
-  title="配置Trunk后连通性测试" 
+  title="配置Trunk后Ping结果示例" 
   uploadOptions={[
-    { id: 'pc2_to_pc3_after', label: 'PC2→PC3 Ping测试截图（配置Trunk后）' }
+    { id: 'pc2_to_pc3_after', label: '截图PC2→3 Ping结果' }
   ]}
 >
   ![img](img/image22.png)
@@ -462,9 +461,9 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <ScreenshotCard 
   questionId="Lab3-p2-s11" 
-  title="三层交换机路由信息" 
+  title="三层交换机路由表示例" 
   uploadOptions={[
-    { id: 'l3_routing_info', label: '三层交换机路由信息截图' }
+    { id: 'l3_routing_info', label: '截图三层交换机路由表' }
   ]}
 >
   ![img](img/image23.png)
@@ -474,13 +473,13 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 <TaskCard number={12} title="记录三层交换机运行配置" needScreenshot={false} needRecord={true}>
 
-记录三层交换机上的当前运行配置, 复制粘贴本节相关的文本（完整内容请放在文件中，命名为S2.txt，与报告一同压缩提交）
+记录三层交换机上的当前运行配置，复制粘贴本节相关的文本（完整内容请放在文件中，命名为S2.txt，与报告一同压缩提交）
 
 <ScreenshotCard 
   questionId="Lab3-p2-s12" 
   title="三层交换机运行配置" 
   uploadOptions={[
-    { id: 'l3_running_config', label: '本节相关运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
+    { id: 'l3_running_config', label: '记录相关运行配置', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
   ]}
 />
 
