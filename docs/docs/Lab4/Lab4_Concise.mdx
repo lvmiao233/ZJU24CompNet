@@ -1,6 +1,6 @@
 ---
-sidebar_position: 7
-title: Lab4 静态路由配置
+sidebar_position: 2
+title: Lab4 静态路由配置 精简版
 ---
 
 
@@ -58,7 +58,7 @@ import { Row, Col } from 'antd';
 ## 四、操作方法与实验步骤
 
 -   按拓扑图连接路由器、交换机和PC机；
-![](img/Lab4/image2.png)
+![](img/image2.png)
 -   设计好每个区域内PC和路由器接口的IP地址及掩码，其中：
     -   Zone1区域的IP子网为10.0.0.0/16；
     -   Zone2区域的IP子网为10.1.0.0/16；
@@ -118,13 +118,13 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    Ping结果截图:
 
-   ![](img/Lab4/image3.png)
+   ![](img/image3.png)
 
 3. 将PC1、PC2的掩码长度均改为16位（即255.255.0.0）。然后用Ping检查PC1、PC2之间的连通性。
 
    Ping结果截图:
 
-   ![](img/Lab4/image4.png)
+   ![](img/image4.png)
 
 4. 给R1的两个接口f0/0、f1/0分别配置合适的IP地址，掩码长度均为16，并激活接口。然后查看路由表信息。
 
@@ -146,13 +146,13 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    路由表信息截图:
 
-   ![](img/Lab4/image7.png)
+   ![](img/image7.png)
 
 5. 给PC3配置IP地址10.1.0.X，其中X为你的学号后2位或后3位，掩码长度16位（即255.255.0.0）。然后用Ping检查PC1、PC3之间的连通性。
 
    Ping结果截图:
 
-   ![](img/Lab4/image8.png)
+   ![](img/image8.png)
 
 6. 如果上一步Ping的结果是不通，请给PC1、PC3配置合适的路由器地址（Gateway），并再次检查两者之间的连通性。
 
@@ -174,7 +174,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    Ping结果截图：
 
-   ![](img/Lab4/image11.png)
+   ![](img/image11.png)
 
 
 
@@ -212,7 +212,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    配置命令及获得的IP地址截图：
 
-   ![](img/Lab4/image15.png)
+   ![](img/image15.png)
 
 
 
@@ -233,29 +233,29 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     配置命令及获得的IP地址截图：
 
-    ![](img/Lab4/image17.png)
+    ![](img/image17.png)
 
 12. 用Ping命令测试PC4、PC5之间的连通性。
 
     Ping结果截图:
 
-    ![](img/Lab4/image18.png)
+    ![](img/image18.png)
 
 13. 显示R4上的已分配DHCP主机信息
 
-    ![](img/Lab4/image19.png)
+    ![](img/image19.png)
 
 14. 配置R1、R2路由器之间的串口，设置数据链路层协议为HDLC（命令：`encapsulation hdlc`），在其中一台路由器上设置时钟速率（命令：`clock rate 速率值`），设置IP地址，激活接口，并测试两个路由器之间的连通性。
 
     配置命令：
 
-    ![](img/Lab4/image20.png)
+    ![](img/image20.png)
 
-    ![](img/Lab4/image21.png)
+    ![](img/image21.png)
 
     Ping结果截图:
 
-    ![](img/Lab4/image22.png)
+    ![](img/image22.png)
 
 
 
@@ -263,17 +263,17 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     配置命令：
 
-    ![](img/Lab4/image23.png)
+    ![](img/image23.png)
 
-    ![](img/Lab4/image24.png)
+    ![](img/image24.png)
 
     查看串口状态（LCP Open表明PPP的LCP已经协商完成，身份验证通过）：
 
-    ![](img/Lab4/image25.png)
+    ![](img/image25.png)
 
     Ping结果截图：
 
-    ![](img/Lab4/image26.png)
+    ![](img/image26.png)
 
 
 
@@ -293,13 +293,13 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     记录：PC1→4 / PC1→5 / PC3→4 / PC3→5 Ping结果截图:
 
-      ![](img/Lab4/image27.png)
+      ![](img/image27.png)
 
 19. 查看各路由器的路由表信息（命令：`show ip route`），分析上述不能Ping通的原因是缺少了哪些路由信息，为下一步添加路由做准备。
 
     记录：R1 / R2 / R3 / R4路由表信息截图:
 
-      ![](img/Lab4/image28.png)
+      ![](img/image28.png)
 
 20. 在各个路由器上为相应的目标网络（Zone1, Zone2, Guest zone所在子网）添加静态路由（优先选择以太网线路作为下一跳路径），以便上述三个区内的PC能够互相Ping通（不通请仔细分析是哪一台路由器缺少了路由）。记录最后的路由表信息。
 
@@ -315,11 +315,11 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     记录：PC1→4 / PC1→5 / PC3→4 / PC3→5 Ping结果截图:
 
-      ![](img/Lab4/image30.png)
+      ![](img/image30.png)
 
     记录：R1 / R2 / R3 / R4路由表信息截图:
 
-      ![](img/Lab4/image31.png)
+      ![](img/image31.png)
 
 21. 在R1和R4上增加备用路由，选择串口线路作为下一跳的路径，并将路由距离设置成30（命令：`ip
     route 目标网络 子网掩码 下一跳地址 距离`）。此时查看路由表，该新增路由信息并不会出现，但在主路由链路断开时（在R1、R4上关闭与R3连接的端口），该路由会被自动添加进路由表。通过实验验证一下。
@@ -339,25 +339,25 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     * R1路由表信息截图
 
-      ![](img/Lab4/image33.png)
+      ![](img/image33.png)
 
     * R4路由表信息截图
 
-      ![](img/Lab4/image34.png)
+      ![](img/image34.png)
 
     * PC1上的路由跟踪截图（命令：`trace 目标网络`):
 
-      ![](img/Lab4/image35.png)
+      ![](img/image35.png)
 
     B) R1-R3、R4-R3间链路断开后：
 
     * R1路由表信息截图:
 
-      ![](img/Lab4/image36.png)
+      ![](img/image36.png)
 
     * R4路由表信息截图:
 
-      ![](img/Lab4/image37.png)
+      ![](img/image37.png)
 
     * PC1上的路由跟踪截图:
 
@@ -365,7 +365,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
       如果不通，请检查R2上是否添加了相应的路由
       :::
 
-      ![](img/Lab4/image38.png)
+      ![](img/image38.png)
 
     C) R1-R3、R4-R3间链路重新打开后：
 
@@ -375,7 +375,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     记录：R1 f0/0 → R4 s2/1，R1 f0/1 → R4 s2/1，R1 f1/0 → R4 s2/1，R1 s2/0 → R4 s2/1间的Ping结果截图（Ping通后再截图）:
 
-      ![](img/Lab4/image39.png)
+      ![](img/image39.png)
 
     记录：在R1 / R2 / R3 / R4上补充静态路由的配置命令，保留命令前提示符，如`R1(config)#`
 
@@ -408,7 +408,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     NAT信息截图：
 
-    ![](img/Lab4/image41.png)
+    ![](img/image41.png)
 
 
 
@@ -422,7 +422,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     记录：PC6→1 / 3 / 4 / 5 的Ping结果截图:
 
-      ![](img/Lab4/image42.png)
+      ![](img/image42.png)
 
 27. 默认情况下，Cloud-1的eth0接口工作在仅主机模式，IP地址是动态分配的，与电脑主机的某个虚拟网卡处于同一个子网。因此配置R2的f0/0接口IP地址时也采用动态分配方式（命令：`ip addess dhcp`）。配置完成后查看R2获得的IP地址，然后在电脑主机上打开命令行，Ping一下R2的IP地址。
 
@@ -430,7 +430,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     记录：电脑主机与R2之间 Ping结果截图：
 
-    ![](img/Lab4/image43.png)
+    ![](img/image43.png)
 
 28. 在R2上配置NAT服务，并且在R1上添加电脑主机的子网路由，使得Zone 1的PC机也能与电脑主机通信。提示：定义f0/0接口为外部接口，s2/0为内部接口。
 
@@ -442,19 +442,19 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     R2配置命令：
 
-    ![](img/Lab4/image44.png)
+    ![](img/image44.png)
 
     R1配置命令：
 
-    ![](img/Lab4/image45.png)
+    ![](img/image45.png)
 
     电脑主机的IP地址:
 
-    ![](img/Lab4/image46.png)
+    ![](img/image46.png)
 
     PC1与电脑主机Ping结果截图（请关闭电脑上的防火墙）:
 
-    ![](img/Lab4/image47.png)
+    ![](img/image47.png)
 
 
 
@@ -470,19 +470,19 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     R2配置命令：
 
-    ![](img/Lab4/image48.png)
+    ![](img/image48.png)
 
     R1配置命令：
 
-    ![](img/Lab4/image49.png)
+    ![](img/image49.png)
 
     R2与真实网络主机H的Ping结果截图:
 
-    ![](img/Lab4/image50.png)
+    ![](img/image50.png)
 
     PC1与真实网络主机H的Ping结果截图:
 
-    ![](img/Lab4/image51.png)
+    ![](img/image51.png)
 
 30. 整理各路由器的当前运行配置，选择与本实验相关的内容记录在文本文件中，每个设备一个文件，分别命名为R1.txt、R2.txt等，随实验报告一起打包上传。
 

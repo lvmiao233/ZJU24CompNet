@@ -1,11 +1,12 @@
 ---
-sidebar_position: 5
-title: Lab3 使用三层交换机组网
+sidebar_position: 1
+title: Lab3 使用三层交换机组网 详解版
 ---
 
 
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import PlaceHolder from '@site/src/components/PlaceHolder';
 import { Row, Col } from 'antd';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
@@ -22,6 +23,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
+<PlaceHolder>
 
 ## 一、实验目的
 
@@ -85,13 +87,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    参考拓扑图，请在完成实验后根据你实验中的实际情况进行替换：
 
-   ![](img/Lab3/image2.png)
+   ![](img/image2.png)
 
 2. 验证两个PC之间能否Ping通（不同的VLAN之间不通）
 
    截图：Ping结果
 
-   ![](img/Lab3/image3.png)
+   ![](img/image3.png)
 
 
 
@@ -99,11 +101,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    例：配置命令（示例为GNS3模拟的配置截图，使用实际设备请参考实验2）
 
-   ![](img/Lab3/image4.png)
+   ![](img/image4.png)
 
    例：配置后的结果（示例为GNS3模拟的结果截图，使用实际设备请参考实验2）
 
-   ![](img/Lab3/image5.png)
+   ![](img/image5.png)
 
 
 
@@ -116,9 +118,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：配置截图
 
-   ![](img/Lab3/image6.png)
+   ![](img/image6.png)
 
-   ![](img/Lab3/image7.png)
+   ![](img/image7.png)
 
 
 
@@ -126,9 +128,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：Ping结果
 
-   ![](img/Lab3/image8.png)
+   ![](img/image8.png)
 
-   ![](img/Lab3/image9.png)
+   ![](img/image9.png)
 
 
 
@@ -136,7 +138,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：Ping结果
 
-   ![](img/Lab3/image10.png)
+   ![](img/image10.png)
 
 
 
@@ -144,7 +146,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：路由表内容
 
-   ![](img/Lab3/image11.png)
+   ![](img/image11.png)
 
 
 
@@ -178,7 +180,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    拓扑图参考，请替换成实际使用的：
 
-   ![](img/Lab3/image13.png)
+   ![](img/image13.png)
 
 
 
@@ -188,7 +190,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：配置结果（命令`show vlan`或者`show vlan-switch`）：
 
-   ![](img/Lab3/image14.png)
+   ![](img/image14.png)
 
 
 
@@ -204,9 +206,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：配置截图
 
-   ![](img/Lab3/image15.png)
+   ![](img/image15.png)
 
-   ![](img/Lab3/image16.png)
+   ![](img/image16.png)
 
 
 
@@ -214,9 +216,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：Ping结果
 
-   ![](img/Lab3/image17.png)
+   ![](img/image17.png)
 
-   ![](img/Lab3/image18.png)
+   ![](img/image18.png)
 
 
 
@@ -224,7 +226,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：Ping结果
 
-   ![](img/Lab3/image19.png)
+   ![](img/image19.png)
 
 
 
@@ -234,11 +236,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     * PC1→PC4
 
-      ![](img/Lab3/image20.png)
+      ![](img/image20.png)
 
     * PC2→PC3
 
-      ![](img/Lab3/image21.png)
+      ![](img/image21.png)
 
 
 
@@ -254,7 +256,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     * PC2→PC3
 
-      ![](img/Lab3/image22.png)
+      ![](img/image22.png)
 
 
 
@@ -262,7 +264,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     截图：路由信息
 
-    ![](img/Lab3/image23.png)
+    ![](img/image23.png)
 
 
 
@@ -305,3 +307,5 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 * Ping测试时，为什么一开始有几次不通，后面又通了？
 
 * 既然路由器可以实现VLAN间数据交换，为何还要设计三层交换机呢？
+
+</PlaceHolder>

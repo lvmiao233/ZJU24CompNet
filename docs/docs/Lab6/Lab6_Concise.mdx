@@ -1,6 +1,6 @@
 ---
-sidebar_position: 8
-title: Lab6 动态路由协议BGP配置
+sidebar_position: 2
+title: Lab6 动态路由协议BGP配置 精简版
 ---
 
 
@@ -55,7 +55,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 按照下面的拓扑图连接路由器和PC机。每个自治系统（AS）均分配1个独立的AS号。其中，AS 65003内部运行OSPF路由协议，R6、R7、R8分别代表一个AS。
 
-![](img/Lab6/image2.png)
+![](img/image2.png)
 
 ### 实验主要步骤
 
@@ -210,11 +210,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    截图：R3 / R4 / R5路由表：
 
-   ![](img/Lab6/image3.png)
+   ![](img/image3.png)
 
    截图：R3 → R5的Ping结果：
 
-   ![](img/Lab6/image4.png)
+   ![](img/image4.png)
 
 
 
@@ -222,7 +222,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3配置命令：
 
-   ![](img/Lab6/image5.png)
+   ![](img/image5.png)
 
    R5配置命令：
 
@@ -239,14 +239,14 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3的邻居关系：观察得知，邻居的IP是\_\_\_\_\_\_，链路类型属于\_\_\_\_\_\_，状态是\_\_\_\_\_\_，但现象是没有活动的TCP连接。
 
-   ![](img/Lab6/image6.png)
+   ![](img/image6.png)
 
    R5的邻居关系：观察得知，邻居的IP是\_\_\_\_\_\_，链路类型属于\_\_\_\_\_\_，状态是\_\_\_\_\_\_，但现象是没有活动的TCP连接。
 
    打开debug后的消息：错误原因是被对方拒绝连接，是因为R3默认使用了物理接口的IP地址作为源地址，而R5配置的邻居地址是R3的
    ，因邻居地址不符被拒绝。
 
-   ![](img/Lab6/image7.png)
+   ![](img/image7.png)
 
 
 
@@ -254,7 +254,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3配置命令：
 
-   ![](img/Lab6/image8.png)
+   ![](img/image8.png)
 
    R5配置命令：
 
@@ -265,9 +265,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3的邻居关系（选取关键信息进行截图）：观察得知，与R5的邻居关系已经建立，对方的连接端口是\_\_\_\_\_\_。
 
-   ![](img/Lab6/image9.png)
+   ![](img/image9.png)
 
-   ![](img/Lab6/image10.png)
+   ![](img/image10.png)
 
    R5的邻居关系（选取关键信息进行截图）：观察得知，与R3的邻居关系已经建立，对方的连接端口是\_\_\_\_\_\_。
 
@@ -277,11 +277,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R3的BGP数据库（标出iBGP路由）：观察得知，存在\_\_\_\_\_\_条状态码=r的路由（表示没有成功写入路由表）。
 
-   ![](img/Lab6/image11.png)
+   ![](img/image11.png)
 
    R3的路由表：观察得知，网络地址\_\_\_\_\_\_、\_\_\_\_\_\_在路由表中已存在比BGP优先级高的OSPF路由，所以BGP的路由信息没有成功写入。
 
-   ![](img/Lab6/image12.png)
+   ![](img/image12.png)
 
    截图：R5的BGP数据库（标出iBGP路由）、R5的路由表（标出在BGP数据库中存在，但优先级更高的OSPF路由）
 
@@ -291,7 +291,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
    R1的配置命令：（截图仅供参考，请替换成文本形式的配置命令）
 
-   ![](img/Lab6/image13.png)
+   ![](img/image13.png)
 
    ```kotlin
    R1(config)#interface f1/0
@@ -395,9 +395,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的邻居关系：R1的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
 
-    ![](img/Lab6/image14.png)
+    ![](img/image14.png)
 
-    ![](img/Lab6/image15.png)
+    ![](img/image15.png)
 
     R2的邻居关系：R2邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
 
@@ -405,9 +405,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的邻居关系：R3的iGP邻居的IP为\_\_\_\_\_\_，eBGP邻居的IP为\_\_\_\_\_\_。
 
-    ![](img/Lab6/image16.png)
+    ![](img/image16.png)
 
-    ![](img/Lab6/image17.png)
+    ![](img/image17.png)
 
     R5的邻居关系：R3的iGP邻居的IP为为\_\_\_\_\_\_，eBGP邻居的IP为为\_\_\_\_\_\_。
 
@@ -430,7 +430,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的BGP数据库：
 
-    ![](img/Lab6/image18.png)
+    ![](img/image18.png)
 
     观察得知：
 
@@ -468,7 +468,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R6的BGP数据库（当前）：到达R2-R5间子网的最佳路由的下一跳为\_\_\_\_\_\_。
 
-    ![](img/Lab6/image19.png)
+    ![](img/image19.png)
 
     R6的BGP数据库（断开连接后）：观察得知，到达R2-R5间子网的最佳路由的下一跳变为\_\_\_\_\_\_。
 
@@ -480,11 +480,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     Ping结果：
 
-    ![](img/Lab6/image20.png)
+    ![](img/image20.png)
 
     路由跟踪结果：得到的现象是在路由器\_\_\_\_\_\_中断了。
 
-    ![](img/Lab6/image21.png)
+    ![](img/image21.png)
 
 
 
@@ -492,18 +492,18 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的BGP数据库：观察得知，到达R2-R8间子网的最佳路由的下一跳IP地址是\_\_\_\_\_\_。
 
-    ![](img/Lab6/image22.png)
+    ![](img/image22.png)
 
     R3的路由表：观察得知，
 
     * 到达R2-R8间子网的下一跳IP地址\_\_\_\_\_\_（属于R2）是由BGP写入的。
     * 去往该地址的下一跳IP地址\_\_\_\_\_\_（属于R4）是由OSPF写入的。
 
-    ![](img/Lab6/image23.png)
+    ![](img/image23.png)
 
     R4的路由表：观察得知，由于R4上缺少相应的路由，因此不能Ping通。默认情况下，未启用同步功能，BGP就不会考虑AS内部是否存在相关路由，导致路由黑洞。
 
-    ![](img/Lab6/image24.png)
+    ![](img/image24.png)
 
 
 
@@ -528,22 +528,22 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     * 到达R2-R8间子网的路由有\_\_\_\_\_\_条
     * 其中最佳路由的下一跳为\_\_\_\_\_\_（属于R1），因为同步功能打开后，BGP判断AS内部缺少相应的路由，因此不选择本AS作为转发路径。
 
-    ![](img/Lab6/image25.png)
+    ![](img/image25.png)
 
     R3的路由表：到达R2-R8间子网的下一跳IP为\_\_\_\_\_\_，属于路由器\_\_\_\_\_\_。
 
-    ![](img/Lab6/image26.png)
+    ![](img/image26.png)
 
     R1的BGP数据库：观察得知，
 
     * 到达R2-R8间子网的最佳路由的下一跳为\_\_\_\_\_\_
     * 属于路由器\_\_\_\_\_\_。由于使用了水平分裂方式，R3并没有向R1报告关于这个子网的路由，因为R3选的下一跳是R1。
 
-    ![](img/Lab6/image27.png)
+    ![](img/image27.png)
 
     Ping结果：
 
-    ![](img/Lab6/image28.png)
+    ![](img/image28.png)
 
     路由跟踪结果：观察得知，依次经过了这些路由器：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。
 
@@ -567,15 +567,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R3-R1的直连网络\_\_\_\_\_\_没有被本路由器重分发。
 
-    ![](img/Lab6/image29.png)
+    ![](img/image29.png)
 
     R5的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R5-R2的直连网络\_\_\_\_\_\_没有被本路由器重分发。
 
-    ![](img/Lab6/image30.png)
+    ![](img/image30.png)
 
     R4的路由表：观察得知，R4上增加了AS外部的路由信息。此时，到达R2-R8间子网的下一跳为\_\_\_\_\_\_和 \_\_\_\_\_\_(优先级相同)。因为重分发后，OSPF将在AS内部传播BGP的外部路由信息。
 
-    ![](img/Lab6/image31.png)
+    ![](img/image31.png)
 
 
 
@@ -586,15 +586,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     * 到达R2-R8间子网的路由有\_\_\_\_\_\_条
     * 其中最佳路由的下一跳为\_\_\_\_\_\_（属于路由器\_\_\_\_\_\_）。
 
-    ![](img/Lab6/image32.png)
+    ![](img/image32.png)
 
     R1的路由表：到达R2-R8间子网的下一跳IP为\_\_\_\_\_\_，属于路由器\_\_\_\_\_\_。
 
-    ![](img/Lab6/image33.png)
+    ![](img/image33.png)
 
     路由跟踪结果：观察得知，依次经过了这些路由器：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。
 
-    ![](img/Lab6/image34.png)
+    ![](img/image34.png)
 
 
 
@@ -609,11 +609,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R3的BGP数据库：观察得知，新增的路由分别是：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。因为重分发后，BGP将在AS之间传播OSPF的内部路由信息。
 
-    ![](img/Lab6/image35.png)
+    ![](img/image35.png)
 
     R8的BGP数据库：观察得知，AS 65003内部子网的路由有\_\_\_\_\_\_条，其中到达R3的回环口的最佳路由的下一跳为\_\_\_\_\_\_，到达R4的回环口的最佳路由的下一跳为\_\_\_\_\_\_。
 
-    ![](img/Lab6/image36.png)
+    ![](img/image36.png)
 
 
 
@@ -665,7 +665,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_。
 
-    ![](img/Lab6/image37.png)
+    ![](img/image37.png)
 
 
 
@@ -673,19 +673,19 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R8的配置命令：
 
-    ![](img/Lab6/image38.png)
+    ![](img/image38.png)
 
     查看R8生效的访问列表：（访问列表是有顺序的，前面优先。如需修改，请全部删除后重新按顺序添加）
 
-    ![](img/Lab6/image39.png)
+    ![](img/image39.png)
 
     R8的BGP数据库：
 
-    ![](img/Lab6/image40.png)
+    ![](img/image40.png)
 
     R7的BGP数据库：
 
-    ![](img/Lab6/image41.png)
+    ![](img/image41.png)
 
     观察得知：R8上到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_，该路由被过滤，没有传递给R7，因此，R7上到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_，数据不再经过AS 65008了。
 
@@ -710,9 +710,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     查看R1的IPv6接口：
 
-    ![](img/Lab6/image43.png)
+    ![](img/image43.png)
 
-    ![](img/Lab6/image44.png)
+    ![](img/image44.png)
 
     观察得知：
 
@@ -735,9 +735,9 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     查看R6的IPv6接口：
 
-    ![](img/Lab6/image45.png)
+    ![](img/image45.png)
 
-    ![](img/Lab6/image46.png)
+    ![](img/image46.png)
 
     观察得知：
 
@@ -746,7 +746,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     Ping测试结果：
 
-    ![](img/Lab6/image47.png)
+    ![](img/image47.png)
 
 
 
@@ -778,11 +778,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     查看R6的IPv6的邻居信息：与IPv6地址\_\_\_\_\_\_的邻居状态关系已为Established。
 
-    ![](img/Lab6/image49.png)
+    ![](img/image49.png)
 
     查看R1的IPv6的邻居信息：与IPv6地址\_\_\_\_\_\_的邻居状态关系已为Established。
 
-    ![](img/Lab6/image50.png)
+    ![](img/image50.png)
 
 
 
@@ -797,13 +797,13 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     查看PC2的IPv6配置：
 
-    ![](img/Lab6/image52.png)
+    ![](img/image52.png)
 
     链路本地地址为：\_\_\_\_\_\_，路由器的MAC地址为：\_\_\_\_\_\_。
 
     PC2→R1的Ping测试结果：
 
-    ![](img/Lab6/image53.png)
+    ![](img/image53.png)
 
 
 
@@ -829,11 +829,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的IPv6路由表：
 
-    ![](img/Lab6/image54.png)
+    ![](img/image54.png)
 
     PC2→PC5的Ping测试结果：
 
-    ![](img/Lab6/image55.png)
+    ![](img/image55.png)
 
 
 
@@ -862,11 +862,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的配置命令：
 
-    ![](img/Lab6/image56.png)
+    ![](img/image56.png)
 
     R2的配置命令：
 
-    ![](img/Lab6/image57.png)
+    ![](img/image57.png)
 
 
 
@@ -874,7 +874,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的配置命令：
 
-    ![](img/Lab6/image58.png)
+    ![](img/image58.png)
 
     R2的配置命令：
 
@@ -884,7 +884,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     PC2→PC4的Ping测试结果：
 
-    ![](img/Lab6/image59.png)
+    ![](img/image59.png)
 
 
 
@@ -910,19 +910,19 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     R1的配置命令：
 
-    ![](img/Lab6/image60.png)
+    ![](img/image60.png)
 
     R6的BGP数据库：
 
-    ![](img/Lab6/image61.png)
+    ![](img/image61.png)
 
     R6的路由表：
 
-    ![](img/Lab6/image62.png)
+    ![](img/image62.png)
 
     PC5PC4的Ping测试结果：
 
-    ![](img/Lab6/image63.png)
+    ![](img/image63.png)
 
 37. 整理各路由器的当前运行配置，选择与本实验相关的内容记录在文本文件中，每个设备一个文件，分别命名为R1.txt、R2.txt等，随实验报告一起打包上传。
 
