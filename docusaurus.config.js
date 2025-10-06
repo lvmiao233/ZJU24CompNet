@@ -85,7 +85,7 @@ const config = {
         searchPagePath: 'search',
         // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
         insights: true,
-        askAi: 'DyTKTLEf4gPu',
+        askAi: 'WYUJKj5Jh3ts',
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
