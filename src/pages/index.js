@@ -50,7 +50,7 @@ export default function Home() {
                 <header>
                     <div className="container" style={{paddingTop: 60, marginBottom: 30, textAlign: 'center'}}>
                         <Heading as="h1" className="hero__title"> 计算机网络 Computer Network </Heading>
-                        <p className="hero__subtitle">浙江大学 24-25学年 秋冬学期</p>
+                        <p className="hero__subtitle">浙江大学 25-26学年 秋冬学期</p>
                     </div>
                 </header>
             </div>
