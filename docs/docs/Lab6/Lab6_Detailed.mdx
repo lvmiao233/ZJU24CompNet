@@ -7,6 +7,10 @@ title: Lab6 动态路由协议BGP配置 详解版
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
 import PlaceHolder from '@site/src/components/PlaceHolder';
+import TaskCard from '@site/src/components/TaskCard';
+import ScreenshotCard from '@site/src/components/ScreenshotCard';
+import ModernInput from '@site/src/components/ModernInput';
+import ExportButton from '@site/src/components/ExportButton';
 import { Row, Col } from 'antd';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
@@ -24,7 +28,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-<PlaceHolder>
+<!-- <PlaceHolder> -->
 
 ## 一、实验目的
 
@@ -155,15 +159,34 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，可直接在图片上进行标注，也可以单独用文本进行描述。
 :::
 
-1. 参考实验操作方法的说明，设计好每个PC、路由器各接口的IP地址及掩码（除了PC2、PC4、PC5以及与之相连的路由器接口配置IPv6的地址外，其他均配置IPv4的地址），并标注在拓扑图上。
+<TaskCard number={1} title="设计网络拓扑并规划IP地址" needScreenshot={true} needRecord={false}>
+
+参考实验操作方法的说明，设计好每个PC、路由器各接口的IP地址及掩码（除了PC2、PC4、PC5以及与之相连的路由器接口配置IPv6的地址外，其他均配置IPv4的地址），并标注在拓扑图上。
+
+<ScreenshotCard 
+  questionId="Lab6-p0-s1" 
+  title="网络拓扑图及IP地址规划" 
+  uploadOptions={[
+    { id: 'topology', label: '上传标注IP地址的拓扑图' }
+  ]}
+/>
+
+</TaskCard>
 
 
 ### Part 1  配置iBGP
 
-2. 分别在R3、R4、R5上配置回环端口、各物理接口的IP地址，激活OSPF动态路由协议，宣告直连网络。其中进程ID请设置为学号的后2位（全0者往前取值）。
+<TaskCard number={2} title="配置R3、R4、R5的OSPF动态路由" needScreenshot={false} needRecord={true}>
 
-   R3配置命令：
+分别在R3、R4、R5上配置回环端口、各物理接口的IP地址，激活OSPF动态路由协议，宣告直连网络。其中进程ID请设置为学号的后2位（全0者往前取值）。
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s2" 
+  title="R3配置命令" 
+  uploadOptions={[
+    { id: 'r3_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} }
+  ]}
+>
    ```kotlin
    R3(config)#interface f0/0
    R3(config-if)#
@@ -176,9 +199,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R3(config)# router ospf
    R3(config-router)#
    ```
+</ScreenshotCard>
 
-   R4配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p1-s2-r4" 
+  title="R4配置命令" 
+  uploadOptions={[
+    { id: 'r4_config', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} }
+  ]}
+>
    ```
    R5(config)#interface f0/0
    R5(config-if)#
@@ -191,9 +220,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R5(config)#
    R5(config-router)#
    ```
+</ScreenshotCard>
 
-   R5配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p1-s2-r5" 
+  title="R5配置命令" 
+  uploadOptions={[
+    { id: 'r5_config', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} }
+  ]}
+>
    ```kotlin
    R5(config)#interface f0/1
    R5(config-if)#
@@ -206,92 +241,213 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R5(config)#
    R5(config-router)#
    ```
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-3. 查看R3、R4、R5的路由表，并在R3上用Ping测试与R5的回环口（用回环口作为源地址，命令：`ping [IP-addr] source loopback 0`）之间的联通性。
+<TaskCard number={3} title="查看路由表并测试连通性" needScreenshot={true} needRecord={false}>
 
-   截图：R3 / R4 / R5路由表：
+查看R3、R4、R5的路由表，并在R3上用Ping测试与R5的回环口（用回环口作为源地址，命令：`ping [IP-addr] source loopback 0`）之间的联通性。
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s3" 
+  title="路由表及Ping测试结果" 
+  uploadOptions={[
+    { id: 'r3_route', label: '截图R3路由表' },
+    { id: 'r4_route', label: '截图R4路由表' },
+    { id: 'r5_route', label: '截图R5路由表' },
+    { id: 'ping_result', label: '截图R3→R5 Ping结果' }
+  ]}
+>
    ![](img/image3.png)
 
-   截图：R3 → R5的Ping结果：
-
    ![](img/image4.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-4. 启动R3、R5上的BGP协议（配置成同一个AS），宣告直连网络，然后把对方增加为AS内部的邻居（命令：`neighbor [IP-Address] remote-as [AS-Number]`），IP-Address为对方回环接口的IP，AS-Number设置为相同的AS号。
+<TaskCard number={4} title="配置R3和R5的BGP邻居关系" needScreenshot={false} needRecord={true}>
 
-   R3配置命令：
+启动R3、R5上的BGP协议（配置成同一个AS），宣告直连网络，然后把对方增加为AS内部的邻居（命令：`neighbor [IP-Address] remote-as [AS-Number]`），IP-Address为对方回环接口的IP，AS-Number设置为相同的AS号。
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s4-r3" 
+  title="R3配置命令" 
+  uploadOptions={[
+    { id: 'r3_bgp_config', label: '截图R3 BGP配置命令' }
+  ]}
+>
    ![](img/image5.png)
+</ScreenshotCard>
 
-   R5配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p1-s4-r5" 
+  title="R5配置命令" 
+  uploadOptions={[
+    { id: 'r5_bgp_config', label: '记录R5 BGP配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
+  ]}
+>
    ```kotlin
    R5(config)#
    R5(config-router)#
    R5(config-router)#
    R5(config-router)#
    ```
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-5. 分别在R3、R5上查看BGP邻居关系（命令：`show ip bgp neighbor`），标出Link类型和对方的IP、连接状态。如果没有活动的TCP连接，打开调试开关（命令：`debug ip bgp`），查看错误原因。观察完毕关掉调试（命令：`no debug ip bgp`）。
+<TaskCard number={5} title="查看BGP邻居关系并排查连接问题" needScreenshot={true} needRecord={false}>
 
-   R3的邻居关系：观察得知，邻居的IP是\_\_\_\_\_\_，链路类型属于\_\_\_\_\_\_，状态是\_\_\_\_\_\_，但现象是没有活动的TCP连接。
+分别在R3、R5上查看BGP邻居关系（命令：`show ip bgp neighbor`），标出Link类型和对方的IP、连接状态。如果没有活动的TCP连接，打开调试开关（命令：`debug ip bgp`），查看错误原因。观察完毕关掉调试（命令：`no debug ip bgp`）。
+
+<ScreenshotCard 
+  questionId="Lab6-p1-s5" 
+  title="R3的邻居关系" 
+  uploadOptions={[
+    { id: 'r3_neighbor', label: '截图R3邻居关系' }
+  ]}
+>
+   R3的邻居关系：观察得知，邻居的IP是<ModernInput size="large" questionId="Lab6-p1-s5-r3-ip"/>，链路类型属于<ModernInput size="medium" questionId="Lab6-p1-s5-r3-type"/>，状态是<ModernInput size="medium" questionId="Lab6-p1-s5-r3-state"/>，但现象是没有活动的TCP连接。
 
    ![](img/image6.png)
+</ScreenshotCard>
 
-   R5的邻居关系：观察得知，邻居的IP是\_\_\_\_\_\_，链路类型属于\_\_\_\_\_\_，状态是\_\_\_\_\_\_，但现象是没有活动的TCP连接。
+<ScreenshotCard 
+  questionId="Lab6-p1-s5-r5" 
+  title="R5的邻居关系" 
+  uploadOptions={[
+    { id: 'r5_neighbor', label: '截图R5邻居关系' }
+  ]}
+>
+   R5的邻居关系：观察得知，邻居的IP是<ModernInput size="large" questionId="Lab6-p1-s5-r5-ip"/>，链路类型属于<ModernInput size="medium" questionId="Lab6-p1-s5-r5-type"/>，状态是<ModernInput size="medium" questionId="Lab6-p1-s5-r5-state"/>，但现象是没有活动的TCP连接。
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s5-debug" 
+  title="调试信息分析" 
+  uploadOptions={[
+    { id: 'debug_msg', label: '截图debug信息' }
+  ]}
+>
    打开debug后的消息：错误原因是被对方拒绝连接，是因为R3默认使用了物理接口的IP地址作为源地址，而R5配置的邻居地址是R3的
    ，因邻居地址不符被拒绝。
 
    ![](img/image7.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-6. 在R3、R5上设置BGP更新源为回环接口（命令：`neighbor [IP-Addr] update-source loopback 0`），等待一会儿，再次查看邻居关系，标记连接状态是否已建立（ESTAB）。
+<TaskCard number={6} title="设置BGP更新源并验证邻居关系" needScreenshot={true} needRecord={true}>
 
-   R3配置命令：
+在R3、R5上设置BGP更新源为回环接口（命令：`neighbor [IP-Addr] update-source loopback 0`），等待一会儿，再次查看邻居关系，标记连接状态是否已建立（ESTAB）。
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s6-r3cmd" 
+  title="R3配置命令" 
+  uploadOptions={[
+    { id: 'r3_update_source', label: '截图R3配置命令' }
+  ]}
+>
    ![](img/image8.png)
+</ScreenshotCard>
 
-   R5配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p1-s6-r5cmd" 
+  title="R5配置命令" 
+  uploadOptions={[
+    { id: 'r5_update_source', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+  ]}
+>
    ```kotlin
    R5(config)#
    R5(config-router)#
    ```
+</ScreenshotCard>
 
-   R3的邻居关系（选取关键信息进行截图）：观察得知，与R5的邻居关系已经建立，对方的连接端口是\_\_\_\_\_\_。
+<ScreenshotCard 
+  questionId="Lab6-p1-s6-r3nb" 
+  title="R3的邻居关系" 
+  uploadOptions={[
+    { id: 'r3_neighbor_established', label: '截图R3邻居关系' }
+  ]}
+>
+   R3的邻居关系（选取关键信息进行截图）：观察得知，与R5的邻居关系已经建立，对方的连接端口是<ModernInput size="medium" questionId="Lab6-p1-s6-r3-port"/>。
 
    ![](img/image9.png)
 
    ![](img/image10.png)
+</ScreenshotCard>
 
-   R5的邻居关系（选取关键信息进行截图）：观察得知，与R3的邻居关系已经建立，对方的连接端口是\_\_\_\_\_\_。
+<ScreenshotCard 
+  questionId="Lab6-p1-s6-r5nb" 
+  title="R5的邻居关系" 
+  uploadOptions={[
+    { id: 'r5_neighbor_established', label: '截图R5邻居关系' }
+  ]}
+>
+   R5的邻居关系（选取关键信息进行截图）：观察得知，与R3的邻居关系已经建立，对方的连接端口是<ModernInput size="medium" questionId="Lab6-p1-s6-r5-port"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-7. 在R3、R5上查看BGP数据库（命令：`show ip bgp`），并查看路由表信息。
+<TaskCard number={7} title="查看BGP数据库和路由表" needScreenshot={true} needRecord={false}>
 
-   R3的BGP数据库（标出iBGP路由）：观察得知，存在\_\_\_\_\_\_条状态码=r的路由（表示没有成功写入路由表）。
+在R3、R5上查看BGP数据库（命令：`show ip bgp`），并查看路由表信息。
+
+<ScreenshotCard 
+  questionId="Lab6-p1-s7-r3" 
+  title="R3的BGP数据库和路由表" 
+  uploadOptions={[
+    { id: 'r3_bgp_db', label: '截图R3 BGP数据库' },
+    { id: 'r3_route_table', label: '截图R3路由表' }
+  ]}
+>
+   R3的BGP数据库（标出iBGP路由）：观察得知，存在<ModernInput size="small" questionId="Lab6-p1-s7-r3-count"/>条状态码=r的路由（表示没有成功写入路由表）。
 
    ![](img/image11.png)
 
-   R3的路由表：观察得知，网络地址\_\_\_\_\_\_、\_\_\_\_\_\_在路由表中已存在比BGP优先级高的OSPF路由，所以BGP的路由信息没有成功写入。
+   R3的路由表：观察得知，网络地址<ModernInput size="large" questionId="Lab6-p1-s7-r3-net1"/>、<ModernInput size="large" questionId="Lab6-p1-s7-r3-net2"/>在路由表中已存在比BGP优先级高的OSPF路由，所以BGP的路由信息没有成功写入。
 
    ![](img/image12.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p1-s7-r5" 
+  title="R5的BGP数据库和路由表" 
+  uploadOptions={[
+    { id: 'r5_bgp_db', label: '截图R5 BGP数据库' },
+    { id: 'r5_route_table', label: '截图R5路由表' }
+  ]}
+>
    截图：R5的BGP数据库（标出iBGP路由）、R5的路由表（标出在BGP数据库中存在，但优先级更高的OSPF路由）
+</ScreenshotCard>
+
+</TaskCard>
 
 ### Part 2  配置eBGP
 
-8. 在R1、R2、R6、R7、R8上激活路由器互联的接口，配置IP地址，启用BGP协议，每个路由器使用不同的AS号，宣告所有直连网络，把直接连接的对方增加为AS间的邻居（命令：`neighbor [IP-Address] remote-as [AS-Number]`），IP-Address为对方的IP，AS-Number设置为对方的AS号。
+<TaskCard number={8} title="配置R1、R2、R6、R7、R8的eBGP" needScreenshot={false} needRecord={true}>
 
+在R1、R2、R6、R7、R8上激活路由器互联的接口，配置IP地址，启用BGP协议，每个路由器使用不同的AS号，宣告所有直连网络，把直接连接的对方增加为AS间的邻居（命令：`neighbor [IP-Address] remote-as [AS-Number]`），IP-Address为对方的IP，AS-Number设置为对方的AS号。
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s8-r1" 
+  title="R1配置命令" 
+  uploadOptions={[
+    { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 11} }
+  ]}
+>
    R1的配置命令：（截图仅供参考，请替换成文本形式的配置命令）
 
    ![](img/image13.png)
@@ -309,9 +465,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R1(config-router)#
    R1(config-router)#
    ```
+</ScreenshotCard>
 
-   R2的配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s8-r2" 
+  title="R2配置命令" 
+  uploadOptions={[
+    { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 11} }
+  ]}
+>
    ```kotlin
    R2(config)#interface f1/0
    R2(config-if)#
@@ -325,9 +487,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R2(config-router)#
    R2(config-router)#
    ```
+</ScreenshotCard>
 
-   R6的配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s8-r6" 
+  title="R6配置命令" 
+  uploadOptions={[
+    { id: 'r6_config', label: '记录R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 11} }
+  ]}
+>
    ```kotlin
    R6(config)#interface f0/0
    R6(config-if)#
@@ -341,9 +509,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R6(config-router)#
    R6(config-router)#
    ```
+</ScreenshotCard>
 
-   R7的配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s8-r7" 
+  title="R7配置命令" 
+  uploadOptions={[
+    { id: 'r7_config', label: '记录R7配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 11} }
+  ]}
+>
    ```kotlin
    R7(config)#interface f0/0
    R7(config-if)#
@@ -357,9 +531,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R7(config-router)#
    R7(config-router)#
    ```
+</ScreenshotCard>
 
-   R8的配置命令：
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s8-r8" 
+  title="R8配置命令" 
+  uploadOptions={[
+    { id: 'r8_config', label: '记录R8配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 11} }
+  ]}
+>
    ```kotlin
    R8(config)#interface f0/1
    R8(config-if)#
@@ -373,11 +553,24 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R8(config-router)#
    R8(config-router)#
    ```
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-9. 在R3、R5上分配配置R1、R2为外部BGP邻居。
+<TaskCard number={9} title="配置R3和R5的外部BGP邻居" needScreenshot={false} needRecord={true}>
 
+在R3、R5上分配配置R1、R2为外部BGP邻居。
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s9" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r3_ebgp_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
+    { id: 'r5_ebgp_config', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+  ]}
+>
    R3的配置命令：
 
    ```kotlin
@@ -391,127 +584,274 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
    R5(config)#
    R5(config-router)#
    ```
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-10. 在各路由器上查看邻居关系，标出Link类型和对方的IP、连接状态（找出关键信息进行截图）。
+<TaskCard number={10} title="查看各路由器的BGP邻居关系" needScreenshot={true} needRecord={false}>
 
-    R1的邻居关系：R1的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
+在各路由器上查看邻居关系，标出Link类型和对方的IP、连接状态（找出关键信息进行截图）。
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r1" 
+  title="R1的邻居关系" 
+  uploadOptions={[
+    { id: 'r1_neighbor', label: '截图R1邻居关系' }
+  ]}
+>
+    R1的邻居关系：R1的两个邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r1-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r1-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r1-type"/>。
 
     ![](img/image14.png)
 
     ![](img/image15.png)
+</ScreenshotCard>
 
-    R2的邻居关系：R2邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r2" 
+  title="R2的邻居关系" 
+  uploadOptions={[
+    { id: 'r2_neighbor', label: '截图R2邻居关系' }
+  ]}
+>
+    R2的邻居关系：R2邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r2-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r2-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r2-type"/>。
+</ScreenshotCard>
 
-
-
-    R3的邻居关系：R3的iGP邻居的IP为\_\_\_\_\_\_，eBGP邻居的IP为\_\_\_\_\_\_。
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r3" 
+  title="R3的邻居关系" 
+  uploadOptions={[
+    { id: 'r3_neighbor', label: '截图R3邻居关系' }
+  ]}
+>
+    R3的邻居关系：R3的iGP邻居的IP为<ModernInput size="large" questionId="Lab6-p2-s10-r3-igp"/>，eBGP邻居的IP为<ModernInput size="large" questionId="Lab6-p2-s10-r3-ebgp"/>。
 
     ![](img/image16.png)
 
     ![](img/image17.png)
+</ScreenshotCard>
 
-    R5的邻居关系：R3的iGP邻居的IP为为\_\_\_\_\_\_，eBGP邻居的IP为为\_\_\_\_\_\_。
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r5" 
+  title="R5的邻居关系" 
+  uploadOptions={[
+    { id: 'r5_neighbor', label: '截图R5邻居关系' }
+  ]}
+>
+    R5的邻居关系：R3的iGP邻居的IP为为<ModernInput size="large" questionId="Lab6-p2-s10-r5-igp"/>，eBGP邻居的IP为为<ModernInput size="large" questionId="Lab6-p2-s10-r5-ebgp"/>。
+</ScreenshotCard>
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r6" 
+  title="R6的邻居关系" 
+  uploadOptions={[
+    { id: 'r6_neighbor', label: '截图R6邻居关系' }
+  ]}
+>
+    R6的邻居关系：R6的两个邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r6-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r6-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r6-type"/>。
+</ScreenshotCard>
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r7" 
+  title="R7的邻居关系" 
+  uploadOptions={[
+    { id: 'r7_neighbor', label: '截图R7邻居关系' }
+  ]}
+>
+    R7的邻居关系：R7的两个邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r7-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r7-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r7-type"/>。
+</ScreenshotCard>
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s10-r8" 
+  title="R8的邻居关系" 
+  uploadOptions={[
+    { id: 'r8_neighbor', label: '截图R8邻居关系' }
+  ]}
+>
+    R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r8-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r8-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r8-type"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-    R6的邻居关系：R6的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
+<TaskCard number={11} title="查看R1的BGP数据库并分析路由" needScreenshot={true} needRecord={false}>
 
+等待一会儿，在路由器R1查看BGP数据库，标出到达R2-R5间子网、R6-R7间子网、R7-R8间子网以及R2-R8间子网的最佳路由（标记为 > 的为最佳路由）、经过的AS路径。
 
-
-    R7的邻居关系：R7的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
-
-
-
-    R8的邻居关系：R8的两个邻居的IP分别为\_\_\_\_\_\_、\_\_\_\_\_\_，链路类型均为\_\_\_\_\_\_。
-
-
-
-11. 等待一会儿，在路由器R1查看BGP数据库，标出到达R2-R5间子网、R6-R7间子网、R7-R8间子网以及R2-R8间子网的最佳路由（标记为
-    \> 的为最佳路由）、经过的AS路径。
-
-    R1的BGP数据库：
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s11" 
+  title="R1的BGP数据库" 
+  uploadOptions={[
+    { id: 'r1_bgp_db', label: '截图R1 BGP数据库' }
+  ]}
+>
     ![](img/image18.png)
 
     观察得知：
 
-    * 到达R2-R5间子网的下一跳是\_\_\_\_\_\_，经过的AS路径为\_\_\_\_\_\_；
-    * 到达R6-R7间子网的下一跳是\_\_\_\_\_\_，经过的AS路径为\_\_\_\_\_\_；
-    * 到达R7-R8间子网的路由有\_\_\_\_\_\_条，其中最佳路由的下一跳是\_\_\_\_\_\_，经过的AS路径最短，AS号依次为\_\_\_\_\_\_；
-    * 到达R8-R2间子网的路由有\_\_\_\_\_\_条，其中最佳路由的下一跳是\_\_\_\_\_\_，经过的AS路径最短，AS号依次为\_\_\_\_\_\_。
+    * 到达R2-R5间子网的下一跳是<ModernInput size="large" questionId="Lab6-p2-s11-r25-nh"/>，经过的AS路径为<ModernInput size="large" questionId="Lab6-p2-s11-r25-path"/>；
+    * 到达R6-R7间子网的下一跳是<ModernInput size="large" questionId="Lab6-p2-s11-r67-nh"/>，经过的AS路径为<ModernInput size="large" questionId="Lab6-p2-s11-r67-path"/>；
+    * 到达R7-R8间子网的路由有<ModernInput size="small" questionId="Lab6-p2-s11-r78-count"/>条，其中最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p2-s11-r78-nh"/>，经过的AS路径最短，AS号依次为<ModernInput size="large" questionId="Lab6-p2-s11-r78-path"/>；
+    * 到达R8-R2间子网的路由有<ModernInput size="small" questionId="Lab6-p2-s11-r82-count"/>条，其中最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p2-s11-r82-nh"/>，经过的AS路径最短，AS号依次为<ModernInput size="large" questionId="Lab6-p2-s11-r82-path"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-12. 在路由器R2查看BGP数据库，标出到达R1-R3间子网、R1-R6间子网、R6-R7间子网以及R7-R8间子网的最佳路由、经过的AS路径。
+<TaskCard number={12} title="查看R2的BGP数据库并分析路由" needScreenshot={true} needRecord={false}>
 
-    R2的BGP数据库：
+在路由器R2查看BGP数据库，标出到达R1-R3间子网、R1-R6间子网、R6-R7间子网以及R7-R8间子网的最佳路由、经过的AS路径。
 
-
-
+<ScreenshotCard 
+  questionId="Lab6-p2-s12" 
+  title="R2的BGP数据库" 
+  uploadOptions={[
+    { id: 'r2_bgp_db', label: '截图R2 BGP数据库' }
+  ]}
+>
     观察得知：
 
-    * 到达R1-R3间子网的下一跳是\_\_\_\_\_\_，经过的AS路径为\_\_\_\_\_\_；
-    * 到达R7-R8间子网的下一跳是\_\_\_\_\_\_，经过的AS路径为\_\_\_\_\_\_ ；
-    * 到达R1-R6间子网的路由有\_\_\_\_\_\_条，其中最佳路由的下一跳是\_\_\_\_\_\_，经过的AS路径最短，AS号依次为\_\_\_\_\_\_；
-    * 到达R6-R7间子网的路由有\_\_\_\_\_\_条，其中最佳路由的下一跳是\_\_\_\_\_\_，经过的AS路径最短，AS号依次为\_\_\_\_\_\_ 。
+    * 到达R1-R3间子网的下一跳是<ModernInput size="large" questionId="Lab6-p2-s12-r13-nh"/>，经过的AS路径为<ModernInput size="large" questionId="Lab6-p2-s12-r13-path"/>；
+    * 到达R7-R8间子网的下一跳是<ModernInput size="large" questionId="Lab6-p2-s12-r78-nh"/>，经过的AS路径为<ModernInput size="large" questionId="Lab6-p2-s12-r78-path"/> ；
+    * 到达R1-R6间子网的路由有<ModernInput size="small" questionId="Lab6-p2-s12-r16-count"/>条，其中最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p2-s12-r16-nh"/>，经过的AS路径最短，AS号依次为<ModernInput size="large" questionId="Lab6-p2-s12-r16-path"/>；
+    * 到达R6-R7间子网的路由有<ModernInput size="small" questionId="Lab6-p2-s12-r67-count"/>条，其中最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p2-s12-r67-nh"/>，经过的AS路径最短，AS号依次为<ModernInput size="large" questionId="Lab6-p2-s12-r67-path"/> 。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-13. 在路由器R1上查看路由表，标出到达R2-R5间子网、R6-R7间子网、R7-R8间子网以及R2-R8间子网的路由，是否与BGP数据库中的最佳路由一致。
+<TaskCard number={13} title="查看R1路由表并验证BGP路由" needScreenshot={true} needRecord={false}>
 
-    截图：R2的路由表
+在路由器R1上查看路由表，标出到达R2-R5间子网、R6-R7间子网、R7-R8间子网以及R2-R8间子网的路由，是否与BGP数据库中的最佳路由一致。
 
-14. 在路由器R2上查看路由表，标出到达R1-R3间子网、R1-R6间子网、R6-R7间子网以及R7-R8间子网的路由，是否与BGP数据库中的最佳路由一致。
+<ScreenshotCard 
+  questionId="Lab6-p2-s13" 
+  title="R1的路由表" 
+  uploadOptions={[
+    { id: 'r1_route_table', label: '截图R1路由表' }
+  ]}
+/>
 
-    截图：R1的路由表
+</TaskCard>
 
-15. 在路由器R6查看BGP数据库，标出到达R2-R5间子网的最佳路由、经过的AS路径。然后在R1上关闭R1-R3互联端口后（命令：`interface f1/0`, `shutdown`），在R6上观察到达R2-R5间子网的最佳路由有无变化。
+<TaskCard number={14} title="查看R2路由表并验证BGP路由" needScreenshot={true} needRecord={false}>
 
-    R6的BGP数据库（当前）：到达R2-R5间子网的最佳路由的下一跳为\_\_\_\_\_\_。
+在路由器R2上查看路由表，标出到达R1-R3间子网、R1-R6间子网、R6-R7间子网以及R7-R8间子网的路由，是否与BGP数据库中的最佳路由一致。
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s14" 
+  title="R2的路由表" 
+  uploadOptions={[
+    { id: 'r2_route_table', label: '截图R2路由表' }
+  ]}
+/>
+
+</TaskCard>
+
+<TaskCard number={15} title="观察链路故障后的BGP路由切换" needScreenshot={true} needRecord={false}>
+
+在路由器R6查看BGP数据库，标出到达R2-R5间子网的最佳路由、经过的AS路径。然后在R1上关闭R1-R3互联端口后（命令：`interface f1/0`, `shutdown`），在R6上观察到达R2-R5间子网的最佳路由有无变化。
+
+<ScreenshotCard 
+  questionId="Lab6-p2-s15" 
+  title="R6的BGP数据库变化" 
+  uploadOptions={[
+    { id: 'r6_bgp_before', label: '截图断开前R6 BGP数据库' },
+    { id: 'r6_bgp_after', label: '截图断开后R6 BGP数据库' }
+  ]}
+>
+    R6的BGP数据库（当前）：到达R2-R5间子网的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p2-s15-before"/>。
 
     ![](img/image19.png)
 
-    R6的BGP数据库（断开连接后）：观察得知，到达R2-R5间子网的最佳路由的下一跳变为\_\_\_\_\_\_。
+    R6的BGP数据库（断开连接后）：观察得知，到达R2-R5间子网的最佳路由的下一跳变为<ModernInput size="large" questionId="Lab6-p2-s15-after"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
 ### Part 3  路由重分发
 
-16. 重新激活R1-R3之间的端口（命令：`no shutdown`），等待R1重新选择R3作为到达R2-R8间子网的最佳BGP路由。然后测试R1是否能Ping通R2-R8互联端口，并跟踪R1到该子网的路由（命令：`traceroute ip-addr`，如果提前终止，可按Ctrl+6）。
+<TaskCard number={16} title="测试路由连通性并追踪路由路径" needScreenshot={true} needRecord={false}>
 
-    Ping结果：
+重新激活R1-R3之间的端口（命令：`no shutdown`），等待R1重新选择R3作为到达R2-R8间子网的最佳BGP路由。然后测试R1是否能Ping通R2-R8互联端口，并跟踪R1到该子网的路由（命令：`traceroute ip-addr`，如果提前终止，可按Ctrl+6）。
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s16" 
+  title="Ping和路由跟踪结果" 
+  uploadOptions={[
+    { id: 'ping_result', label: '截图Ping结果' },
+    { id: 'traceroute_result', label: '截图路由跟踪结果' }
+  ]}
+>
     ![](img/image20.png)
 
-    路由跟踪结果：得到的现象是在路由器\_\_\_\_\_\_中断了。
+    路由跟踪结果：得到的现象是在路由器<ModernInput size="medium" questionId="Lab6-p3-s16-router"/>中断了。
 
     ![](img/image21.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-17. 查看R3的BGP数据库和路由表，标记到达R2-R8间子网的BGP最佳路由。查看R4的路由表是否存在R2-R8间子网的路由信息。
+<TaskCard number={17} title="分析R3和R4的路由表" needScreenshot={true} needRecord={false}>
 
-    R3的BGP数据库：观察得知，到达R2-R8间子网的最佳路由的下一跳IP地址是\_\_\_\_\_\_。
+查看R3的BGP数据库和路由表，标记到达R2-R8间子网的BGP最佳路由。查看R4的路由表是否存在R2-R8间子网的路由信息。
+
+<ScreenshotCard 
+  questionId="Lab6-p3-s17-r3" 
+  title="R3的BGP数据库和路由表" 
+  uploadOptions={[
+    { id: 'r3_bgp_db', label: '截图R3 BGP数据库' },
+    { id: 'r3_route_table', label: '截图R3路由表' }
+  ]}
+>
+    R3的BGP数据库：观察得知，到达R2-R8间子网的最佳路由的下一跳IP地址是<ModernInput size="large" questionId="Lab6-p3-s17-r3-nh"/>。
 
     ![](img/image22.png)
 
     R3的路由表：观察得知，
 
-    * 到达R2-R8间子网的下一跳IP地址\_\_\_\_\_\_（属于R2）是由BGP写入的。
-    * 去往该地址的下一跳IP地址\_\_\_\_\_\_（属于R4）是由OSPF写入的。
+    * 到达R2-R8间子网的下一跳IP地址<ModernInput size="large" questionId="Lab6-p3-s17-r3-bgp"/>（属于R2）是由BGP写入的。
+    * 去往该地址的下一跳IP地址<ModernInput size="large" questionId="Lab6-p3-s17-r3-ospf"/>（属于R4）是由OSPF写入的。
 
     ![](img/image23.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s17-r4" 
+  title="R4的路由表" 
+  uploadOptions={[
+    { id: 'r4_route_table', label: '截图R4路由表' }
+  ]}
+>
     R4的路由表：观察得知，由于R4上缺少相应的路由，因此不能Ping通。默认情况下，未启用同步功能，BGP就不会考虑AS内部是否存在相关路由，导致路由黑洞。
 
     ![](img/image24.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-18. 打开R3、R5的BGP同步功能（命令：`synchronization`），等一会儿查看R3、R1到达R2-R8间子网的BGP最佳路由是否发生变化。用Ping测试R1到达R2-R8互联端口的联通性，并跟踪路由。
+<TaskCard number={18} title="启用BGP同步功能并观察路由变化" needScreenshot={true} needRecord={true}>
 
+打开R3、R5的BGP同步功能（命令：`synchronization`），等一会儿查看R3、R1到达R2-R8间子网的BGP最佳路由是否发生变化。用Ping测试R1到达R2-R8互联端口的联通性，并跟踪路由。
+
+<ScreenshotCard 
+  questionId="Lab6-p3-s18-config" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r3_sync_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
+    { id: 'r5_sync_config', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+  ]}
+>
     R3的配置命令：
 
     ```kotlin
@@ -525,22 +865,41 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R5(config)#
     R5(config-router)#
     ```
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s18-r3" 
+  title="R3的BGP数据库和路由表" 
+  uploadOptions={[
+    { id: 'r3_bgp_sync', label: '截图R3 BGP数据库' },
+    { id: 'r3_route_sync', label: '截图R3路由表' }
+  ]}
+>
     R3的BGP数据库：观察得知，
 
-    * 到达R2-R8间子网的路由有\_\_\_\_\_\_条
-    * 其中最佳路由的下一跳为\_\_\_\_\_\_（属于R1），因为同步功能打开后，BGP判断AS内部缺少相应的路由，因此不选择本AS作为转发路径。
+    * 到达R2-R8间子网的路由有<ModernInput size="small" questionId="Lab6-p3-s18-r3-count"/>条
+    * 其中最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s18-r3-nh"/>（属于R1），因为同步功能打开后，BGP判断AS内部缺少相应的路由，因此不选择本AS作为转发路径。
 
     ![](img/image25.png)
 
-    R3的路由表：到达R2-R8间子网的下一跳IP为\_\_\_\_\_\_，属于路由器\_\_\_\_\_\_。
+    R3的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" questionId="Lab6-p3-s18-r3-rt-ip"/>，属于路由器<ModernInput size="medium" questionId="Lab6-p3-s18-r3-rt-router"/>。
 
     ![](img/image26.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s18-r1" 
+  title="R1的BGP数据库及测试结果" 
+  uploadOptions={[
+    { id: 'r1_bgp_sync', label: '截图R1 BGP数据库' },
+    { id: 'ping_sync', label: '截图Ping结果' },
+    { id: 'traceroute_sync', label: '截图路由跟踪结果' }
+  ]}
+>
     R1的BGP数据库：观察得知，
 
-    * 到达R2-R8间子网的最佳路由的下一跳为\_\_\_\_\_\_
-    * 属于路由器\_\_\_\_\_\_。由于使用了水平分裂方式，R3并没有向R1报告关于这个子网的路由，因为R3选的下一跳是R1。
+    * 到达R2-R8间子网的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s18-r1-nh"/>
+    * 属于路由器<ModernInput size="medium" questionId="Lab6-p3-s18-r1-router"/>。由于使用了水平分裂方式，R3并没有向R1报告关于这个子网的路由，因为R3选的下一跳是R1。
 
     ![](img/image27.png)
 
@@ -548,12 +907,25 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     ![](img/image28.png)
 
-    路由跟踪结果：观察得知，依次经过了这些路由器：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。
+    路由跟踪结果：观察得知，依次经过了这些路由器：<ModernInput size="medium" questionId="Lab6-p3-s18-tr1"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr2"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr3"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr4"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-19. 在R3、R5的OSPF协议中启用BGP重分发功能（命令：`router ospf [pid]`，`redistribute bgp [AS-number] subnets`），等一会儿，查看R3、R5的OSPF数据库，以及R4的路由表是否出现了AS外部的路由信息。
+<TaskCard number={19} title="在OSPF中启用BGP重分发" needScreenshot={true} needRecord={true}>
 
+在R3、R5的OSPF协议中启用BGP重分发功能（命令：`router ospf [pid]`，`redistribute bgp [AS-number] subnets`），等一会儿，查看R3、R5的OSPF数据库，以及R4的路由表是否出现了AS外部的路由信息。
+
+<ScreenshotCard 
+  questionId="Lab6-p3-s19-config" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r3_redist_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
+    { id: 'r5_redist_config', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+  ]}
+>
     R3的配置命令：
 
     ```kotlin
@@ -567,61 +939,124 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R5(config)#
     R5(config-router)#
     ```
+</ScreenshotCard>
 
-    R3的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R3-R1的直连网络\_\_\_\_\_\_没有被本路由器重分发。
+<ScreenshotCard 
+  questionId="Lab6-p3-s19-ospf" 
+  title="OSPF数据库" 
+  uploadOptions={[
+    { id: 'r3_ospf_db', label: '截图R3 OSPF数据库' },
+    { id: 'r5_ospf_db', label: '截图R5 OSPF数据库' }
+  ]}
+>
+    R3的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R3-R1的直连网络<ModernInput size="large" questionId="Lab6-p3-s19-r3-net"/>没有被本路由器重分发。
 
     ![](img/image29.png)
 
-    R5的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R5-R2的直连网络\_\_\_\_\_\_没有被本路由器重分发。
+    R5的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R5-R2的直连网络<ModernInput size="large" questionId="Lab6-p3-s19-r5-net"/>没有被本路由器重分发。
 
     ![](img/image30.png)
+</ScreenshotCard>
 
-    R4的路由表：观察得知，R4上增加了AS外部的路由信息。此时，到达R2-R8间子网的下一跳为\_\_\_\_\_\_和 \_\_\_\_\_\_(优先级相同)。因为重分发后，OSPF将在AS内部传播BGP的外部路由信息。
+<ScreenshotCard 
+  questionId="Lab6-p3-s19-r4" 
+  title="R4的路由表" 
+  uploadOptions={[
+    { id: 'r4_route_redist', label: '截图R4路由表' }
+  ]}
+>
+    R4的路由表：观察得知，R4上增加了AS外部的路由信息。此时，到达R2-R8间子网的下一跳为<ModernInput size="large" questionId="Lab6-p3-s19-r4-nh1"/>和 <ModernInput size="large" questionId="Lab6-p3-s19-r4-nh2"/>(优先级相同)。因为重分发后，OSPF将在AS内部传播BGP的外部路由信息。
 
     ![](img/image31.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-20. 在R3上清除BGP信息（命令：`clear ip bgp *`），等待一段时间后，在R1上查看到达R2-R8间子网的最佳BGP路由，以及R1的路由表，并在R1上跟踪到达R2-R8间子网的路由。
+<TaskCard number={20} title="清除BGP信息并观察路由重新选择" needScreenshot={true} needRecord={false}>
 
+在R3上清除BGP信息（命令：`clear ip bgp *`），等待一段时间后，在R1上查看到达R2-R8间子网的最佳BGP路由，以及R1的路由表，并在R1上跟踪到达R2-R8间子网的路由。
+
+<ScreenshotCard 
+  questionId="Lab6-p3-s20" 
+  title="R1的BGP数据库、路由表和路由跟踪" 
+  uploadOptions={[
+    { id: 'r1_bgp_clear', label: '截图R1 BGP数据库' },
+    { id: 'r1_route_clear', label: '截图R1路由表' },
+    { id: 'traceroute_clear', label: '截图路由跟踪结果' }
+  ]}
+>
     R1的BGP数据库：观察得知，
 
-    * 到达R2-R8间子网的路由有\_\_\_\_\_\_条
-    * 其中最佳路由的下一跳为\_\_\_\_\_\_（属于路由器\_\_\_\_\_\_）。
+    * 到达R2-R8间子网的路由有<ModernInput size="small" questionId="Lab6-p3-s20-count"/>条
+    * 其中最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s20-nh"/>（属于路由器<ModernInput size="medium" questionId="Lab6-p3-s20-router"/>）。
 
     ![](img/image32.png)
 
-    R1的路由表：到达R2-R8间子网的下一跳IP为\_\_\_\_\_\_，属于路由器\_\_\_\_\_\_。
+    R1的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" questionId="Lab6-p3-s20-rt-ip"/>，属于路由器<ModernInput size="medium" questionId="Lab6-p3-s20-rt-router"/>。
 
     ![](img/image33.png)
 
-    路由跟踪结果：观察得知，依次经过了这些路由器：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。
+    路由跟踪结果：观察得知，依次经过了这些路由器：<ModernInput size="medium" questionId="Lab6-p3-s18-tr1"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr2"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr3"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr4"/>。
 
     ![](img/image34.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-21. 在R3上的BGP中启用OSPF路由重分发功能（命令：router bgp [AS-number], redistribute ospf [pid]），然后查看R3的BGP数据库，标记新增的路由信息。等待一会，在R8上查看AS 65003的内部相关路由信息是否存在。
+<TaskCard number={21} title="在BGP中启用OSPF重分发" needScreenshot={true} needRecord={true}>
 
-    R3的配置命令：
+在R3上的BGP中启用OSPF路由重分发功能（命令：router bgp [AS-number], redistribute ospf [pid]），然后查看R3的BGP数据库，标记新增的路由信息。等待一会，在R8上查看AS 65003的内部相关路由信息是否存在。
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s21-config" 
+  title="R3配置命令" 
+  uploadOptions={[
+    { id: 'r3_bgp_redist_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+  ]}
+>
     ```kotlin
     R3(config)#
     R3(config-router)#
     ```
+</ScreenshotCard>
 
-    R3的BGP数据库：观察得知，新增的路由分别是：\_\_\_\_\_\_、\_\_\_\_\_\_、\_\_\_\_\_\_。因为重分发后，BGP将在AS之间传播OSPF的内部路由信息。
+<ScreenshotCard 
+  questionId="Lab6-p3-s21" 
+  title="BGP数据库" 
+  uploadOptions={[
+    { id: 'r3_bgp_ospf_redist', label: '截图R3 BGP数据库' },
+    { id: 'r8_bgp_as65003', label: '截图R8 BGP数据库' }
+  ]}
+>
+    R3的BGP数据库：观察得知，新增的路由分别是：<ModernInput size="large" questionId="Lab6-p3-s21-net1"/>、<ModernInput size="large" questionId="Lab6-p3-s21-net2"/>、<ModernInput size="large" questionId="Lab6-p3-s21-net3"/>。因为重分发后，BGP将在AS之间传播OSPF的内部路由信息。
 
     ![](img/image35.png)
 
-    R8的BGP数据库：观察得知，AS 65003内部子网的路由有\_\_\_\_\_\_条，其中到达R3的回环口的最佳路由的下一跳为\_\_\_\_\_\_，到达R4的回环口的最佳路由的下一跳为\_\_\_\_\_\_。
+    R8的BGP数据库：观察得知，AS 65003内部子网的路由有<ModernInput size="small" questionId="Lab6-p3-s21-r8-count"/>条，其中到达R3的回环口的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s21-r8-r3"/>，到达R4的回环口的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s21-r8-r4"/>。
 
     ![](img/image36.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-22. 激活R1上的f0/0端口，配置IP地址，宣告BGP直连网络。配置PC1的IP地址和默认网关。
+<TaskCard number={22} title="配置R1和PC1" needScreenshot={false} needRecord={true}>
 
+激活R1上的f0/0端口，配置IP地址，宣告BGP直连网络。配置PC1的IP地址和默认网关。
+
+<ScreenshotCard 
+  questionId="Lab6-p3-s22" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r1_pc_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} },
+    { id: 'pc1_config', label: '记录PC1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
+  ]}
+>
     R1的配置命令：
 
     ```kotlin
@@ -637,11 +1072,22 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     ```kotlin
     PC1>
     ```
+</ScreenshotCard>
 
+</TaskCard>
 
+<TaskCard number={23} title="配置R2和PC3并测试连通性" needScreenshot={true} needRecord={true}>
 
-23. 激活R2上的f0/0端口，配置IP地址，宣告BGP直连网络。配置PC3的IP地址和默认网关。测试PC1-PC3之间的连通性。
+激活R2上的f0/0端口，配置IP地址，宣告BGP直连网络。配置PC3的IP地址和默认网关。测试PC1-PC3之间的连通性。
 
+<ScreenshotCard 
+  questionId="Lab6-p3-s23-config" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r2_pc_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} },
+    { id: 'pc3_config', label: '记录PC3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
+  ]}
+>
     R2的配置命令：
 
     ```kotlin
@@ -657,23 +1103,52 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     ```kotlin
     PC3>
     ```
+</ScreenshotCard>
 
-    截图：Ping结果
+<ScreenshotCard 
+  questionId="Lab6-p3-s23-ping" 
+  title="Ping测试结果" 
+  uploadOptions={[
+    { id: 'pc1_pc3_ping', label: '截图PC1→PC3 Ping结果' }
+  ]}
+/>
+
+</TaskCard>
 
 
 
 ### Part 4  路由过滤
 
-24. 查看R7的BGP数据库中PC3所在子网的最佳路由。
+<TaskCard number={24} title="查看R7到达PC3子网的路由" needScreenshot={true} needRecord={false}>
 
-    R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_。
+查看R7的BGP数据库中PC3所在子网的最佳路由。
+
+<ScreenshotCard 
+  questionId="Lab6-p4-s24" 
+  title="R7的BGP数据库" 
+  uploadOptions={[
+    { id: 'r7_bgp_before_filter', label: '截图R7 BGP数据库' }
+  ]}
+>
+    R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s24-r7"/>。
 
     ![](img/image37.png)
+</ScreenshotCard>
 
+</TaskCard>
 
+<TaskCard number={25} title="配置路由过滤并观察效果" needScreenshot={true} needRecord={false}>
 
-25. 在R8上创建访问列表（命令：`access-list [id] deny [subnet] [mask]`），配置路由过滤（命令：`neighbor [router-id] distribute-list [access-list-id] out`），用于抑制向R7传播关于PC3子网的更新（这样可以实现前往PC3子网的数据不经过AS 65008），等待一段时间后再次查看R7、R8的BGP数据库中PC3所在子网的最佳路由（可以通过命令`clear ip bgp *`强制更新）。
+在R8上创建访问列表（命令：`access-list [id] deny [subnet] [mask]`），配置路由过滤（命令：`neighbor [router-id] distribute-list [access-list-id] out`），用于抑制向R7传播关于PC3子网的更新（这样可以实现前往PC3子网的数据不经过AS 65008），等待一段时间后再次查看R7、R8的BGP数据库中PC3所在子网的最佳路由（可以通过命令`clear ip bgp *`强制更新）。
 
+<ScreenshotCard 
+  questionId="Lab6-p4-s25-config" 
+  title="R8配置命令和访问列表" 
+  uploadOptions={[
+    { id: 'r8_filter_config', label: '截图R8配置命令' },
+    { id: 'r8_access_list', label: '截图R8访问列表' }
+  ]}
+>
     R8的配置命令：
 
     ![](img/image38.png)
@@ -681,7 +1156,16 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     查看R8生效的访问列表：（访问列表是有顺序的，前面优先。如需修改，请全部删除后重新按顺序添加）
 
     ![](img/image39.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p4-s25-bgp" 
+  title="R7和R8的BGP数据库" 
+  uploadOptions={[
+    { id: 'r8_bgp_after_filter', label: '截图R8 BGP数据库' },
+    { id: 'r7_bgp_after_filter', label: '截图R7 BGP数据库' }
+  ]}
+>
     R8的BGP数据库：
 
     ![](img/image40.png)
@@ -690,14 +1174,26 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     ![](img/image41.png)
 
-    观察得知：R8上到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_，该路由被过滤，没有传递给R7，因此，R7上到达PC3子网的最佳路由的下一跳是\_\_\_\_\_\_，数据不再经过AS 65008了。
+    观察得知：R8上到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s25-r8"/>，该路由被过滤，没有传递给R7，因此，R7上到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s25-r7"/>，数据不再经过AS 65008了。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
 ### Part 5  IPv6双栈路由
 
-26. 激活R1上的f0/1端口，配置IPv6的site-local地址；给f2/0口配置IPv6的site-local地址。查看IPv6接口（命令：`show ipv6 interface`），标记自动分配的link-local地址。
+<TaskCard number={26} title="配置R1的IPv6地址" needScreenshot={true} needRecord={true}>
 
+激活R1上的f0/1端口，配置IPv6的site-local地址；给f2/0口配置IPv6的site-local地址。查看IPv6接口（命令：`show ipv6 interface`），标记自动分配的link-local地址。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s26-config" 
+  title="R1配置命令" 
+  uploadOptions={[
+    { id: 'r1_ipv6_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 8} }
+  ]}
+>
     R1的配置命令：（截图仅供参考，请替换成文本形式）
 
     ```kotlin
@@ -710,7 +1206,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R1(config-if)#ipv6 address [ip]
     R1(config-if)#exit
     ```
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p5-s26-if" 
+  title="R1的IPv6接口信息" 
+  uploadOptions={[
+    { id: 'r1_ipv6_if', label: '截图R1 IPv6接口' }
+  ]}
+>
     查看R1的IPv6接口：
 
     ![](img/image43.png)
@@ -719,15 +1223,25 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     观察得知：
 
-    * 系统为f0/1端口自动分配的链路本地地址为\_\_\_\_\_\_。
-    * 系统为f2/0端口自动分配的链路本地地址为\_\_\_\_\_\_。
+    * 系统为f0/1端口自动分配的链路本地地址为<ModernInput size="large" questionId="Lab6-p5-s26-f01"/>。
+    * 系统为f2/0端口自动分配的链路本地地址为<ModernInput size="large" questionId="Lab6-p5-s26-f20"/>。
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-27. 给R6的f2/0、f0/1端口配置IPv6的site-local地址，查看IPv6接口，标记自动分配的link-local地址。在R1上分别测试到R6的site-local和link-local地址的连通性。
+<TaskCard number={27} title="配置R6的IPv6地址并测试连通性" needScreenshot={true} needRecord={true}>
 
-    R6的配置命令：
+给R6的f2/0、f0/1端口配置IPv6的site-local地址，查看IPv6接口，标记自动分配的link-local地址。在R1上分别测试到R6的site-local和link-local地址的连通性。
 
+<ScreenshotCard 
+  questionId="Lab6-p5-s27-config" 
+  title="R6配置命令" 
+  uploadOptions={[
+    { id: 'r6_ipv6_config', label: '记录R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} }
+  ]}
+>
     ```kotlin
     R6(config)#interface f2/0
     R6(config-if)#
@@ -735,7 +1249,16 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R6(config-if)#
     R6(config-if)# （激活端口）
     ```
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab6-p5-s27-if" 
+  title="R6的IPv6接口和Ping测试" 
+  uploadOptions={[
+    { id: 'r6_ipv6_if', label: '截图R6 IPv6接口' },
+    { id: 'r1_r6_ping', label: '截图R1→R6 Ping结果' }
+  ]}
+>
     查看R6的IPv6接口：
 
     ![](img/image45.png)
@@ -744,17 +1267,30 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     观察得知：
 
-    * 系统为f0/1端口自动分配的链路本地地址为\_\_\_\_\_\_。
-    * 系统为f2/0端口自动分配的链路本地地址为\_\_\_\_\_\_。
+    * 系统为f0/1端口自动分配的链路本地地址为<ModernInput size="large" questionId="Lab6-p5-s26-f01"/>。
+    * 系统为f2/0端口自动分配的链路本地地址为<ModernInput size="large" questionId="Lab6-p5-s26-f20"/>。
 
     Ping测试结果：
 
     ![](img/image47.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-28. 分别在R1、R6上启用IPv6单播路由（命令：`ipv6 unicast-routing`），宣告直连网络，互相设置对方为IPv6邻居。然后查看IPv6单播邻居信息（命令：`show ip bgp ipv6 unicast neighbors`）。
+<TaskCard number={28} title="配置IPv6单播路由和BGP邻居" needScreenshot={true} needRecord={true}>
 
+分别在R1、R6上启用IPv6单播路由（命令：`ipv6 unicast-routing`），宣告直连网络，互相设置对方为IPv6邻居。然后查看IPv6单播邻居信息（命令：`show ip bgp ipv6 unicast neighbors`）。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s28-config" 
+  title="配置命令" 
+  uploadOptions={[
+    { id: 'r1_ipv6_bgp_config', label: '截图R1配置命令' },
+    { id: 'r6_ipv6_bgp_config', label: '记录R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
+  ]}
+>
     R1的配置命令：
 
     ```kotlin
@@ -778,19 +1314,42 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R6(config-router-af)# （宣告直连网络）
     R6(config-router-af)# （设置邻居关系）
     ```
+</ScreenshotCard>
 
-    查看R6的IPv6的邻居信息：与IPv6地址\_\_\_\_\_\_的邻居状态关系已为Established。
+<ScreenshotCard 
+  questionId="Lab6-p5-s28-neighbor" 
+  title="IPv6邻居信息" 
+  uploadOptions={[
+    { id: 'r6_ipv6_neighbor', label: '截图R6 IPv6邻居信息' },
+    { id: 'r1_ipv6_neighbor', label: '截图R1 IPv6邻居信息' }
+  ]}
+>
+    查看R6的IPv6的邻居信息：与IPv6地址<ModernInput size="large" questionId="Lab6-p5-s28-r6"/>的邻居状态关系已为Established。
 
     ![](img/image49.png)
 
-    查看R1的IPv6的邻居信息：与IPv6地址\_\_\_\_\_\_的邻居状态关系已为Established。
+    查看R1的IPv6的邻居信息：与IPv6地址<ModernInput size="large" questionId="Lab6-p5-s28-r1"/>的邻居状态关系已为Established。
 
     ![](img/image50.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-29. 给PC2配置IPv6的site-local地址（系统会自动配置链路本地的地址，并发现本地链路上的默认路由器，因此不需要配置默认路由器）。查看IPv6信息（命令：`show ipv6`），标出链路本地地址及路由器的MAC地址。测试下与R1的连通性。
+<TaskCard number={29} title="配置PC2的IPv6地址并测试" needScreenshot={true} needRecord={true}>
 
+给PC2配置IPv6的site-local地址（系统会自动配置链路本地的地址，并发现本地链路上的默认路由器，因此不需要配置默认路由器）。查看IPv6信息（命令：`show ipv6`），标出链路本地地址及路由器的MAC地址。测试下与R1的连通性。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s29" 
+  title="PC2配置和测试" 
+  uploadOptions={[
+    { id: 'pc2_ipv6_config', label: '记录PC2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
+    { id: 'pc2_ipv6_info', label: '截图PC2 IPv6配置' },
+    { id: 'pc2_r1_ping', label: '截图PC2→R1 Ping结果' }
+  ]}
+>
     PC2的配置命令：
 
     ```kotlin
@@ -802,34 +1361,51 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
     ![](img/image52.png)
 
-    链路本地地址为：\_\_\_\_\_\_，路由器的MAC地址为：\_\_\_\_\_\_。
+    链路本地地址为：<ModernInput size="large" questionId="Lab6-p5-s29-link"/>，路由器的MAC地址为：<ModernInput size="large" questionId="Lab6-p5-s29-mac"/>。
 
     PC2→R1的Ping测试结果：
 
     ![](img/image53.png)
+</ScreenshotCard>
 
+</TaskCard>
 
+<TaskCard number={30} title="配置PC5的IPv6地址并测试" needScreenshot={true} needRecord={true}>
 
-30. 给PC5配置IPv6地址。查看IPv6信息，标出链路本地地址及路由器的MAC地址。测试下与R6的连通性。
+给PC5配置IPv6地址。查看IPv6信息，标出链路本地地址及路由器的MAC地址。测试下与R6的连通性。
 
+<ScreenshotCard 
+  questionId="Lab6-p5-s30" 
+  title="PC5配置和测试" 
+  uploadOptions={[
+    { id: 'pc5_ipv6_config', label: '记录PC5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
+    { id: 'pc5_ipv6_info', label: '截图PC5 IPv6配置' },
+    { id: 'pc5_r6_ping', label: '截图PC5→R6 Ping结果' }
+  ]}
+>
     PC5的配置命令：
 
     ```
     PC5>
     ```
 
-    查看PC5的IPv6配置：
+    链路本地地址为：<ModernInput size="large" questionId="Lab6-p5-s29-link"/>，路由器的MAC地址为：<ModernInput size="large" questionId="Lab6-p5-s29-mac"/>。
+</ScreenshotCard>
 
+</TaskCard>
 
+<TaskCard number={31} title="查看IPv6路由表并测试PC间连通性" needScreenshot={true} needRecord={false}>
 
-    链路本地地址为：\_\_\_\_\_\_，路由器的MAC地址为：\_\_\_\_\_\_。
+查看R1的IPv6路由表（命令：`show ipv6 route`），标出BGP路由，并测试PC2到PC5的连通性。
 
-    PC5→R6的Ping测试结果：
-
-
-
-31. 查看R1的IPv6路由表（命令：`show ipv6 route`），标出BGP路由，并测试PC2到PC5的连通性。
-
+<ScreenshotCard 
+  questionId="Lab6-p5-s31" 
+  title="R1 IPv6路由表和Ping测试" 
+  uploadOptions={[
+    { id: 'r1_ipv6_route', label: '截图R1 IPv6路由表' },
+    { id: 'pc2_pc5_ping', label: '截图PC2→PC5 Ping结果' }
+  ]}
+>
     R1的IPv6路由表：
 
     ![](img/image54.png)
@@ -837,11 +1413,25 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     PC2→PC5的Ping测试结果：
 
     ![](img/image55.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-32. 激活R2上的f0/1端口，配置IPv6的site-local地址；启用IPv6单播路由。给PC4配置IPv6地址，并测试下PC4和R2、PC2的连通性。
+<TaskCard number={32} title="配置R2和PC4的IPv6" needScreenshot={true} needRecord={true}>
 
+激活R2上的f0/1端口，配置IPv6的site-local地址；启用IPv6单播路由。给PC4配置IPv6地址，并测试下PC4和R2、PC2的连通性。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s32" 
+  title="配置命令和测试结果" 
+  uploadOptions={[
+    { id: 'r2_ipv6_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
+    { id: 'pc4_ipv6_config', label: '记录PC4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
+    { id: 'pc4_r2_ping', label: '截图PC4→R2 Ping结果' }
+  ]}
+>
     R2的配置命令：
 
     ```kotlin
@@ -857,12 +1447,23 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     PC4>
     ```
 
-    截图：PC4→R2的Ping测试结果
+    PC4→PC2的Ping测试结果：此时由于路由器<ModernInput size="medium" questionId="Lab6-p5-s32-router"/>没有<ModernInput size="large" questionId="Lab6-p5-s32-route"/>的IPv6路由，无法Ping通。
+</ScreenshotCard>
 
-    PC4→PC2的Ping测试结果：此时由于路由器\_\_\_\_\_\_没有\_\_\_\_\_\_的IPv6路由，无法Ping通。
+</TaskCard>
 
-33. 分别在R1和R2上创建IPv6隧道（命令：`interface Tunnel [id]`），设置隧道IPv6地址（命令：`ipv6 address [address]/[mask_length]`），设置隧道源接口（命令：`tunnel source [interface-number]`），设置隧道的目标IPv4地址（命令：`tunnel destination [ipv4-address]`），设置隧道模式为手工配置（命令：`tunnel mode ipv6ip`）。两路由器隧道的IPv6地址要在同一个子网，目标地址设置为对方的IPv4接口地址。隧道源接口必须使用配置了IPv4地址的接口。
+<TaskCard number={33} title="创建IPv6隧道" needScreenshot={true} needRecord={false}>
 
+分别在R1和R2上创建IPv6隧道（命令：`interface Tunnel [id]`），设置隧道IPv6地址（命令：`ipv6 address [address]/[mask_length]`），设置隧道源接口（命令：`tunnel source [interface-number]`），设置隧道的目标IPv4地址（命令：`tunnel destination [ipv4-address]`），设置隧道模式为手工配置（命令：`tunnel mode ipv6ip`）。两路由器隧道的IPv6地址要在同一个子网，目标地址设置为对方的IPv4接口地址。隧道源接口必须使用配置了IPv4地址的接口。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s33" 
+  title="隧道配置" 
+  uploadOptions={[
+    { id: 'r1_tunnel_config', label: '截图R1隧道配置' },
+    { id: 'r2_tunnel_config', label: '截图R2隧道配置' }
+  ]}
+>
     R1的配置命令：
 
     ![](img/image56.png)
@@ -870,11 +1471,25 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     R2的配置命令：
 
     ![](img/image57.png)
+</ScreenshotCard>
+
+</TaskCard>
 
 
 
-34. 在R1、R2上为对方的IPv6子网设置静态路由（命令：`ipv6 route [ipv6-network] Tunnel [id]`）,下一跳为隧道接口。然后在PC2上测试到PC4之间的连通性。
+<TaskCard number={34} title="配置IPv6静态路由并测试" needScreenshot={true} needRecord={true}>
 
+在R1、R2上为对方的IPv6子网设置静态路由（命令：`ipv6 route [ipv6-network] Tunnel [id]`）,下一跳为隧道接口。然后在PC2上测试到PC4之间的连通性。
+
+<ScreenshotCard 
+  questionId="Lab6-p5-s34" 
+  title="静态路由配置和测试" 
+  uploadOptions={[
+    { id: 'r1_ipv6_static', label: '截图R1静态路由配置' },
+    { id: 'r2_ipv6_static', label: '记录R2静态路由配置', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
+    { id: 'pc2_pc4_ping', label: '截图PC2→PC4 Ping结果' }
+  ]}
+>
     R1的配置命令：
 
     ![](img/image58.png)
@@ -888,29 +1503,50 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     PC2→PC4的Ping测试结果：
 
     ![](img/image59.png)
+</ScreenshotCard>
 
+</TaskCard>
 
+<TaskCard number={35} title="配置PC5子网静态路由并分析" needScreenshot={true} needRecord={true}>
 
-35. 在R2上为PC5的子网设置静态路由，下一跳为隧道接口。然后在PC5上测试到PC4之间的连通性。如果不通，查看R6上的路由信息，思考下为什么。
+在R2上为PC5的子网设置静态路由，下一跳为隧道接口。然后在PC5上测试到PC4之间的连通性。如果不通，查看R6上的路由信息，思考下为什么。
 
+<ScreenshotCard 
+  questionId="Lab6-p5-s35" 
+  title="静态路由配置和测试" 
+  uploadOptions={[
+    { id: 'r2_pc5_static', label: '记录R2静态路由配置', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
+    { id: 'pc5_pc4_ping_fail', label: '截图PC5→PC4 Ping结果' },
+    { id: 'r6_ipv6_route', label: '截图R6 IPv6路由表' }
+  ]}
+>
     R2的配置命令：
 
     ```kotlin
     R2(config)# （设置静态路由）
     ```
 
-    PC5→PC4的Ping测试结果：观察得知，从路由器\_\_\_\_\_\_返回没有路由的错误。
+    PC5→PC4的Ping测试结果：观察得知，从路由器<ModernInput size="medium" questionId="Lab6-p5-s35-router"/>返回没有路由的错误。
 
+    R6的IPv6路由表：观察得知，R6上没有<ModernInput size="large" questionId="Lab6-p5-s35-route"/>的路由。
+</ScreenshotCard>
 
+</TaskCard>
 
-    R6的IPv6路由表：观察得知，R6上没有\_\_\_\_\_\_的路由。
+<TaskCard number={36} title="重分发IPv6静态路由" needScreenshot={true} needRecord={false}>
 
+在R1的BGP中重分发IPv6的静态路由（命令：`redistribute static`），然后查看R6的BGP数据库，标记新出现的R2的IPv6网络路由。再次在PC5上测试到PC4之间的连通性。
 
-
-
-
-36. 在R1的BGP中重分发IPv6的静态路由（命令：`redistribute static`），然后查看R6的BGP数据库，标记新出现的R2的IPv6网络路由。再次在PC5上测试到PC4之间的连通性。
-
+<ScreenshotCard 
+  questionId="Lab6-p5-s36" 
+  title="BGP重分发配置和结果" 
+  uploadOptions={[
+    { id: 'r1_redist_static', label: '截图R1重分发配置' },
+    { id: 'r6_bgp_static', label: '截图R6 BGP数据库' },
+    { id: 'r6_route_static', label: '截图R6路由表' },
+    { id: 'pc5_pc4_ping_success', label: '截图PC5→PC4 Ping结果' }
+  ]}
+>
     R1的配置命令：
 
     ![](img/image60.png)
@@ -926,8 +1562,15 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     PC5PC4的Ping测试结果：
 
     ![](img/image63.png)
+</ScreenshotCard>
 
-37. 整理各路由器的当前运行配置，选择与本实验相关的内容记录在文本文件中，每个设备一个文件，分别命名为R1.txt、R2.txt等，随实验报告一起打包上传。
+</TaskCard>
+
+<TaskCard number={37} title="记录路由器运行配置" needScreenshot={false} needRecord={false}>
+
+整理各路由器的当前运行配置，选择与本实验相关的内容记录在文本文件中，每个设备一个文件，分别命名为R1.txt、R2.txt等，随实验报告一起打包上传。
+
+</TaskCard>
 
 
 
@@ -936,10 +1579,25 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 - 在AS内部两个BGP邻居是否一定要直接连接？如果不直接连接，它们之间是如何获得到达对方的路由的？需要和OSPF那样建立虚链路吗？
-- 默认情况下，BGP根据什么条件决定最佳路由？
-- 为什么未启用同步时，R1选择AS65003作为到达R2的转发路径时，R3和R5的路由表都存在去往R2的路由，但实际却不能Ping通？
-- 为什么未启用路由重分发时，R4没有外部网络的路由？
-- 为什么PC可以不设置IPv6的默认路由器？路由器可以吗？
-- R1和R2两边的IPv6网络是采用什么技术通过IPv4的网络进行通信的？R6的IPv6网络又是如何实现与R2的IPv6网络通信的？
+  <ModernInput size="exlarge" questionId="Lab6-q1"/>
 
-</PlaceHolder>
+- 默认情况下，BGP根据什么条件决定最佳路由？
+  <ModernInput size="exlarge" questionId="Lab6-q2"/>
+
+- 为什么未启用同步时，R1选择AS65003作为到达R2的转发路径时，R3和R5的路由表都存在去往R2的路由，但实际却不能Ping通？
+  <ModernInput size="exlarge" questionId="Lab6-q3"/>
+
+- 为什么未启用路由重分发时，R4没有外部网络的路由？
+  <ModernInput size="exlarge" questionId="Lab6-q4"/>
+
+- 为什么PC可以不设置IPv6的默认路由器？路由器可以吗？
+  <ModernInput size="exlarge" questionId="Lab6-q5"/>
+
+- R1和R2两边的IPv6网络是采用什么技术通过IPv4的网络进行通信的？R6的IPv6网络又是如何实现与R2的IPv6网络通信的？
+  <ModernInput size="exlarge" questionId="Lab6-q6"/>
+
+## 七、导出实验报告
+
+<!-- <ExportButton templatePath={require('@site/assets/base_report/Lab6.zip').default} labName="Lab6" labId="lab6-" /> -->
+
+<!-- </PlaceHolder> -->
