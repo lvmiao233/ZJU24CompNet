@@ -73,8 +73,16 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
   // 重置文本输入为初始内容
   const handleResetText = () => {
     const currentOption = getCurrentOption();
-    const initialContent = currentOption?.textConfig?.initialContent || '';
-    setAnswer(`${questionId}-${mode}`, initialContent);
+    const textConfig = currentOption?.textConfig || {};
+    const initialContent = textConfig.initialContent;
+    const initialLines = textConfig.initialLines || 1;
+    
+    // 计算初始值：优先使用 initialContent，否则根据 initialLines 生成
+    const resetValue = initialContent !== undefined 
+      ? initialContent 
+      : (initialLines > 1 ? '\n'.repeat(initialLines - 1) : '');
+    
+    setAnswer(`${questionId}-${mode}`, resetValue);
   };
 
   useEffect(() => {
