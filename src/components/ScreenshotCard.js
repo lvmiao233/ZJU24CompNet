@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
-import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined } from '@ant-design/icons';
+import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined, ReloadOutlined } from '@ant-design/icons';
 import { AnswerContext } from '@site/src/context/AnswerContext';
 import ModernInput from './ModernInput';
 import BrowserOnly from '@docusaurus/BrowserOnly';
@@ -37,7 +37,7 @@ const PRESET_COLORS = [
 // 内部实现组件，包含所有浏览器API相关逻辑
 const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
   const [mode, setMode] = useState(children ? 'reference' : uploadOptions[0].id);
-  const { images, addImage, getImage } = useContext(AnswerContext);
+  const { images, addImage, getImage, setAnswer } = useContext(AnswerContext);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isUploadModalVisible, setUploadModalVisible] = useState(false);
   const [isAnnotationModalVisible, setAnnotationModalVisible] = useState(false);
@@ -68,6 +68,13 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
   const isImageMode = () => {
     const currentOption = getCurrentOption();
     return !currentOption || currentOption.type !== 'text'; // 默认为图片模式
+  };
+
+  // 重置文本输入为初始内容
+  const handleResetText = () => {
+    const currentOption = getCurrentOption();
+    const initialContent = currentOption?.textConfig?.initialContent || '';
+    setAnswer(`${questionId}-${mode}`, initialContent);
   };
 
   useEffect(() => {
@@ -558,6 +565,13 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
                   标注
                 </Button>
               )}
+            </div>
+          )}
+          {mode !== 'reference' && isTextMode() && (
+            <div className="toolbar">
+              <Button icon={<ReloadOutlined />} onClick={handleResetText}>
+                重置
+              </Button>
             </div>
           )}
         </div>

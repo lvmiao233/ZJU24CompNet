@@ -98,7 +98,7 @@ const highlightCiscoCommands = (editor) => {
 };
 
 // 内部实现组件，包含所有浏览器API相关逻辑
-function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, initialLines = 1, showLineNumbers = true, ...props }) {
+function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, initialLines = 1, showLineNumbers = true, initialContent = '', ...props }) {
   const { answers, setAnswer } = useContext(AnswerContext);
   const sizeClassName = `modern-input-${size}`;
   const textareaRef = useRef(null);
@@ -111,14 +111,14 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
     setAnswer(questionId, e.target.value);
   };
 
-  const value = answers[questionId] || '';
+  const savedValue = answers[questionId];
 
   useEffect(() => {
     if (textareaRef.current && size === 'exlarge') {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
     }
-  }, [value, size]);
+  }, [savedValue, size]);
 
   // 计算行数的函数
   const countLines = (text) => {
@@ -145,9 +145,15 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
     }
   };
 
-  // CodeJar初始化
+  // CodeJar初始化 - 当 codeEditor 或 questionId 改变时重新初始化
   useEffect(() => {
-    if (codeEditor && codeEditorRef.current && !jarRef.current && CodeJar) {
+    if (codeEditor && codeEditorRef.current && CodeJar) {
+      // 如果已存在，先销毁
+      if (jarRef.current) {
+        jarRef.current.destroy();
+        jarRef.current = null;
+      }
+
       jarRef.current = CodeJar(codeEditorRef.current, highlightCiscoCommands, {
         tab: '  ', // 使用2个空格作为缩进
         spellcheck: false,
@@ -156,16 +162,17 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
         addClosing: false
       });
 
-      // 设置初始值：优先使用已保存的内容，否则生成initialLines行的空内容
-      const initialContent = value || (initialLines > 1 ? '\n'.repeat(initialLines - 1) : '');
+      // 设置初始值：优先使用已保存的内容，否则使用initialContent或生成initialLines行的空内容
+      const savedValue = answers[questionId];
+      const initCode = savedValue !== undefined ? savedValue : (initialContent || (initialLines > 1 ? '\n'.repeat(initialLines - 1) : ''));
       
       // 标记正在初始化，避免触发保存
       isInitializing.current = true;
-      jarRef.current.updateCode(initialContent);
+      jarRef.current.updateCode(initCode);
       isInitializing.current = false;
       
       // 初始化行号
-      updateLineNumbers(countLines(initialContent));
+      updateLineNumbers(countLines(initCode));
 
       // 监听代码变化，但不在初始化时保存
       jarRef.current.onUpdate(code => {
@@ -182,20 +189,24 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
         jarRef.current = null;
       }
     };
-  }, [codeEditor, questionId, setAnswer, initialLines, showLineNumbers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [codeEditor, questionId]);
 
-  // 当外部值变化时更新CodeJar内容
+  // 当外部值变化时更新CodeJar内容（例如重置按钮）
   useEffect(() => {
-    if (codeEditor && jarRef.current && jarRef.current.toString() !== value) {
-      // 只有在value真正有内容时才更新，避免空值覆盖用户输入
-      if (value) {
+    if (codeEditor && jarRef.current) {
+      const currentCode = jarRef.current.toString();
+      const savedValue = answers[questionId];
+      
+      // 只有当保存的值与当前显示的值不同时才更新（避免用户输入时触发）
+      if (savedValue !== undefined && currentCode !== savedValue) {
         isInitializing.current = true;
-        jarRef.current.updateCode(value);
+        jarRef.current.updateCode(savedValue);
         isInitializing.current = false;
-        updateLineNumbers(countLines(value));
+        updateLineNumbers(countLines(savedValue));
       }
     }
-  }, [value, codeEditor]);
+  }, [answers, questionId, codeEditor]);
 
   // 如果启用了代码编辑器模式
   if (codeEditor) {
@@ -216,12 +227,15 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
     );
   }
 
+  // 对于非代码编辑器，直接显示保存的值或初始内容
+  const displayValue = savedValue !== undefined ? savedValue : initialContent;
+
   if (size === 'exlarge') {
     return (
       <textarea
         ref={textareaRef}
         className={`modern-input ${sizeClassName}`}
-        value={value}
+        value={displayValue}
         onChange={handleChange}
         rows="1"
         {...props}
@@ -232,7 +246,7 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
   return (
     <input
       className={`modern-input ${sizeClassName}`}
-      value={value}
+      value={displayValue}
       onChange={handleChange}
       {...props}
     />

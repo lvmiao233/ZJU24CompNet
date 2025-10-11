@@ -1,6 +1,7 @@
 .screenshot-card {
   width: 100%;
-  padding-top: 6px;
+  /* padding-top: 6px; */
+  margin-bottom: 10px;
 }
 
 .header {
