@@ -112,7 +112,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 设计好每个PC、路由器各接口的IP地址及掩码，并标注在拓扑图上（后续全部按照这个图进行配置）。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s1" 
+  questionId="Lab4-s1" 
   title="IP地址规划拓扑图" 
   uploadOptions={[
     { id: 'topology', label: '上传标注IP地址的拓扑图' }
@@ -128,7 +128,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 给PC1配置IP地址为10.0.0.X，给PC2配置IP地址为10.0.1.X，其中X为你的学号后2位或后3位（如果3位都为0，往前取，直到3位不全为0，后同不再说明），均使用24位长度的掩码（即255.255.255.0）。然后用Ping检查PC1、PC2之间的连通性（思考为什么不通）。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s2" 
+  questionId="Lab4-s2" 
   title="PC间Ping测试结果" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
@@ -144,7 +144,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 将PC1、PC2的掩码长度均改为16位（即255.255.0.0）。然后用Ping检查PC1、PC2之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s3" 
+  questionId="Lab4-s3" 
   title="修改掩码后Ping测试结果" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
@@ -160,7 +160,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 给R1的两个接口f0/0、f1/0分别配置合适的IP地址，掩码长度均为16，并激活接口。然后查看路由表信息。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s4" 
+  questionId="Lab4-s4" 
   title="R1接口配置与路由表信息" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} },
@@ -177,7 +177,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 给PC3配置IP地址10.1.0.X，其中X为你的学号后2位或后3位，掩码长度16位（即255.255.0.0）。然后用Ping检查PC1、PC3之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s5" 
+  questionId="Lab4-s5" 
   title="PC1与PC3间Ping测试结果" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
@@ -193,7 +193,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 如果上一步Ping的结果是不通，请给PC1、PC3配置合适的路由器地址（Gateway），并再次检查两者之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s6" 
+  questionId="Lab4-s6" 
   title="PC网关配置与Ping测试" 
   uploadOptions={[
     { id: 'pc1_config', label: '截图PC1配置命令' },
@@ -213,7 +213,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 给R4的f0/0、f0/1两个接口配置IP地址并激活接口。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s7" 
+  questionId="Lab4-s7" 
   title="R4接口配置命令" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
@@ -227,7 +227,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 在R4上为第一个接口（f0/0）连接的子网配置DHCP服务。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s8" 
+  questionId="Lab4-s8" 
   title="DHCP服务配置命令" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} }
@@ -241,7 +241,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 在PC4上使用DHCP动态分配地址，查看获得的IP地址。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s9" 
+  questionId="Lab4-s9" 
   title="PC4 DHCP地址分配" 
   uploadOptions={[
     { id: 'dhcp_result', label: '截图配置命令及获得的IP地址' }
@@ -257,7 +257,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 在R4上为第二个接口（f0/1）配置DHCP服务。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s10" 
+  questionId="Lab4-s10" 
   title="第二个DHCP池配置命令" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} }
@@ -271,7 +271,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 在PC5上使用DHCP动态分配地址，查看获得的IP地址。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s11" 
+  questionId="Lab4-s11" 
   title="PC5 DHCP地址分配" 
   uploadOptions={[
     { id: 'dhcp_result', label: '截图配置命令及获得的IP地址' }
@@ -287,7 +287,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 用Ping命令测试PC4、PC5之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s12" 
+  questionId="Lab4-s12" 
   title="PC间Ping测试结果" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
@@ -303,7 +303,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 显示R4上的已分配DHCP主机信息
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s13" 
+  questionId="Lab4-s13" 
   title="DHCP主机分配信息" 
   uploadOptions={[
     { id: 'dhcp_info', label: '截图已分配DHCP主机信息' }
@@ -319,7 +319,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 配置R1、R2路由器之间的串口，设置数据链路层协议为HDLC（命令：`encapsulation hdlc`），在其中一台路由器上设置时钟速率（命令：`clock rate 速率值`），设置IP地址，激活接口，并测试两个路由器之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s14a" 
+  questionId="Lab4-s14a" 
   title="R1配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
@@ -329,7 +329,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s14b" 
+  questionId="Lab4-s14b" 
   title="R2配置命令" 
   uploadOptions={[
     { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} }
@@ -339,7 +339,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s14c" 
+  questionId="Lab4-s14c" 
   title="R1-R2连通性测试" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
@@ -355,7 +355,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 配置R4、R2路由器之间的串口，设置IP地址，设置数据链路层协议为PPP（命令：`encapsulation ppp`），设置PPP认证模式为CHAP（命令：`ppp authentication chap`），为对方设置认证用户名和密码（命令：`username R4 password 1234`），用户名默认就是对方的路由器hostname（区分大小写），密码要设置成一样的。激活接口，查看串口状态并测试两个路由器之间的连通性。LCP Open 表明 PPP 的 LCP 已经协商完成，身份验证通过
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s15a" 
+  questionId="Lab4-s15a" 
   title="R2配置命令" 
   uploadOptions={[
     { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
@@ -365,7 +365,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s15b" 
+  questionId="Lab4-s15b" 
   title="R4配置命令" 
   uploadOptions={[
     { id: 'r4_config', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
@@ -375,7 +375,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s15c" 
+  questionId="Lab4-s15c" 
   title="串口状态与连通性测试" 
   uploadOptions={[
     { id: 'serial_status', label: '截图串口状态（LCP Open）' },
@@ -395,7 +395,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 配置R1、R3路由器之间接口的IP地址，激活接口，并测试两个路由器之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s16" 
+  questionId="Lab4-s16" 
   title="R1-R3接口配置与测试" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1输入的命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} },
@@ -411,7 +411,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 配置R4、R3路由器之间接口的IP地址，激活接口，并测试两个路由器之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s17" 
+  questionId="Lab4-s17" 
   title="R4-R3接口配置与测试" 
   uploadOptions={[
     { id: 'r3_config', label: '记录R3输入的命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} },
@@ -427,7 +427,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 分别测试PC1与PC4、PC1与PC5、PC3与PC4、PC3与PC5之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s18" 
+  questionId="Lab4-s18" 
   title="PC间连通性测试结果" 
   uploadOptions={[
     { id: 'pc1_to_pc4', label: '截图PC1→4 结果' },
@@ -446,7 +446,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 查看各路由器的路由表信息（命令：`show ip route`），分析上述不能Ping通的原因是缺少了哪些路由信息，为下一步添加路由做准备。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s19" 
+  questionId="Lab4-s19" 
   title="各路由器路由表信息" 
   uploadOptions={[
     { id: 'r1_routing', label: '截图R1路由表' },
@@ -465,7 +465,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 在各个路由器上为相应的目标网络（Zone1, Zone2, Guest zone所在子网）添加静态路由（优先选择以太网线路作为下一跳路径），以便上述三个区内的PC能够互相Ping通（不通请仔细分析是哪一台路由器缺少了路由）。记录最后的路由表信息。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s20a" 
+  questionId="Lab4-s20a" 
   title="各路由器静态路由配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1输入的命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
@@ -476,7 +476,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 />
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s20b" 
+  questionId="Lab4-s20b" 
   title="PC间连通性测试结果" 
   uploadOptions={[
     { id: 'pc1_to_pc4', label: '截图PC1→4 结果' },
@@ -489,7 +489,7 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s20c" 
+  questionId="Lab4-s20c" 
   title="各路由器路由表信息" 
   uploadOptions={[
     { id: 'r1_routing', label: '截图R1路由表' },
@@ -512,7 +512,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 :::
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s21" 
+  questionId="Lab4-s21" 
   title="备用路由配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
@@ -522,7 +522,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 
 * **R1-R3、R4-R3 间链路断开前**
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="R1路由表" 
     uploadOptions={[
         { id: 'r1_routing_a', label: '截图R1路由表信息' }
@@ -531,7 +531,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     ![](img/image33.png)
     </ScreenshotCard>
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="R4路由表" 
     uploadOptions={[
         { id: 'r4_routing_a', label: '截图R4路由表信息' }
@@ -540,7 +540,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     ![](img/image34.png)
     </ScreenshotCard>
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="路由跟踪" 
     uploadOptions={[
         { id: 'trace_result_a', label: '截图PC1路由跟踪结果' }
@@ -550,7 +550,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     </ScreenshotCard>
 * **R1-R3、R4-R3 间链路断开后**
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="R1路由表" 
     uploadOptions={[
         { id: 'r1_routing_b', label: '截图R1路由表信息' }
@@ -559,7 +559,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     ![](img/image36.png)
     </ScreenshotCard>
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="R4路由表" 
     uploadOptions={[
         { id: 'r4_routing_b', label: '截图R4路由表信息' }
@@ -568,7 +568,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     ![](img/image37.png)
     </ScreenshotCard>
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="路由跟踪" 
     uploadOptions={[
         { id: 'trace_result_b', label: '截图PC1路由跟踪结果' }
@@ -578,7 +578,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
     </ScreenshotCard>
 * **R1-R3、R4-R3 间链路重新打开后**
     <ScreenshotCard 
-    questionId="Lab4-p1-s21" 
+    questionId="Lab4-s21" 
     title="路由表信息" 
     uploadOptions={[
         { id: 'r1_routing_c', label: '截图R1路由表信息' },
@@ -593,7 +593,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 在R1上分别使用f1/0、s2/0接口的IP地址作为源地址，测试到R4的s2/1接口地址的连通性（命令：`ping 目标IP地址 source 源IP地址`），如果有哪个不通，在各个路由器上增加相应的静态路由信息。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s22" 
+  questionId="Lab4-s22" 
   title="指定源地址Ping测试结果" 
   uploadOptions={[
     { id: 'f0_0_ping', label: '截图R1 f0/0→R4 s2/1 结果' },
@@ -604,7 +604,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s22" 
+  questionId="Lab4-s22" 
   title="指定源地址Ping测试结果" 
   uploadOptions={[
     { id: 'f1_0_ping', label: '截图R1 f1/0→R4 s2/1 结果' },
@@ -617,7 +617,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 如果某个路由器上不需要增加静态路由信息，配置命令填`-`即可
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s22" 
+  questionId="Lab4-s22" 
   title="补充静态路由配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
@@ -634,7 +634,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 给R3的f0/0（R3-R5之间）接口配置IP地址，给R5各接口配置IP地址，激活接口，并测试两个路由器之间的连通性。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s23" 
+  questionId="Lab4-s23" 
   title="R3-R5接口配置与测试" 
   uploadOptions={[
     { id: 'r3_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
@@ -650,7 +650,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 给PC6、PC7配置IP地址及默认路由器地址（选R5作为默认路由器），其中PC6地址的主机部分为你的学号后2位或后3位（规则同前）。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s24" 
+  questionId="Lab4-s24" 
   title="PC6/PC7网络配置命令" 
   uploadOptions={[
     { id: 'pc6_config', label: '记录PC6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
@@ -668,7 +668,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 :::
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s25" 
+  questionId="Lab4-s25" 
   title="NAT配置命令" 
   uploadOptions={[
     { id: 'nat_config', label: '记录配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 8} }
@@ -687,7 +687,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s25" 
+  questionId="Lab4-s25" 
   title="NAT转换信息" 
   uploadOptions={[
     { id: 'nat_info', label: '截图NAT信息' }
@@ -709,7 +709,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 如果某个路由器上不需要增加静态路由信息，配置命令填`-`即可
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s26" 
+  questionId="Lab4-s26" 
   title="各路由器配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
@@ -721,7 +721,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 />
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s26" 
+  questionId="Lab4-s26" 
   title="PC6连通性测试结果" 
   uploadOptions={[
     { id: 'pc6_to_pc1', label: '截图PC6→1 结果' },
@@ -740,7 +740,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 默认情况下，Cloud-1的eth0接口工作在仅主机模式，IP地址是动态分配的，与电脑主机的某个虚拟网卡处于同一个子网。因此配置R2的f0/0接口IP地址时也采用动态分配方式（命令：`ip addess dhcp`）。配置完成后查看R2获得的IP地址，然后在电脑主机上打开命令行，Ping一下R2的IP地址。
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s27" 
+  questionId="Lab4-s27" 
   title="R2 与主机连通性测试" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录输入的命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} },
@@ -764,7 +764,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 :::
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s28" 
+  questionId="Lab4-s28" 
   title="R2 NAT配置命令" 
   uploadOptions={[
     { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
@@ -774,7 +774,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s28" 
+  questionId="Lab4-s28" 
   title="R1路由配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
@@ -784,7 +784,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s28" 
+  questionId="Lab4-s28" 
   title="主机IP" 
   uploadOptions={[
     { id: 'host_ip', label: '截图电脑主机IP地址' }
@@ -793,7 +793,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
   ![](img/image46.png)
 </ScreenshotCard>
 <ScreenshotCard 
-  questionId="Lab4-p1-s28" 
+  questionId="Lab4-s28" 
   title="主机与PC1连通性测试" 
   uploadOptions={[
     { id: 'ping_result', label: '截图PC1与主机Ping结果' }
@@ -817,7 +817,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 :::
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s29" 
+  questionId="Lab4-s29" 
   title="R2配置命令" 
   uploadOptions={[
     { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} }
@@ -827,7 +827,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s29" 
+  questionId="Lab4-s29" 
   title="R1配置命令" 
   uploadOptions={[
     { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
@@ -837,7 +837,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab4-p1-s29" 
+  questionId="Lab4-s29" 
   title="R2与主机H的Ping结果" 
   uploadOptions={[
     { id: 'r2_ping', label: '截图R2与主机H的Ping结果' }
@@ -846,7 +846,7 @@ B)如果不通，请检查R2上是否添加了相应的路由
   ![](img/image50.png)
 </ScreenshotCard>
 <ScreenshotCard 
-  questionId="Lab4-p1-s29" 
+  questionId="Lab4-s29" 
   title="PC1与主机H的Ping结果" 
   uploadOptions={[
     { id: 'pc1_ping', label: '截图PC1与主机H的Ping结果' }

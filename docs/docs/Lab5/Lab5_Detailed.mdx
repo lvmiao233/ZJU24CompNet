@@ -31,13 +31,11 @@ import { Row, Col } from 'antd';
 
 <!-- <PlaceHolder> -->
 
-## 一、实验目的
+## 1 实验目的
 
 * 理解链路状态路由协议的工作原理。
 * 理解OSPF协议的工作机制。
 * 掌握配置和调试OSPF协议的方法。
-
-
 
 ## 二、实验内容
 
@@ -51,24 +49,10 @@ import { Row, Col } from 'antd';
 -   断开某些链路，观察OSPF事件和路由表变化；
 -   在Area边界路由器上配置路由聚合。
 
-
-
-## 三、主要仪器设备
-
-PC机、路由器、Console连接线、直联网络线、交叉网络线
-
-
-
 ## 四、操作方法与实验步骤
 
 -   按照拓扑图连接PC和路由器，其中R1-R2之间采用串口连接，数据链路层协议使用HDLC；R5、R7、R8之间采用Frame Relay交换机连接（Frame Relay交换机的配置请参考GNS3指南）。
 -   设计好PC和路由器各端口的IP地址、子网掩码。分配地址时请遵循下面的规则：
-    * Area 0使用10.0.0.0/16的网络地址进行扩展，每个子网分别使用10.0.0.0/24、10.0.1.0/24、10.0.2.0/24等子网地址。其中点对点连接的路由器之间的子网使用10.0.123.240/28进行扩展，可以最大程度的节约地址，例如使用串行掩码方案，网络地址部分为30位，每个子网刚好有2个可用地址（去掉1个主机地址部分全0的和1个主机地址部分全1的），可以按如下方式进行分配：
-        * R1-R2互联接口: 10.0.123.241/30、10.0.123.242/30，子网地址：10.0.123.240/30;
-        * R1-R3互联接口: 10.0.123.245/30、10.0.123.246/30，子网地址：10.0.123.244/30;
-        * 依次类推，R2、R3、R4、R6之间的子网为（只需要4个地址）：10.0.123.248/29，去掉全0全1地址后，还有6个地址可用。
-    * Area 1、Area 2、Area 3使用10.X.0.0/16的网络地址进行扩展，其中X为Area编号，例如Area 1的3个子网分别使用10.1.0.0/24、10.1.1.0/24、10.1.2.0/24等子网地址（同一个交换机上的多台路由器的接口属于同一个子网）。
-![](img/image2.png)
 -   配置各PC的的默认网关，分别设置为所连路由器的相应端口IP地址；
 -   配置各路由器互联端口的IP地址，使直连的2个路由器能相互Ping通；
 -   先后给路由器R1、R2、R3配置RIP协议和OSPF协议，比较两者选择的路由差别（RIP不考虑线路带宽，只考虑经过的路由器个数，OSPF考虑线路cost，带宽越大，cost越小）；
@@ -116,7 +100,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 <LinkCard icon="https://www.cisco.com/favicon.ico" title="IP 路由 - 故障排除技术说明" url="https://www.cisco.com/c/zh_cn/tech/ip/ip-routing/tsd-technology-support-troubleshooting-technotes-list.html">故障排除技术说明</LinkCard>
 
 
-## 五、实验数据记录和处理
+## 2 实验数据记录和处理
 
 :::important 提示
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，可直接在图片上进行标注，也可以单独用文本进行描述。
@@ -126,6 +110,11 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 <TaskCard number={1} title="设计IP地址方案并标注拓扑图" needScreenshot={true} needRecord={false}>
 
 参考实验操作方法的说明，设计好每个PC、路由器各接口的IP地址及掩码，并标注在拓扑图上。
+    * Area 0使用10.0.0.0/16的网络地址进行扩展，每个子网分别使用10.0.0.0/24、10.0.1.0/24、10.0.2.0/24等子网地址。其中点对点连接的路由器之间的子网使用10.0.123.240/28进行扩展，可以最大程度的节约地址，例如使用串行掩码方案，网络地址部分为30位，每个子网刚好有2个可用地址（去掉1个主机地址部分全0的和1个主机地址部分全1的），可以按如下方式进行分配：
+        * R1-R2互联接口: 10.0.123.241/30、10.0.123.242/30，子网地址：10.0.123.240/30;
+        * R1-R3互联接口: 10.0.123.245/30、10.0.123.246/30，子网地址：10.0.123.244/30;
+        * 依次类推，R2、R3、R4、R6之间的子网为（只需要4个地址）：10.0.123.248/29，去掉全0全1地址后，还有6个地址可用。
+    * Area 1、Area 2、Area 3使用10.X.0.0/16的网络地址进行扩展，其中X为Area编号，例如Area 1的3个子网分别使用10.1.0.0/24、10.1.1.0/24、10.1.2.0/24等子网地址（同一个交换机上的多台路由器的接口属于同一个子网）。
 
 <ScreenshotCard 
   questionId="Lab5-s1" 
@@ -134,6 +123,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
     { id: 'topology', label: '上传标注IP地址的拓扑图' }
   ]}
 />
+![](img/image2.png)
 
 </TaskCard>
 
@@ -199,19 +189,22 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-s2-ping" 
-  title="连通性测试结果" 
+  questionId="Lab5-s2" 
+  title="PC1到R1连通性测试" 
   uploadOptions={[
-    { id: 'pc1_to_r1', label: '截图PC1→R1' },
+    { id: 'pc1_to_r1', label: '截图PC1→R1' }
+  ]}
+>
+   ![](img/image6.png)
+</ScreenshotCard>
+
+<ScreenshotCard 
+  questionId="Lab5-s2" 
+  title="PC2到R2连通性测试" 
+  uploadOptions={[
     { id: 'pc2_to_r2', label: '截图PC2→R2' }
   ]}
 >
-   PC1→R1示例:
-
-   ![](img/image6.png)
-
-   PC2→R2示例:
-
    ![](img/image7.png)
 </ScreenshotCard>
 
@@ -219,7 +212,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### Part 1  配置RIP（用于和OSPF进行比较）
+### 2.1  配置RIP（用于和OSPF进行比较）
 
 <TaskCard number={3} title="配置RIP动态路由协议" needScreenshot={false} needRecord={true}>
 
@@ -268,29 +261,43 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 查看R1、R2、R3的路由表，跟踪PC1到PC2的路由。
 
 <ScreenshotCard 
-  questionId="Lab5-p1-s4-routing" 
-  title="路由器路由表" 
+  questionId="Lab5-p1-s4" 
+  title="R1路由表" 
   uploadOptions={[
-    { id: 'r1_route', label: '截图R1路由表（标出到PC2子网的路由）' },
-    { id: 'r2_route', label: '截图R2路由表（标出到PC1子网的路由）' },
-    { id: 'r3_route', label: '截图R3路由表' }
+    { id: 'r1_route', label: '截图R1路由表（标出到PC2子网的路由）' }
   ]}
 >
    R1路由表示例（标出到PC2子网的路由，下一跳是哪个路由器）：
 
    ![](img/image11.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p1-s4" 
+  title="R2路由表" 
+  uploadOptions={[
+    { id: 'r2_route', label: '截图R2路由表（标出到PC1子网的路由）' }
+  ]}
+>
    R2路由表示例（标出到PC1子网的路由，下一跳是哪个路由器）：
 
    ![](img/image12.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p1-s4" 
+  title="R3路由表" 
+  uploadOptions={[
+    { id: 'r3_route', label: '截图R3路由表' }
+  ]}
+>
    R3路由表示例：
 
    ![](img/image13.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p1-s4-traceroute" 
+  questionId="Lab5-p1-s4" 
   title="路由跟踪结果" 
   uploadOptions={[
     { id: 'pc1_to_pc2_trace', label: '截图PC1→PC2路由跟踪' }
@@ -305,7 +312,7 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 
 
 
-### Part 2  配置单域OSPF（Area 0）
+### 2.2  配置单域OSPF（Area 0）
 
 <TaskCard number={5} title="配置R1的OSPF协议" needScreenshot={false} needRecord={true}>
 
@@ -469,29 +476,43 @@ PC机、路由器、Console连接线、直联网络线、交叉网络线
 查看R1、R2、R3的路由表，与RIP比较，OSPF所选择的路由有何不同，谁的优先级高？跟踪PC1到PC2的路由。
 
 <ScreenshotCard 
-  questionId="Lab5-p2-s10-routing" 
-  title="路由器路由表" 
+  questionId="Lab5-p2-s10" 
+  title="R1路由表（OSPF）" 
   uploadOptions={[
-    { id: 'r1_route_ospf', label: '截图R1路由表' },
-    { id: 'r2_route_ospf', label: '截图R2路由表' },
-    { id: 'r3_route_ospf', label: '截图R3路由表' }
+    { id: 'r1_route_ospf', label: '截图R1路由表' }
   ]}
 >
     R1路由表示例：（从图可知，对于PC2的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-1"/>，由于OSPF的路由管理距离为110，比RIP的管理距离120优先级更高，所以把之前RIP选择的路由替换了）
 
     ![](img/image24.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p2-s10" 
+  title="R2路由表（OSPF）" 
+  uploadOptions={[
+    { id: 'r2_route_ospf', label: '截图R2路由表' }
+  ]}
+>
     R2路由表示例：（从图可知，对于PC1的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-2"/>）
 
     ![](img/image25.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p2-s10" 
+  title="R3路由表（OSPF）" 
+  uploadOptions={[
+    { id: 'r3_route_ospf', label: '截图R3路由表' }
+  ]}
+>
     R3路由表示例：
 
     ![](img/image26.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p2-s10-traceroute" 
+  questionId="Lab5-p2-s10" 
   title="路由跟踪结果" 
   uploadOptions={[
     { id: 'pc1_to_pc2_ospf', label: '截图PC1→PC2路由跟踪' }
@@ -575,20 +596,34 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p2-s13-r4r6" 
-  title="R4和R6配置及邻居关系" 
+  questionId="Lab5-p2-s13" 
+  title="R4和R6配置命令" 
   uploadOptions={[
-    { id: 'r4_r6_config', label: '记录R4/R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 8} },
-    { id: 'r4_neighbor', label: '截图R4邻居关系' },
-    { id: 'r6_neighbor', label: '截图R6邻居关系' }
+    { id: 'r4_r6_config', label: '记录R4/R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 8} }
   ]}
 >
     给R4、R6的回环接口、f0/0接口配置IP地址并激活，启用OSPF协议，接口均属于Area 0。过一会儿查看R4和R6的邻居信息（由于R2、R3、R4、R6在同一个广播网络中，四台路由器并不会都成为邻接关系，而是选出DR、BDR，然后各路由器与DR、BDR进行路由信息交换）。
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p2-s13" 
+  title="R4邻居关系" 
+  uploadOptions={[
+    { id: 'r4_neighbor', label: '截图R4邻居关系' }
+  ]}
+>
     R4上查看邻居关系示例（与R6是邻居，但不建立邻接关系，重启后可能会变化）：
 
     ![](img/image32.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p2-s13" 
+  title="R6邻居关系" 
+  uploadOptions={[
+    { id: 'r6_neighbor', label: '截图R6邻居关系' }
+  ]}
+>
     R6上查看邻居关系示例（与R4是邻居，但不建立邻接关系，重启后可能会变化）：
 
     ![](img/image33.png)
@@ -649,24 +684,31 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s15-routing" 
-  title="区域间路由表" 
+  questionId="Lab5-p3-s15" 
+  title="R2路由表（区域间路由）" 
   uploadOptions={[
-    { id: 'r2_route_ia', label: '截图R2路由表' },
-    { id: 'r5_route_ia', label: '截图R5路由表' }
+    { id: 'r2_route_ia', label: '截图R2路由表' }
   ]}
 >
     R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-1"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出。
 
     ![](img/image37.png)
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p3-s15" 
+  title="R5路由表（区域间路由）" 
+  uploadOptions={[
+    { id: 'r5_route_ia', label: '截图R5路由表' }
+  ]}
+>
     R5的路由表：目标为Area 0中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-3"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出。
 
     ![](img/image38.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s15-ping" 
+  questionId="Lab5-p3-s15" 
   title="PC3到PC1连通性测试" 
   uploadOptions={[
     { id: 'pc3_to_pc1', label: '截图PC3→PC1' }
@@ -811,19 +853,22 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s18-ping" 
-  title="连通性测试" 
+  questionId="Lab5-p3-s18" 
+  title="PC4到PC1连通性测试" 
   uploadOptions={[
-    { id: 'pc4_to_pc1', label: '截图PC4→PC1' },
+    { id: 'pc4_to_pc1', label: '截图PC4→PC1' }
+  ]}
+>
+    ![](img/image46.png)
+</ScreenshotCard>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s18" 
+  title="PC4到PC3连通性测试" 
+  uploadOptions={[
     { id: 'pc4_to_pc3', label: '截图PC4→PC3' }
   ]}
 >
-    PC4→PC1的连通性：
-
-    ![](img/image46.png)
-
-    PC4→PC3的连通性：
-
     ![](img/image47.png)
 </ScreenshotCard>
 
@@ -918,14 +963,30 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s21-test" 
-  title="Frame Relay映射和连通性测试" 
+  questionId="Lab5-p3-s21" 
+  title="R7 Frame Relay映射" 
   uploadOptions={[
-    { id: 'r7_fr_map', label: '截图R7 FR映射' },
-    { id: 'r5_fr_map', label: '截图R5 FR映射' },
-    { id: 'r7_ping_r5', label: '截图R7→R5连通性' }
+    { id: 'r7_fr_map', label: '截图R7 FR映射' }
   ]}
 />
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s21" 
+  title="R5 Frame Relay映射" 
+  uploadOptions={[
+    { id: 'r5_fr_map', label: '截图R5 FR映射' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s21" 
+  title="R7到R5连通性测试" 
+  uploadOptions={[
+    { id: 'r7_ping_r5', label: '截图R7→R5连通性' }
+  ]}
+>
+在R7上测试到R5的连通性（由于R5-R7采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通）
+</ScreenshotCard>
 
 </TaskCard>
 
@@ -961,16 +1022,30 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s22-test" 
-  title="Frame Relay映射和连通性测试" 
+  questionId="Lab5-p3-s22" 
+  title="R9 Frame Relay映射" 
   uploadOptions={[
-    { id: 'r9_fr_map', label: '截图R9 FR映射' },
-    { id: 'r9_ping_r5', label: '截图R9→R5连通性' },
-    { id: 'r9_ping_r7', label: '截图R9→R7连通性（不通）' }
+    { id: 'r9_fr_map', label: '截图R9 FR映射' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s22" 
+  title="R9到R5连通性测试" 
+  uploadOptions={[
+    { id: 'r9_ping_r5', label: '截图R9→R5连通性' }
   ]}
 >
 在R9上测试到R5的连通性（由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通。如果在R5上测试，需要加上参数`source s2/0`指定接口）
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p3-s22" 
+  title="R9到R7连通性测试（不通）" 
+  uploadOptions={[
+    { id: 'r9_ping_r7', label: '截图R9→R7连通性（不通）' }
+  ]}
+>
 在R9上测试到R7的连通性（R5、R7、R9通过帧中继交换机连接的形式称为非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，是不能通信的）
 </ScreenshotCard>
 
@@ -982,10 +1057,24 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s23" 
-  title="邻居关系查看（配置前）" 
+  title="R5邻居关系（配置前）" 
   uploadOptions={[
-    { id: 'r5_neighbor_before', label: '截图R5邻居关系' },
-    { id: 'r7_neighbor_before', label: '截图R7邻居关系' },
+    { id: 'r5_neighbor_before', label: '截图R5邻居关系' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s23" 
+  title="R7邻居关系（配置前）" 
+  uploadOptions={[
+    { id: 'r7_neighbor_before', label: '截图R7邻居关系' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s23" 
+  title="R9邻居关系（配置前）" 
+  uploadOptions={[
     { id: 'r9_neighbor_before', label: '截图R9邻居关系' }
   ]}
 />
@@ -1030,11 +1119,25 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s24-neighbor" 
-  title="邻居关系查看（配置后）" 
+  questionId="Lab5-p3-s24" 
+  title="R5邻居关系（配置后）" 
   uploadOptions={[
-    { id: 'r5_neighbor_after', label: '截图R5邻居关系' },
-    { id: 'r7_neighbor_after', label: '截图R7邻居关系' },
+    { id: 'r5_neighbor_after', label: '截图R5邻居关系' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s24" 
+  title="R7邻居关系（配置后）" 
+  uploadOptions={[
+    { id: 'r7_neighbor_after', label: '截图R7邻居关系' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s24" 
+  title="R9邻居关系（配置后）" 
+  uploadOptions={[
     { id: 'r9_neighbor_after', label: '截图R9邻居关系' }
   ]}
 />
@@ -1199,28 +1302,42 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s29-vlink" 
-  title="虚链路状态查看" 
+  questionId="Lab5-p3-s29" 
+  title="R4虚链路状态" 
   uploadOptions={[
-    { id: 'r4_vlink_show', label: '截图R4虚链路状态' },
-    { id: 'r9_vlink_show', label: '截图R9虚链路状态' }
+    { id: 'r4_vlink_show', label: '截图R4虚链路状态' }
   ]}
 >
     查看R4虚链路：观察得知，R4通过区域<ModernInput size="small" questionId="Lab5-p3-q29-1"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-2"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-3"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-4"/>。
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p3-s29" 
+  title="R9虚链路状态" 
+  uploadOptions={[
+    { id: 'r9_vlink_show', label: '截图R9虚链路状态' }
+  ]}
+>
     查看R9虚链路：观察得知，R9通过区域<ModernInput size="small" questionId="Lab5-p3-q29-5"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-6"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-7"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-8"/>。
 </ScreenshotCard>
 
 <ScreenshotCard 
-  questionId="Lab5-p3-s29-neighbor" 
-  title="邻居关系查看" 
+  questionId="Lab5-p3-s29" 
+  title="R4邻居信息（虚链路）" 
   uploadOptions={[
-    { id: 'r4_neighbor_vlink', label: '截图R4邻居信息' },
-    { id: 'r9_neighbor_vlink', label: '截图R9邻居信息' }
+    { id: 'r4_neighbor_vlink', label: '截图R4邻居信息' }
   ]}
 >
     查看R4邻居信息：观察得知，R4通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-9"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-10"/>）建立了邻接关系。
+</ScreenshotCard>
 
+<ScreenshotCard 
+  questionId="Lab5-p3-s29" 
+  title="R9邻居信息（虚链路）" 
+  uploadOptions={[
+    { id: 'r9_neighbor_vlink', label: '截图R9邻居信息' }
+  ]}
+>
     查看R9邻居信息：观察得知，R9通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-11"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-12"/>）建立了邻接关系。
 </ScreenshotCard>
 
@@ -1232,9 +1349,16 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s30" 
-  title="R10路由表和OSPF数据库" 
+  title="R10路由表（虚链路建立后）" 
   uploadOptions={[
-    { id: 'r10_route_after_vlink', label: '截图R10路由表' },
+    { id: 'r10_route_after_vlink', label: '截图R10路由表（标出PC1、PC2、PC3所在子网）' }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-p3-s30" 
+  title="R10 OSPF数据库（虚链路建立后）" 
+  uploadOptions={[
     { id: 'r10_db_after_vlink', label: '截图R10 OSPF数据库' }
   ]}
 >
@@ -1245,13 +1369,13 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <TaskCard number={31} title="配置路由聚合" needScreenshot={true} needRecord={false}>
 
-在R9上手工合并Area 0上的子网路由（命令：`area 0 range [ip_net] [mask]`，其中`ip_net`写成10.0.0.0，mask写成255.255.0.0，表示10.0.x.x这些网络都在area 0上），然后显示R9和R10的路由表，看看所指定的子网是否合并了路由
+在R9上手工合并Area 0上的子网路由（命令：`area 0 range [ip_net] [mask]`，其中`ip_net`写成10.0.0.0，mask写成255.255.0.0，表示10.0.x.x这些网络都在area 0上），然后显示R9和R10的路由表，看看所指定的子网是否合并了路由。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s31-r9" 
   title="R9路由表（路由聚合后）" 
   uploadOptions={[
-    { id: 'r9_route_summary', label: '截图R9路由表' }
+    { id: 'r9_route_summary', label: '截图R9路由表（标出聚合路由）' }
   ]}
 >
     R9的路由表：标出合并的那条路由，这条路由采用了特殊的接口<ModernInput size="medium" questionId="Lab5-p3-q31-1"/>作为下一跳。
@@ -1261,7 +1385,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s31-r10" 
   title="R10路由表（路由聚合后）" 
   uploadOptions={[
-    { id: 'r10_route_summary', label: '截图R10路由表' }
+    { id: 'r10_route_summary', label: '截图R10路由表（标出聚合路由）' }
   ]}
 >
     R10的路由表：标出合并的那条路由，这条路由下一跳的IP地址是<ModernInput size="large" questionId="Lab5-p3-q31-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q31-3"/>的接口。
