@@ -23,7 +23,7 @@ import TabItem from '@theme/TabItem';
 * 自动划分每次命令的输入与结果，可快速对指定命令及其输出进行截图导出
 * 生成结果图像后，可快速按实验报告要求标注指定字段
 
-## 2 工具安装与配置
+## 2 工具安装
 
 ### 2.1 Putty安装
 
@@ -104,7 +104,21 @@ https://tabby.sh/32bf32ff6c87e8d18932.svg">A terminal for a more modern age</Lin
 
   ![image-20250908030810584](img/Terminal_Helper/image-20250908030810584.png)
 
-### 2.4 GNS3终端配置
+## 3 连接与配置
+
+### 3.1 实体机连接
+
+* 点击配置与连接，创建新的串口连接标签页
+  
+   ![1760207841661](img/Terminal_Helper/1760207841661.png)
+* 点击所需的串口，如果找不到，请直接输入`COM{串口号}`，如`COM6`
+  
+   ![1760207867255](img/Terminal_Helper/1760207867255.png)
+* 选择波特率，一般请选择9600
+  
+   ![1760207917615](img/Terminal_Helper/1760207917615.png)
+
+### 3.2 GNS3终端配置与使用
 
 为了在GNS3中指定启动带有辅助插件的Tabby终端，我们需要对GNS3进行一些额外的配置
 
@@ -146,7 +160,7 @@ https://tabby.sh/32bf32ff6c87e8d18932.svg">A terminal for a more modern age</Lin
 
   ![image-20250908035904575](img/Terminal_Helper/image-20250908035904575.png)
 
-## 3 使用方法
+## 4 使用方法
 
 * 在终端中正常执行实验命令
 
