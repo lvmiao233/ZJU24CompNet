@@ -29,7 +29,7 @@ import { Row, Col } from 'antd';
     </Col>
 </Row>
 
-<!-- <PlaceHolder> -->
+<PlaceHolder>
 
 ## 1 实验目的
 
@@ -212,7 +212,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 2.1  配置RIP（用于和OSPF进行比较）
+### 2.1 配置RIP（用于和OSPF进行比较）
 
 <TaskCard number={3} title="配置RIP动态路由协议" needScreenshot={false} needRecord={true}>
 
@@ -312,7 +312,7 @@ import { Row, Col } from 'antd';
 
 
 
-### 2.2  配置单域OSPF（Area 0）
+### 2.2 配置单域OSPF（Area 0）
 
 <TaskCard number={5} title="配置R1的OSPF协议" needScreenshot={false} needRecord={true}>
 
@@ -633,7 +633,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 
 
-### Part 3  配置多域OSPF
+### 2.3 配置多域OSPF
 
 <TaskCard number={15} title="配置Area 1并测试区域间路由" needScreenshot={true} needRecord={true}>
 
@@ -1401,30 +1401,27 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 
 
-## 六、实验结果与分析
+## 3 实验结果与分析
 
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 * 在一个网络中各路由器的OSPF进程号是否一定要相同？一个路由器上可以配置多个进程号吗？
   <ModernInput size="exlarge" questionId="Lab5-q1"/>
-
 * 未手工指定Router ID时，如果没有给回环接口配置IP地址，会从哪一个接口选取地址作为Router ID？如果给回环接口配置了IP地址，又会从哪一个接口选取地址作为Router ID？
   <ModernInput size="exlarge" questionId="Lab5-q2"/>
-
 * 如果Router ID对应的接口down了，路由器会自动重新选择另一个接口地址作为新的Router ID吗？
   <ModernInput size="exlarge" questionId="Lab5-q3"/>
-
 * 宣告网络属于哪个area的命令中，网络地址后面的参数是子网掩码吗？为什么要写成0.0.255.255，而不是255.255.0.0？
   <ModernInput size="exlarge" questionId="Lab5-q4"/>
-
 * 是不是所有其他Area上的路由器都只和Area 0上的路由器进行路由信息交换？虚链路的作用是什么？
   <ModernInput size="exlarge" questionId="Lab5-q5"/>
-
 * 为什么要在区域边界路由器上进行路由合并？
   <ModernInput size="exlarge" questionId="Lab5-q6"/>
 
-## 七、导出实验报告
+## 4 常见问题
+
+## 5 导出实验报告
 
 <!-- <ExportButton templatePath={require('@site/assets/base_report/Lab5.zip').default} labName="Lab5" labId="lab5-" />
 
-</PlaceHolder> -->
+<!-- </PlaceHolder> --> -->
