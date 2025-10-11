@@ -24,3 +24,38 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Microsoft Office a Temporary Files
+
+# Word
+~$*.docx
+~$*.docm
+~$*.dotx
+~$*.dotm
+
+# Excel
+~$*.xlsx
+~$*.xlsm
+~$*.xltx
+~$*.xltm
+~$*.xlsb
+~$*.xlam
+
+# PowerPoint
+~$*.pptx
+~$*.pptm
+~$*.potx
+~$*.potm
+~$*.ppam
+~$*.ppsx
+~$*ppsm
+
+# Older formats (Office 97-2003)
+~$*.doc
+~$*.xls
+~$*.ppt
+
+# General Office temporary files
+~*.tmp
+*.bak
+*.wbk
