@@ -45,6 +45,12 @@ const config = {
           // /docs/oldDoc -> /docs/newDoc
           { to: '/docs/Lab7_page', from: '/docs/Coding/Lab7_page', },
           { to: '/docs/Lab8_page', from: '/docs/Coding/Lab8_page', },
+          { to: '/docs/Lab1/Lab1_Detailed', from: '/docs/Lab1_page', },
+          { to: '/docs/Lab2/Lab2_Detailed', from: '/docs/Lab2_page', },
+          { to: '/docs/Lab3/Lab3_Detailed', from: '/docs/Lab3_page', },
+          { to: '/docs/Lab4/Lab4_Detailed', from: '/docs/Lab4_page', },
+          { to: '/docs/Lab5/Lab5_Detailed', from: '/docs/Lab5_page', },
+          { to: '/docs/Lab6/Lab6_Detailed', from: '/docs/Lab6_page', }
         ],
       },
     ],
