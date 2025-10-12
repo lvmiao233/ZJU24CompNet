@@ -53,7 +53,7 @@ import { Row, Col } from 'antd';
 
 按照下面的拓扑图连接路由器和PC机。每个自治系统（AS）均分配1个独立的AS号。其中，AS 65003内部运行OSPF路由协议，R6、R7、R8分别代表一个AS。
 
-![](img/image2.png)
+![BGP网络拓扑图](img/image2.png)
 
 ### 实验主要步骤
 
@@ -200,7 +200,7 @@ import { Row, Col } from 'antd';
     { id: 'r5_route', label: '截图R5路由表' }
   ]}
 >
-   ![](img/image3.png)
+   ![R5路由表截图](img/image3.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -210,7 +210,7 @@ import { Row, Col } from 'antd';
     { id: 'ping_result', label: '截图R3→R5 Ping结果' }
   ]}
 >
-   ![](img/image4.png)
+   ![R3到R5 Ping测试结果截图](img/image4.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -229,7 +229,7 @@ import { Row, Col } from 'antd';
     { id: 'r5_bgp_config', label: '记录R5 BGP配置命令', type: 'text', textConfig: {initialContent: "R5(config)# \nR5(config-router)# \nR5(config-router)# \nR5(config-router)# ",codeEditor: true, initialLines: 4} }
   ]}
 >
-   ![](img/image5.png)
+   ![R3 BGP配置命令截图](img/image5.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -248,7 +248,7 @@ import { Row, Col } from 'antd';
     { id: 'r3_neighbor', label: '截图R3邻居关系' }
   ]}
 >
-   ![](img/image6.png)
+   ![R3 BGP邻居关系截图](img/image6.png)
 </ScreenshotCard>
 
 R5的邻居关系：观察得知，邻居的IP是<ModernInput size="large" questionId="Lab6-p1-s5-r5-ip"/>，链路类型属于<ModernInput size="medium" questionId="Lab6-p1-s5-r5-type"/>，状态是<ModernInput size="medium" questionId="Lab6-p1-s5-r5-state"/>，但现象是没有活动的TCP连接。
@@ -271,7 +271,7 @@ R5的邻居关系：观察得知，邻居的IP是<ModernInput size="large" quest
     { id: 'debug_msg', label: '截图Debug信息' }
   ]}
 >
-   ![](img/image7.png)
+   ![BGP调试信息截图](img/image7.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -290,7 +290,7 @@ R5的邻居关系：观察得知，邻居的IP是<ModernInput size="large" quest
     { id: 'r5_update_source', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# \nR5(config-router)# ",codeEditor: true, initialLines: 2} }
   ]}
 >
-   ![](img/image8.png)
+   ![R3 BGP更新源配置截图](img/image8.png)
 </ScreenshotCard>
 
 R3的邻居关系：观察得知，与R5的邻居关系已经建立，对方的连接端口是<ModernInput size="medium" questionId="Lab6-p1-s6-r3-port"/>。
@@ -302,9 +302,9 @@ R3的邻居关系：观察得知，与R5的邻居关系已经建立，对方的�
     { id: 'r3_neighbor', label: '截图R3邻居关系' }
   ]}
 >
-   ![](img/image9.png)
+   ![R3邻居关系建立后截图](img/image9.png)
 
-   ![](img/image10.png)
+   ![R5邻居关系建立后截图](img/image10.png)
 </ScreenshotCard>
 
 R5的邻居关系：观察得知，与R3的邻居关系已经建立，对方的连接端口是<ModernInput size="medium" questionId="Lab6-p1-s6-r5-port"/>。
@@ -333,7 +333,7 @@ R3的BGP数据库（标出iBGP路由）：观察得知，存在<ModernInput size
     { id: 'r3_bgp_db', label: '截图R3 BGP数据库' }
   ]}
 >
-   ![](img/image11.png)
+   ![R3 BGP路由表截图](img/image11.png)
 </ScreenshotCard>
 
 R3的路由表：观察得知，网络地址<ModernInput size="large" questionId="Lab6-p1-s7-r3-net1"/>、<ModernInput size="large" questionId="Lab6-p1-s7-r3-net2"/>在路由表中已存在比BGP优先级高的OSPF路由，所以BGP的路由信息没有成功写入。
@@ -345,7 +345,7 @@ R3的路由表：观察得知，网络地址<ModernInput size="large" questionId
     { id: 'r3_route_table', label: '截图R3路由表' }
   ]}
 >
-   ![](img/image12.png)
+   ![R5 BGP路由表截图](img/image12.png)
 </ScreenshotCard>
 
 

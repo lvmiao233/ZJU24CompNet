@@ -484,7 +484,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
     { id: 'r1_neighbor', label: '截图R1 OSPF邻居详细信息' }
   ]}
 >
-    ![](img/image31.png)
+    ![R1邻居信息截图](img/image31.png)
 </ScreenshotCard>
 
     给R4、R6的回环接口、f0/0接口配置IP地址并激活，启用OSPF协议，接口均属于Area 0。过一会儿查看R4和R6的邻居信息（由于R2、R3、R4、R6在同一个广播网络中，四台路由器并不会都成为邻接关系，而是选出DR、BDR，然后各路由器与DR、BDR进行路由信息交换）。
@@ -505,7 +505,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
     { id: 'r4_neighbor', label: '截图R4邻居关系' }
   ]}
 >
-    ![](img/image32.png)
+    ![R4邻居关系截图](img/image32.png)
 </ScreenshotCard>
 
     R6上查看邻居关系，与R4是邻居，但不建立邻接关系，重启后可能会变化：
@@ -517,7 +517,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   ]}
 >
 
-    ![](img/image33.png)
+    ![R6邻居关系截图](img/image33.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -546,7 +546,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
     { id: 'pc3_config', label: '记录PC3配置', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
   ]}
 >
-    ![](img/image36.png)
+    ![PC3网络配置截图](img/image36.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -556,7 +556,7 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
     { id: 'r2_route_ia', label: '截图R2路由表' }
   ]}
 >
-    ![](img/image37.png)
+    ![R2路由表多域截图](img/image37.png)
 </ScreenshotCard>
 
 R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-1"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出。
@@ -568,7 +568,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r5_route_ia', label: '截图R5路由表' }
   ]}
 >
-    ![](img/image38.png)
+    ![R5路由表多域截图](img/image38.png)
 </ScreenshotCard>
     R5的路由表：目标为Area 0中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-3"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出。
 
@@ -579,7 +579,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'pc3_to_pc1', label: '截图PC3→1测试结果' }
   ]}
 >
-    ![](img/image39.png)
+    ![PC3到PC1连通性测试截图](img/image39.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -598,7 +598,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r2_ospf_db', label: '截图R2 OSPF数据库' }
   ]}
 >
-    ![](img/image40.png)
+    ![R2多域OSPF数据库截图](img/image40.png)
 </ScreenshotCard>
 
     R5：没有Area 0的具体信息，但是该区域的子网地址全部由路由器<ModernInput size="large" questionId="Lab5-p3-q16-5"/>汇聚后以区域间链路的形式进行通告。
@@ -609,7 +609,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r5_ospf_db', label: '截图R5 OSPF数据库' }
   ]}
 >
-    ![](img/image41.png)
+    ![R5多域OSPF数据库截图](img/image41.png)
 </ScreenshotCard>
 
     R4：有Area 1和Area 0的具体信息，由于R4是区域边界路由器（ABR），所以对区域内的链路进行了汇聚，然后以区域间路由的形式向其他区域进行链路状态通告（LSA），其中：
@@ -625,7 +625,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r4_ospf_db_abr', label: '截图R4 OSPF数据库' }
   ]}
 >
-    ![](img/image42.png)
+    ![R4区域边界路由器OSPF数据库截图](img/image42.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -642,7 +642,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r1_abr', label: '截图R1 ABR信息' }
   ]}
 >
-    ![](img/image43.png)
+    ![R1区域边界路由器信息截图](img/image43.png)
 </ScreenshotCard>
 
     R5：当前已知的区域1内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-3"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-4"/>。
@@ -653,7 +653,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r5_abr', label: '截图R5 ABR信息' }
   ]}
 >
-    ![](img/image44.png)
+    ![R5区域边界路由器信息截图](img/image44.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -680,7 +680,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r8_route', label: '截图R8路由表' }
   ]}
 >
-    ![](img/image45.png)
+    ![R8路由表截图](img/image45.png)
 </ScreenshotCard>
 如图所示，区域间路由包含了Area 1和Area 0的地址，其中Area 1的子网地址有<ModernInput size="large" questionId="Lab5-p3-q18-1"/>、<ModernInput size="large" questionId="Lab5-p3-q18-2"/>、<ModernInput size="large" questionId="Lab5-p3-q18-3"/>。
 
@@ -691,7 +691,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'pc4_to_pc1', label: '截图PC4→1测试结果' }
   ]}
 >
-    ![](img/image46.png)
+    ![PC4到PC1连通性测试截图](img/image46.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -701,7 +701,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'pc4_to_pc3', label: '截图PC4→3测试结果' }
   ]}
 >
-    ![](img/image47.png)
+    ![PC4到PC3连通性测试截图](img/image47.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -823,7 +823,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r5_ospf_db_summary', label: '截图R5 OSPF数据库' }
   ]}
 >
-    ![](img/image49.png)
+    ![R5 OSPF数据库截图](img/image49.png)
 </ScreenshotCard>
 观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-1"/>宣告的，而R7作为Area 1和Area 2的ABR，却没有向Area 1宣告Area 2的路由信息，是因为所有的Area都只和Area 0进行路由信息交换。
 
@@ -834,7 +834,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r8_ospf_db_summary', label: '截图R8 OSPF数据库' }
   ]}
 >
-    ![](img/image50.png)
+    ![R8 OSPF数据库截图](img/image50.png)
 </ScreenshotCard>
 观察得知，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-2"/>宣告的，而R7作为Area 1和Area 2的ABR，也没有向Area 2宣告Area 1的路由信息。
 
@@ -845,7 +845,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r7_ospf_db_summary', label: '截图R7 OSPF数据库' }
   ]}
 >
-    ![](img/image51.png)
+    ![R7 OSPF数据库截图](img/image51.png)
 </ScreenshotCard>
 观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-3"/>宣告的，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-4"/>宣告的。
 </TaskCard>
@@ -861,7 +861,7 @@ R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInp
     { id: 'r8_route_to_pc3', label: '截图R8路由信息' }
   ]}
 >
-    ![](img/image52.png)
+    ![R8到PC3网络路由信息截图](img/image52.png)
 </ScreenshotCard>
 观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q26-1"/>的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p3-q26-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q26-3"/>。
 </TaskCard>
