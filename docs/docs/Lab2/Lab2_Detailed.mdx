@@ -150,6 +150,8 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 
 以下实验记录均需结合屏幕截图，进行文字标注和描述，图片应大小合适、关键部分清晰可见，**禁止手机拍屏**，可直接在图片上进行标注，也可以单独用文本进行描述
 
+由于实验室设备有限，本实验允许2人组队完成，请在提交的报告中标注同组同学
+
 :::
 
 ### 2.1 单交换机
@@ -164,11 +166,11 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 * **物理拓扑**: 关注的是设备的物理布局和线缆的实际连接方式，告诉我们“设备在哪里？”和“线缆如何连接，连接在哪个接口上？”的问题
 * **逻辑拓扑**: 关注的是数据在网络中的流向路径，而不关心设备的物理位置，它描述了IP地址的分配、VLAN的划分等逻辑层面的信息
 
-在本实验中，我们绘制的拓扑图兼具物理和逻辑两种属性，既展示PC与交换机端口的物理连接，也需要标明IP地址、VLAN划分等逻辑配置；一份清晰、准确的拓扑图是进行网络配置、管理和故障排查的必备工
+在本实验中，我们绘制的拓扑图兼具物理和逻辑两种属性，既展示PC与交换机端口的物理连接，也需要标明IP地址、VLAN划分等逻辑配置；一份清晰、准确的拓扑图是进行网络配置、管理和故障排查的必备工具
 
 </details>
 
-清晰的网络拓扑图是网络设计与排错的基础，请先根据实验要求理解物理拓扑，再动手连接设备；在实验第一部分**相应步骤完成时**，请你再根据实验的实际完成情况，在实验拓扑图上**逐步**清晰地标记出每台PC和交换机的IP地址、PC所属的VLAN，以及PC与交换机连接的具体接口编号，作为你后续配置的蓝图
+清晰的网络拓扑图是网络设计与排错的基础，请先根据实验要求理解物理拓扑，再动手连接设备；IP地址、VLAN不需要在现在立刻确定，在实验第一部分**相应步骤完成时**，请你再根据实验的实际完成情况，在实验拓扑图上**逐步**清晰地标记出每台PC和交换机的IP地址、PC所属的VLAN，以及PC与交换机连接的具体接口编号，作为你后续配置的蓝图
 
 <ScreenshotCard 
   questionId="Lab2-s1"
@@ -265,7 +267,7 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 
 <ScreenshotCard 
   questionId="Lab2-s3"
-  title="交换机文件系统截图"
+  title="交换机文件系统截图示例"
   uploadOptions={[
     { id: 'flash', label: '截图文件系统内容' }
   ]}
@@ -298,7 +300,7 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 
 <ScreenshotCard 
   questionId="Lab2-s4"
-  title="VLAN配置截图"
+  title="VLAN配置截图示例"
   uploadOptions={[
     { id: 'vlan', label: '截图VLAN数据' }
   ]}
@@ -334,9 +336,6 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 
     请注意！由于完成本实验时你尚未学习网络层相关内容，这部分示例与提示的描述为便于你理解进行了高度的简化，子网划分与选择、私有地址范围等知识点请以后续课程学习为准，这也是考试的一个考察重点
    </details> 
-   :::tip 提示
-
-   :::
    * Windows10： 控制面板-网络与共享中心-更改网络适配器设置-有线网卡-配置IPv4
    * Windows11： 设置-网络和Internet-属性，如IP分配方式为自动（DHCP），点击编辑修改为手动，启用IPv4并进行配置，DNS可任意填写
 
@@ -352,14 +351,14 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 5. 使用 `show interface fastethernet 0/1` 命令查看该端口的状态，观察其管理状态的变化
 6. 在其它PC上再次Ping连接在该关闭端口上的PC，验证其网络连接是否已中断
 
-<ScreenshotCard 
-  questionId="Lab2-s5"
-  title="端口关闭测试截图"
-  uploadOptions={[
-    { id: 'interface-status', label: '截图命令输出' },
-    { id: 'ping-result', label: '截图Ping结果' }
-  ]}
-/>
+    <ScreenshotCard 
+      questionId="Lab2-s5"
+      title="端口关闭测试截图"
+      uploadOptions={[
+        { id: 'interface-status', label: '截图命令输出' },
+        { id: 'ping-result', label: '截图Ping结果' }
+      ]}
+    />
 
 </TaskCard>
 
@@ -390,9 +389,9 @@ Console端口就是实现带外管理的关键，它提供了一个独立于数�
 
 二层交换机的本质工作是处理数据链路层的以太网帧，它本身并不理解三层（网络层）的IP地址，那为什么我们还要给它配置IP地址呢？
 
-这个IP地址并非用于转发业务数据，而是专用于**管理**，拥有IP地址后，我们就可以通过网络（例如使用Telnet或SSH）远程登录到交换机进行配置和监控，而无需每次都跑到设备旁连接Console线
+这个IP地址并非用于转发业务数据，而是专用于**管理**，拥有IP地址后，我们就可以通过网络（例如使用Telnet或SSH）远程登录到交换机进行配置和监控，而无需每次都跑到设备旁连接Console线，对于复杂的大型机房来说这一点非常重要
 
-由于物理端口是用于转发数据的，我们不能直接在物理端口上配置IP,取而代之的是我们在一个虚拟的接口上配置IP，这个接口就是**交换虚拟接口（Switched Virtual Interface, SVI）**；每个VLAN都可以创建一个对应的SVI，命令 `interface vlan <vlan-id>` 创建的就是VLAN的SVI，将IP地址配置在 `interface vlan 1`上，就意味着我们创建了一个属于VLAN 1的管理接口，其IP地址就是交换机的管理IP
+由于物理端口是用于转发数据的，我们不能直接在物理端口上配置IP,取而代之的是我们在一个虚拟的接口上配置IP ，这个接口就是**交换虚拟接口（Switched Virtual Interface, SVI）**；每个VLAN都可以创建一个对应的SVI，命令 `interface vlan <vlan-id>` 创建的就是VLAN的SVI，将IP地址配置在 `interface vlan 1`上，就意味着我们创建了一个属于VLAN 1的管理接口，其IP地址就是交换机的管理IP
 
 需要注意的是，在实际的网络工程实践中，将管理流量保留在默认的VLAN 1通常被认为是不安全的做法
 
@@ -534,7 +533,7 @@ SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入
 
 现在，我们将体验VLAN的隔离作用
 
-1. 进入全局配置模式，增加VLAN 2：`vlan database`或`config terminal`，`vlan 2`
+1. 进入全局配置模式，增加VLAN 2：`config terminal`或`vlan database`，`vlan 2`
 2. 将PC3、PC4所连接的端口划入VLAN 2，请进入这些端口的接口配置模式：
    - `interface [端口]`
    - `switchport mode access` (将端口模式恢复为默认的接入模式，因为之前班级的同学可能对端口配置有修改)
@@ -561,8 +560,6 @@ SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入
 <TaskCard number={14} title="保存交换机配置" needScreenshot={false}>
 
 查看交换机上的运行配置（命令：`show running-config`），复制粘贴本节相关的文本
-
-保存交换机配置到启动配置文件（命令：`copy running-config startup-config`），确保重启后配置不丢失
 
 <ScreenshotCard 
   questionId="Lab2-s14"
@@ -618,9 +615,9 @@ SPAN可以将一个或多个**源端口（Source Port）的流量（包括进入
 
 让我们跟着数据帧走一遍就明白了：当PC3的帧进入Switch1时，Switch1看到这个帧是从一个属于VLAN 2的端口进来的，于是在内部“知道”了这个帧属于VLAN 2，这个对应关系是存在Switch1**自己的内存里**的
 
-但是，当Switch1要将这个帧通过另一个接入端口转发给Switch2时，它不会携带任何VLAN相关信息，因为接入端口默认连接的是终端设备（如PC），这些设备是无法识别VLAN标签的；所以，当这个“裸奔”的数据帧到达Switch2时，Switch2无法知道它在Switch1那边是属于VLAN 2的，只会根据自己端口的默认设置来处理，VLAN信息就这样“丢失”了——原始的VLAN归属信息留在了Switch1的内存里，没有跟着数据帧一起走
+但是，当Switch1要将这个帧通过另一个接入端口转发给Switch2时，它不会携带任何VLAN相关信息，因为接入端口默认连接的是终端设备（如PC），这些设备是无法识别VLAN标签的；所以，当这个“裸奔”的数据帧到达Switch2时，Switch2无法知道它在Switch1那边是属于VLAN 2的，只会根据自己端口的默认设置来处理，VLAN信息就这样“丢失”了——原始的VLAN归属信息留在了Switch1的内存里，没有跟着数据帧一起走；此时被误认为不属于VLAN 2的这个数据包自然无法到达PC4
 
-为了解决这个问题，我们需要引入**干道链路（Trunk Link）**，Trunk链路就像一条多车道高速公路，可以同时承载来自多个不同VLAN的流量，这是通过**帧标记（Frame Tagging）**实现的，当一个以太网帧要通过Trunk链路时，交换机会在帧头和数据之间插入一个额外的“标签”，指明这个帧属于哪个VLAN；目前最主流的标记协议是 **IEEE 802.1Q**，对端交换机收到这个带标签的帧后，读取标签就知道该如何处理它，从而实现了VLAN信息在交换机之间的传递
+为了解决这个问题，我们需要引入**干道链路（Trunk Link）**，Trunk链路就像一条多车道高速公路，可以同时承载来自多个不同VLAN的流量，这是通过**帧标记**（**Frame Tagging**）实现的，当一个以太网帧要通过Trunk链路时，交换机会在帧头和数据之间插入一个额外的“标签”，指明这个帧属于哪个VLAN；目前最主流的标记协议是 **IEEE 802.1Q**，对端交换机收到这个带标签的帧后，读取标签就知道该如何处理它，从而实现了VLAN信息在交换机之间的传递
 
 </details>
 
@@ -681,7 +678,7 @@ STP的学习分为以下几个阶段，你可以在以下步骤等待时反复�
 
 <ScreenshotCard 
   questionId="Lab2-s17"
-  title="Switch1的STP数据示例"
+  title="Switch1 STP数据示例"
   uploadOptions={[
     { id: 'switch1-stp', label: '截图Switch1 STP状态' }
   ]}
@@ -693,7 +690,7 @@ ___
 
 <ScreenshotCard 
   questionId="Lab2-s17"
-  title="Switch2的STP数据示例"
+  title="Switch2 STP数据示例"
   uploadOptions={[
     { id: 'switch2-stp', label: '截图Switch2 STP状态' }
   ]}
@@ -764,11 +761,11 @@ ___
 
 标准的STP协议会将冗余链路置于阻塞状态，这意味着备份链路在正常情况下是完全闲置的，对于极其宝贵的带宽而言是巨大损失，思科的**PVST+**（**Per-VLAN Spanning Tree Plus**）协议为每个VLAN都运行一个独立的STP实例，这为我们实现负载均衡（Load Balancing）提供了可能
 
-我们可以通过调整**端口优先级（Port Priority）**来影响STP的端口角色选举，优先级数值越小，代表优先级越高（默认128）；通过为不同VLAN在不同链路上设置不同的端口优先级，我们可以“引导”STP为VLAN 1选择一条路径，同时为VLAN 2选择另一条路径，这样两条物理链路就都得到了利用，实现了流量的分担
+我们可以通过调整**端口优先级**（**Port Priority**）来影响STP的端口角色选举，优先级数值越小，代表优先级越高（默认128）；通过为不同VLAN在不同链路上设置不同的端口优先级，我们可以“引导”STP为VLAN 1选择一条路径，同时为VLAN 2选择另一条路径，这样两条物理链路就都得到了利用，实现了流量的分担
 
 </details>
 
-我们将两条互联链路分别称为链路A和链路B，我们的目标是：VLAN 1的流量走链路A，链路B作为备份；VLAN 2的流量走链路B，链路A作为备份
+为了便于描述，我们不妨将两条互联链路分别称为链路A和链路B，我们的目标是：VLAN 1的流量走链路A，链路B作为备份；VLAN 2的流量走链路B，链路A作为备份
 
 1. 配置VLAN 1的流量优先走链路A，在2台交换机上对该网线的接口分别进行配置：`interface 端口1`, `spanning-tree vlan 1 port-priority 16`，此时该链路的优先级高于另一个链路（数值越小，优先级越高，你也可以选择另外的＜128的数值）
 2. 配置VLAN 2的流量优先走链路B，在2台交换机上对该网线的接口分别进行配置：`interface 端口2`, `spanning-tree vlan 2 port-priority 16`
@@ -837,35 +834,20 @@ ___
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 * 端口状态显示为administratively down，意味着什么意思？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q1"/>
-
 * 在交换机配置为镜像端口前，为什么可以抓取到其他PC之间的ARP请求包，而不能抓取ARP响应包？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q2"/>
-
 * PC属于哪个VLAN，是由PC自己可以配置的，还是由交换机决定的？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q3"/>
-
 * 同一个VLAN的PC，如果配置了不同长度的子网掩码，能够互相Ping通吗？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q4"/>
-
 * 为什么在划分为2个VLAN后，两组PC之间就不能进行IP通信了呢？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q5"/>
-
 * 交换机在VLAN Trunk模式下使用的封装协议是什么？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q6"/>
-
 * 未启用STP（Spanning Tree Protocol）协议时，交换机之间连接了多条网线后，为什么Ping测试的响应会延迟很大甚至超时？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q7"/>
-
 * 从插上网线后开始，交换机的端口状态出现了哪些变化？大约需要多少时间才能成为FWD状态？期间，连接在该端口的计算机是否能够Ping通？
-
   <ModernInput size="exlarge" questionId="lab2-analysis-q8"/>
 
 ## 4 常见问题
