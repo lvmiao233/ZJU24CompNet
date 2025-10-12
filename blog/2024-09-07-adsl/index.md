@@ -1,6 +1,7 @@
 ---
 slug: adsl
 title: Wireshark抓取宽带密码
+description: 一篇关于如何使用Wireshark抓取宽带拨号密码的详细教程。文章介绍了通过创建RouterOS虚拟机作为虚拟运营商主机，拦截PPPoE认证过程，从而捕获明文密码的具体操作步骤，为忘记密码的用户提供了一种技术解决方案。
 authors: xbwang
 tags: [wireshark]
 ---

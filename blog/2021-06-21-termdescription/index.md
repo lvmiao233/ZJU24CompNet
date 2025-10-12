@@ -1,6 +1,7 @@
 ---
 slug: termdescription
 title: TTL、Ping包最大字节数、网络时延、抖动、丢包率，看完瞬间变大神！
+description: 一篇关于网络诊断常用术语的科普文章。文章通过分享外部链接，详细解释了TTL、Ping包最大字节数、网络时延、抖动和丢包率等核心概念，帮助读者更好地理解和评估网络质量。
 authors: [wgkt]
 tags: [comp_net]
 ---

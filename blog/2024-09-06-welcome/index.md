@@ -1,6 +1,7 @@
 ---
 slug: welcome
 title: 欢迎
+description: 欢迎来到计算机网络课程网站的延伸阅读部分。在这里，你将探索课堂知识的实际应用、了解网络领域的前沿进展，并获取由学长学姐们分享的宝贵学习资料。我们期待你的参与和贡献！
 authors: [xbwang]
 tags: [comp_net]
 ---
