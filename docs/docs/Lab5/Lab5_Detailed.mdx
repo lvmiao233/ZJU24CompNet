@@ -118,12 +118,13 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-s1" 
-  title="网络拓扑图及IP地址规划" 
+  title="网络拓扑图示例" 
   uploadOptions={[
     { id: 'topology', label: '上传标注IP地址的拓扑图' }
   ]}
-/>
-![](img/image2.png)
+>
+![网络拓扑图及IP地址规划截图](img/image2.png)
+</ScreenshotCard>
 
 </TaskCard>
 
@@ -135,77 +136,30 @@ import { Row, Col } from 'antd';
   questionId="Lab5-s2" 
   title="路由器接口配置命令" 
   uploadOptions={[
-    { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 13} },
-    { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} },
-    { id: 'r3_config', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 7} }
+    { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {initialContent: "R1(config)# interface f0/0\nR1(config-if)# ip addr [ip] 255.255.255.0\nR1(config-if)# no shutdown\nR1(config-if)# exit\nR1(config)# interface f0/1\nR1(config-if)# ip addr [ip] 255.255.255.252\nR1(config-if)# no shutdown\nR1(config-if)# exit\nR1(config)# interface s2/0\nR1(config-if)# ip addr [ip] 255.255.255.252\nR1(config-if)# encapsulation hdlc\nR1(config-if)# clock rate 128000\nR1(config-if)# no shutdown", codeEditor: true, initialLines: 13} },
+    { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {initialContent: "R2(config)# interface f0/0\nR2(config-if)# ip addr [ip] 255.255.255.0\nR2(config-if)# no shutdown\nR2(config-if)# exit\nR2(config)# interface f1/0\nR2(config-if)# ip addr [ip] 255.255.255.248\nR2(config-if)# no shutdown\nR2(config-if)# exit\nR2(config)# interface s2/0\nR2(config-if)# ip addr [ip] 255.255.255.252\nR2(config-if)# encapsulation hdlc\nR2(config-if)# no shutdown", codeEditor: true, initialLines: 10} },
+    { id: 'r3_config', label: '记录R3配置命令', type: 'text', textConfig: {initialContent: "R3 (config)#interface f0/1\nR3(config-if)# ip addr [ip] 255.255.255.252\nR3(config-if)# no shutdown\nR3(config-if)# exit\nR3(config)# interface f1/0\nR3(config-if)# no shutdown\nR3(config-if)# ip addr [ip] 255.255.255.248", codeEditor: true, initialLines: 7} }
+  ]}
+/>
+
+<ScreenshotCard 
+  questionId="Lab5-s2" 
+  title="PC1→R1连通性测试示例" 
+  uploadOptions={[
+    { id: 'pc1_to_r1', label: '截图PC1→R1测试结果' }
   ]}
 >
-   R1配置命令示例：
-
-   ```kotlin
-   R1 (config) #interface f0/0
-   R1 (config-if) #ip addr [ip] 255.255.255.0
-   R1 (config-if) #no shutdown
-   R1 (config-if) #exit
-   R1 (config) #interface f0/1
-   R1 (config-if) #ip addr [ip] 255.255.255.252
-   R1 (config-if) #no shutdown
-   R1 (config-if) #exit
-   R1 (config) #interface s2/0
-   R1 (config-if) #ip addr [ip] 255.255.255.252
-   R1 (config-if) #encapsulation hdlc
-   R1 (config-if) #clock rate 128000
-   R1 (config-if) #no shutdown
-   ```
-
-   R2配置命令示例：
-
-   ```kotlin
-   R2 (config) #interface f0/0
-   R2 (config-if) #ip addr [ip] 255.255.255.0
-   R2 (config-if) #no shutdown
-   R2 (config-if) #exit
-   R2 (config) #interface f1/0
-   R2 (config-if) #ip addr [ip] 255.255.255.248
-   R2 (config-if) #no shutdown
-   R2 (config-if) #exit
-   R2 (config) #interface s2/0
-   R2 (config-if) #ip addr [ip] 255.255.255.252
-   R2 (config-if) #encapsulation hdlc
-   R2 (config-if) #no shutdown
-   ```
-
-   R3配置命令示例：
-
-   ```kotlin
-   R3 (config) #interface f0/1
-   R3 (config-if) #ip addr [ip] 255.255.255.252
-   R3 (config-if) #no shutdown
-   R3 (config-if) #exit
-   R3 (config) #interface f1/0
-   R3 (config-if) #no shutdown
-   R3 (config-if) #ip addr [ip] 255.255.255.248
-   ```
+   ![PC1到R1连通性测试截图](img/image6.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-s2" 
-  title="PC1到R1连通性测试" 
+  title="PC2→R2连通性测试示例" 
   uploadOptions={[
-    { id: 'pc1_to_r1', label: '截图PC1→R1' }
+    { id: 'pc2_to_r2', label: '截图PC2→R2测试结果' }
   ]}
 >
-   ![](img/image6.png)
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-s2" 
-  title="PC2到R2连通性测试" 
-  uploadOptions={[
-    { id: 'pc2_to_r2', label: '截图PC2→R2' }
-  ]}
->
-   ![](img/image7.png)
+   ![PC2到R2连通性测试截图](img/image7.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -222,35 +176,11 @@ import { Row, Col } from 'antd';
   questionId="Lab5-p1-s3" 
   title="RIP协议配置命令" 
   uploadOptions={[
-    { id: 'rip_r1', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
-    { id: 'rip_r2', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
-    { id: 'rip_r3', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
+    { id: 'rip_r1', label: '记录R1配置命令', type: 'text', textConfig: {initialContent: "R1(config)# router rip\nR1(config-router)# network [subnet]\nR1(config-router)# version 2", codeEditor: true, initialLines: 4} },
+    { id: 'rip_r2', label: '记录R2配置命令', type: 'text', textConfig: {initialContent: "R2(config)# router rip\nR2(config-router)# version 2\nR2(config-router)# network [subnet]", codeEditor: true, initialLines: 4} },
+    { id: 'rip_r3', label: '记录R3配置命令', type: 'text', textConfig: {initialContent: "R3(config)# router rip\nR3(config-router)# version 2\nR3(config-router)# network [subnet]", codeEditor: true, initialLines: 4} }
   ]}
->
-   R1配置命令示例：
-
-   ```kotlin
-   R1 (config) #router rip
-   R1 (config-router) #network [subnet]
-   R1 (config-router) #version 2
-   ```
-
-   R2配置命令示例：
-
-   ```kotlin
-   R2 (config) #router rip
-   R2 (config-router) #version 2
-   R2 (config-router) #network [subnet]
-   ```
-
-   R3配置命令示例：
-
-   ```kotlin
-   R3 (config) #router rip
-   R3 (config-router) #version 2
-   R3 (config-router) #network [subnet]
-   ```
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
@@ -262,50 +192,43 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p1-s4" 
-  title="R1路由表" 
+  title="R1路由表示例" 
   uploadOptions={[
-    { id: 'r1_route', label: '截图R1路由表（标出到PC2子网的路由）' }
+    { id: 'r1_route', label: '截图R1路由表（标出到PC2子网的路由，下一跳是哪个路由器）' }
   ]}
 >
-   R1路由表示例（标出到PC2子网的路由，下一跳是哪个路由器）：
-
-   ![](img/image11.png)
+   ![R1路由表截图](img/image11.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p1-s4" 
-  title="R2路由表" 
+  title="R2路由表示例" 
   uploadOptions={[
-    { id: 'r2_route', label: '截图R2路由表（标出到PC1子网的路由）' }
+    { id: 'r2_route', label: '截图R2路由表（标出到PC1子网的路由，下一跳是哪个路由器）' }
   ]}
 >
-   R2路由表示例（标出到PC1子网的路由，下一跳是哪个路由器）：
-
-   ![](img/image12.png)
+   ![R2路由表截图](img/image12.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p1-s4" 
-  title="R3路由表" 
+  title="R3路由表示例" 
   uploadOptions={[
     { id: 'r3_route', label: '截图R3路由表' }
   ]}
 >
-   R3路由表示例：
-
-   ![](img/image13.png)
+   ![R3路由表截图](img/image13.png)
 </ScreenshotCard>
 
+   PC1→PC2的路由跟踪：（经过的路由器顺序是R1、<ModernInput size="medium" questionId="Lab5-p1-q4-1"/>）
 <ScreenshotCard 
   questionId="Lab5-p1-s4" 
-  title="路由跟踪结果" 
+  title="路由跟踪结果示例" 
   uploadOptions={[
-    { id: 'pc1_to_pc2_trace', label: '截图PC1→PC2路由跟踪' }
+    { id: 'pc1_to_pc2_trace', label: '截图PC1→2路由跟踪' }
   ]}
 >
-   PC1→PC2的路由跟踪：（经过的路由器顺序是R1、<ModernInput size="medium" questionId="Lab5-p1-q4-1"/>）
-
-   ![](img/image14.png)
+   ![PC1到PC2路由跟踪截图](img/image14.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -322,16 +245,9 @@ import { Row, Col } from 'antd';
   questionId="Lab5-p2-s5" 
   title="R1 OSPF配置命令" 
   uploadOptions={[
-    { id: 'r1_ospf', label: '记录R1 OSPF配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} }
+    { id: 'r1_ospf', label: '记录R1 OSPF配置命令', type: 'text', textConfig: {initialContent: "R1(config)# router ospf [pid]\nR1(config-router)# network [subnet] [mask] area 0", codeEditor: true, initialLines: 3} }
   ]}
->
-   R1配置命令示例：
-
-   ```kotlin
-   R1 (config) #router ospf [pid]
-   R1 (config-router) #network [subnet] [mask] area 0
-   ```
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
@@ -343,19 +259,9 @@ import { Row, Col } from 'antd';
   questionId="Lab5-p2-s6" 
   title="R2回环接口及OSPF配置命令" 
   uploadOptions={[
-    { id: 'r2_ospf', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
+    { id: 'r2_ospf', label: '记录R2配置命令', type: 'text', textConfig: {initialContent: "R2(config)# interface loopback 0\nR2(config-if)# ip address [ip] 255.255.255.252\nR2(config-if)# exit\nR2(config)# router ospf [pid]\nR2(config-router)# network [subnet] [mask] area 0", codeEditor: true, initialLines: 6} }
   ]}
->
-   R2配置命令示例：
-
-   ```kotlin
-   R2 (config) #interface loopback 0
-   R2 (config-if) #ip address [ip] 255.255.255.252
-   R2 (config-if) #exit
-   R2 (config) #router ospf [pid]
-   R2 (config-router) #network [subnet] [mask] area 0
-   ```
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
@@ -367,17 +273,9 @@ import { Row, Col } from 'antd';
   questionId="Lab5-p2-s7" 
   title="R3 OSPF配置命令" 
   uploadOptions={[
-    { id: 'r3_ospf', label: '记录R3配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
+    { id: 'r3_ospf', label: '记录R3配置命令', type: 'text', textConfig: {initialContent: "R3(config)# router ospf [pid]\nR3(config-router)# router-id [x.x.x.x]\nR3(config-router)# network 10.0.0.0 [mask] area 0", codeEditor: true, initialLines: 4} }
   ]}
->
-   R3配置命令示例：
-
-   ```kotlin
-   R3 (config) #router ospf [pid]
-   R3 (config-router) #router-id [x.x.x.x]
-   R3 (config-router) #network 10.0.0.0 [mask] area 0
-   ```
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
@@ -389,39 +287,39 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p2-s8-r1" 
-  title="R1的OSPF数据库" 
+  title="R1 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r1_ospf_db', label: '截图R1 OSPF数据库' }
   ]}
 >
-   ![](img/image18.png)
+   ![R1的OSPF数据库截图](img/image18.png)
+</ScreenshotCard>
 
    从上图可知，R1的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-1"/>（取自接口<ModernInput size="medium" questionId="Lab5-p2-q8-2"/>的IP）；与R1连接的有<ModernInput size="small" questionId="Lab5-p2-q8-3"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-4"/>、<ModernInput size="large" questionId="Lab5-p2-q8-5"/>， 有<ModernInput size="small" questionId="Lab5-p2-q8-6"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-7"/>、<ModernInput size="large" questionId="Lab5-p2-q8-8"/>。
-</ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s8-r2" 
-  title="R2的OSPF数据库" 
+  title="R2 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r2_ospf_db', label: '截图R2 OSPF数据库' }
   ]}
 >
-   ![](img/image19.png)
+   ![R2的OSPF数据库截图](img/image19.png)
+</ScreenshotCard>
 
    从上图可知，R2的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-9"/>（取自接口<ModernInput size="medium" questionId="Lab5-p2-q8-10"/> 的IP）；与R2连接的有<ModernInput size="small" questionId="Lab5-p2-q8-11"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-12"/>、<ModernInput size="large" questionId="Lab5-p2-q8-13"/>， 有<ModernInput size="small" questionId="Lab5-p2-q8-14"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-15"/>、<ModernInput size="large" questionId="Lab5-p2-q8-16"/>。
-</ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s8-r3" 
-  title="R3的OSPF数据库" 
+  title="R3 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r3_ospf_db', label: '截图R3 OSPF数据库' }
   ]}
 >
-   ![](img/image20.png)
+   ![R3的OSPF数据库截图](img/image20.png)
+</ScreenshotCard>
 
    从上图可知，R3的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-17"/>；与R3连接的有<ModernInput size="small" questionId="Lab5-p2-q8-18"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-19"/>、<ModernInput size="large" questionId="Lab5-p2-q8-20"/>， 有<ModernInput size="small" questionId="Lab5-p2-q8-21"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-22"/>、<ModernInput size="large" questionId="Lab5-p2-q8-23"/>。
-</ScreenshotCard>
 
 </TaskCard>
 
@@ -433,39 +331,39 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p2-s9-s20" 
-  title="R1的s2/0接口OSPF数据" 
+  title="R1 s2/0接口OSPF数据示例" 
   uploadOptions={[
-    { id: 'r1_s20', label: '截图R1 s2/0接口' }
+    { id: 'r1_s20', label: '截图R1 s2/0接口OSPF数据' }
   ]}
 >
-   ![](img/image21.png)
+   ![R1的s2/0接口OSPF数据截图](img/image21.png)
+</ScreenshotCard>
 
    从图可知，s2/0连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-1"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-2"/>，邻居Router ID=<ModernInput size="large" questionId="Lab5-p2-q9-3"/>
-</ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s9-f01" 
-  title="R1的f0/1接口OSPF数据" 
+  title="R1 f0/1接口OSPF数据示例" 
   uploadOptions={[
-    { id: 'r1_f01', label: '截图R1 f0/1接口' }
+    { id: 'r1_f01', label: '截图R1 f0/1接口OSPF数据' }
   ]}
 >
-   ![](img/image22.png)
+   ![R1的f0/1接口OSPF数据截图](img/image22.png)
+</ScreenshotCard>
 
    f0/1连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-4"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-5"/>，邻居Router ID=<ModernInput size="large" questionId="Lab5-p2-q9-6"/>，DR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-7"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-8"/>，BDR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-9"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-10"/>
-</ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s9-f00" 
-  title="R1的f0/0接口OSPF数据" 
+  title="R1 f0/0接口OSPF数据示例" 
   uploadOptions={[
-    { id: 'r1_f00', label: '截图R1 f0/0接口' }
+    { id: 'r1_f00', label: '截图R1 f0/0接口OSPF数据' }
   ]}
 >
-   ![](img/image23.png)
+   ![R1的f0/0接口OSPF数据截图](img/image23.png)
+</ScreenshotCard>
 
    f0/0连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-11"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-12"/>，DR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-13"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-14"/>
-</ScreenshotCard>
 
 </TaskCard>
 
@@ -477,40 +375,38 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p2-s10" 
-  title="R1路由表（OSPF）" 
+  title="R1路由表示例" 
   uploadOptions={[
     { id: 'r1_route_ospf', label: '截图R1路由表' }
   ]}
 >
-    R1路由表示例：（从图可知，对于PC2的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-1"/>，由于OSPF的路由管理距离为110，比RIP的管理距离120优先级更高，所以把之前RIP选择的路由替换了）
-
-    ![](img/image24.png)
+    ![R1路由表OSPF截图](img/image24.png)
 </ScreenshotCard>
+从图可知，对于PC2的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-1"/>，由于OSPF的路由管理距离为110，比RIP的管理距离120优先级更高，所以把之前RIP选择的路由替换了
 
 <ScreenshotCard 
   questionId="Lab5-p2-s10" 
-  title="R2路由表（OSPF）" 
+  title="R2路由表示例" 
   uploadOptions={[
     { id: 'r2_route_ospf', label: '截图R2路由表' }
   ]}
 >
-    R2路由表示例：（从图可知，对于PC1的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-2"/>）
-
-    ![](img/image25.png)
+    ![R2路由表OSPF截图](img/image25.png)
 </ScreenshotCard>
+
+从图可知，对于PC1的网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-2"/>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s10" 
-  title="R3路由表（OSPF）" 
+  title="R3路由表示例" 
   uploadOptions={[
     { id: 'r3_route_ospf', label: '截图R3路由表' }
   ]}
 >
-    R3路由表示例：
-
-    ![](img/image26.png)
+    ![R3路由表OSPF截图](img/image26.png)
 </ScreenshotCard>
 
+    PC1→PC2的路由跟踪：（经过的路由器顺序是R1、<ModernInput size="medium" questionId="Lab5-p2-q10-3"/>、<ModernInput size="medium" questionId="Lab5-p2-q10-4"/>）
 <ScreenshotCard 
   questionId="Lab5-p2-s10" 
   title="路由跟踪结果" 
@@ -518,9 +414,7 @@ import { Row, Col } from 'antd';
     { id: 'pc1_to_pc2_ospf', label: '截图PC1→PC2路由跟踪' }
   ]}
 >
-    PC1→PC2的路由跟踪：（经过的路由器顺序是R1、<ModernInput size="medium" questionId="Lab5-p2-q10-3"/>、<ModernInput size="medium" questionId="Lab5-p2-q10-4"/>）
-
-    ![](img/image27.png)
+    ![PC1到PC2路由跟踪OSPF截图](img/image27.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -533,12 +427,12 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p2-s11" 
-  title="R1路由表（断开R1-R3链路后）" 
+  title="R1路由表示例" 
   uploadOptions={[
     { id: 'r1_route_after_shutdown', label: '截图R1路由表' }
   ]}
 >
-    ![](img/image28.png)
+    ![R1路由表断开后截图](img/image28.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -549,15 +443,14 @@ import { Row, Col } from 'antd';
 
 <ScreenshotCard 
   questionId="Lab5-p2-s12" 
-  title="R1的OSPF数据库（重启后）" 
+  title="R1 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r1_db_after_reload', label: '截图R1 OSPF数据库' }
   ]}
 >
-    变成了<ModernInput size="large" questionId="Lab5-p2-q12-1"/>，取自<ModernInput size="medium" questionId="Lab5-p2-q12-2"/>接口的IP地址。
-
-    ![](img/image29.png)
+    ![R1重启后OSPF数据库截图](img/image29.png)
 </ScreenshotCard>
+    变成了<ModernInput size="large" questionId="Lab5-p2-q12-1"/>，取自<ModernInput size="medium" questionId="Lab5-p2-q12-2"/>接口的IP地址。
 
 </TaskCard>
 
@@ -575,19 +468,18 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p2-s13-events" 
-  title="邻接关系建立事件记录" 
+  title="邻接关系建立事件记录示例" 
   uploadOptions={[
-    { id: 'ospf_events', label: '截图OSPF事件记录' }
+    { id: 'ospf_events', label: '截图R1和R3重新建立邻接关系的OSPF事件记录' }
   ]}
 >
-    R1和R3重新建立邻接关系的事件记录：（从图可知，邻接关系建立经历了5个状态，分别是<ModernInput size="medium" questionId="Lab5-p2-q13-1"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-2"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-3"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-4"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-5"/>）
-
-    ![](img/image30.png)
+    ![OSPF邻接关系建立事件记录截图](img/image30.png)
 </ScreenshotCard>
+从图可知，邻接关系建立经历了5个状态，分别是<ModernInput size="medium" questionId="Lab5-p2-q13-1"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-2"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-3"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-4"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-5"/>
 
 <ScreenshotCard 
   questionId="Lab5-p2-s13-neighbor" 
-  title="R1邻居信息" 
+  title="R1邻居信息示例" 
   uploadOptions={[
     { id: 'r1_neighbor', label: '截图R1 OSPF邻居详细信息' }
   ]}
@@ -595,36 +487,35 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
     ![](img/image31.png)
 </ScreenshotCard>
 
+    给R4、R6的回环接口、f0/0接口配置IP地址并激活，启用OSPF协议，接口均属于Area 0。过一会儿查看R4和R6的邻居信息（由于R2、R3、R4、R6在同一个广播网络中，四台路由器并不会都成为邻接关系，而是选出DR、BDR，然后各路由器与DR、BDR进行路由信息交换）。
 <ScreenshotCard 
   questionId="Lab5-p2-s13" 
   title="R4和R6配置命令" 
   uploadOptions={[
-    { id: 'r4_r6_config', label: '记录R4/R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 8} }
+    { id: 'r4_config', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 7} },
+    { id: 'r6_config', label: '记录R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 7} }
   ]}
->
-    给R4、R6的回环接口、f0/0接口配置IP地址并激活，启用OSPF协议，接口均属于Area 0。过一会儿查看R4和R6的邻居信息（由于R2、R3、R4、R6在同一个广播网络中，四台路由器并不会都成为邻接关系，而是选出DR、BDR，然后各路由器与DR、BDR进行路由信息交换）。
-</ScreenshotCard>
+/>
 
+    R4上查看邻居关系，与R6是邻居，但不建立邻接关系，重启后可能会变化：
 <ScreenshotCard 
   questionId="Lab5-p2-s13" 
-  title="R4邻居关系" 
+  title="R4邻居关系示例" 
   uploadOptions={[
     { id: 'r4_neighbor', label: '截图R4邻居关系' }
   ]}
 >
-    R4上查看邻居关系示例（与R6是邻居，但不建立邻接关系，重启后可能会变化）：
-
     ![](img/image32.png)
 </ScreenshotCard>
 
+    R6上查看邻居关系，与R4是邻居，但不建立邻接关系，重启后可能会变化：
 <ScreenshotCard 
   questionId="Lab5-p2-s13" 
-  title="R6邻居关系" 
+  title="R6邻居关系示例" 
   uploadOptions={[
     { id: 'r6_neighbor', label: '截图R6邻居关系' }
   ]}
 >
-    R6上查看邻居关系示例（与R4是邻居，但不建立邻接关系，重启后可能会变化）：
 
     ![](img/image33.png)
 </ScreenshotCard>
@@ -643,41 +534,16 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s15-config" 
   title="R4和R5配置命令" 
   uploadOptions={[
-    { id: 'r4_area1', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} },
-    { id: 'r5_area1', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} }
+    { id: 'r4_area1', label: '记录R4配置命令', type: 'text', textConfig: {initialContent: "R4(config)# interface f0/1\nR4(config-if)# ip address [ip] 255.255.255.0\nR4(config-if)# no shutdown\nR4(config)# router ospf [pid]\nR4(config-router)# network [subnet] 0.0.255.255 area 1", codeEditor: true, initialLines: 6} },
+    { id: 'r5_area1', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface f0/1\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface f0/0\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface loopback 0\nR5(config-if)# \nR5(config)# \nR5(config-router)# "} }
   ]}
->
-    R4配置命令示例：
-
-    ```kotlin
-    R4 (config) #interface f0/1
-    R4 (config-if) #ip address [ip] 255.255.255.0
-    R4 (config-if) #no shutdown
-    R4 (config) #router ospf [pid]
-    R4 (config-router) #network [subnet] 0.0.255.255 area 1
-    ```
-
-    R5配置命令示例：
-
-    ```kotlin
-    R5(config)#interface f0/1
-    R5(config-if)#
-    R5(config-if)#
-    R5(config)#interface f0/0
-    R5(config-if)#
-    R5(config-if)#
-    R5(config)#interface loopback 0
-    R5(config-if)#
-    R5(config)#
-    R5(config-router)#
-    ```
-</ScreenshotCard>
+/>
 
 <ScreenshotCard 
   questionId="Lab5-p3-s15-pc3" 
-  title="PC3网络配置" 
+  title="PC3网络配置示例" 
   uploadOptions={[
-    { id: 'pc3_config', label: '截图PC3配置' }
+    { id: 'pc3_config', label: '记录PC3配置', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
   ]}
 >
     ![](img/image36.png)
@@ -685,33 +551,32 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s15" 
-  title="R2路由表（区域间路由）" 
+  title="R2路由表示例" 
   uploadOptions={[
     { id: 'r2_route_ia', label: '截图R2路由表' }
   ]}
 >
-    R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-1"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出。
-
     ![](img/image37.png)
 </ScreenshotCard>
 
+R2的路由表：目标为Area 1中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-1"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出。
+
 <ScreenshotCard 
   questionId="Lab5-p3-s15" 
-  title="R5路由表（区域间路由）" 
+  title="R5路由表示例" 
   uploadOptions={[
     { id: 'r5_route_ia', label: '截图R5路由表' }
   ]}
 >
-    R5的路由表：目标为Area 0中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-3"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出。
-
     ![](img/image38.png)
 </ScreenshotCard>
+    R5的路由表：目标为Area 0中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-3"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s15" 
-  title="PC3到PC1连通性测试" 
+  title="PC3→1连通性测试示例" 
   uploadOptions={[
-    { id: 'pc3_to_pc1', label: '截图PC3→PC1' }
+    { id: 'pc3_to_pc1', label: '截图PC3→1测试结果' }
   ]}
 >
     ![](img/image39.png)
@@ -725,43 +590,41 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 分别在R2、R4、R5上显示OSPF数据库信息，关注是否出现其他Area的信息。
 
+    R2：没有Area 1的具体信息，但是该区域的子网地址<ModernInput size="large" questionId="Lab5-p3-q16-1"/>、<ModernInput size="large" questionId="Lab5-p3-q16-2"/>、<ModernInput size="large" questionId="Lab5-p3-q16-3"/>由路由器<ModernInput size="large" questionId="Lab5-p3-q16-4"/>汇聚后以区域间链路的形式进行通告。
 <ScreenshotCard 
   questionId="Lab5-p3-s16-r2" 
-  title="R2的OSPF数据库" 
+  title="R2 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r2_ospf_db', label: '截图R2 OSPF数据库' }
   ]}
 >
-    R2：没有Area 1的具体信息，但是该区域的子网地址<ModernInput size="large" questionId="Lab5-p3-q16-1"/>、<ModernInput size="large" questionId="Lab5-p3-q16-2"/>、<ModernInput size="large" questionId="Lab5-p3-q16-3"/>由路由器<ModernInput size="large" questionId="Lab5-p3-q16-4"/>汇聚后以区域间链路的形式进行通告。
-
     ![](img/image40.png)
 </ScreenshotCard>
 
+    R5：没有Area 0的具体信息，但是该区域的子网地址全部由路由器<ModernInput size="large" questionId="Lab5-p3-q16-5"/>汇聚后以区域间链路的形式进行通告。
 <ScreenshotCard 
   questionId="Lab5-p3-s16-r5" 
-  title="R5的OSPF数据库" 
+  title="R5 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r5_ospf_db', label: '截图R5 OSPF数据库' }
   ]}
 >
-    R5：没有Area 0的具体信息，但是该区域的子网地址全部由路由器<ModernInput size="large" questionId="Lab5-p3-q16-5"/>汇聚后以区域间链路的形式进行通告。
-
     ![](img/image41.png)
 </ScreenshotCard>
 
-<ScreenshotCard 
-  questionId="Lab5-p3-s16-r4" 
-  title="R4的OSPF数据库（ABR）" 
-  uploadOptions={[
-    { id: 'r4_ospf_db_abr', label: '截图R4 OSPF数据库' }
-  ]}
->
     R4：有Area 1和Area 0的具体信息，由于R4是区域边界路由器（ABR），所以对区域内的链路进行了汇聚，然后以区域间路由的形式向其他区域进行链路状态通告（LSA），其中：
 
     向Area 0通告的属于Area 1的链路有<ModernInput size="large" questionId="Lab5-p3-q16-6"/>、<ModernInput size="large" questionId="Lab5-p3-q16-7"/>、<ModernInput size="large" questionId="Lab5-p3-q16-8"/>；
 
     向Area 1通告的属于Area 0的链路有<ModernInput size="large" questionId="Lab5-p3-q16-9"/>、<ModernInput size="large" questionId="Lab5-p3-q16-10"/>、<ModernInput size="large" questionId="Lab5-p3-q16-11"/>、<ModernInput size="large" questionId="Lab5-p3-q16-12"/>、<ModernInput size="large" questionId="Lab5-p3-q16-13"/>、<ModernInput size="large" questionId="Lab5-p3-q16-14"/>、<ModernInput size="large" questionId="Lab5-p3-q16-15"/>、<ModernInput size="large" questionId="Lab5-p3-q16-16"/>。
 
+<ScreenshotCard 
+  questionId="Lab5-p3-s16-r4" 
+  title="R4 OSPF数据库示例" 
+  uploadOptions={[
+    { id: 'r4_ospf_db_abr', label: '截图R4 OSPF数据库' }
+  ]}
+>
     ![](img/image42.png)
 </ScreenshotCard>
 
@@ -771,27 +634,25 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 分别在R1、R5上查看区域边界路由器（ABR）信息（命令：`show ip ospf border-routers`）
 
+    R1：当前已知的区域0内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-1"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-2"/>。
 <ScreenshotCard 
   questionId="Lab5-p3-s17-r1" 
-  title="R1的ABR信息" 
+  title="R1 ABR信息示例" 
   uploadOptions={[
     { id: 'r1_abr', label: '截图R1 ABR信息' }
   ]}
 >
-    R1：当前已知的区域0内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-1"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-2"/>。
-
     ![](img/image43.png)
 </ScreenshotCard>
 
+    R5：当前已知的区域1内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-3"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-4"/>。
 <ScreenshotCard 
   questionId="Lab5-p3-s17-r5" 
-  title="R5的ABR信息" 
+  title="R5 ABR信息示例" 
   uploadOptions={[
     { id: 'r5_abr', label: '截图R5 ABR信息' }
   ]}
 >
-    R5：当前已知的区域1内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-3"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-4"/>。
-
     ![](img/image44.png)
 </ScreenshotCard>
 
@@ -807,56 +668,27 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s18-config" 
   title="R6和R8配置命令" 
   uploadOptions={[
-    { id: 'r6_area2', label: '记录R6配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} },
-    { id: 'r8_area2', label: '记录R8配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 13} }
+    { id: 'r6_area2', label: '记录R6配置命令', type: 'text', textConfig: {initialContent: "R6(config)#interface f0/1\nR6(config-if)# \nR6(config-if)# \nR6(config)# \nR6(config-router)# ", codeEditor: true, initialLines: 5} },
+    { id: 'r8_area2', label: '记录R8配置命令', type: 'text', textConfig: {initialContent: "R8(config)# interface f0/1\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface f0/0\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface f1/0\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface loopback 0\nR8(config-if)# \nR8(config)# \nR8(config-router)# ", codeEditor: true, initialLines: 13} }
   ]}
->
-    R6配置命令示例：
-
-    ```kotlin
-    R6(config)#interface f0/1
-    R6(config-if)#
-    R6(config-if)#
-    R6(config)#
-    R6(config-router)#
-    ```
-
-    R8配置命令示例：
-
-    ```kotlin
-    R8(config)#interface f0/1
-    R8(config-if)#
-    R8(config-if)#
-    R8(config)#interface f0/0
-    R8(config-if)#
-    R8(config-if)#
-    R8(config)#interface f1/0
-    R8(config-if)#
-    R8(config-if)#
-    R8(config)#interface loopback 0
-    R8(config-if)#
-    R8(config)#
-    R8(config-router)#
-    ```
-</ScreenshotCard>
+/>
 
 <ScreenshotCard 
   questionId="Lab5-p3-s18-routing" 
-  title="R8路由表" 
+  title="R8路由表示例" 
   uploadOptions={[
     { id: 'r8_route', label: '截图R8路由表' }
   ]}
 >
-    R8的路由表：如图所示，区域间路由包含了Area 1和Area 0的地址，其中Area 1的子网地址有<ModernInput size="large" questionId="Lab5-p3-q18-1"/>、<ModernInput size="large" questionId="Lab5-p3-q18-2"/>、<ModernInput size="large" questionId="Lab5-p3-q18-3"/>。
-
     ![](img/image45.png)
 </ScreenshotCard>
+如图所示，区域间路由包含了Area 1和Area 0的地址，其中Area 1的子网地址有<ModernInput size="large" questionId="Lab5-p3-q18-1"/>、<ModernInput size="large" questionId="Lab5-p3-q18-2"/>、<ModernInput size="large" questionId="Lab5-p3-q18-3"/>。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s18" 
-  title="PC4到PC1连通性测试" 
+  title="PC4→1连通性测试示例" 
   uploadOptions={[
-    { id: 'pc4_to_pc1', label: '截图PC4→PC1' }
+    { id: 'pc4_to_pc1', label: '截图PC4→1测试结果' }
   ]}
 >
     ![](img/image46.png)
@@ -864,9 +696,9 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s18" 
-  title="PC4到PC3连通性测试" 
+  title="PC4→3连通性测试示例" 
   uploadOptions={[
-    { id: 'pc4_to_pc3', label: '截图PC4→PC3' }
+    { id: 'pc4_to_pc3', label: '截图PC4→3测试结果' }
   ]}
 >
     ![](img/image47.png)
@@ -903,29 +735,9 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s20" 
   title="R5 Frame Relay配置命令" 
   uploadOptions={[
-    { id: 'r5_fr_config', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 15} }
+    { id: 'r5_fr_config', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface s2/0\nR5(config-if)# encapsulation frame-relay\nR5(config-if)# frame-relay lmi-type ANSI\nR5(config-if)# no shutdown\nR5(config-if)# exit\nR5(config)# interface s2/0.1 multipoint\nR5(config-subif)# ip address [ip] 255.255.255.0\nR5(config-subif)# frame-relay interface-dlci [dlci]\nR5(config-fr-dlci)# exit\nR5(config-subif)# exit\nR5(config)# interface s2/0.2 multipoint\nR5(config-subif)# ip address [ip] 255.255.255.0\nR5(config-subif)# frame-relay interface-dlci [dlci]\nR5(config-fr-dlci)# exit\nR5(config-subif)# exit", codeEditor: true, initialLines: 15} }
   ]}
->
-    R5配置命令示例：
-
-    ```kotlin
-    R5 (config) #interface s2/0
-    R5 (config-if) #encapsulation frame-relay
-    R5 (config-if) #frame-relay lmi-type ANSI
-    R5 (config-if) #no shutdown
-    R5 (config-if) #exit
-    R5 (config) #interface s2/0.1 multipoint
-    R5 (config-subif) #ip address [ip] 255.255.255.0
-    R5 (config-subif) #frame-relay interface-dlci [dlci]
-    R5 (config-fr-dlci) #exit
-    R5 (config-subif) #exit
-    R5 (config) #interface s2/0.2 multipoint
-    R5 (config-subif) #ip address [ip] 255.255.255.0
-    R5 (config-subif) #frame-relay interface-dlci [dlci]
-    R5 (config-fr-dlci) #exit
-    R5 (config-subif) #exit
-    ```
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
@@ -933,121 +745,35 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <TaskCard number={21} title="配置R7的Frame Relay接口及OSPF" needScreenshot={true} needRecord={true}>
 
-给R7的各接口配置IP地址、激活，其中回环接口和f0/0接口属于Area 2，s2/0接口属于Area 1，配置s2/0封装协议为Frame Relay，DLCI值设为Frame Relay交换机上R5-R7之间数据链路的相关DLCI值。
+给R7的各接口配置IP地址、激活，其中回环接口和f0/0接口属于Area 2，s2/0接口属于Area 1，配置s2/0封装协议为Frame Relay，DLCI值设为Frame Relay交换机上R5-R7之间数据链路的相关DLCI值；在R7上测试到R5的连通性（由于R5-R7采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通）
 
 <ScreenshotCard 
   questionId="Lab5-p3-s21-config" 
   title="R7配置命令" 
   uploadOptions={[
-    { id: 'r7_fr_config', label: '记录R7配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
-  ]}
->
-    R7配置命令示例：
-
-    ```kotlin
-    R7(config)#interface f0/0
-    R7(config-if)#
-    R7(config-if)#
-    R7(config)#interface s2/0
-    R7(config-if)# （IP地址）
-    R7(config-if)# （封装协议）
-    R7(config-if)# （LMI）
-    R7(config-if)# （DLCI）
-    R7(config-if)# （激活）
-    R7(config)#interface loopback 0
-    R7(config-if)#
-    R7(config)#
-    R7(config-router)#
-    R7(config-router)#
-    ```
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s21" 
-  title="R7 Frame Relay映射" 
-  uploadOptions={[
-    { id: 'r7_fr_map', label: '截图R7 FR映射' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s21" 
-  title="R5 Frame Relay映射" 
-  uploadOptions={[
-    { id: 'r5_fr_map', label: '截图R5 FR映射' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s21" 
-  title="R7到R5连通性测试" 
-  uploadOptions={[
+    { id: 'r7_fr_config', label: '记录R7配置命令', type: 'text', textConfig: {initialContent: "R7(config)# interface f0/0\nR7(config-if)# \nR7(config-if)# \nR7(config)# interface s2/0\nR7(config-if)# （IP地址）\nR7(config-if)# （封装协议）\nR7(config-if)# （LMI）\nR7(config-if)# （DLCI）\nR7(config-if)# （激活）\nR7(config)# interface loopback 0\nR7(config-if)# \nR7(config)# \nR7(config-router)# \nR7(config-router)# ", codeEditor: true, initialLines: 14} },
+    { id: 'r7_fr_map', label: '截图R7 FR映射' },
+    { id: 'r5_fr_map', label: '截图R5 FR映射' },
     { id: 'r7_ping_r5', label: '截图R7→R5连通性' }
   ]}
->
-在R7上测试到R5的连通性（由于R5-R7采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通）
-</ScreenshotCard>
+/>
 
 </TaskCard>
 
 <TaskCard number={22} title="配置R9的Frame Relay接口及OSPF" needScreenshot={true} needRecord={true}>
 
-给R9的各接口配置IP地址、激活，其中回环接口和f0/1接口属于Area 3，s2/0接口属于Area 1，配置s2/0封装协议为Frame Relay，DLCI值设为Frame Relay交换机上R5-R9之间数据链路的相关DLCI值。
+给R9的各接口配置IP地址、激活，其中回环接口和f0/1接口属于Area 3，s2/0接口属于Area 1，配置s2/0封装协议为Frame Relay，DLCI值设为Frame Relay交换机上R5-R9之间数据链路的相关DLCI值；在R9上测试到R5的连通性（由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通。如果在R5上测试，需要加上参数`source s2/0`指定接口）；在R9上测试到R7的连通性（R5、R7、R9通过帧中继交换机连接的形式称为非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，是不能通信的）
 
 <ScreenshotCard 
   questionId="Lab5-p3-s22-config" 
   title="R9配置命令" 
   uploadOptions={[
-    { id: 'r9_fr_config', label: '记录R9配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 14} }
-  ]}
->
-    R9配置命令示例：
-
-    ```kotlin
-    R9(config)#interface f0/1
-    R9(config-if)#
-    R9(config-if)#
-    R9(config)#interface s2/0
-    R9(config-if)# （IP地址）
-    R9(config-if)# （封装协议）
-    R9(config-if)# （LMI）
-    R9(config-if)# （DLCI）
-    R9(config-if)# （激活）
-    R9(config)#interface loopback 0
-    R9(config-if)#
-    R9(config)#
-    R9(config-router)#
-    R9(config-router)#
-    ```
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s22" 
-  title="R9 Frame Relay映射" 
-  uploadOptions={[
-    { id: 'r9_fr_map', label: '截图R9 FR映射' }
+    { id: 'r9_fr_config', label: '记录R9配置命令', type: 'text', textConfig: {initialContent: "R9(config)# interface f0/1\nR9(config-if)# \nR9(config-if)# \nR9(config)# interface s2/0\nR9(config-if)# （IP地址）\nR9(config-if)# （封装协议）\nR9(config-if)# （LMI）\nR9(config-if)# （DLCI）\nR9(config-if)# （激活）\nR9(config)# interface loopback 0\nR9(config-if)# \nR9(config)# \nR9(config-router)# \nR9(config-router)# ", codeEditor: true, initialLines: 14} },
+    { id: 'r9_fr_map', label: '截图R9 FR映射' },
+    { id: 'r9_ping_r5', label: '截图R9→R5测试结果' },
+    { id: 'r9_ping_r7', label: '截图R9→R7测试结果' }
   ]}
 />
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s22" 
-  title="R9到R5连通性测试" 
-  uploadOptions={[
-    { id: 'r9_ping_r5', label: '截图R9→R5连通性' }
-  ]}
->
-在R9上测试到R5的连通性（由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通。如果在R5上测试，需要加上参数`source s2/0`指定接口）
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s22" 
-  title="R9到R7连通性测试（不通）" 
-  uploadOptions={[
-    { id: 'r9_ping_r7', label: '截图R9→R7连通性（不通）' }
-  ]}
->
-在R9上测试到R7的连通性（R5、R7、R9通过帧中继交换机连接的形式称为非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，是不能通信的）
-</ScreenshotCard>
 
 </TaskCard>
 
@@ -1059,22 +785,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s23" 
   title="R5邻居关系（配置前）" 
   uploadOptions={[
-    { id: 'r5_neighbor_before', label: '截图R5邻居关系' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s23" 
-  title="R7邻居关系（配置前）" 
-  uploadOptions={[
-    { id: 'r7_neighbor_before', label: '截图R7邻居关系' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s23" 
-  title="R9邻居关系（配置前）" 
-  uploadOptions={[
+    { id: 'r5_neighbor_before', label: '截图R5邻居关系' },
+    { id: 'r7_neighbor_before', label: '截图R7邻居关系' },
     { id: 'r9_neighbor_before', label: '截图R9邻居关系' }
   ]}
 />
@@ -1089,55 +801,11 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s24-config" 
   title="配置点对多点网络类型命令" 
   uploadOptions={[
-    { id: 'r5_p2mp', label: '记录R5配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} },
-    { id: 'r7_p2mp', label: '记录R7配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
-    { id: 'r9_p2mp', label: '记录R9配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
-  ]}
->
-    R5配置命令示例：
-
-    ```kotlin
-    R5(config)#interface s2/0.1
-    R5(config-subif)#
-    R5(config)#interface s2/0.2
-    R5(config-subif)#
-    ```
-
-    R7配置命令示例：
-
-    ```kotlin
-    R7(config)#interface s2/0
-    R7(config-if)#
-    ```
-
-    R9配置命令示例：
-
-    ```kotlin
-    R9(config)#interface s2/0
-    R9(config-if)#
-    ```
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s24" 
-  title="R5邻居关系（配置后）" 
-  uploadOptions={[
-    { id: 'r5_neighbor_after', label: '截图R5邻居关系' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s24" 
-  title="R7邻居关系（配置后）" 
-  uploadOptions={[
-    { id: 'r7_neighbor_after', label: '截图R7邻居关系' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s24" 
-  title="R9邻居关系（配置后）" 
-  uploadOptions={[
+    { id: 'r5_p2mp', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface s2/0.1\nR5(config-subif)# \nR5(config)# interface s2/0.2\nR5(config-subif)# ", codeEditor: true, initialLines: 4} },
+    { id: 'r7_p2mp', label: '记录R7配置命令', type: 'text', textConfig: {initialContent: "R7(config)# interface s2/0\nR7(config-if)# ", codeEditor: true, initialLines: 2} },
+    { id: 'r9_p2mp', label: '记录R9配置命令', type: 'text', textConfig: {initialContent: "R9(config)# interface s2/0\nR9(config-if)# ",codeEditor: true, initialLines: 2} },
+    { id: 'r5_neighbor_after', label: '截图R5邻居关系' },
+    { id: 'r7_neighbor_after', label: '截图R7邻居关系' },
     { id: 'r9_neighbor_after', label: '截图R9邻居关系' }
   ]}
 />
@@ -1150,40 +818,36 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s25-r5" 
-  title="R5的OSPF数据库" 
+  title="R5 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r5_ospf_db_summary', label: '截图R5 OSPF数据库' }
   ]}
 >
-    R5的OSPF数据库：观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-1"/>宣告的，而R7作为Area 1和Area 2的ABR，却没有向Area 1宣告Area 2的路由信息，是因为所有的Area都只和Area 0进行路由信息交换。
-
     ![](img/image49.png)
 </ScreenshotCard>
+观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-1"/>宣告的，而R7作为Area 1和Area 2的ABR，却没有向Area 1宣告Area 2的路由信息，是因为所有的Area都只和Area 0进行路由信息交换。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s25-r8" 
-  title="R8的OSPF数据库" 
+  title="R8 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r8_ospf_db_summary', label: '截图R8 OSPF数据库' }
   ]}
 >
-    R8的OSPF数据库：观察得知，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-2"/>宣告的，而R7作为Area 1和Area 2的ABR，也没有向Area 2宣告Area 1的路由信息。
-
     ![](img/image50.png)
 </ScreenshotCard>
+观察得知，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-2"/>宣告的，而R7作为Area 1和Area 2的ABR，也没有向Area 2宣告Area 1的路由信息。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s25-r7" 
-  title="R7的OSPF数据库" 
+  title="R7 OSPF数据库示例" 
   uploadOptions={[
     { id: 'r7_ospf_db_summary', label: '截图R7 OSPF数据库' }
   ]}
 >
-    R7的OSPF数据库：观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-3"/>宣告的，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-4"/>宣告的。
-
     ![](img/image51.png)
 </ScreenshotCard>
-
+观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-3"/>宣告的，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-4"/>宣告的。
 </TaskCard>
 
 <TaskCard number={26} title="查看指定网络的路由信息" needScreenshot={true} needRecord={false}>
@@ -1192,16 +856,14 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s26" 
-  title="R8到PC3网络的路由信息" 
+  title="R8→PC3网络路由信息示例" 
   uploadOptions={[
     { id: 'r8_route_to_pc3', label: '截图R8路由信息' }
   ]}
 >
-    R8的路由信息：观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q26-1"/>的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p3-q26-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q26-3"/>。
-
     ![](img/image52.png)
 </ScreenshotCard>
-
+观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q26-1"/>的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p3-q26-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q26-3"/>。
 </TaskCard>
 
 <TaskCard number={27} title="测试链路中断对路由信息的影响" needScreenshot={true} needRecord={false}>
@@ -1210,26 +872,17 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
 
 <ScreenshotCard 
   questionId="Lab5-p3-s27-r8" 
-  title="R8路由信息（断开R6后）" 
+  title="R8路由信息示例" 
   uploadOptions={[
-    { id: 'r8_route_after_shutdown', label: '截图R8路由信息' }
-  ]}
->
-    R8的路由信息：观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-1"/>的路由已经不存在。
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s27-r7" 
-  title="R7路由信息" 
-  uploadOptions={[
+    { id: 'r8_route_after_shutdown', label: '截图R8路由信息' },
     { id: 'r7_route_pc3', label: '截图R7路由信息' }
   ]}
->
-    看看R7有没有PC3的路由信息：观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-2"/>的路由是存在的，但是由于Area 2和Area 1不直接交换路由信息，R7没有向Area 2宣告路由的存在。
+/>
+
+    由R8的路由信息观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-1"/>的路由已经不存在。
+    看看R7有没有PC3的路由信息可观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-2"/>的路由是存在的，但是由于Area 2和Area 1不直接交换路由信息，R7没有向Area 2宣告路由的存在。
 
     重新打开R6的f0/0接口，稍候再次查看R8的路由信息是否恢复。
-</ScreenshotCard>
-
 </TaskCard>
 
 <TaskCard number={28} title="配置Area 3（R10）" needScreenshot={true} needRecord={true}>
@@ -1240,37 +893,14 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s28-config" 
   title="R10配置命令" 
   uploadOptions={[
-    { id: 'r10_config', label: '记录R10配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 10} }
-  ]}
->
-    R10配置命令示例：
-
-    ```kotlin
-    R10(config)#interface f0/1
-    R10(config-if)#
-    R10(config-if)#
-    R10(config)#interface f0/0
-    R10(config-if)#
-    R10(config-if)#
-    R10(config)#interface loopback 0
-    R10(config-if)#
-    R10(config)#
-    R10(config-router)#
-    ```
-</ScreenshotCard>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s28-db" 
-  title="R10的OSPF数据库和路由表" 
-  uploadOptions={[
+    { id: 'r10_config', label: '记录R10配置命令', type: 'text', textConfig: {initialContent: "R10(config)# interface f0/1\nR10(config-if)# \nR10(config-if)# \nR10(config)# interface f0/0\nR10(config-if)# \nR10(config-if)# \nR10(config)# interface loopback 0\nR10(config-if)# \nR10(config)# \nR10(config-router)# ", codeEditor: true, initialLines: 10} },
     { id: 'r10_ospf_db', label: '截图R10 OSPF数据库' },
     { id: 'r10_route', label: '截图R10路由表' }
   ]}
->
-    R10的OSPF数据库：观察可知，数据库中没有其他Area的信息，因为Area 3和Area 1不直接交换信息
+/>
+    由R10的OSPF数据库观察可知，数据库中没有其他Area的信息，因为Area 3和Area 1不直接交换信息
 
-    R10的路由表：观察可知，路由表中没有其他Area的信息，因为OSPF数据库中缺乏相关数据。
-</ScreenshotCard>
+    由R10的路由表观察可知，路由表中没有其他Area的信息，因为OSPF数据库中缺乏相关数据。
 
 </TaskCard>
 
@@ -1282,24 +912,10 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s29-config" 
   title="虚链路配置命令" 
   uploadOptions={[
-    { id: 'r4_vlink', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} },
-    { id: 'r9_vlink', label: '记录R9配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 2} }
+    { id: 'r4_vlink', label: '记录R4配置命令', type: 'text', textConfig: {initialContent: "R4(config)# \nR4(config-router)# ", codeEditor: true, initialLines: 2} },
+    { id: 'r9_vlink', label: '记录R9配置命令', type: 'text', textConfig: {initialContent: "R9(config)# \nR9(config-router)# ",codeEditor: true, initialLines: 2} }
   ]}
->
-    R4配置命令示例：
-
-    ```kotlin
-    R4(config)#
-    R4(config-router)#
-    ```
-
-    R9配置命令示例：
-
-    ```kotlin
-    R9(config)#
-    R9(config-router)#
-    ```
-</ScreenshotCard>
+/>
 
 <ScreenshotCard 
   questionId="Lab5-p3-s29" 
@@ -1307,9 +923,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r4_vlink_show', label: '截图R4虚链路状态' }
   ]}
->
-    查看R4虚链路：观察得知，R4通过区域<ModernInput size="small" questionId="Lab5-p3-q29-1"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-2"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-3"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-4"/>。
-</ScreenshotCard>
+/>
+    由R4虚链路观察得知，R4通过区域<ModernInput size="small" questionId="Lab5-p3-q29-1"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-2"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-3"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-4"/>。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s29" 
@@ -1317,9 +932,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r9_vlink_show', label: '截图R9虚链路状态' }
   ]}
->
-    查看R9虚链路：观察得知，R9通过区域<ModernInput size="small" questionId="Lab5-p3-q29-5"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-6"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-7"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-8"/>。
-</ScreenshotCard>
+/>
+    由R9虚链路：观察得知，R9通过区域<ModernInput size="small" questionId="Lab5-p3-q29-5"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-6"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-7"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-8"/>。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s29" 
@@ -1327,9 +941,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r4_neighbor_vlink', label: '截图R4邻居信息' }
   ]}
->
+/>
     查看R4邻居信息：观察得知，R4通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-9"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-10"/>）建立了邻接关系。
-</ScreenshotCard>
 
 <ScreenshotCard 
   questionId="Lab5-p3-s29" 
@@ -1337,9 +950,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r9_neighbor_vlink', label: '截图R9邻居信息' }
   ]}
->
+/>
     查看R9邻居信息：观察得知，R9通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-11"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-12"/>）建立了邻接关系。
-</ScreenshotCard>
 
 </TaskCard>
 
@@ -1351,19 +963,11 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   questionId="Lab5-p3-s30" 
   title="R10路由表（虚链路建立后）" 
   uploadOptions={[
-    { id: 'r10_route_after_vlink', label: '截图R10路由表（标出PC1、PC2、PC3所在子网）' }
-  ]}
-/>
-
-<ScreenshotCard 
-  questionId="Lab5-p3-s30" 
-  title="R10 OSPF数据库（虚链路建立后）" 
-  uploadOptions={[
+    { id: 'r10_route_after_vlink', label: '截图R10路由表（标出PC1、PC2、PC3所在子网）' },
     { id: 'r10_db_after_vlink', label: '截图R10 OSPF数据库' }
   ]}
->
-    R10的OSPF数据库：观察得知，所有其他区域路由信息均由区域边界路由器<ModernInput size="large" questionId="Lab5-p3-q30-1"/>宣告。
-</ScreenshotCard>
+/>
+    由R10的OSPF数据库观察得知，所有其他区域路由信息均由区域边界路由器<ModernInput size="large" questionId="Lab5-p3-q30-1"/>宣告。
 
 </TaskCard>
 
@@ -1377,9 +981,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r9_route_summary', label: '截图R9路由表（标出聚合路由）' }
   ]}
->
-    R9的路由表：标出合并的那条路由，这条路由采用了特殊的接口<ModernInput size="medium" questionId="Lab5-p3-q31-1"/>作为下一跳。
-</ScreenshotCard>
+/>
+标出合并的那条路由，这条路由采用了特殊的接口<ModernInput size="medium" questionId="Lab5-p3-q31-1"/>作为下一跳。
 
 <ScreenshotCard 
   questionId="Lab5-p3-s31-r10" 
@@ -1387,9 +990,8 @@ Init状态表示路由器已收到来自其邻居的hello数据包，但接收�
   uploadOptions={[
     { id: 'r10_route_summary', label: '截图R10路由表（标出聚合路由）' }
   ]}
->
+/>
     R10的路由表：标出合并的那条路由，这条路由下一跳的IP地址是<ModernInput size="large" questionId="Lab5-p3-q31-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q31-3"/>的接口。
-</ScreenshotCard>
 
 </TaskCard>
 
