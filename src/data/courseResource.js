@@ -81,7 +81,7 @@ const resourceData = [
         "link": require('@site/assets/slides/在Cisco路由器上的路由协议.pdf').default
     }, {
         "file_type": 'pdf',
-        "name":'GNS3模拟环境WireShark抓STP协议报文',
+        "name":'GNS3下WireShark抓STP协议报文',
         "size":'1204626',
         "link": require('@site/assets/slides/GNS3模拟环境中使用WireShark抓STP协议报文.pdf').default
     }, {
@@ -91,12 +91,12 @@ const resourceData = [
         "link": require('@site/assets/slides/Lab6_BGP路由协议.pdf').default
     }, {
         "file_type": "pdf",
-        "name": "Lab7 基于Socket接口实现自定义协议通信",
+        "name": "Lab7 基于Socket自定义协议通信",
         "size": "1967383",
         "link": require('@site/assets/slides/luxq_Socket编程.pdf').default
     }, {
         "file_type": "pdf",
-        "name": "Lab8 实现一个轻量级的Web服务器",
+        "name": "Lab8 轻量级的Web服务器",
         "size": "2554537",
         "link": require('@site/assets/slides/Lab8-WebServer.pdf').default
     },
