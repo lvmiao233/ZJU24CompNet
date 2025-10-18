@@ -6,7 +6,7 @@ description: GNS3 虚拟机配置指南，详细介绍如何在 Windows 10/11 �
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
-import { Row, Col } from 'antd';
+import GridContainer from '@site/src/components/GridContainer';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -76,14 +76,10 @@ GNS3 3.0.0-3.0.3无法正确获取Idle PC，会导致卡死，如不慎安装，
 
 <Tabs className="unique-tabs"  groupId="platform">
     <TabItem value="Windows / macOS (Intel) / Linux">
-        <Row gutter={[16, 4]} justify="space-between">
-            <Col xs={24} sm={12}>
-                <FileCard link="https://oss.zjucomp.net/GNS3.VM.VMware.Workstation.2.2.50.zip" name="本站镜像源" size={946080449} file_type="cloud"/>
-            </Col>
-            <Col xs={24} sm={12}>
-                <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={946080449} file_type="github"/>
-            </Col>
-        </Row>
+        <GridContainer>
+            <FileCard link="https://oss.zjucomp.net/GNS3.VM.VMware.Workstation.2.2.50.zip" name="本站镜像源" size={946080449} file_type="cloud"/>
+            <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={946080449} file_type="github"/>
+        </GridContainer>
 
         * 下载并解压GNS3虚拟机
 
@@ -101,14 +97,10 @@ GNS3 3.0.0-3.0.3无法正确获取Idle PC，会导致卡死，如不慎安装，
 
     </TabItem>
     <TabItem value="macOS (Apple Silicon)">
-        <Row gutter={[16, 4]} justify="space-between">
-            <Col xs={24} sm={12}>
-                <FileCard link="https://oss.zjucomp.net/GNS3.VM.ARM64.2.2.48.zip" name="本站镜像源" size={909808022} file_type="cloud"/>
-            </Col>
-            <Col xs={24} sm={12}>
-                <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={909808022} file_type="github"/>
-            </Col>
-        </Row>
+        <GridContainer>
+            <FileCard link="https://oss.zjucomp.net/GNS3.VM.ARM64.2.2.48.zip" name="本站镜像源" size={909808022} file_type="cloud"/>
+            <FileCard link="https://github.com/GNS3/gns3-gui/releases" name="Github官方仓库" size={909808022} file_type="github"/>
+        </GridContainer>
 
         * 下载并解压GNS3虚拟机
 

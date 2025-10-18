@@ -8,21 +8,16 @@ description: 计算机网络实验一（Lab1）网络协议分析的精简版指
 import LinkCard from '@site/src/components/LinkCard';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
-import { Row, Col } from 'antd';
+import GridContainer from "@site/src/components/GridContainer";
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 <DeadlineProcess start={'2025-09-16 18:50:00'} end={'2025-09-30 23:59:59'}/>
-<Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
-      <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-      <FileCard file_type={'md'} name={'Lab1 实验报告模板 Markdown版本'} size={'562679'} link={require('@site/assets/templete/md/Lab1 实验报告模板.zip').default} />
-      </Col>
-      <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-      <FileCard file_type={'doc'} name={'Lab1 实验报告模板 Word版本'} size={'738304'} link={require('@site/assets/templete/word/实验报告模版_实验1.doc').default} />
-      </Col>
-      <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-      <FileCard file_type={'pdf'} name={'Lab1 Wireshark 实验课件'} size={'2874374'} link={require('@site/assets/slides/luxq_Wireshark.pdf').default} />
-    </Col>
-</Row>
+
+<GridContainer>
+    <FileCard file_type={'md'} name={'Lab1 实验报告模板 Markdown版本'} size={'562679'} link={require('@site/assets/templete/md/Lab1 实验报告模板.zip').default} />
+    <FileCard file_type={'doc'} name={'Lab1 实验报告模板 Word版本'} size={'738304'} link={require('@site/assets/templete/word/实验报告模版_实验1.doc').default} />
+    <FileCard file_type={'pdf'} name={'Lab1 Wireshark 实验课件'} size={'2874374'} link={require('@site/assets/slides/luxq_Wireshark.pdf').default} />
+</GridContainer>
 
 ## 一、实验目的
 * 学习使用Wireshark抓包工具

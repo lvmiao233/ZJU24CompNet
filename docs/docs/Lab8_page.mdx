@@ -7,7 +7,7 @@ description: 计算机网络实验八（Lab8）指导手册，内容为实现一
 import {Table} from 'antd';
 import FileCard from '@site/src/components/FileCard';
 import DeadlineProcess from '@site/src/components/DeadlineProcess';
-import { Row, Col } from 'antd';
+import GridContainer from '@site/src/components/GridContainer';
 import MappedCollapse from "@site/src/components/CollapseContent";
 import MultiTestCard from "@site/src/components/MultiTestCard";
 import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, cacheAttrExtra, negotiationAttrInfo, negotiationAttrExtra, resourceAttrInfo, resourceAttrExtra, securityAttrInfo, securityAttrExtra, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/data/HTTPInfo.js';
@@ -19,20 +19,12 @@ import TabItem from '@theme/TabItem';
 
 <DeadlineProcess start={'2025-09-30 18:50:00'} end={'2025-12-30 23:59:59'}/>
 
-<Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
-    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-        <FileCard file_type={'md'} name={'Lab8 实验报告模板 Markdown版本'} size={'26341'} link={require('@site/assets/templete/md/Lab8 实验报告模板.zip').default} />
-    </Col>
-    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-        <FileCard file_type={'doc'} name={'Lab8 实验报告模板 Word版本'} size={'61440'} link={require('@site/assets/templete/word/实验报告模版_实验8.doc').default} />
-    </Col>
-    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-        <FileCard file_type={'pdf'} name={'Lab8 实现一个轻量级的Web服务器 实验课件'} size={'2554537'} link={require('@site/assets/slides/Lab8-WebServer.pdf').default} />
-    </Col>
-    <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-        <FileCard file_type={'github'} name={'实验测试框架'} size={'114755'} link={"https://github.com/lvmiao233/NetLabFramework"} />
-    </Col>
-</Row>
+<GridContainer>
+    <FileCard file_type={'md'} name={'Lab8 实验报告模板 Markdown版本'} size={'26341'} link={require('@site/assets/templete/md/Lab8 实验报告模板.zip').default} />
+    <FileCard file_type={'doc'} name={'Lab8 实验报告模板 Word版本'} size={'61440'} link={require('@site/assets/templete/word/实验报告模版_实验8.doc').default} />
+    <FileCard file_type={'pdf'} name={'Lab8 实现一个轻量级的Web服务器 实验课件'} size={'2554537'} link={require('@site/assets/slides/Lab8-WebServer.pdf').default} />
+    <FileCard file_type={'github'} name={'实验测试框架'} size={'114755'} link={"https://github.com/lvmiao233/NetLabFramework"} />
+</GridContainer>
 <br/>
 :::important 提示
 以下指导仅供参考，除实验报告中具体要求外，我们对具体实现方式没有要求，你可以自由设计与开发，文档内测试仅供你逐步验证实现正确性，评分以报告+代码为准，**对于感觉较简单的步骤可以跳过相应测试**
@@ -224,7 +216,7 @@ DELETE /users/123      # 删除ID为123的用户 (删除)
 ```
 RESTful的关键特性还包括：客户-服务器模式，无状态通信，缓存机制，统一接口，分层系统，[可选]按需代码
 
-理论上，RESTful是一种非常优雅和清晰的设计，但在复杂的现实网络环境中，开发者有时会做出一些“妥协”，由此便诞生了所谓“POSTful”的实践（没有POSTful这个术语），即无论什么操作，都使用POST方法一把梭，这通常是出于一些无奈的原因，比如一些运营商或企业安全设备可能会对GET/POST以外的方法进行误处理，或是中间代理服务器对GET请求的异常缓存行为都可能影响业务的正常运行；在这种情况下，`GET /users` 可能会被改造为 `POST /getUserList`，`DELETE /users/123` 会被改造为 `POST /deleteUser` 等等
+理论上，RESTful是一种非常优雅和清晰的的设计，但在复杂的现实网络环境中，开发者有时会做出一些“妥协”，由此便诞生了所谓“POSTful”的实践（没有POSTful这个术语），即无论什么操作，都使用POST方法一把梭，这通常是出于一些无奈的原因，比如一些运营商或企业安全设备可能会对GET/POST以外的方法进行误处理，或是中间代理服务器对GET请求的异常缓存行为都可能影响业务的正常运行；在这种情况下，`GET /users` 可能会被改造为 `POST /getUserList`，`DELETE /users/123` 会被改造为 `POST /deleteUser` 等等
 
 现实世界没有完美的解决方案，根据实际情况做最适合的选择才是工程实践的常态，不过在我们的实验中，你只需要正确区分GET和POST方法，并执行相应的功能逻辑即可
 

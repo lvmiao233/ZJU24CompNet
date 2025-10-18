@@ -54,7 +54,7 @@ const FileCard = (props) => {
                     <div style={{width: '86%'}}>
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                             <h5 style={{margin: 0, fontSize: '16px', fontWeight: '500', paddingBottom: 4}}>{name}</h5>
-                            <span>{fileSize}</span>
+                            <span style={{fontSize: '14px'}}>{fileSize}</span>
                         </div>
                     </div>
                     <div style={{width: '8.33333%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>

@@ -5,15 +5,14 @@ description: 关于计算机网络体系结构中应用层（Application Layer�
 ---
 
 import FileCard from '@site/src/components/FileCard';
-import { Row, Col, Alert } from 'antd';
+import { Alert } from 'antd';
+import GridContainer from '@site/src/components/GridContainer';
 
 <Alert message={"解析内容持续更新中，如有疑问请通过钉钉/微信/Issue提问"} type="info" showIcon style={{marginBottom: 16}}/>
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>章节资源</h3>
-<Row gutter={[16, 4]} justify="space-between" style={{marginBottom: -25}}>
-  <Col xs={24} sm={24} md={12} lg={24} xl={12} xxl={12}>
-      <FileCard file_type={'pdf'} name={'7 Application Layer'} size={'14776102'} link={require('@site/assets/slides/7_ApplicationLayer.pdf').default} />
-  </Col>
-</Row>
+<GridContainer>
+    <FileCard file_type={'pdf'} name={'7 Application Layer'} size={'14776102'} link={require('@site/assets/slides/7_ApplicationLayer.pdf').default} />
+</GridContainer>
 
 
