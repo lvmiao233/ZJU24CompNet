@@ -45,7 +45,8 @@ const progressRowStyle = {
 };
 
 const progressStyle = {
-    margin: '6px 0'
+    margin: '6px 0',
+    height: 20
 };
 
 const DeadlineProcess = (props) => {
