@@ -379,7 +379,7 @@ R3的路由表：观察得知，网络地址<ModernInput size="large" questionId
     { id: 'r8_config', label: '记录R8配置命令', type: 'text', textConfig: {initialContent: "R8(config)# interface f0/1\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface f2/0\nR8(config-if)# \nR8(config-if)# \nR8(config)# \nR8(config-router)# \nR8(config-router)# \nR8(config-router)# \nR8(config-router)# ",codeEditor: true, initialLines: 11} }
   ]}
 >
-   ![](img/image13.png)
+   ![R1 的 BGP 配置命令截图（示例）](img/image13.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -417,9 +417,9 @@ R1的邻居关系：R1的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'r1_neighbor', label: '截图R1邻居关系1' }
   ]}
 >
-    ![](img/image14.png)
+    ![R1 邻居关系命令输出截图（1）](img/image14.png)
 
-    ![](img/image15.png)
+    ![R1 邻居关系命令输出截图（2）](img/image15.png)
 </ScreenshotCard>
 R2的邻居关系：R2邻居的IP分别为<ModernInput size="large" questionId="Lab6-p2-s10-r2-ip1"/>、<ModernInput size="large" questionId="Lab6-p2-s10-r2-ip2"/>，链路类型均为<ModernInput size="medium" questionId="Lab6-p2-s10-r2-type"/>。
 
@@ -440,9 +440,9 @@ R3的邻居关系：R3的iBGP邻居的IP为<ModernInput size="large" questionId=
     { id: 'r3_neighbor', label: '截图R3邻居关系1' }
   ]}
 >
-    ![](img/image16.png)
+    ![R3 邻居关系命令输出截图（1）](img/image16.png)
 
-    ![](img/image17.png)
+    ![R3 邻居关系命令输出截图（2）](img/image17.png)
 </ScreenshotCard>
 
 R5的邻居关系：R5的iBGP邻居的IP为<ModernInput size="large" questionId="Lab6-p2-s10-r5-igp"/>，eBGP邻居的IP为<ModernInput size="large" questionId="Lab6-p2-s10-r5-ebgp"/>。
@@ -500,7 +500,7 @@ R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'r1_bgp_db', label: '截图R1 BGP数据库' }
   ]}
 >
-    ![](img/image18.png)
+    ![R1 的 BGP 数据库命令输出截图](img/image18.png)
 </ScreenshotCard>
 
     观察得知：
@@ -577,7 +577,7 @@ R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'r6_bgp_before', label: '截图断开前R6 BGP数据库' }
   ]}
 >
-    ![](img/image19.png)
+    ![R6 的 BGP 数据库截图（断开前）](img/image19.png)
 </ScreenshotCard>
     R6的BGP数据库（断开连接后）：观察得知，到达R2-R5间子网的最佳路由的下一跳变为<ModernInput size="large" questionId="Lab6-p2-s15-after"/>。
 
@@ -607,7 +607,7 @@ R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'ping_result', label: '截图Ping结果' }
   ]}
 >
-    ![](img/image20.png)
+    ![R1 → R2-R8 互联端口 Ping 测试结果截图](img/image20.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -617,7 +617,7 @@ R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'traceroute_result', label: '截图路由跟踪结果' }
   ]}
 >
-    ![](img/image21.png)
+    ![R1 到 R2-R8 子网的路由跟踪结果截图](img/image21.png)
 </ScreenshotCard>
 
 路由跟踪结果：得到的现象是在路由器<ModernInput size="medium" questionId="Lab6-p3-s16-router"/>中断了。
@@ -637,7 +637,7 @@ R8的邻居关系：R8的两个邻居的IP分别为<ModernInput size="large" que
     { id: 'r3_bgp_db', label: '截图R3 BGP数据库' }
   ]}
 >
-    ![](img/image22.png)
+    ![R3 的 BGP 数据库截图（到达 R2-R8 子网的最佳路由）](img/image22.png)
 </ScreenshotCard>
 
 R3的BGP数据库：观察得知，到达R2-R8间子网的最佳路由的下一跳IP地址是<ModernInput size="large" questionId="Lab6-p3-s17-r3-nh"/>。
@@ -649,7 +649,7 @@ R3的BGP数据库：观察得知，到达R2-R8间子网的最佳路由的下一�
     { id: 'r3_route_table', label: '截图R3路由表' }
   ]}
 >
-    ![](img/image23.png)
+    ![R3 的 路由表截图（到达 R2-R8 子网的下一跳与来源）](img/image23.png)
 </ScreenshotCard>
 
 R3的路由表：观察得知，
@@ -664,7 +664,7 @@ R3的路由表：观察得知，
     { id: 'r4_route_table', label: '截图R4路由表' }
   ]}
 >
-    ![](img/image24.png)
+    ![R4 的 路由表截图（未启用同步导致缺少外部路由）](img/image24.png)
 </ScreenshotCard>
 
 R4的路由表：观察得知，由于R4上缺少相应的路由，因此不能Ping通。默认情况下，未启用同步功能，BGP就不会考虑AS内部是否存在相关路由，导致路由黑洞。
@@ -694,7 +694,7 @@ R4的路由表：观察得知，由于R4上缺少相应的路由，因此不能P
     { id: 'r3_bgp_sync', label: '截图R3 BGP数据库' }
   ]}
 >
-    ![](img/image25.png)
+    ![R3 的 BGP 数据库截图（同步开启后最佳路由变化）](img/image25.png)
 </ScreenshotCard>
 
 R3的BGP数据库：观察得知，
@@ -709,7 +709,7 @@ R3的BGP数据库：观察得知，
     { id: 'r3_route_sync', label: '截图R3路由表' }
   ]}
 >
-    ![](img/image26.png)
+    ![R3 的 路由表截图（到达 R2-R8 子网的下一跳归属）](img/image26.png)
 </ScreenshotCard>
 
 R3的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" questionId="Lab6-p3-s18-r3-rt-ip"/>，属于路由器<ModernInput size="medium" questionId="Lab6-p3-s18-r3-rt-router"/>。
@@ -721,7 +721,7 @@ R3的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" 
     { id: 'r1_bgp_sync', label: '截图R1 BGP数据库' }
   ]}
 >
-    ![](img/image27.png)
+    ![R1 的 BGP 数据库截图（水平分裂影响通告）](img/image27.png)
 </ScreenshotCard>
 
 R1的BGP数据库：观察得知，
@@ -736,7 +736,7 @@ R1的BGP数据库：观察得知，
     { id: 'ping_sync', label: '截图Ping结果' }
   ]}
 >
-    ![](img/image28.png)
+    ![R1 的 Ping 测试结果截图（到 R2-R8 端口）](img/image28.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -774,7 +774,7 @@ R1的BGP数据库：观察得知，
     { id: 'r3_ospf_db', label: '截图R3 OSPF数据库' }
   ]}
 >
-    ![](img/image29.png)
+    ![R3 的 OSPF 数据库截图（从 BGP 重分发的外部链路）](img/image29.png)
 </ScreenshotCard>
 
 R3的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R3-R1的直连网络<ModernInput size="large" questionId="Lab6-p3-s19-r3-net"/>没有被本路由器重分发。
@@ -786,7 +786,7 @@ R3的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的�
     { id: 'r5_ospf_db', label: '截图R5 OSPF数据库' }
   ]}
 >
-    ![](img/image30.png)
+    ![R5 的 OSPF 数据库截图（从 BGP 重分发的外部链路）](img/image30.png)
 </ScreenshotCard>
 
 R5的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的信息，但是R5-R2的直连网络<ModernInput size="large" questionId="Lab6-p3-s19-r5-net"/>没有被本路由器重分发。
@@ -798,7 +798,7 @@ R5的OSPF数据库：观察得知，OSPF从BGP中重分发了AS外部链路的�
     { id: 'r4_route_redist', label: '截图R4路由表' }
   ]}
 >
-    ![](img/image31.png)
+    ![R4 的 路由表截图（出现 AS 外部路由信息）](img/image31.png)
 </ScreenshotCard>
 
 R4的路由表：观察得知，R4上增加了AS外部的路由信息。此时，到达R2-R8间子网的下一跳为<ModernInput size="large" questionId="Lab6-p3-s19-r4-nh1"/>和<ModernInput size="large" questionId="Lab6-p3-s19-r4-nh2"/>（优先级相同）。因为重分发后，OSPF将在AS内部传播BGP的外部路由信息。
@@ -818,7 +818,7 @@ R4的路由表：观察得知，R4上增加了AS外部的路由信息。此时�
     { id: 'r1_bgp_clear', label: '截图R1 BGP数据库' }
   ]}
 >
-    ![](img/image32.png)
+    ![R1 的 BGP 数据库截图（清除后重新学习的最佳路由）](img/image32.png)
 </ScreenshotCard>
 
 R1的BGP数据库：观察得知，
@@ -833,7 +833,7 @@ R1的BGP数据库：观察得知，
     { id: 'r1_route_clear', label: '截图R1路由表' }
   ]}
 >
-    ![](img/image33.png)
+    ![R1 的 路由表截图（到达 R2-R8 子网的下一跳）](img/image33.png)
 </ScreenshotCard>
 
 R1的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" questionId="Lab6-p3-s20-rt-ip"/>，属于路由器<ModernInput size="medium" questionId="Lab6-p3-s20-rt-router"/>。
@@ -845,7 +845,7 @@ R1的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" 
     { id: 'traceroute_clear', label: '截图路由跟踪结果' }
   ]}
 >
-    ![](img/image34.png)
+    ![R1 的 路由跟踪结果截图（到达 R2-R8 子网）](img/image34.png)
 </ScreenshotCard>
 
 路由跟踪结果：观察得知，依次经过了这些路由器：<ModernInput size="medium" questionId="Lab6-p3-s18-tr1"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr2"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr3"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr4"/>。
@@ -873,7 +873,7 @@ R1的路由表：到达R2-R8间子网的下一跳IP为<ModernInput size="large" 
     { id: 'r3_bgp_ospf_redist', label: '截图R3 BGP数据库' }
   ]}
 >
-    ![](img/image35.png)
+    ![R3 的 BGP 数据库截图（启用 OSPF 重分发后的新增路由）](img/image35.png)
 </ScreenshotCard>
 
 R3的BGP数据库：观察得知，新增的路由分别是：<ModernInput size="large" questionId="Lab6-p3-s21-net1"/>、<ModernInput size="large" questionId="Lab6-p3-s21-net2"/>、<ModernInput size="large" questionId="Lab6-p3-s21-net3"/>。因为重分发后，BGP将在AS之间传播OSPF的内部路由信息。
@@ -885,7 +885,7 @@ R3的BGP数据库：观察得知，新增的路由分别是：<ModernInput size=
     { id: 'r8_bgp_as65003', label: '截图R8 BGP数据库' }
   ]}
 >
-    ![](img/image36.png)
+    ![R8 的 BGP 数据库截图（含 AS65003 内部路由）](img/image36.png)
 </ScreenshotCard>
 
 R8的BGP数据库：观察得知，AS 65003内部子网的路由有<ModernInput size="small" questionId="Lab6-p3-s21-r8-count"/>条，其中到达R3的回环口的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s21-r8-r3"/>，到达R4的回环口的最佳路由的下一跳为<ModernInput size="large" questionId="Lab6-p3-s21-r8-r4"/>。
@@ -940,7 +940,7 @@ R8的BGP数据库：观察得知，AS 65003内部子网的路由有<ModernInput 
     { id: 'r7_bgp_before_filter', label: '截图R7 BGP数据库' }
   ]}
 >
-    ![](img/image37.png)
+    ![R7 的 BGP 数据库截图（过滤前，PC3 子网最佳路由）](img/image37.png)
 </ScreenshotCard>
 
 R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s24-r7"/>。
@@ -958,7 +958,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r8_filter_config', label: '截图R8配置命令' }
   ]}
 >
-    ![](img/image38.png)
+    ![R8 的 路由过滤配置命令截图（分发列表抑制 PC3 子网）](img/image38.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -968,7 +968,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r8_access_list', label: '截图R8访问列表' }
   ]}
 >
-    ![](img/image39.png)
+    ![R8 的 访问列表截图（拒绝 PC3 子网条目）](img/image39.png)
 </ScreenshotCard>
 
 查看R8生效的访问列表：（访问列表是有顺序的，前面优先。如需修改，请全部删除后重新按顺序添加）
@@ -980,7 +980,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r8_bgp_after_filter', label: '截图R8 BGP数据库' }
   ]}
 >
-    ![](img/image40.png)
+    ![R8 的 BGP 数据库截图（过滤后 PC3 子网不再通告）](img/image40.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -990,7 +990,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r7_bgp_after_filter', label: '截图R7 BGP数据库' }
   ]}
 >
-    ![](img/image41.png)
+    ![R7 的 BGP 数据库截图（过滤生效后，PC3 子网经其他 AS）](img/image41.png)
 </ScreenshotCard>
 
 观察得知：R8上到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s25-r8"/>，该路由被过滤，没有传递给R7，因此，R7上到达PC3子网的最佳路由的下一跳是<ModernInput size="large" questionId="Lab6-p4-s25-r7"/>，数据不再经过AS 65008了。
@@ -1020,9 +1020,9 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r1_ipv6_if', label: '截图R1 IPv6接口' }
   ]}
 >
-    ![](img/image43.png)
+    ![R1 的 IPv6 接口信息截图（f0/1）](img/image43.png)
 
-    ![](img/image44.png)
+    ![R1 的 IPv6 接口信息截图（f2/0）](img/image44.png)
 </ScreenshotCard>
 
 查看R1的IPv6接口，观察得知：
@@ -1053,9 +1053,9 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r6_ipv6_if', label: '截图R6 IPv6接口' }
   ]}
 >
-    ![](img/image45.png)
+    ![R6 的 IPv6 接口信息截图（f0/1）](img/image45.png)
 
-    ![](img/image46.png)
+    ![R6 的 IPv6 接口信息截图（f2/0）](img/image46.png)
 </ScreenshotCard>
 
 查看R6的IPv6接口，观察得知：
@@ -1070,7 +1070,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r1_r6_ping', label: '截图R1→R6 Ping结果' }
   ]}
 >
-    ![](img/image47.png)
+    ![R1 → R6 Ping 测试结果截图（IPv6）](img/image47.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -1099,7 +1099,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r6_ipv6_neighbor', label: '截图R6 IPv6邻居信息' }
   ]}
 >
-    ![](img/image49.png)
+    ![R6 的 IPv6 邻居信息截图（邻居状态 Established）](img/image49.png)
 </ScreenshotCard>
 
 查看R6的IPv6的邻居信息：与IPv6地址<ModernInput size="large" questionId="Lab6-p5-s28-r6"/>的邻居状态关系已为Established。
@@ -1111,7 +1111,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r1_ipv6_neighbor', label: '截图R1 IPv6邻居信息' }
   ]}
 >
-    ![](img/image50.png)
+    ![R1 的 IPv6 邻居信息截图（邻居状态 Established）](img/image50.png)
 </ScreenshotCard>
 
 查看R1的IPv6的邻居信息：与IPv6地址<ModernInput size="large" questionId="Lab6-p5-s28-r1"/>的邻居状态关系已为Established。
@@ -1139,7 +1139,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'pc2_ipv6_info', label: '截图PC2 IPv6配置' }
   ]}
 >
-    ![](img/image52.png)
+    ![PC2 的 IPv6 信息截图（含链路本地地址与路由器 MAC）](img/image52.png)
 </ScreenshotCard>
 
 链路本地地址为：<ModernInput size="large" questionId="Lab6-p5-s29-link"/>，路由器的MAC地址为：<ModernInput size="large" questionId="Lab6-p5-s29-mac"/>。
@@ -1151,7 +1151,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'pc2_r1_ping', label: '截图PC2→R1 Ping结果' }
   ]}
 >
-    ![](img/image53.png)
+    ![PC2 → R1 Ping 测试结果截图（IPv6）](img/image53.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -1186,7 +1186,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'r1_ipv6_route', label: '截图R1 IPv6路由表' }
   ]}
 >
-    ![](img/image54.png)
+    ![R1 的 IPv6 路由表示例（标注 BGP 路由项）](img/image54.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1196,7 +1196,7 @@ R7的BGP数据库：当前，到达PC3子网的最佳路由的下一跳是<Moder
     { id: 'pc2_pc5_ping', label: '截图PC2→PC5 Ping结果' }
   ]}
 >
-    ![](img/image55.png)
+    ![PC2 → PC5 Ping 测试结果截图（IPv6）](img/image55.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -1239,7 +1239,7 @@ PC4→PC2的Ping测试结果：此时由于路由器<ModernInput size="medium" q
     { id: 'r1_tunnel_config', label: '截图R1隧道配置' }
   ]}
 >
-    ![](img/image56.png)
+    ![R1 的 IPv6 隧道配置截图（Tunnel 接口、源/目的、模式）](img/image56.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1249,7 +1249,7 @@ PC4→PC2的Ping测试结果：此时由于路由器<ModernInput size="medium" q
     { id: 'r2_tunnel_config', label: '截图R2隧道配置' }
   ]}
 >
-    ![](img/image57.png)
+    ![R2 的 IPv6 隧道配置截图（Tunnel 接口、源/目的、模式）](img/image57.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -1268,7 +1268,7 @@ PC4→PC2的Ping测试结果：此时由于路由器<ModernInput size="medium" q
     { id: 'r2_ipv6_static', label: '记录R2静态路由配置', type: 'text', textConfig: {initialContent: "R2(config)# ", codeEditor: true, initialLines: 1} }
   ]}
 >
-    ![](img/image58.png)
+    ![R1 的 IPv6 静态路由配置截图（指向隧道接口）](img/image58.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1278,7 +1278,7 @@ PC4→PC2的Ping测试结果：此时由于路由器<ModernInput size="medium" q
     { id: 'pc2_pc4_ping', label: '截图PC2→PC4 Ping结果' }
   ]}
 >
-    ![](img/image59.png)
+    ![PC2 → PC4 Ping 测试结果截图（IPv6，经隧道静态路由）](img/image59.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -1328,7 +1328,7 @@ R6的IPv6路由表：观察得知，R6上没有<ModernInput size="large" questio
     { id: 'r1_redist_static', label: '截图R1重分发配置' }
   ]}
 >
-    ![](img/image60.png)
+    ![R1 的 BGP 重分发静态路由配置截图（IPv6）](img/image60.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1338,7 +1338,7 @@ R6的IPv6路由表：观察得知，R6上没有<ModernInput size="large" questio
     { id: 'r6_bgp_static', label: '截图R6 BGP数据库' }
   ]}
 >
-    ![](img/image61.png)
+    ![R6 的 BGP 数据库截图（出现 R2 IPv6 网络的路由）](img/image61.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1348,7 +1348,7 @@ R6的IPv6路由表：观察得知，R6上没有<ModernInput size="large" questio
     { id: 'r6_route_static', label: '截图R6路由表' }
   ]}
 >
-    ![](img/image62.png)
+    ![R6 的 IPv6 路由表截图（含 R2 IPv6 网络条目）](img/image62.png)
 </ScreenshotCard>
 
 <ScreenshotCard 
@@ -1358,7 +1358,7 @@ R6的IPv6路由表：观察得知，R6上没有<ModernInput size="large" questio
     { id: 'pc5_pc4_ping_success', label: '截图PC5→PC4 Ping结果' }
   ]}
 >
-    ![](img/image63.png)
+    ![PC5 → PC4 Ping 测试结果截图（IPv6，经 BGP 重分发）](img/image63.png)
 </ScreenshotCard>
 
 </TaskCard>

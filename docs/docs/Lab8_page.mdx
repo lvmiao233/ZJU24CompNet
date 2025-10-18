@@ -71,7 +71,7 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 以HTML为基础的网页是Web服务最基础的应用场景，而HTML网页除了本身是一个资源外，也包含了对其他资源（HTML、CSS、JavaScript、图片等）的链接与使用，为了保证网页的正确展示，仅仅请求HTML网页是不够的，浏览器接收到HTML文档后，会立即解析其中的资源链接（如CSS、JavaScript文件和图片等），并发起相应新的HTTP请求来获取这些资源，
 
-<img src={require("./img/Lab8/HTTP_persistent_connection.png").default} alt="HTTP_persistent_connection" style={{zoom: "24%"}} />
+<img src={require("./img/Lab8/HTTP_persistent_connection.png").default} alt="HTTP 持久连接示意图" style={{zoom: "24%"}} />
 
 对于不同的HTTP协议版本，这一过程的方式会有一些区别：HTTP/1.0每次请求都需要重新建立TCP连接；HTTP/1.1通过持久连接和请求管道化技术，允许在一个TCP连接上发送多对请求-响应，减少了连接建立的时间开销；HTTP/2在此基础上引入了多路复用技术，使得多个请求和响应可以在同一连接上任意交错传输，不需要等待前一对响应传输完成
 
@@ -79,7 +79,7 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 参考[开发人员工具使用说明](/docs/Coding/toolchain#5-浏览器开发人员工具使用)打开开发人员工具-网络，刷新页面，观察网络活动列表中的**变化**；从中选中一个网络活动，查看其请求/响应的版本等信息
 
-<img alt={"查看加载网页使用的HTTP版本"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
+<img alt={"Chrome 开发者工具中查看网页使用的 HTTP 版本的示例截图"} src={require('./img/Lab8/image-20241028145513246.png').default} style={{zoom: '60%'}}/>
 
 为了方便你上手了解Web服务器的基本运行方式，我们不妨再实现一个“朴素”的Web服务端（相信我，真的很简单），在本步骤中，我们的Web服务端将会支持以下能力：
 
@@ -109,7 +109,7 @@ void connectionHandler(int socket) {
 
 ## 2 让我们说HTTP🔊——HTTP协议格式解析
 
-<img alt={"HTTP协议格式"} src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
+<img alt={"HTTP 报文结构示意图（请求/响应起始行、头部与实体）"} src={require('./img/Lab8/image-20241029212218140.png').default} style={{zoom: '70%'}}/>
 
 Lab7的实验中我们已经亲自进行了通信协议的设计和实现，不知道你感觉如何？相比我们Socket服务端所使用的协议，Web服务几十年持续演进中扩展的丰富功能显然对协议的表达能力与灵活性提出了极高的要求，而HTTP协议不负众望地满足了用户与企业的这些需要，不仅为我们的日常网页浏览提供了坚实的基础，也在许多场景被用作通用的通讯协议
 
@@ -406,7 +406,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 自动化的漏洞扫描非常简易、低成本，而攻破后加密勒索的收益又相当高，因此全球范围内这样的攻击相当普遍，如果你准备在公网提供Web服务，尤其是存在CDN/OSS的使用时，请务必谨慎配置安全策略，以免因为勒索/服务商账单而不幸“破产”
 
-<img src={require('@site/docs/docs/img/Lab8/image-20241104011024024.png').default} alt="试探扫描示例" style={{zoom: "70%"}} />
+<img src={require('@site/docs/docs/img/Lab8/image-20241104011024024.png').default} alt="nmap 扫描开放端口的示例输出（试探扫描）" style={{zoom: "70%"}} />
 
 实际上，我们的实验文档网站每天都在受到这样的爆破，高峰时2k请求/小时（很难理解爆破Cloudflare和Github Pages且被安全策略屏蔽后还在锲而不舍地扫描是怎样一种心态(￣_￣|||)）
 
