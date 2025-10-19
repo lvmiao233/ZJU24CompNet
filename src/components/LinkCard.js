@@ -16,10 +16,10 @@ export const LinkCard = ({title, url, icon, children}) => (
                         shape="square"
                         style={{backgroundColor: '#f5f5f5'}}
                         size={{xs: 28, sm: 32, md: 40, lg: 32, xl: 48, xxl: 50}}
-                        src={<img src={icon} alt="avatar"
+                        src={<img src={icon} alt={title ? `${title} 图标` : '链接图标'}
                                   style={{
                                       maxWidth: '75%', maxHeight: '75%', objectFit: 'contain',
-                                  }}/>}/>
+                                  }}/>} />
                 </Col>
                 <Col span={21}>
                     <Title level={5} style={{marginBottom: 8, marginTop: -4}}>{title}</Title>

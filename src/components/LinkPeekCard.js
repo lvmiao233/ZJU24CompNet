@@ -28,7 +28,7 @@ export const LinkPeekCard = ({title, url, icon, children}) => {
                         <Avatar
                             shape="square" style={{backgroundColor: '#f5f5f5'}}
                             size={{xs: 28, sm: 32, md: 40, lg: 32, xl: 48, xxl: 50}}
-                            src={<img src={icon} alt="avatar" style={{maxWidth: '75%', maxHeight: '75%', objectFit: 'contain'}}/>}
+                            src={<img src={icon} alt={title ? `${title} 图标` : '链接图标'} style={{maxWidth: '75%', maxHeight: '75%', objectFit: 'contain'}}/>}
                         />
                     </Col>
                     <Col span={21}>

@@ -534,7 +534,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     return (
       <div className="uploadContainer">
         {uploadedImage ? (
-          <img src={uploadedImage} alt="已上传" className="uploadedImage" />
+          <img src={uploadedImage} alt={`题目 ${questionId} 的已上传图片`} className="uploadedImage" />
         ) : (
           <div 
             {...getMainRootProps({ 

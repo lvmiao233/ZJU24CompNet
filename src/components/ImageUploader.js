@@ -60,7 +60,7 @@ const ImageUploader = ({ questionId }) => {
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >
-      {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 
+      {imageUrl ? <img src={imageUrl} alt={`题目 ${questionId} 的已上传图片`} style={{ width: '100%' }} /> : 
         <div>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
