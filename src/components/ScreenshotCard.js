@@ -5,7 +5,7 @@ import { AnswerContext } from '@site/src/context/AnswerContext';
 import ModernInput from './ModernInput';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import './ScreenshotCard.css';
+import '../css/ScreenshotCard.css';
 
 // 条件导入浏览器依赖的库
 let useDropzone = null;

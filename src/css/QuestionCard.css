@@ -1,0 +1,16 @@
+.question-card {
+  margin-bottom: 24px;
+}
+
+.question-source {
+  margin-bottom: 16px;
+}
+
+.question-source .ant-tag {
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.question-content {
+  margin-top: 16px;
+}

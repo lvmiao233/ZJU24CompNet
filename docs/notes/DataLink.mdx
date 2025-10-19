@@ -8,6 +8,8 @@ import LinkPeekCard from "@site/src/components/LinkPeekCard";
 import FileCard from '@site/src/components/FileCard';
 import { Alert } from 'antd';
 import GridContainer from '@site/src/components/GridContainer';
+import QuestionCard from '@site/src/components/QuestionCard';
+import Answer from '@site/src/components/Answer';
 
 <Alert message={"解析内容持续更新中，如有疑问请通过钉钉/微信/Issue提问"} type="info" showIcon style={{marginBottom: 16}}/>
 
@@ -20,3 +22,33 @@ import GridContainer from '@site/src/components/GridContainer';
 ## Go Back N / Selective Repeat 协议可视化
 
 <LinkPeekCard url="https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/" icon="https://www2.tkn.tu-berlin.de/favicon.ico" title="Selective Repeat / Go Back N">coded by Johannes Kessler 2012</LinkPeekCard>
+
+## 题目解析
+
+<QuestionCard source={["百题-30"]}>
+### Which is not the CSMA / CA rule of 802.11?
+
+A. If station X received RTS of station A, X must remain silent for a short time so that X will not interfere with A's receipt of CTS.
+
+B. If station X received RTS, but did not receive CTS, then X can transmit its data and will not interfere with other stations.
+
+C. If station X has not received RTS, but received CTS, then X may not transmit its data.
+
+D. If station X has received both RTS and CTS, then X may transmit its data.
+
+<Answer>
+答案：D
+
+无线传输中，冲突指的是多个节点同时向一个节点发送数据
+
+这类题目中，我们一般默认设备接收信号的范围和发出信号的范围相等，因此，当一个节点能收到CTS时，接收方也能收到该节点传输的数据
+
+情况B的图例如下，虽然发送方位置能接收到X传输的数据，但接收方处只能收到发出方传输的数据，此时X进行传输不会导致冲突
+<img src={require("./img/Q30-B.png").default} style={{zoom:"40%"}} alt="情况B图例"/>
+
+情况D的图例如下，由于接收站在X的信号范围内，如果X也在此时发送，则会导致冲突：
+<img src={require("./img/Q30-D.png").default} style={{zoom:"35%"}} alt="情况D图例"/>
+
+本类题型只对照文字是难以判断节点的位置关系的，建议同学们画图
+</Answer>
+</QuestionCard>

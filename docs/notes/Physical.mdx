@@ -7,6 +7,8 @@ description: 关于计算机网络物理层（Physical Layer）的课程笔记�
 import FileCard from '@site/src/components/FileCard';
 import { Alert } from 'antd';
 import GridContainer from '@site/src/components/GridContainer';
+import QuestionCard from '@site/src/components/QuestionCard';
+import Answer from '@site/src/components/Answer';
 
 <Alert message={"解析内容持续更新中，如有疑问请通过钉钉/微信/Issue提问"} type="info" showIcon style={{marginBottom: 16}}/>
 
@@ -15,4 +17,18 @@ import GridContainer from '@site/src/components/GridContainer';
   <FileCard file_type={'pdf'} name={'2 Physical Layer'} size={'4249125'} link={require('@site/assets/slides/luxq_2_The Physical Layer.pdf').default} />
 </GridContainer>
 
+## 题目解析
 
+<QuestionCard source={["25王道 P37-20"]}>
+### 将1路模拟信号分别编码为数字信号后，与另外7路数字信号采用同步TDM方式复用到一条通信线路上。1路模拟信号的频率变化范围为0~1kHz,每个采样点采用PCM方式编码为4位的二进制数，另外7路数字信号的数据率均为7.2kb/s。复用线路需要的最小通信能力是()
+
+A. 7.2kb/s&emsp;&emsp;&emsp;B. 8kb/s&emsp;&emsp;&emsp;C.64kb/s&emsp;&emsp;&emsp;D.512kb/s
+
+<Answer>
+答案：C
+
+同步TDM下，每路信号固定获得相同的时间片，由于不同时间片，我们使用的是相同的通信线路，因此线路的带宽也不变，因此线路通信能力至少要是每路信号中最大数据率*信号路数，才能保证最快的1路在自己的时间片能达到相应的速率
+
+STDM统计时分复用下，时间片可以动态分配，就不会有以上的问题
+</Answer>
+</QuestionCard>

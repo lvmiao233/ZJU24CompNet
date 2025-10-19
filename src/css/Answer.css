@@ -1,0 +1,11 @@
+.answer-collapse .ant-collapse-header {
+  padding-left: 0 !important;
+  margin-top: -15px;
+  font-size: 14px; /* 明确 header 字号为 14px */
+}
+
+.answer-collapse .ant-collapse-content-box {
+  padding: 0 !important; /* 恢复 padding 以保证缩进 */
+  font-size: 16px; /* 明确正文字号为 16px */
+  line-height: 1.6; /* 设置标准行高 */
+}

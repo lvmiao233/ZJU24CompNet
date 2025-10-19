@@ -7,6 +7,8 @@ description: 关于计算机网络体系结构的课程笔记。此页面提供�
 import FileCard from '@site/src/components/FileCard';
 import { Alert } from 'antd';
 import GridContainer from '@site/src/components/GridContainer';
+import QuestionCard from '@site/src/components/QuestionCard';
+import Answer from '@site/src/components/Answer';
 
 <Alert message={"解析内容持续更新中，如有疑问请通过钉钉/微信/Issue提问"} type="info" showIcon style={{marginBottom: 16}}/>
 
@@ -16,3 +18,28 @@ import GridContainer from '@site/src/components/GridContainer';
     <FileCard file_type={'pdf'} name={'9 课程总览与复习'} size={'3627732'} link={require('@site/assets/slides/ComputerNetworks_overview&summary.pdf').default} />
 </GridContainer>
 
+## 题目解析
+
+<QuestionCard source={["25王道 P22-9"]}>
+### TCP通信双方通过“三报文握手”建立连接，这属于网络协议三要素中的()。
+
+A.语义&emsp;&emsp;&emsp;B.时序&emsp;&emsp;&emsp;C.服务&emsp;&emsp;&emsp;D.语法
+
+<Answer>
+答案：B
+
+三次握手中，具体执行了什么操作，怎么执行操作 → 语义
+
+三次握手中，操作执行的顺序（1 A→2 B→3 A）→ 时序
+
+本题没有提到具体执行的操作，更贴近时序
+</Answer>
+</QuestionCard>
+
+<QuestionCard source={["概念-流量控制", "概念-流量控制"]}>
+### 流量控制和拥塞控制的区别是？
+
+流量控制：关注接收方，主动调整发送速率，防止发送方发送数据的速度超过接收方能够处理的速度
+
+拥塞控制：关注整个网络的状态，防止网络中的过多数据导致网络性能下降或崩溃
+</QuestionCard>
