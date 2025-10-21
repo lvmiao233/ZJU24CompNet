@@ -1,0 +1,21 @@
+---
+sidebar_position: 33
+title: 计算机网络协议信息速查
+description: 一个全面的计算机网络协议信息参考页面。此页面提供了网络协议的层级分类、端口速查表，旨在帮助学习者速查速记网络协议的相关信息。
+---
+import Protocols from '@site/src/data/protocals.js';
+import { protocolColumns } from '@site/src/data/protocals.js';
+import { Alert, Table} from 'antd';
+
+### 层级速记
+
+<Alert message={"NAT/ARP采用王道分类方式-最高看到哪层信息则属于哪层"} type="warning" showIcon/>
+
+* 应用层协议：FTP TELNET SMTP DNS TFTP HTTP HTTPS POP3 SNMP SSH BGP IMAP
+* 传输层协议：TCP UDP NAT
+* 网络层协议：IP ICMP IGMP ARP OSPF
+* 数据链路层协议：HDLC PPP Ethernet 802.11
+
+### 端口号速记
+
+<Table columns={protocolColumns} dataSource={Protocols} pagination={false} style={{ width: '100%' }} size="small"/>
