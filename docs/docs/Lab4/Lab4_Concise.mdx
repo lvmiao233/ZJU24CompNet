@@ -126,14 +126,14 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
    示例：
    R1#config t
    Enter configuration commands, one per line. End with CNTL/Z.
-   R1(config)#interface fa0/0
-   R1(config-if)#ip address [ip] 255.255.0.0
-   R1(config-if)#no shut
-   R1(config-if)#exit
-   R1(config)#interface fa1/0
-   R1(config-if)#ip address [ip] 255.255.0.0
-   R1(config-if)#no shut
-   R1(config-if)#exit
+   R1(config)# interface fa0/0
+   R1(config-if)# ip address [ip] 255.255.0.0
+   R1(config-if)# no shut
+   R1(config-if)# exit
+   R1(config)# interface fa1/0
+   R1(config-if)# ip address [ip] 255.255.0.0
+   R1(config-if)# no shut
+   R1(config-if)# exit
    ```
 
    路由表信息截图:
@@ -176,13 +176,13 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    ```kotlin
    示例
-   R4(config)#interface fa0/0
-   R4(config-if)#ip address [ip] 255.255.255.0
-   R4(config-if)#no shut
-   R4(config-if)#exit
-   R4(config)#interface fa0/1
-   R4(config-if)#ip address [ip] 255.255.255.0
-   R4(config-if)#no shut
+   R4(config)# interface fa0/0
+   R4(config-if)# ip address [ip] 255.255.255.0
+   R4(config-if)# no shutdown
+   R4(config-if)# exit
+   R4(config)# interface fa0/1
+   R4(config-if)# ip address [ip] 255.255.255.0
+   R4(config-if)# no shutdown
    ```
 
 
@@ -193,9 +193,9 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
    ```kotlin
    示例
-   R4(config)#ip dhcp pool 1
-   R4(dhcp-config)#network 172.16.0.0 /24
-   R4(dhcp-config)#default-router 172.16.0.1
+   R4(config)# ip dhcp pool 1
+   R4(dhcp-config)# network 172.16.0.0 /24
+   R4(dhcp-config)# default-router 172.16.0.1
    ```
 
 
@@ -214,9 +214,9 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     ```kotlin
     示例
-    R4(config)#ip dhcp pool 1
-    R4(dhcp-config)#network 172.16.1.0 /24
-    R4(dhcp-config)#default-router 172.16.1.1
+    R4(config)# ip dhcp pool 1
+    R4(dhcp-config)# network 172.16.1.0 /24
+    R4(dhcp-config)# default-router 172.16.1.1
     ```
 
 
@@ -301,8 +301,8 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
     示例
     R1#config t
     Enter configuration commands, one per line. End with CNTL/Z.
-    R1(config)#ip route [subnet] [mask] [next-hop]
-    R1(config)#ip route [subnet] [mask] [next-hop]
+    R1(config)# ip route [subnet] [mask] [next-hop]
+    R1(config)# ip route [subnet] [mask] [next-hop]
     ```
 
     记录：PC1→4 / PC1→5 / PC3→4 / PC3→5 Ping结果截图:
@@ -388,14 +388,14 @@ Ping 是一个**双向过程**，涉及请求主机向目标主机发送请求�
 
     ```kotlin
     示例
-    R5(config)#interface fa0/1
-    R5(config-if)#ip nat inside
-    R5(config-if)#exit
-    R5(config)#interface fa0/0
-    R5(config-if)#ip nat outside
-    R5(config-if)#exit
-    R5(config)#access-list 1 permit [ip] [mask]
-    R5(config)#ip nat inside source list 1 interface fa0/0 overload
+    R5(config)# interface fa0/1
+    R5(config-if)# ip nat inside
+    R5(config-if)# exit
+    R5(config)# interface fa0/0
+    R5(config-if)# ip nat outside
+    R5(config-if)# exit
+    R5(config)# access-list 1 permit [ip] [mask]
+    R5(config)# ip nat inside source list 1 interface fa0/0 overload
     ```
 
     NAT信息截图：
