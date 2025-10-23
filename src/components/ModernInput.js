@@ -192,6 +192,16 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codeEditor, questionId]);
 
+  // 自动保存初始内容到localStorage（方案1实现）
+  useEffect(() => {
+    const savedValue = answers[questionId];
+    
+    // 如果localStorage中没有保存的答案，且存在初始内容，则自动保存初始内容
+    if (savedValue === undefined && initialContent && initialContent.trim() !== '') {
+      setAnswer(questionId, initialContent);
+    }
+  }, [questionId, initialContent, answers, setAnswer]);
+
   // 当外部值变化时更新CodeJar内容（例如重置按钮）
   useEffect(() => {
     if (codeEditor && jarRef.current) {
