@@ -95,10 +95,18 @@ const config = {
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
+      // announcementBar: {
+      //   id: 'hw2_end',
+      //   content:
+      //       '⏱️Homework 3即将于2025-10-21 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
+      //   backgroundColor: '#fafbfc',
+      //   textColor: '#091E42',
+      //   isCloseable: true,
+      // },
       announcementBar: {
-        id: 'hw2_end',
+        id: 'happy1024',
         content:
-            '⏱️Homework 3即将于2025-10-21 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
+            '🎇祝同学们1024程序员节快乐，一蹴键下行八万，未有秀发掉一丝~',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,
