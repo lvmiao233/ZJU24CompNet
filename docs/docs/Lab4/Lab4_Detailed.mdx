@@ -22,9 +22,6 @@ import GridContainer from '@site/src/components/GridContainer';
     <FileCard file_type={'pdf'} name={'Lab4 静态路由配置 实验课件'} size={'4490633'} link={require('@site/assets/slides/Lab4-静态路由配置.pdf').default} />
     <FileCard file_type={'pdf'} name={'GNS3 抓取STP协议报文'} size={'1204626'} link={require('@site/assets/slides/GNS3模拟环境中使用WireShark抓STP协议报文.pdf').default} />
 </GridContainer>
-<br/>
-:::important 本文档功能已完成实现，但内容仍需填充，如提前完成实验时遇到任何问题请联系助教
-:::
 
 ## 1 实验目的
 
@@ -52,6 +49,8 @@ import GridContainer from '@site/src/components/GridContainer';
 4.  **Private区域**: IP子网为 `192.168.0.0/24`，该区域需要经过NAT转换才能与其他区域通信
 5.  **External区域**: 代表外部真实网络，在GNS3中通过`Cloud-1`设备模拟
 6.  **路由器互联**: 为便于记忆，建议路由器之间的接口统一采用 `192.168.X.Y/24` 的形式，其中X为两个路由器的编号组合（如12代表R1和R2），Y为路由器编号（如192.168.12.1分配给R1）
+
+对于路由器而言，其每个接口往往对应一个不同的子网，因此在设计IP时，请注意在使用网线或交换机连接的接口/设备应处于相同子网
 
 GNS3原生支持在拓扑图上添加文字标注并导出图片，你可以参考[GNS3客户端使用](/GNS3/client-usage)了解使用方式
 
@@ -84,6 +83,8 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 </details>
 
+接下来的两步中，我们将配置不同的子网掩码，并观察连通性的差异，从而直观感受子网掩码在确定网络范围和通信路径上的作用
+
 1.  使用`ip [IP地址]`命令（此时默认为24位子网掩码），为PC1配置IP地址 `10.0.0.X`，为PC2配置IP地址 `10.0.1.X`，其中X为你的学号后2位或后3位；两台PC均使用24位长度的子网掩码，即 `255.255.255.0`
 2.  使用 `ping` 命令检查PC1与PC2之间的连通性并截图，思考为什么它们无法通信
   
@@ -106,7 +107,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 <ScreenshotCard 
   questionId="Lab4-s3" 
-  title="修改掩码后Ping测试结果" 
+  title="修改掩码后Ping结果示例" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
   ]}
@@ -123,7 +124,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 <details>
 <summary>背景知识：路由表与路由转发</summary>
 
-路由器是连接不同网络的设备，它的核心工作就是根据**路由表（Routing Table）**来决定如何转发数据包，路由表就像一张地图，告诉路由器去往某个目的地网络应该从哪个接口发出，并将数据包交给谁（下一跳）
+路由器是连接不同网络的设备，它的核心工作就是根据**路由表**（**Routing Table**）来决定如何转发数据包，路由表就像一张地图，告诉路由器去往某个目的地网络应该从哪个接口发出，并将数据包交给谁（下一跳）
 
 一台路由器在没有任何静态或动态路由配置的情况下，其路由表中只包含与它**直接相连**的网络信息，这些路由是路由器通过配置接口IP地址自动生成的，通常用字母`C`（Connected）或`L`（Local）标识
 
@@ -149,13 +150,13 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 <ScreenshotCard 
   questionId="Lab4-s4" 
-  title="R1接口配置与路由表信息" 
+  title="R1路由表示例" 
   uploadOptions={[
     { id: 'config_cmd', label: '记录配置命令', type: 'text', textConfig: {initialContent: "R1(config)# interface fa0/0\nR1(config-if)# ip address [ip] 255.255.0.0\nR1(config-if)# no shut\nR1(config-if)# exit\nR1(config)# interface fa1/0\nR1(config-if)# ip address [ip] 255.255.0.0\nR1(config-if)# no shut\nR1(config-if)# exit", codeEditor: true, initialLines: 8} },
     { id: 'routing_table', label: '截图路由表信息' }
   ]}
 >
-  ![R1路由器接口配置与路由表信息截图](img/image7.png)
+  ![R1路由表信息截图](img/image7.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -167,7 +168,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 <ScreenshotCard 
   questionId="Lab4-s5" 
-  title="PC1与PC3间Ping测试结果" 
+  title="PC1→3 Ping结果示例" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
   ]}
@@ -188,9 +189,11 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 **默认网关（Default Gateway）**本质上是一个路由器的接口IP地址，当一台主机需要发送数据包到其本地子网之外的目的地时，它会将该数据包发送到默认网关，由网关设备（路由器）负责将其转发到其他网络
 
-想一想：默认网关可以和主机不在同一个网络下吗？
+想一想：默认网关可以和主机不在同一个网络下吗？答案是不可以，三层的转发依赖于二层的转发，我们要能把数据包交给默认网关，就必须知道默认网关接口的MAC地址，而ARP只能在同一广播域内生效；如果默认网关和主机不在同一个网络，那么主机就无法得到其MAC地址，也就无法实现二层的数据传输，更无法实现三层的路由转发
 
 </details>
+
+前一步骤告诉了我们默认网关在跨网络通信时的重要性，现在我们来为PC配置默认网关并再次测试：
 
 1.  使用命令`ip [主机IP] [子网掩码] gateway [网关IP]`为PC1配置默认网关，地址为R1面向PC1的接口（f0/0）的IP地址
 2.  使用命令`ip [主机IP] [子网掩码] gateway [网关IP]`为PC3配置默认网关，地址为R1面向PC3的接口（f1/0）的IP地址
@@ -198,14 +201,14 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 <ScreenshotCard 
   questionId="Lab4-s6" 
-  title="PC网关配置与Ping测试" 
+  title="PC1→3 Ping结果示例" 
   uploadOptions={[
     { id: 'pc1_config', label: '截图PC1配置命令' },
     { id: 'pc3_config', label: '截图PC3配置命令' },
     { id: 'ping_result', label: '截图Ping结果' }
   ]}
 >
-  ![PC网关配置与Ping测试结果截图](img/image11.png)
+  ![PC Ping测试结果截图](img/image11.png)
 </ScreenshotCard>
 
 </TaskCard>
@@ -231,19 +234,11 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 <details>
 <summary>背景知识：DHCP服务</summary>
 
-DHCP(Dynamic Host Configuration Protocol)，即动态主机配置协议，它的诞生旨在解决两大核心痛点：手动配置的繁琐低效与IP地址资源的僵化浪费
+此前，我们为PC1和PC3等设备手动配置了IP地址，这种方式在设备数量少时是可行的，但请思考一个场景：在一个拥有数百个座位的公共访客区，如果每位访客都需要网络管理员手动配置IP，将会是怎样的灾难？为了解决大规模、高流动性设备的网络接入问题，我们引入了DHCP(Dynamic Host Configuration Protocol)，即动态主机配置协议
 
-一方面，在早期网络中为每台设备手动指定IP地址等参数不仅效率低下，还极易因人为失误（例如IP地址冲突）导致网络故障；另一方面，静态分配在面对有限IP资源和大量非固定用户时显得力不从心，试想一个拥有200名员工但仅有126个可用IP地址的公司，若采用静态分配，地址从一开始便宣告不足，更严重的是，当员工出差或移动办公时，分配给他们的IP地址就被白白闲置，而此时其他需要接入网络的设备却可能无地址可用，这无疑造成了巨大的资源浪费
+DHCP的诞生旨在解决两大核心痛点：手动配置的繁琐低效与IP地址资源的僵化浪费；一方面，在早期网络中为每台设备手动指定IP地址等参数不仅效率低下，还极易因人为失误（例如IP地址冲突）导致网络故障；另一方面，静态分配在面对有限IP资源和大量非固定用户时显得力不从心，试想一个拥有200名员工但仅有126个可用IP地址的公司，若采用静态分配，地址从一开始便宣告不足，更严重的是，当员工出差或移动办公时，分配给他们的IP地址就被白白闲置，而此时其他需要接入网络的设备却可能无地址可用，这无疑造成了巨大的资源浪费
 
-DHCP通过自动化、集中化的方式完美地解决了这些问题，它不仅消除了手动配置的麻烦，更关键的是引入了IP地址租约（Lease）的概念，设备只有在需要接入网络时，才会从DHCP服务器租用一个IP地址，并在离开网络（或租约到期）后释放它，让这个地址能被其他用户重新租用，这种动态分配机制极大地提高了IP地址的利用率，使得用有限的地址服务更多的、非同时在线的用户成为可能
-
-当任何一台DHCP客户端（如你的电脑、手机）接入网络时，它不再需要静态配置，而是会自动向网络中广播一个请求，寻找DHCP服务器，这个过程通常被称为DORA四步交互：
-
-1. Discover：客户端在网络中广播“我是谁、我在哪、谁能给我一个IP地址”的请求
-2. Offer：DHCP服务器收到请求后，从自己的地址池中挑选一个尚未分配的IP地址，连同其他网络配置（如网关、DNS）一起，向客户端发出一个“提议”
-3. Request：客户端可能会收到多个服务器的提议，它会选择其中一个，并向网络广播一个“请求”，声明它希望接受某个服务器提供的IP地址
-4. Acknowledge：被选中的DHCP服务器最终确认该分配，并向客户端发送一个“确认”消息，此后客户端就可以使用这个IP地址上网了
-通过这种方式，DHCP实现了IP地址的动态分配和集中管理，不仅极大地简化了网络部署和维护，还通过“租约”机制实现了IP地址的高效循环利用，是现代网络实现“即插即用”的关键技术
+DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻烦，更关键的是引入了IP地址租约（Lease）的概念，设备只有在需要接入网络时，才会从DHCP服务器租用一个IP地址，并在离开网络（或租约到期）后释放它，让这个地址能被其他用户重新租用，这种动态分配机制极大地提高了IP地址的利用率，使得用有限的地址服务更多的、非同时在线的用户成为可能
 
 在Cisco路由器上配置DHCP服务主要涉及以下步骤：
 -   `ip dhcp excluded-address [地址]`：(可选)排除某些地址不被分配，通常用于为服务器、路由器等设备保留静态地址
@@ -254,7 +249,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 </details>
 
-在R4上为f0/0接口所连接的子网（`172.16.0.0/24`）配置DHCP服务，定义地址池、网络范围和默认网关
+前序步骤中，我们配置的IP都是手动进行分配的，现在，我们在R4上为f0/0接口所连接的子网（`172.16.0.0/24`）配置DHCP服务，定义地址池、网络范围和默认网关，以实现该子网的自动IP分配
 
 <ScreenshotCard 
   questionId="Lab4-s8" 
@@ -268,11 +263,29 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <TaskCard number={9} title="PC4使用DHCP获取地址" needScreenshot={true} needRecord={false}>
 
+<details>
+<summary>背景知识：DHCP分配与续约过程</summary>
+
+当任何一台DHCP客户端（如你的电脑、手机）接入网络时，它不再需要静态配置，而是会自动向网络中广播一个请求，寻找DHCP服务器，这个过程通常被称为DORA四步交互：
+
+1. Discover：客户端在网络中广播“我是谁、我在哪、谁能给我一个IP地址”的请求
+2. Offer：DHCP服务器收到请求后，从自己的地址池中挑选一个尚未分配的IP地址，连同其他网络配置（如网关、DNS）一起，向客户端发出一个“提议”
+3. Request：客户端可能会收到多个服务器的提议，它会选择其中一个，并向网络广播一个“请求”，声明它希望接受某个服务器提供的IP地址
+4. Acknowledge：被选中的DHCP服务器最终确认该分配，并向客户端发送一个“确认”消息，此后客户端就可以使用这个IP地址上网了
+
+为避免IP地址租约到期后网络中断，如果仍然处在原有网络中，DHCP客户端会自动进行续约，续约过程按时间顺序可分为几个阶段：
+
+1. 租约时间过半(T1)时：客户端会向为其分配IP的DHCP服务器发送单播请求，希望延长租期
+2. 租约时间到达87,5%(T2)时：若T1续约失败，客户端会广播请求，向网络中任何一台DHCP服务器寻求续约
+3. 租约完全到期时：若续约彻底失败，客户端将放弃现有IP，并重新开始DORA四步交互以获取新的IP地址
+
+</details>
+
 在PC4的命令行中输入 `ip dhcp` 命令，使其向网络中发送DHCP请求，获取IP地址、子网掩码和默认网关，并截图查看获取到的配置信息
 
 <ScreenshotCard 
   questionId="Lab4-s9" 
-  title="PC4 DHCP地址分配" 
+  title="PC4 DHCP地址分配示例" 
   uploadOptions={[
     { id: 'dhcp_result', label: '截图配置命令及获得的IP地址' }
   ]}
@@ -302,7 +315,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s11" 
-  title="PC5 DHCP地址分配" 
+  title="PC5 DHCP地址分配示例" 
   uploadOptions={[
     { id: 'dhcp_result', label: '截图配置命令及获得的IP地址' }
   ]}
@@ -318,7 +331,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s12" 
-  title="PC间Ping测试结果" 
+  title="PC4→5 Ping结果示例" 
   uploadOptions={[
     { id: 'ping_result', label: '截图Ping结果' }
   ]}
@@ -334,7 +347,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s13" 
-  title="DHCP主机分配信息" 
+  title="DHCP主机分配信息示例" 
   uploadOptions={[
     { id: 'dhcp_info', label: '截图已分配DHCP主机信息' }
   ]}
@@ -349,11 +362,13 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 <details>
 <summary>背景知识：串口、HDLC与时钟速率</summary>
 
-**串口（Serial Port）**是一种常用于广域网（WAN）连接的接口类型，与以太网不同，它通常用于点对点的长距离连接
+**串口**（**Serial Port**）是一种常用于广域网（WAN）连接的接口类型，与以太网不同，它通常用于点对点的长距离连接与以太网不同，它通常用于点对点的长距离连接。在广域网场景中，串口常用于连接地理位置分散的路由器，例如通过电信运营商提供的专线（如T1/E1线路）将不同城市的分支机构网络连接起来；与局域网中常见的以太网接口相比，串口的速率通常较低（如64kbps或1.544Mbps），远低于现代以太网动辄百兆、千兆的速率，其设计侧重于长距离的稳定传输而非高速通信；如今在大多数广域网场景中，这类传统的低速串口连接已基本被速度更快、更可靠的光纤所取代
+
+![串口接口示例](img/1761331554577.png)
 
 **HDLC (High-Level Data Link Control)** 是Cisco路由器串口上默认的数据链路层封装协议，它是一个简单的、低开销的协议，适用于连接两台思科设备的点对点链路
 
-**时钟速率（Clock Rate）**：在串行通信中，数据是一位一位地传输的，为了让接收端能够正确地同步和解码这些比特流，需要一个时钟信号来规定传输速率，在物理连接中，提供时钟信号的一端被称为**DCE (Data Communications Equipment，数据通信设备)**，而接收时钟信号进行同步的一端被称为**DTE (Data Terminal Equipment，数据终端设备)**，`clock rate` 命令**必须在DCE端配置**
+**时钟速率**（**Clock Rate**）：在串行通信中，数据是一位一位地传输的，为了让接收端能够正确地同步和解码这些比特流，需要一个时钟信号来规定传输速率，在物理连接中，提供时钟信号的一端被称为**DCE (Data Communications Equipment，数据通信设备)**，而接收时钟信号进行同步的一端被称为**DTE (Data Terminal Equipment，数据终端设备)**，`clock rate` 命令**必须在DCE端配置**
 
 </details>
 
@@ -363,7 +378,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 4.  为两个接口配置IP地址并激活接口
     <ScreenshotCard 
       questionId="Lab4-s14" 
-      title="R1配置命令" 
+      title="R1配置命令示例" 
       uploadOptions={[
         { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 4} }
       ]}
@@ -372,7 +387,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     </ScreenshotCard>
     <ScreenshotCard 
       questionId="Lab4-s14" 
-      title="R2配置命令" 
+      title="R2配置命令示例" 
       uploadOptions={[
         { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 5} }
       ]}
@@ -382,7 +397,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 5.  使用 `ping` 命令测试两个路由器串口之间的连通性
     <ScreenshotCard 
       questionId="Lab4-s14" 
-      title="R1-R2连通性测试" 
+      title="R1-R2连通性测试示例" 
       uploadOptions={[
         { id: 'ping_result', label: '截图Ping结果' }
       ]}
@@ -403,6 +418,8 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 -   **PAP (Password Authentication Protocol)**：简单的两次握手协议，以明文形式发送用户名和密码，安全性较低
 -   **CHAP (Challenge-Handshake Authentication Protocol)**：质询握手认证协议，采用三次握手和MD5哈希算法来验证身份，密码本身不会在链路上明文传输，安全性更高
 
+在CHAP握手过程中，认证方会根据挑战者（对端路由器）报上来的名字（即它的hostname）去本地的username数据库里查找对应的密码，然后用这个密码和随机值进行哈希计算，来验证对方的身份，因此我们配置认证的用户名与密码时，必须确保它们与对端路由器的配置一致，否则认证过程就会失败
+
 目前国内许多运营商仍在使用PAP协议进行认证，因此通过在路由器与WAN口间抓包，我们就能捕获该路由器使用的认证密码，完整的过程可以参考[宽带密码捕获](blog/adsl)
 
 </details>
@@ -413,7 +430,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 4.  在R2上，为R4设置认证的用户名和密码（命令：`username R4 password 1234`），其中用户名必须是对方路由器的`hostname`（区分大小写）
     <ScreenshotCard 
       questionId="Lab4-s15" 
-      title="R2配置命令" 
+      title="R2配置命令示例" 
       uploadOptions={[
         { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
       ]}
@@ -423,7 +440,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 5.  在R4上，为R2设置认证的用户名和密码（命令：`username R2 password 1234`），密码必须与R2上设置的一致
     <ScreenshotCard 
       questionId="Lab4-s15" 
-      title="R4配置命令" 
+      title="R4配置命令示例" 
       uploadOptions={[
         { id: 'r4_config', label: '记录R4配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
       ]}
@@ -493,7 +510,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s18" 
-  title="PC间连通性测试结果" 
+  title="连通性测试结果示例" 
   uploadOptions={[
     { id: 'pc1_to_pc4', label: '截图PC1→4 结果' },
     { id: 'pc1_to_pc5', label: '截图PC1→5 结果' },
@@ -512,7 +529,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s19" 
-  title="各路由器路由表信息" 
+  title="路由表信息示例" 
   uploadOptions={[
     { id: 'r1_routing', label: '截图R1路由表' },
     { id: 'r2_routing', label: '截图R2路由表' },
@@ -520,7 +537,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     { id: 'r4_routing', label: '截图R4路由表' }
   ]}
 >
-  ![各路由器路由表信息截图](img/image28.png)
+  ![路由表信息截图示例](img/image28.png)
 </ScreenshotCard>
 
 你会发现，每台路由器只知道与自己直接相连的网络，对于通过其他路由器才能到达的“远程网络”，它们的路由表中并没有相应条目，因此不知道如何转发数据包
@@ -532,7 +549,15 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 <details>
 <summary>背景知识：静态路由</summary>
 
-**静态路由**是由网络管理员手动配置的路由条目，它明确地告诉路由器：“要去往[目标网络]，请将数据包发给[下一跳地址]”；例如，在R1上，为了让Zone1的PC能访问Guest Zone（假设为172.16.0.0/24），R1需要知道去往172.16.0.0/24的路，根据拓扑图，数据包应先发给R3，因此我们将下一跳地址配置为R3与R1相连的接口IP即可
+**静态路由**是由网络管理员手动配置的路由条目，它为路由器提供了一条明确的、固定的路径指引；与能够自动发现和适应网络变化的动态路由不同，静态路由的逻辑非常直接，它告诉路由器：“要去往[目标网络]，请将数据包发给[下一跳地址]”
+
+在网络规模较小、拓拓扑结构稳定或需要对路径有强控制能力的场景下，静态路由的优势便显现出来：它配置简单，不占用额外的CPU和内存资源去运行复杂的路由协议，且路径完全在管理员的掌控之中，非常确定；当然，它的缺点也同样突出，当网络拓扑发生变化时（例如链路中断或新增设备），静态路由无法自动更新，必须由管理员手动修改，否则可能导致路由黑洞或通信中断；此外，很多网络通信都是双向的，配置静态路由时必须确保数据包的返回路径同样畅通
+
+以本实验的拓扑为例，R1若要与Guest Zone（假设为172.16.0.0/24）通信，它本身并不知道路径，因此，我们需要在R1上手动配置一条静态路由，明确指出：“要访问172.16.0.0/24网络，你的下一跳是[R3与R1直连接口的IP]”；这样，当R1收到发往Guest Zone的数据包时，就会根据这条静态规则，将其准确地转发，再由R3负责后续的传递
+
+:::danger 再次提醒
+一个极其常见的误解是认为我们在指挥“路由器R1”将数据包发给“路由器R3”，请注意：路由器转发时选择的是要转发到的**目标IP地址**，而非设备，路由转发过程对拓扑一无所知，只进行选择下一条IP-将数据包转发到该IP的过程
+:::
 
 </details>
 
@@ -551,11 +576,11 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     </ScreenshotCard>
 2. 测试PC1到PC4、PC1到PC5、PC3到PC4、PC3到PC5之间的连通性，此时应当均能连通，如果不通，请仔细分析是哪一台路由器缺少了路由）
     :::tip 提示
-    Ping是一个双向的过程，不仅需要请求包能够到达目标主机，来自目标主机的响应包也需要能够返回给请求主机；因此往返路径上**任意路由的缺失都会导致路由出现问题**，如果无法Ping通，请思考你遗漏了往返路径中哪个节点的配置
+    Ping是一个双向的过程，不仅需要请求包能够到达目标主机，来自目标主机的响应包也需要能够返回给请求主机；因此往返路径上所有路由都需要知道如何到达目标主机和**源主机**，如果无法Ping通，请思考你遗漏了往返路径中哪个节点的配置
     :::
     <ScreenshotCard 
       questionId="Lab4-s20" 
-      title="PC间连通性测试结果" 
+      title="连通性测试结果示例" 
       uploadOptions={[
         { id: 'pc1_to_pc4', label: '截图PC1→4 结果' },
         { id: 'pc1_to_pc5', label: '截图PC1→5 结果' },
@@ -568,7 +593,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 3. 记录最后的路由表信息
     <ScreenshotCard 
       questionId="Lab4-s20" 
-      title="各路由器路由表信息" 
+      title="路由表信息示例" 
       uploadOptions={[
         { id: 'r1_routing', label: '截图R1路由表' },
         { id: 'r2_routing', label: '截图R2路由表' },
@@ -595,8 +620,6 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 </details>
 
-在R1和R4上增加备用路由，选择串口线路作为下一跳的路径，并将路由距离设置成30（）。此时查看路由表，该新增路由信息并不会出现，但在主路由链路断开时（在R1、R4上关闭与R3连接的端口），该路由会被自动添加进路由表。通过实验验证一下。
-
 1.  在R1和R4上，为对方的PC所在子网添加一条备用路由，选择**经过R2的串口线路**作为下一跳路径，并将管理距离（路由距离）设置为30（命令：`ip route 目标网络 子网掩码 下一跳地址 距离`）
     <ScreenshotCard 
       questionId="Lab4-s21" 
@@ -609,7 +632,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 2.  配置完成后，在**R1-R3、R4-R3 间链路断开前**查看R1和R4的路由表，确认这条AD为30的新增路由没有出现
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="R1路由表" 
+    title="R1路由表示例" 
     uploadOptions={[
         { id: 'r1_routing_a', label: '截图R1路由表信息' }
     ]}
@@ -618,7 +641,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     </ScreenshotCard>
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="R4路由表" 
+    title="R4路由表示例" 
     uploadOptions={[
         { id: 'r4_routing_a', label: '截图R4路由表信息' }
     ]}
@@ -628,7 +651,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 3.  在PC1上使用 `traceroute` 命令，追踪到R4的f0/0接口IP数据包路径的变化
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="路由跟踪" 
+    title="路由跟踪示例" 
     uploadOptions={[
         { id: 'trace_result_a', label: '截图PC1路由跟踪结果' }
     ]}
@@ -639,7 +662,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 5.  再次查看R1和R4的路由表，验证备用路由是否已被自动添加进路由表
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="R1路由表" 
+    title="R1路由表示例" 
     uploadOptions={[
         { id: 'r1_routing_b', label: '截图R1路由表信息' }
     ]}
@@ -648,7 +671,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     </ScreenshotCard>
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="R4路由表" 
+    title="R4路由表示例" 
     uploadOptions={[
         { id: 'r4_routing_b', label: '截图R4路由表信息' }
     ]}
@@ -656,11 +679,11 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     ![链路断开后R4路由表信息截图](img/image37.png)
     </ScreenshotCard>
 6.  使用 `traceroute` 命令观察数据包路径的变化
-    :::tip 如果不通，请检查R2上是否添加了相应的路由
+    :::tip 当主链路断开，备用链路被激活时，数据包的路径发生了改变；现在R2成为了路径上的关键节点。如果R2的路由表中没有去往目的PC网络（如172.16.0.0/24）和源PC网络（10.0.0.0/16）的路由，那么数据包在到达R2时就会被丢弃；因此如果无法Ping通，请检查R2上是否添加了相应的路由
     :::  
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="路由跟踪" 
+    title="路由跟踪示例" 
     uploadOptions={[
         { id: 'trace_result_b', label: '截图PC1路由跟踪结果' }
     ]}
@@ -670,7 +693,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 7.  重新 `no shutdown` 开启接口，验证**R1-R3、R4-R3 间链路重新打开后**主路由是否恢复
     <ScreenshotCard 
     questionId="Lab4-s21" 
-    title="路由表信息" 
+    title="路由表示例" 
     uploadOptions={[
         { id: 'r1_routing_c', label: '截图R1路由表信息' },
         { id: 'r4_routing_c', label: '截图R4路由表信息' }
@@ -687,7 +710,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s22" 
-  title="指定源地址Ping测试结果" 
+  title="Ping结果示例" 
   uploadOptions={[
     { id: 'f0_0_ping', label: '截图R1 f0/0→R4 s2/1 结果' },
     { id: 'f0_1_ping', label: '截图R1 f0/1→R4 s2/1 结果' },
@@ -698,7 +721,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <ScreenshotCard 
   questionId="Lab4-s22" 
-  title="指定源地址Ping测试结果" 
+  title="Ping结果示例" 
   uploadOptions={[
     { id: 'f1_0_ping', label: '截图R1 f1/0→R4 s2/1 结果' },
     { id: 's2_0_ping', label: '截图R1 s2/0→R4 s2/1 结果' }
@@ -776,19 +799,21 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     :::danger 实验报告模板中，内部/外部接口写反，请按实验文档要求，定义f0/1接口为内部接口，定义f0/0接口为外部接口
     :::
 2.  创建ACL以允许Private区域（`192.168.0.0/24`）的流量
-3.  设置NAT规则，将内部流量的源地址转换为R5的fa0/0接口地址
+3.  设置NAT规则，将内部流量的源地址转换为R5的fa0/0接口地址；请注意，Access List配置时采用的是通配符掩码，0表示需要精确匹配的位，因此应为子网掩码的取反，例如对于`192.168.0.0/24`，通配符掩码应为`0.0.0.255`
     <ScreenshotCard 
       questionId="Lab4-s25" 
-      title="NAT配置命令" 
+      title="NAT配置命令示例" 
       uploadOptions={[
-        { id: 'nat_config', label: '记录配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface fa0/1\nR5(config-if)# ip nat inside\nR5(config-if)# exit\nR5(config)# interface fa0/0\nR5(config-if)# ip nat outside\nR5(config-if)# exit\nR5(config)# access-list 1 permit [ip] [mask]\nR5(config)# ip nat inside source list 1 interface fa0/0 overload",codeEditor: true, initialLines: 8} }
+        { id: 'nat_config', label: '记录配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface fa0/1\nR5(config-if)# ip nat inside\nR5(config-if)# exit\nR5(config)# interface fa0/0\nR5(config-if)# ip nat outside\nR5(config-if)# exit\nR5(config)# access-list 1 permit [ip] [wildcard-mask]\nR5(config)# ip nat inside source list 1 interface fa0/0 overload",codeEditor: true, initialLines: 8} }
       ]}
-    />
+    >
+      ![R5路由器NAT规则截图](img/image40.png)
+    </ScreenshotCard>
 4.  在PC6和PC7上持续 `ping` R3的fa0/0接口地址（`ping [IP地址] -t`）
 5.  `ping` 通后，在R5上使用 `show ip nat translation` 命令查看NAT转换表，观察内部私有地址是如何被转换成外部地址的
     <ScreenshotCard 
       questionId="Lab4-s25" 
-      title="NAT转换信息" 
+      title="NAT转换信息示例" 
       uploadOptions={[
         { id: 'nat_info', label: '截图NAT信息' }
       ]}
@@ -810,11 +835,9 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 </details>
 
 1. 在各路由器上增加静态路由信息，使得PC6能够与Zone1、Zone2、Guest Zone的PC机通信，如果某个路由器上不需要增加静态路由信息，配置命令填`-`即可
-
     :::tip 提示
-    在R5上可以通过设置默认路由方式简化路由配置（命令：`ip route 0.0.0.0 0.0.0.0 默认路由器IP地址`），而Private Zone对其他区域是不可见的，所以在外部路由器上是不需要为其添加路由的（只需要添加R3-R5之间的子网）
+    在R5上可以通过设置默认路由方式简化路由配置（命令：`ip route 0.0.0.0 0.0.0.0 [默认路由器IP地址]`），而Private Zone对其他区域是不可见的（其源IP地址都被“伪装”成了R5的外部接口IP地址），所以在外部路由器上是不需要也不应该为其添加路由的（只需要添加R3-R5之间的子网）
     :::
-
     <ScreenshotCard 
       questionId="Lab4-s26" 
       title="各路由器配置命令" 
@@ -829,7 +852,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 2. 使用`ping`命令，检验PC6与PC1、PC3、PC4、PC5的连通性
     <ScreenshotCard 
       questionId="Lab4-s26" 
-      title="PC6连通性测试结果" 
+      title="连通性测试结果示例" 
       uploadOptions={[
         { id: 'pc6_to_pc1', label: '截图PC6→1 结果' },
         { id: 'pc6_to_pc3', label: '截图PC6→3 结果' },
@@ -850,7 +873,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 4.  在你的**电脑主机上**打开命令行（CMD或PowerShell），`ping` R2刚刚获取到的IP地址，测试连通性
     <ScreenshotCard 
       questionId="Lab4-s27" 
-      title="R2 与主机连通性测试" 
+      title="连通性测试结果示例" 
       uploadOptions={[
         { id: 'config_cmd', label: '记录输入的命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} },
         { id: 'r2_ip', label: '截图R2获得的IP地址' },
@@ -864,14 +887,14 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <TaskCard number={28} title="配置R2 NAT实现Zone1与主机通信" needScreenshot={true} needRecord={true}>
 
-为了让Zone1中的私有地址PC能够与你的电脑主机通信，需要在R2上再次配置NAT服务，并且在R1上添加电脑主机的子网路由，使得Zone 1的PC机也能与电脑主机通信
+GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机来说是未知的、不可路由的；为了让内部的PC1（10.0.0.X）能和你的电脑主机通信，我们必须在边界路由器R2上配置NAT服务进行地址转换，并在R1上添加电脑主机的子网路由，使得Zone 1的PC机也能与电脑主机通信
 
 1.  在R2上配置NAT，定义f0/0为外部接口，s2/0为内部接口
 2.  创建ACL以允许Zone1（10.0.0.0/16）的流量通过
 3.  建立NAT转换规则
     <ScreenshotCard 
       questionId="Lab4-s28" 
-      title="R2 NAT配置命令" 
+      title="R2 NAT配置命令示例" 
       uploadOptions={[
         { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 6} }
       ]}
@@ -881,7 +904,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 4.  在R1上添加一条指向电脑主机所在子网的静态路由，下一跳为R2
     <ScreenshotCard 
       questionId="Lab4-s28" 
-      title="R1路由配置命令" 
+      title="R1路由配置命令示例" 
       uploadOptions={[
         { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
       ]}
@@ -894,7 +917,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     :::
     <ScreenshotCard 
       questionId="Lab4-s28" 
-      title="主机IP" 
+      title="主机IP信息示例" 
       uploadOptions={[
         { id: 'host_ip', label: '截图电脑主机IP地址' }
       ]}
@@ -903,7 +926,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
     </ScreenshotCard>
     <ScreenshotCard 
       questionId="Lab4-s28" 
-      title="主机与PC1连通性测试" 
+      title="连通性测试结果示例" 
       uploadOptions={[
         { id: 'ping_result', label: '截图PC1与主机Ping结果' }
       ]}
@@ -915,16 +938,18 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 
 <TaskCard number={29} title="连接真实网络并测试" needScreenshot={true} needRecord={true}>
 
+对于虚拟网卡而言，还存在一种桥接模式，此时虚拟设备在真实局域网看来，就如同另一台独立的物理设备，它可以通过DHCP获取真实网络的IP，并与真实网络中的其他主机（如手机、其他电脑）直接通信，我们将在本步骤中测试该功能
+
 1.  寻找一个无需认证的真实网络环境（如手机热点），将你的电脑和另一台设备（主机H）接入该网络
     :::tip 提示
     该网络环境可以用手机热点模拟，电脑和另一台设备连接到该手机热点即可进行实验；如果Zone 1的PC机无法与电脑主机通信，建议先检查R2能否Ping通Zone 1 PC机 / 主机H，判断问题在于路由配置还是虚拟网卡配置
     :::
-2.  在GNS3中，将R2的f0/0接口改连到Cloud设备的eth2接口（该接口采用桥接模式，此时虚拟设备在真实局域网看来，就如同另一台独立的物理设备，它可以通过DHCP获取真实网络的IP，并与真实网络中的其他主机（如手机、其他电脑）直接通信）
+2.  在GNS3中，将R2的f0/0接口改连到Cloud设备的eth2接口
 3.  在R2的f0/0接口上重新使用 `ip address dhcp` 获取真实网络的IP地址
 4.  在R2上配置默认路由，指向真实网络环境的默认网关
     <ScreenshotCard 
       questionId="Lab4-s29" 
-      title="R2配置命令" 
+      title="R2配置命令示例" 
       uploadOptions={[
         { id: 'r2_config', label: '记录R2配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 3} }
       ]}
@@ -934,7 +959,7 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 5.  在R1上配置默认路由，指向R2
     <ScreenshotCard 
       questionId="Lab4-s29" 
-      title="R1配置命令" 
+      title="R1配置命令示例" 
       uploadOptions={[
         { id: 'r1_config', label: '记录R1配置命令', type: 'text', textConfig: {codeEditor: true, initialLines: 1} }
       ]}
@@ -944,9 +969,9 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 6.  测试R2能否 `ping` 通主机H
     <ScreenshotCard 
       questionId="Lab4-s29" 
-      title="R2与主机H的Ping结果" 
+      title="Ping结果示例" 
       uploadOptions={[
-        { id: 'r2_ping', label: '截图R2与主机H的Ping结果' }
+        { id: 'r2_ping', label: '截图R2→H Ping结果' }
       ]}
     >
       ![R2与主机H的Ping测试结果截图](img/image50.png)
@@ -954,9 +979,9 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 7.  测试PC1能否 `ping` 通主机H
     <ScreenshotCard 
       questionId="Lab4-s29" 
-      title="PC1与主机H的Ping结果" 
+      title="Ping结果示例" 
       uploadOptions={[
-        { id: 'pc1_ping', label: '截图PC1与主机H的Ping结果' }
+        { id: 'pc1_ping', label: '截图PC1→H Ping结果' }
       ]}
     >
       ![PC1与主机H的Ping测试结果截图](img/image51.png)
@@ -965,6 +990,9 @@ DHCP通过自动化、集中化的方式完美地解决了这些问题，它不�
 </TaskCard>
 
 <TaskCard number={30} title="整理路由器运行配置" needScreenshot={false} needRecord={false}>
+
+:::important 本步骤计入最终评分，请务必完整提交相关文件
+:::
 
 整理各路由器的当前运行配置，选择与本实验相关的内容记录在文本文件中，每个设备一个文件，分别命名为R1.txt、R2.txt等，随实验报告一起打包上传
 

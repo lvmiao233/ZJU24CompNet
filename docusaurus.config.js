@@ -103,14 +103,6 @@ const config = {
       //   textColor: '#091E42',
       //   isCloseable: true,
       // },
-      announcementBar: {
-        id: 'happy1024',
-        content:
-            '🎇祝同学们1024程序员节快乐，一蹴键下行八万，未有秀发掉一丝~',
-        backgroundColor: '#fafbfc',
-        textColor: '#091E42',
-        isCloseable: true,
-      },
       navbar: {
         title: '计算机网络课程实验',
         logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
