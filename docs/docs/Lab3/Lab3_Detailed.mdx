@@ -335,7 +335,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 1. 进入全局配置模式
 2. 使用`interface vlan [VLAN ID]`命令为之前创建的两个VLAN分别创建SVI（交换虚拟接口，概念介绍参见Lab2）
-3. 使用`ip address IP地址`为每个SVI配置IP地址，作为对应VLAN的网关
+3. 使用`ip address [IP地址] [子网掩码]`为每个SVI配置IP地址，作为对应VLAN的网关
 
 <ScreenshotCard 
   questionId="Lab3-p2-s3" 
