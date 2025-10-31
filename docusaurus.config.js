@@ -95,14 +95,14 @@ const config = {
       },
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
-      // announcementBar: {
-      //   id: 'hw2_end',
-      //   content:
-      //       '⏱️Homework 3即将于2025-10-21 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
-      //   backgroundColor: '#fafbfc',
-      //   textColor: '#091E42',
-      //   isCloseable: true,
-      // },
+      announcementBar: {
+        id: 'hw4_end',
+        content:
+            '⏱️Homework 4即将于2025-11-03 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
+        backgroundColor: '#fafbfc',
+        textColor: '#091E42',
+        isCloseable: true,
+      },
       navbar: {
         title: '计算机网络课程实验',
         logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
