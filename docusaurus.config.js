@@ -96,9 +96,9 @@ const config = {
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
       announcementBar: {
-        id: 'hw4_end',
+        id: 'hw5_end',
         content:
-            '⏱️Homework 4即将于2025-11-03 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
+            '⏱️Homework 5即将于2025-11-17 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,
