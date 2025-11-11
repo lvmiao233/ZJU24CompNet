@@ -71,6 +71,11 @@ const resourceData = [
         "link": require('@site/assets/slides/luxq_Lab3-使用三层交换机组网.pdf').default
     }, {
         "file_type": "pdf",
+        "name": "Lab4 静态路由配置（修改）",
+        "size": "2101192",
+        "link": require('@site/assets/slides/Lab4 静态路由配置.pdf').default
+    }, {
+        "file_type": "pdf",
         "name": "Lab4 静态路由配置",
         "size": "4490633",
         "link": require('@site/assets/slides/Lab4-静态路由配置.pdf').default
