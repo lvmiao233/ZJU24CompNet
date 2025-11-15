@@ -23,14 +23,6 @@ import GridContainer from '@site/src/components/GridContainer';
     <FileCard file_type={'pdf'} name={'Lab5 动态路由协议OSPF配置 实验课件'} size={'5090922'} link={require('@site/assets/slides/在Cisco路由器上的路由协议.pdf').default} />
 </GridContainer>
 <br/>
-:::warning 注意
-本实验文档仍在施工中，目前存在或可能存在的问题有：
-* 部分内容可能会有错误或不完整
-* 导出实验报告功能暂不可用
-* 部分步骤的作用、相关技术介绍尚不完整
-
-如遇到任何问题，欢迎随时向助教反馈；完整文档将在近期尽快上线
-:::
 
 ## 1 实验目的
 
@@ -607,7 +599,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       title="R4和R5配置命令" 
       uploadOptions={[
         { id: 'r4_area1', label: '记录R4配置命令', type: 'text', textConfig: {initialContent: "R4(config)# interface f0/1\nR4(config-if)# ip address [ip] 255.255.255.0\nR4(config-if)# no shutdown\nR4(config)# router ospf [pid]\nR4(config-router)# network [subnet] 0.0.255.255 area 1", codeEditor: true, initialLines: 6} },
-        { id: 'r5_area1', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface f0/1\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface f0/0\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface loopback 0\nR5(config-if)# \nR5(config)# \nR5(config-router)# "} }
+        { id: 'r5_area1', label: '记录R5配置命令', type: 'text', textConfig: {initialContent: "R5(config)# interface f0/1\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface f0/0\nR5(config-if)# \nR5(config-if)# \nR5(config)# interface loopback 0\nR5(config-if)# \nR5(config)# \nR5(config-router)# ", codeEditor: true, initialLines: 10} }
       ]}
     />
 3.  为PC3配置IP地址和相应的默认网关
@@ -1099,4 +1091,4 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
 
 ## 5 导出实验报告
 
-<!-- <ExportButton templatePath={require('@site/assets/base_report/Lab5.zip').default} labName="Lab5" labId="lab5-" /> -->
+<ExportButton templatePath={require('@site/assets/base_report/Lab5.zip').default} labName="Lab5" labId="lab5-" />
