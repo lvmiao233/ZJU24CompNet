@@ -98,7 +98,7 @@ const config = {
       announcementBar: {
         id: 'hw5_end',
         content:
-            '⏱️Homework 5即将于2025-11-24 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
+            '⏱️Homework 6即将于2025-12-08 23:59:59截止，逾期不提供任何补交机会，请务必按时完成',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,
