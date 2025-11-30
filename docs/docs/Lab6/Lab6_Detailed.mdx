@@ -23,10 +23,6 @@ import GridContainer from '@site/src/components/GridContainer';
     <FileCard file_type={'pdf'} name={'Lab6 动态路由协议BGP配置 实验课件'} size={'1721069'} link={require('@site/assets/slides/Lab6_BGP路由协议.pdf').default} />
 </GridContainer>
 
-<br/>
-:::warning 本实验文档仍在施工，部分内容可能不准确、部分讲解内容缺失、暂时无法导出实验报告，如遇到问题可随时和助教反馈
-:::
-
 :::tip 温馨提示
 
 BGP协议的更新需要时间，且最终结果与配置等的时序相关，由于本实验相对较为复杂，基本不可能与示例按完全相同的时序、环境完成实验，因此通常截图中效果与示例会存在出入，因此本实验中你只需要确保**正确进行配置并达成预期效果**即不会被扣除分数，无需与示例保持绝对一致
@@ -289,7 +285,8 @@ BGP邻居的建立过程，本质上就是两个IP地址之间建立TCP连接的
         { id: 'r3_neighbor', label: '截图R3邻居关系' }
       ]}
     >
-      ![R3邻居关系建立后截图](img/image9.png)
+      ![R3邻居关系建立后截图1](img/image9.png)
+      ![R3邻居关系建立后截图2](img/image10.png)
     </ScreenshotCard>
 3.  在R5上使用 `show ip bgp neighbor` 查看邻居关系，确认状态是否变为 `Established`（已建立）；观察得知，与R3的邻居关系已经建立，对方的连接端口是<ModernInput size="medium" questionId="Lab6-p1-s6-r5-port"/>
     <ScreenshotCard 
@@ -299,7 +296,6 @@ BGP邻居的建立过程，本质上就是两个IP地址之间建立TCP连接的
         { id: 'r5_neighbor_established', label: '截图R5邻居关系' }
       ]}
     >
-      ![R5邻居关系建立后截图](img/image10.png)
     </ScreenshotCard>
 
 </TaskCard>
@@ -337,9 +333,9 @@ BGP邻居的建立过程，本质上就是两个IP地址之间建立TCP连接的
 2.  在R5上使用 `show ip bgp` 命令查看BGP数据库，标出iBGP路由
     <ScreenshotCard 
       questionId="Lab6-p1-s7" 
-      title="R5路由表示例" 
+      title="R5 BGP数据库示例" 
       uploadOptions={[
-        { id: 'r5_route_table', label: '截图R5路由表' }
+        { id: 'r5_bgp_db', label: '截图R5 BGP数据库' }
       ]}
     />
 3.  在R3上使用 `show ip route` 查看路由表；观察可知，网络地址<ModernInput size="large" questionId="Lab6-p1-s7-r3-net1"/>、<ModernInput size="large" questionId="Lab6-p1-s7-r3-net2"/>在路由表中已存在比BGP优先级高的OSPF路由，所以BGP的路由信息没有成功写入
@@ -350,14 +346,14 @@ BGP邻居的建立过程，本质上就是两个IP地址之间建立TCP连接的
         { id: 'r3_route_table', label: '截图R3路由表' }
       ]}
     >
-      ![R5 BGP路由表截图](img/image12.png)
+      ![R3 路由表截图](img/image12.png)
     </ScreenshotCard>
 4.  在R5上使用 `show ip route` 查看路由表，标出BGP数据库中存在但优先级更高的OSPF路由
     <ScreenshotCard 
       questionId="Lab6-p1-s7" 
-      title="R5 BGP数据库示例" 
+      title="R5路由表示例" 
       uploadOptions={[
-        { id: 'r5_bgp_db', label: '截图R5 BGP数据库' }
+        { id: 'r5_route_table', label: '截图R5路由表' }
       ]}
     />
 
@@ -856,7 +852,7 @@ BGP具有动态适应网络拓扑变化的能力，我们将通过切断一条�
     >
         ![R1 的 路由表截图（到达 R2-R8 子网的下一跳）](img/image33.png)
     </ScreenshotCard>
-4.  在R1上跟踪到达R2-R8间子网的路由，验证路径是否穿越了AS 65003；观察可知，依次经过了路由器<ModernInput size="medium" questionId="Lab6-p3-s18-tr1"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr2"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr3"/>、<ModernInput size="medium" questionId="Lab6-p3-s18-tr4"/>
+4.  在R1上跟踪到达R2-R8间子网的路由，验证路径是否穿越了AS 65003；观察可知，依次经过了路由器<ModernInput size="medium" questionId="Lab6-p3-s20-tr1"/>、<ModernInput size="medium" questionId="Lab6-p3-s20-tr2"/>、<ModernInput size="medium" questionId="Lab6-p3-s20-tr3"/>、<ModernInput size="medium" questionId="Lab6-p3-s20-tr4"/>
     <ScreenshotCard 
       questionId="Lab6-p3-s20" 
       title="路由跟踪示例" 
@@ -1267,7 +1263,7 @@ MP-BGP的核心思想是**传输与业务分离**，它引入了地址族（Addr
   questionId="Lab6-p5-s33" 
   title="R1隧道配置示例" 
   uploadOptions={[
-    { id: 'r1_tunnel_config', label: '截图R1隧道配置' }
+    { id: 'r1_tunnel_config', label: '记录R1隧道配置', type: 'text', textConfig: { initialContent: "R1(config)#interface Tunnel0\nR1(config-if)#ipv6 address [address]\nR1(config-if)#tunnel source f1/0\nR1(config-if)#tunnel destination [ip]\nR1(config-if)#tunnel mode ipv6ip",codeEditor: true, initialLines: 5 } }
   ]}
 >
     ![R1 的 IPv6 隧道配置截图（Tunnel 接口、源/目的、模式）](img/image56.png)
@@ -1277,7 +1273,7 @@ MP-BGP的核心思想是**传输与业务分离**，它引入了地址族（Addr
   questionId="Lab6-p5-s33" 
   title="R2隧道配置示例" 
   uploadOptions={[
-    { id: 'r2_tunnel_config', label: '截图R2隧道配置' }
+    { id: 'r2_tunnel_config', label: '记录R2隧道配置', type: 'text', textConfig: { initialContent: "R2(config)#interface Tunnel0\nR2(config-if)#ipv6 address [address]2\nR2(config-if)#tunnel source f1/0\nR2(config-if)#tunnel destination [ip]\nR2(config-if)#tunnel mode ipv6ip",codeEditor: true, initialLines: 5 } }
   ]}
 >
     ![R2 的 IPv6 隧道配置截图（Tunnel 接口、源/目的、模式）](img/image57.png)
@@ -1292,7 +1288,7 @@ MP-BGP的核心思想是**传输与业务分离**，它引入了地址族（Addr
       questionId="Lab6-p5-s34" 
       title="R1静态路由配置示例" 
       uploadOptions={[
-        { id: 'r1_ipv6_static', label: '记录R1静态路由配置', type: 'text', textConfig: {codeEditor: true, initialLines: 1} },
+        { id: 'r1_ipv6_static', label: '记录R1静态路由配置', type: 'text', textConfig: {initialContent: "R1(config)# ", codeEditor: true, initialLines: 1} },
         { id: 'r2_ipv6_static', label: '记录R2静态路由配置', type: 'text', textConfig: {initialContent: "R2(config)# ", codeEditor: true, initialLines: 1} }
       ]}
     >
@@ -1403,4 +1399,4 @@ R1知道去往R2的隧道，但R6不知道，我们需要把R1上的静态IPv6�
 
 ## 5 导出实验报告
 
-<!-- <ExportButton templatePath={require('@site/assets/base_report/Lab6.zip').default} labName="Lab6" labId="lab6-" /> -->
+<ExportButton templatePath={require('@site/assets/base_report/Lab6.zip').default} labName="Lab6" labId="lab6-" />
