@@ -866,7 +866,9 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 
 1.  为R7的各接口配置IP地址并激活，其中回环接口和f0/0接口属于Area 2，s2/0接口属于Area 1
 2.  配置s2/0接口的封装协议为 `encapsulation frame-relay`，并指定对应的 `frame-relay interface-dlci [dlci]`，DLCI值设为Frame Relay交换机上R5-R7之间数据链路的相关DLCI值
-3.  在R7上 `ping` R5的IP地址，测试连通性；由于是点对点连接，应该只有一个子接口地址可以ping通
+3.  在R7上查看FrameRelay映射关系（命令：`show frame-relay map`）
+4.  在R5上查看FrameRelay映射关系（命令：`show frame-relay map`）
+5.  在R7上 `ping` R5的IP地址，测试连通性；由于是点对点连接，应该只有一个子接口地址可以ping通
 
 <ScreenshotCard 
   questionId="Lab5-p3-s21" 
@@ -885,8 +887,9 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 
 1.  为R9的各接口配置IP地址并激活，其中回环接口和f0/1接口属于Area 3，s2/0接口属于Area 1
 2.  配置s2/0接口的封装协议为 `encapsulation frame-relay`，并指定对应的 `frame-relay interface-dlci [dlci]`，DLCI值设为Frame Relay交换机上R5-R9之间数据链路的相关DLCI值
-3.  在R9上测试与R5的连通性，由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通；如果在R5上测试，需要加上参数`source s2/0`指定接口
-4.  测试R9到R7的连通性；你会发现此时无法ping通，这是R5、R7、R9通过帧中继交换机连接的形式是非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，即使在同一IP子网内也无法通信
+3.  在R9上查看FrameRelay映射关系（命令：`show frame-relay map`）
+4.  在R9上测试与R5的连通性，由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通；如果在R5上测试，需要加上参数`source s2/0`指定接口
+5.  测试R9到R7的连通性；你会发现此时无法ping通，这是R5、R7、R9通过帧中继交换机连接的形式是非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，即使在同一IP子网内也无法通信
 
 <ScreenshotCard 
   questionId="Lab5-p3-s22" 
