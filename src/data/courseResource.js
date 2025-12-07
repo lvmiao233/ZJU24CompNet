@@ -12,7 +12,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "2 Physical Layer",
-        "size": "4249125",
+        "size": "4723689",
         "link": require('@site/assets/slides/luxq_2_The Physical Layer.pdf').default
     }, {
         "file_type": "pdf",
@@ -22,17 +22,17 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "4 Medium Access Control Sublayer",
-        "size": "3401217",
+        "size": "3309134",
         "link": require('@site/assets/slides/4_MACLayer.pdf').default
     }, {
         "file_type": "pdf",
         "name": "5 Network Layer",
-        "size": "7491147",
+        "size": "5945355",
         "link": require('@site/assets/slides/5_Network Layer.pdf').default
     }, {
         "file_type": "pdf",
         "name": "6 Transport Layer",
-        "size": "5152498",
+        "size": "5051668",
         "link": require('@site/assets/slides/6_TransportLayer.pdf').default
     }, {
         "file_type": "pdf",
@@ -57,7 +57,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab1 Wireshark",
-        "size": "2874374",
+        "size": "3971903",
         "link": require('@site/assets/slides/luxq_Wireshark.pdf').default
     }, {
         "file_type": "pdf",
@@ -67,7 +67,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab3 使用三层交换机组网",
-        "size": "650417",
+        "size": "632105",
         "link": require('@site/assets/slides/luxq_Lab3-使用三层交换机组网.pdf').default
     }, {
         "file_type": "pdf",
@@ -82,7 +82,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab5 在Cisco路由器上的路由协议",
-        "size": "5090922",
+        "size": "1484720",
         "link": require('@site/assets/slides/在Cisco路由器上的路由协议.pdf').default
     }, {
         "file_type": 'pdf',
@@ -107,7 +107,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab8 轻量级的Web服务器",
-        "size": "2554537",
+        "size": "2571433",
         "link": require('@site/assets/slides/Lab8-WebServer.pdf').default
     },
 ];
