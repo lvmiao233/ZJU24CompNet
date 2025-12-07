@@ -91,9 +91,14 @@ const resourceData = [
         "link": require('@site/assets/slides/GNS3模拟环境中使用WireShark抓STP协议报文.pdf').default
     }, {
         "file_type": "pdf",
-        "name": "Lab6 BGP路由协议",
+        "name": "Lab6 BGP路由协议(命令)",
         "size": "1721069",
         "link": require('@site/assets/slides/Lab6_BGP路由协议.pdf').default
+    }, {
+        "file_type": "pdf",
+        "name": "Lab6 BGP路由协议(原理)",
+        "size": "2264528",
+        "link": require('@site/assets/slides/Lab6 动态路由BGP协议.pdf').default
     }, {
         "file_type": "pdf",
         "name": "Lab7 基于Socket自定义协议通信",
