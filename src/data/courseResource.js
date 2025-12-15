@@ -107,7 +107,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab8 轻量级的Web服务器",
-        "size": "2571433",
+        "size": "2584436",
         "link": require('@site/assets/slides/Lab8-WebServer.pdf').default
     },
 ];
