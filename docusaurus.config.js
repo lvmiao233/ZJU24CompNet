@@ -96,9 +96,9 @@ const config = {
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
       announcementBar: {
-        id: 'quiz3_5',
+        id: 'quiz7_8',
         content:
-            '💯Quiz 4-5即将于2025-12-16理论课、实验课进行，请务必关注群内通知，按时参加Quiz',
+            '💯Quiz 7-8即将于2025-12-23实验课进行，请务必关注群内通知，按时参加Quiz',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,

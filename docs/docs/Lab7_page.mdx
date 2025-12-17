@@ -684,5 +684,48 @@ void connectionHandler(int socket) {
 <IconHeader type="lab" title="测试7 多客户端连续请求响应测试"/>
 你需要使用Wireshark开始数据包捕获，使用多个客户端连接服务端，同时开始连续请求获取时间100次（你可以修改代码，使每次调用请求时间功能均会发出100个数据包），观察客户端（含接收消息的客户端）与服务端的显示情况，并截图填入实验报告
 
+为了提高传输效率，TCP协议栈会主动合并多次向相同设备传输的小数据包，因此你收到的数据包数量小于获取时间次数是正常的；如果电脑性能较差/与同组同学电脑间网络连接不佳，也可能因大量重传而导致你收到的数据包数量小于获取时间次数；请结合Wireshark抓包结果进行具体分析
+
+由于通常获取100次时间速度非常快，你可能来不及同时开始，为此可以使用以下bash测试脚本(Windows用户请用Git Bash运行)触发同时获取，**你需要将脚本内头部的配置参数改为你自己的**：
+
+``` c
+#!/bin/bash
+
+CLIENT_PATH="./client" # 客户端程序路径
+INPUT_CONN_OPT="1"     # 连接服务器的选项
+INPUT_IP="127.0.0.1"   # 服务器 IP 地址
+INPUT_PORT="8080"      # 服务器 端口号
+INPUT_ACTION_OPT="2"   # 获取100次服务器时间的选项
+INPUT_EXIT_OPT="0"     # 退出程序的选项
+
+mkfifo /tmp/sync_barrier
+exec 3<>/tmp/sync_barrier # 以读写模式打开打开 FIFO 描述符3
+
+for i in 1 2; do
+    { 
+      echo "$INPUT_CONN_OPT" # 输入选项
+      echo "$INPUT_IP"       # 输入IP
+      echo "$INPUT_PORT"     # 输入端口
+      read -u 3 line 
+      echo "$INPUT_ACTION_OPT"
+      sleep 3
+      echo "$INPUT_EXIT_OPT" || true 
+      
+    } | "$CLIENT_PATH" | sed "s/^/[Client $i] /" &
+done
+
+sleep 1
+# 发送信号唤醒两个后台进程
+echo >&3
+echo >&3
+
+exec 3>&- # 关闭描述符
+wait
+rm /tmp/sync_barrier
+```
+
+不建议将获取时间次数大幅提高，过大的获取时间次数可能在短时间内导致服务端、客户端TCP协议栈的发送环形缓冲区溢出，从而导致数据包未被发出即丢失（请注意：此时该数据包尚未轮到被TCP发送即被覆盖，因此TCP协议栈完全不会意识到存在该数据包，也不存在相应的超时重传）
+
+
 <IconHeader type="lab" title="测试8 TCP断开连接后状态观察"/>
 客户端主动断开连接后，使用netstat -an查看当时的TCP连接状态是什么，并注意该状态保持的时间长度
