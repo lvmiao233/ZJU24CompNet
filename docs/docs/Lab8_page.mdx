@@ -493,4 +493,4 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 <IconHeader type="lab" title="测试7 多线程访问测试" />
 
-打开多个浏览器窗口，同时访问包含图片的HTML文件（`Web服务器IP:端口/index.html`），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
+打开多个浏览器窗口（命令：`1..4 | ForEach-Object { Start-Process msedge -ArgumentList "--new-window http://Web服务器IP:端口/index.html" }`可使用Edge批量打开4个窗口加载目标页面），同时访问包含图片的HTML文件（`Web服务器IP:端口/index.html`），并截图浏览器显示内容、TCP链接情况（命令同测试5，截取与监听端口相关的）
