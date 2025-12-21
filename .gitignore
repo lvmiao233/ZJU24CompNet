@@ -4,6 +4,8 @@
 # Production
 /build
 /local
+# /local/downloads
+# /local/temp_extract
 
 # Generated files
 .docusaurus
