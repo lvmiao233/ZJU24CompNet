@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.9.2",
-    "@docusaurus/types": "^3.9.2"
+    "@docusaurus/types": "^3.9.2",
+    "baseline-browser-mapping": "^2.9.11"
   },
   "optionalDependencies": {
     "@rspack/binding-darwin-arm64": "1.1.4",
