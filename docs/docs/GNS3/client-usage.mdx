@@ -57,6 +57,20 @@ description: GNS3 客户端功能与设备使用指南，详细介绍 GNS3 主�
   * NAT模式（默认eth1）：VMWare Workstation提供NAT，将物理机IP与虚拟机内设备私有IP进行转换
   * 桥接模式（默认eth2）：镜像物理机的网络，此时虚拟机内设备可与宿主机设备以平等的方式独立访问外部网络，外部视角下虚拟机内设备与宿主机同时存在
 
+:::tip Linux使用提示
+
+在Linux上，如果使用Virtual Machine Manager（即virt-manager）管理虚拟机资源，且发现Cloud设备没有除了eth0以外的其他接口，可以尝试先删除当前与eth0连接的链路，双击Cloud设备，在弹出的设置窗口中点击“Refresh”，然后点击下拉框，应该能看到一个eth0以外的接口，选择后“Add”即可
+
+如果下拉框中也没有，则需要：
+
+1. 先关闭GNS3虚拟机，打开Virtual Machine Manager，进入Edit - Connection Details - Virtual Networks
+2. 点击左下方的“+”，在弹出的窗口中设置“Mode”为“NAT”，设置“Forward to”为“Phycial device...”，然后填入自己WiFi网卡（或以太网卡）的名称，一般分别以wlp或者enp开头
+3. 需要设置IPv4 configuration，“Network”不要设置为主机WiFi网卡（或者以太网卡）所在的网络，格式参考192.168.100.0/24，并注意勾选上“Enable DHCPv4”
+4. 回到GNS3虚拟机设置，点击左下角“Add Hardware”按钮，选择添加“Network”，“network source”选择刚刚我们添加的虚拟网络，点击完成
+重新开启GNS3虚拟机，并重新连接GNS3软件，双击Cloud设备后，点击“Refresh”应该就可以看到下拉框里面多出来的eth接口了
+
+:::
+
 ### 2.2 二层交换机
 
   从交换机列表中，拖出`Ethernet Switch`设备

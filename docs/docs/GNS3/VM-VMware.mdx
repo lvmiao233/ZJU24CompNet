@@ -116,7 +116,7 @@ GNS3 3.0.0-3.0.3无法正确获取Idle PC，会导致卡死，如不慎安装，
 ## 3 配置GNS3虚拟机
 
 <Tabs className="unique-tabs"  groupId="operating-systems">
-    <TabItem value="Windows / Linux">
+    <TabItem value="Windows">
         * 选择创建好的虚拟机，点选编辑虚拟机设置
 
             ![编辑虚拟机设置](img/image-20240913011152365.png)
@@ -160,6 +160,52 @@ GNS3 3.0.0-3.0.3无法正确获取Idle PC，会导致卡死，如不慎安装，
             ![调整GNS3 VM使用的桥接设备](img/image-20240913011700873.png)
 
         * 点选应用保存设置
+    </TabItem>
+    <TabItem value="Linux">
+        * 选择创建好的虚拟机，点选编辑虚拟机设置
+
+            ![编辑虚拟机设置](img/image-20240913011152365.png)
+
+        * 点选添加硬件，此时默认已有“仅主机模式”和“NAT模式”两个虚拟网络适配器，我们需要再添加1个桥接网络适配器
+
+            <img src={require('./img/image-20240913011239868.png').default}   alt="为GNS3 VM添加桥接网络适配器" style={{zoom:'80%'}} />
+
+        * 选择网络适配器
+
+            ![选择网络适配器](img/image-20240913011316856.png)
+
+        * 将网络连接更改为“桥接模式”（如果缺少仅主机模式/NAT模式的虚拟网络适配器，请按类似方法分别进行添加）
+
+            ![将网络连接更改为桥接模式](img/image-20240913011357784.png)
+
+        * 在左侧点选**处理器**，**取消勾选虚拟化引擎中全部项目**，并增加“处理器数量”（推荐4个）
+
+            点选**内存**，增加至4G左右（如果内存充裕，可增加更多，但不要超过VMWare的建议上限）点击确定保存设置
+
+            ![配置GNS3 VM处理器参数](img/image-20240913011831596.png)
+
+        * 在VMware Workstation中，点选编辑-虚拟网络编辑器
+
+            ![虚拟网络编辑器入口](img/image-20240913011454462.png)
+
+        * 点选更改设置，并授予管理员权限
+
+            ![虚拟网络编辑器界面](img/image-20240913011520992.png)
+
+        * 选择VMnet0，更改已桥接至的设备为当前上网所用设备
+
+            :::danger 注意
+            如果你使用无线网卡上网，你的无线网卡名称可能类似：Intel® Wifi6 xxxx 或 Realtek xxx Wifi6 或 Mediatek Wifi6 xxxx
+
+            如果你使用有线网卡上网，你的有线网卡名称可能类似：Realtek PCIe GbE Family Controller 或 Realtek PCIe FE Family Controller
+
+            请根据你的实际情况选择，不要照搬图片中的选项，如果找不到使用的网卡，请参考Q&A
+            :::
+
+            ![调整GNS3 VM使用的桥接设备](img/image-20240913011700873.png)
+
+        * 点选应用保存设置
+        * 执行命令`chmod +rw /dev/vmnet0 /dev/vmnet1 /dev/vmnet8`为VMware Workstation的虚拟网络适配器设置读写权限
     </TabItem>
     <TabItem value="macOS">
         * 选择创建好的虚拟机，点选编辑虚拟机设置，此时默认仅有“与我的Mac共享”1个虚拟网络适配器，我们需要再添加1个“桥接模式”网络适配器、1个“仅供我的Mac专用”网络适配器
