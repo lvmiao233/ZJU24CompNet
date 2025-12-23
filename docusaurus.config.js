@@ -96,9 +96,9 @@ const config = {
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
       announcementBar: {
-        id: 'quiz7_8',
+        id: 'turnin',
         content:
-            '💯Quiz 7-8即将于2025-12-23实验课进行，请务必关注群内通知，按时参加Quiz',
+            '📃全部实验报告必须在2025年12月30日23：59前提交至作业系统，逾期提交的任何实验报告均不计入成绩，请合理安排时间',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,
