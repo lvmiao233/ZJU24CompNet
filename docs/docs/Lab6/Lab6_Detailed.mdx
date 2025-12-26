@@ -1245,7 +1245,7 @@ MP-BGP的核心思想是**传输与业务分离**，它引入了地址族（Addr
 
 1.  激活R2上的f0/1端口，配置IPv6的site-local地址；启用IPv6单播路由
 2.  给PC4配置IPv6地址
-3.  用Ping测试PC4和R2、PC2的连通性；观察可知，此时由于路由器<ModernInput size="medium" questionId="Lab6-p5-s32-router"/>没有<ModernInput size="large" questionId="Lab6-p5-s32-route"/>的IPv6路由，无法Ping通
+3.  用Ping测试PC4和R2、PC2的连通性；观察可知，此时由于路由器<ModernInput size="medium" questionId="Lab6-p5-s32-router"/>没有<ModernInput size="large" questionId="Lab6-p5-s32-route"/>的IPv6路由，无法Ping通PC2
 
 <ScreenshotCard 
   questionId="Lab6-p5-s32" 
@@ -1253,9 +1253,11 @@ MP-BGP的核心思想是**传输与业务分离**，它引入了地址族（Addr
   uploadOptions={[
     { id: 'r2_ipv6_config', label: '记录R2配置命令', type: 'text', textConfig: {initialContent: "R2(config)# interface f0/1\nR2(config-if)# \nR2(config-if)# \nR2(config)# （启用IPv6单播路由）",codeEditor: true, initialLines: 4} },
     { id: 'pc4_ipv6_config', label: '记录PC4配置命令', type: 'text', textConfig: {initialContent: "PC4> ",codeEditor: true, initialLines: 1} },
-    { id: 'pc4_r2_ping', label: '截图PC4→R2 Ping结果' }
+    { id: 'pc4_r2_ping', label: '截图PC4→PC2 Ping结果' }
   ]}
 />
+
+<!--FIXME: 本学期结束后，需补充PC4→R2 Ping结果条目-->
 
 </TaskCard>
 
