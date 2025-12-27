@@ -3,9 +3,11 @@
 
 # Production
 /build
+__pycache__
 /local
 # /local/downloads
 # /local/temp_extract
+# /local/extracted_pdfs
 
 # Generated files
 .docusaurus
