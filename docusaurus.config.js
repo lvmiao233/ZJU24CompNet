@@ -22,7 +22,7 @@ const config = {
   projectName: 'ZJU24CompNet', // repo name.
 
   onBrokenLinks: 'warn',
-  
+
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
@@ -54,6 +54,9 @@ const config = {
         ],
       },
     ],
+  ],
+  clientModules: [
+    require.resolve('./src/clientModules/countdown.js'),
   ],
   presets: [
     [
@@ -98,10 +101,10 @@ const config = {
       announcementBar: {
         id: 'turnin',
         content:
-            '📃全部实验报告必须在2025年12月30日23：59前提交至作业系统，逾期提交的任何实验报告均不计入成绩，请合理安排时间',
+          '📃全部实验报告必须在2025/12/30 23:59前提交 <strong id="countdown-timer"></strong>，逾期提交的任何实验均不计入成绩，请合理安排时间',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
-        isCloseable: true,
+        isCloseable: false,
       },
       navbar: {
         title: '计算机网络课程实验',
@@ -113,7 +116,7 @@ const config = {
           }, {
             type: 'docSidebar', sidebarId: 'noteSidebar',
             label: '课程解析', position: 'left',
-          }, {to: '/blog', label: '延伸阅读', position: 'left'}, {
+          }, { to: '/blog', label: '延伸阅读', position: 'left' }, {
             href: 'https://github.com/lvmiao233/NetLabFramework',
             label: '测试框架', position: 'right',
           }, {
