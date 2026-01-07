@@ -97,7 +97,7 @@ const resourceData = [
     }, {
         "file_type": "pdf",
         "name": "Lab6 BGP路由协议(原理)",
-        "size": "2264528",
+        "size": "2263394",
         "link": require('@site/assets/slides/Lab6 动态路由BGP协议.pdf').default
     }, {
         "file_type": "pdf",
