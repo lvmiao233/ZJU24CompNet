@@ -198,7 +198,7 @@ BGP协议根据邻居所属的自治系统（AS）不同，有两种运行模式
 
 根本原因在于**数据量与可靠性**，RIP和OSPF通常只在几十台、几百台路由器的网络中运行，路由信息量相对较小；而BGP承载的是整个互联网的路由表，目前已超过**132万条**前缀，如果BGP像OSPF一样直接在IP层广播LSA，不仅会瞬间塞满带宽，而且其较大的数据也要求BGP自己去实现复杂的报文分片、重传、确认和流控机制
 
-<iframe class="cf-radar-embed" width="800" height="438" src="https://radar.cloudflare.com/embed/BgpRoutingStats?locale=zh-CN&widgetState=%7B%7D&ref=%2Fzh-cn%2Frouting" title="Cloudflare Radar - 路由统计信息" loading="lazy" style={{border: 0, width: '100%'}}></iframe>
+<iframe className="cf-radar-embed" width="800" height="438" src="https://radar.cloudflare.com/embed/BgpRoutingStats?locale=zh-CN&widgetState=%7B%7D&ref=%2Fzh-cn%2Frouting" title="Cloudflare Radar - 路由统计信息" loading="lazy" style={{border: 0, width: '100%'}}></iframe>
 
 那么此时最聪明的设计必然就是“偷懒”了：既然TCP已经提供了完美的可靠传输、滑动窗口流控和分片重组功能，我们为什么不直接利用它呢？通过建立TCP连接，BGP只需要关注路由策略本身，而将“如何保证132万条路由一条不漏地传给对方”这个艰巨任务甩锅给了TCP，这也是为什么BGP建立邻居必须单播指定IP（Unicast），而不能像OSPF那样通过组播自动发现（Multicast）的原因
 </details>

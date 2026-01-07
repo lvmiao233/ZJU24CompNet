@@ -216,8 +216,8 @@ const IPMatchingComponent = () => {
 
             return (
                 <span key={index} style={style}>
-          {bit}
-        </span>
+                    {bit}
+                </span>
             );
         });
     };
@@ -234,9 +234,7 @@ const IPMatchingComponent = () => {
                                     style={{ display: 'flex', alignItems: 'center' }}
                                 >
                                     <Form.Item
-                                        {...field}
                                         name={[field.name, 'subnet']}
-                                        fieldKey={[field.fieldKey, 'subnet']}
                                         rules={[
                                             { required: true, message: '请输入目标子网（CIDR 格式）' },
                                             {
@@ -252,7 +250,6 @@ const IPMatchingComponent = () => {
                                     </Form.Item>
                                     <Form.Item
                                         name={[field.name, 'nextHop']}
-                                        fieldKey={[field.fieldKey, 'nextHop']}
                                         initialValue={String.fromCharCode(65 + index)}
                                         style={{ width: '80px', marginRight: 8, marginBottom: 12 }}
                                     >
@@ -311,18 +308,18 @@ const IPMatchingComponent = () => {
                 </div>
             </div>
             <div style={{ marginTop: '20px' }}>
-                <h3 style={{ marginTop: '20px', fontSize: 18}}>目标 IP 二进制表示</h3>
+                <h3 style={{ marginTop: '20px', fontSize: 18 }}>目标 IP 二进制表示</h3>
                 {binaryTargetIP.length > 0 ? (
                     <div>{renderBinaryBits(binaryTargetIP, [],
                         (binaryRoutingTable.length > 0 && currentEntryIndex >= 0) ? binaryRoutingTable[currentEntryIndex].maskLength : 32,
                         true, null)}</div>
                 ) : (
-                    <Alert type="warning" showIcon message="无效的 IP 地址" />
+                    <Alert type="warning" showIcon title="无效的 IP 地址" />
                 )}
             </div>
 
             <div style={{ marginTop: '20px' }}>
-                <h3 style={{fontSize: 18}}>路由表项</h3>
+                <h3 style={{ fontSize: 18 }}>路由表项</h3>
                 <p>从掩码长度最长的表项开始，逐个比较，找到匹配项则停止比较，选择该表项用于转发</p>
                 {binaryRoutingTable.map((entry, index) => (
                     <div key={index} style={{ marginBottom: '10px' }}>
@@ -345,17 +342,16 @@ const IPMatchingComponent = () => {
 
             {comparisonComplete && (
                 <div style={{ marginTop: '20px' }}>
-                    <h3 style={{fontSize: 18}}>匹配结果</h3>
+                    <h3 style={{ fontSize: 18 }}>匹配结果</h3>
                     {matchedEntry ? (
                         <Alert
                             type="success"
                             showIcon
-                            message={`匹配的下一跳: ${matchedEntry.nextHop} (子网: ${
-                                routingTable.find((r) => r.nextHop === matchedEntry.nextHop)?.subnet
-                            })`}
+                            title={`匹配的下一跳: ${matchedEntry.nextHop} (子网: ${routingTable.find((r) => r.nextHop === matchedEntry.nextHop)?.subnet
+                                })`}
                         />
                     ) : (
-                        <Alert type="error" showIcon message="未找到匹配的路由" />
+                        <Alert type="error" showIcon title="未找到匹配的路由" />
                     )}
                 </div>
             )}

@@ -16,14 +16,14 @@ const HTTPVersions = {
     ],
 };
 
-const BASE_URL= 'https://demo.zjucomp.net';
+const BASE_URL = 'https://demo.zjucomp.net';
 
 const notifyResult = (response) => {
     const prettyResponse = JSON.stringify(response, null, 1);
     notification.success({
         message: '请求成功，服务器返回:',
-        description: <pre style={{marginLeft: -36}}>{prettyResponse}</pre>,
-        style: {width: '450px'},
+        description: <pre style={{ marginLeft: -36 }}>{prettyResponse}</pre>,
+        style: { width: '450px' },
         duration: 1.5,
         pauseOnHover: true
     });
@@ -110,33 +110,33 @@ export const HTTPMethodsExtras = {
 }
 
 const contentTypeInfo = [
-    {type: '文本', field: 'text/plain', desc: '纯文本文件'},
-    {type: '文本', field: 'text/html', desc: 'HTML文档'},
-    {type: '文本', field: 'text/css', desc: 'CSS样式表'},
-    {type: '文本', field: 'text/xml', desc: 'XML文档'},
-    {type: '文本', field: 'text/csv', desc: 'CSV（逗号分隔值）文件'},
-    {type: '图像', field: 'image/jpeg', desc: 'JPEG图像'},
-    {type: '图像', field: 'image/png', desc: 'PNG图像'},
-    {type: '图像', field: 'image/gif', desc: 'GIF图像'},
-    {type: '图像', field: 'image/svg+xml', desc: 'SVG（可缩放矢量图形）文件'},
-    {type: '图像', field: 'image/webp', desc: 'WebP图像格式'},
-    {type: '视频', field: 'video/mp4', desc: 'MP4视频文件'},
-    {type: '视频', field: 'video/mpeg', desc: 'MPEG视频文件'},
-    {type: '音频', field: 'audio/mpeg', desc: 'MP3音频文件'},
-    {type: '音频', field: 'audio/wav', desc: 'WAV音频文件'},
-    {type: '音频', field: 'audio/aac', desc: 'AAC音频文件'},
-    {type: '音频', field: 'audio/ogg', desc: 'Ogg音频文件'},
-    {type: '应用程序', field: 'application/json', desc: 'JSON数据'},
-    {type: '应用程序', field: 'application/pdf', desc: 'PDF文件'},
-    {type: '应用程序', field: 'application/xml', desc: 'XML文档'},
-    {type: '应用程序', field: 'application/javascript', desc: 'JavaScript文件'},
-    {type: '应用程序', field: 'application/octet-stream', desc: '二进制数据流，通常用于下载文件'},
-    {type: '应用程序', field: 'application/x-www-form-urlencoded', desc: 'URL编码的表单数据，常用于POST请求'},
-    {type: '应用程序', field: 'application/x-zip-compressed', desc: 'ZIP压缩文件'},
-    {type: '字体', field: 'font/ttf', desc: 'TrueType字体文件'},
-    {type: '字体', field: 'font/otf', desc: 'OpenType字体文件'},
-    {type: '字体', field: 'font/woff', desc: 'WOFF（Web Open Font Format）字体文件'},
-    {type: '字体', field: 'font/woff2', desc: 'WOFF2字体文件'},
+    { key: 'text-plain', type: '文本', field: 'text/plain', desc: '纯文本文件' },
+    { key: 'text-html', type: '文本', field: 'text/html', desc: 'HTML文档' },
+    { key: 'text-css', type: '文本', field: 'text/css', desc: 'CSS样式表' },
+    { key: 'text-xml', type: '文本', field: 'text/xml', desc: 'XML文档' },
+    { key: 'text-csv', type: '文本', field: 'text/csv', desc: 'CSV（逗号分隔值）文件' },
+    { key: 'image-jpeg', type: '图像', field: 'image/jpeg', desc: 'JPEG图像' },
+    { key: 'image-png', type: '图像', field: 'image/png', desc: 'PNG图像' },
+    { key: 'image-gif', type: '图像', field: 'image/gif', desc: 'GIF图像' },
+    { key: 'image-svg', type: '图像', field: 'image/svg+xml', desc: 'SVG（可缩放矢量图形）文件' },
+    { key: 'image-webp', type: '图像', field: 'image/webp', desc: 'WebP图像格式' },
+    { key: 'video-mp4', type: '视频', field: 'video/mp4', desc: 'MP4视频文件' },
+    { key: 'video-mpeg', type: '视频', field: 'video/mpeg', desc: 'MPEG视频文件' },
+    { key: 'audio-mpeg', type: '音频', field: 'audio/mpeg', desc: 'MP3音频文件' },
+    { key: 'audio-wav', type: '音频', field: 'audio/wav', desc: 'WAV音频文件' },
+    { key: 'audio-aac', type: '音频', field: 'audio/aac', desc: 'AAC音频文件' },
+    { key: 'audio-ogg', type: '音频', field: 'audio/ogg', desc: 'Ogg音频文件' },
+    { key: 'app-json', type: '应用程序', field: 'application/json', desc: 'JSON数据' },
+    { key: 'app-pdf', type: '应用程序', field: 'application/pdf', desc: 'PDF文件' },
+    { key: 'app-xml', type: '应用程序', field: 'application/xml', desc: 'XML文档' },
+    { key: 'app-js', type: '应用程序', field: 'application/javascript', desc: 'JavaScript文件' },
+    { key: 'app-octet', type: '应用程序', field: 'application/octet-stream', desc: '二进制数据流，通常用于下载文件' },
+    { key: 'app-form', type: '应用程序', field: 'application/x-www-form-urlencoded', desc: 'URL编码的表单数据，常用于POST请求' },
+    { key: 'app-zip', type: '应用程序', field: 'application/x-zip-compressed', desc: 'ZIP压缩文件' },
+    { key: 'font-ttf', type: '字体', field: 'font/ttf', desc: 'TrueType字体文件' },
+    { key: 'font-otf', type: '字体', field: 'font/otf', desc: 'OpenType字体文件' },
+    { key: 'font-woff', type: '字体', field: 'font/woff', desc: 'WOFF（Web Open Font Format）字体文件' },
+    { key: 'font-woff2', type: '字体', field: 'font/woff2', desc: 'WOFF2字体文件' },
 ]
 const contentType = [
     { title: '类型', dataIndex: 'type', key: 'type', sorter: (a, b) => a.type.localeCompare(b.type) },
@@ -146,7 +146,7 @@ const contentType = [
 
 export const resourceAttrInfo = {
     "Content-Length": "有正文时必须添加该字段，指明资源主体的大小，以字节为单位，对于接收方预估下载时间和分配缓冲区大小非常有用",
-    "Content-Type": ["有正文时必须添加该字段，用于指定资源的MIME类型，帮助接收方使用正确的方式解析资源，以下是常见的一些类型：", <Table dataSource={contentTypeInfo} columns={contentType} size={'small'} pagination={false}/>],
+    "Content-Type": ["有正文时必须添加该字段，用于指定资源的MIME类型，帮助接收方使用正确的方式解析资源，以下是常见的一些类型：", <Table dataSource={contentTypeInfo} columns={contentType} size={'small'} pagination={false} />],
     "Content-Encoding": "为了节约网络带宽，提高弱网环境下的浏览体验，发送方可以对资源进行压缩，并通过该字段指示资源被编码的方式，常见的值包括 gzip 和 deflate，这有助于接收方知道如何解码资源",
     "Last-Modified": "提供资源最后一次被修改的时间，这在条件请求中特别有用，通过HEAD请求发现上次请求内容此时仍未被修改，则不需要重新再加载一次，可以避免不必要的完整资源传输",
 }
@@ -175,7 +175,7 @@ export const securityAttrInfo = {
     "Access-Control-Allow-Origin": "控制来自哪些域名的请求可以访问资源，是实现跨源资源共享(CORS)的关键，它允许服务器指定一个或多个源，或者使用通配符 * 表示所有源都可以访问",
     "Strict-Transport-Security (HSTS)": "强制浏览器通过HTTPS连接到网站，增加安全性，一旦设置了此头字段，浏览器会在一段时间内自动将所有对该站点的HTTP请求转换为HTTPS请求",
     "Cookie": "用于在客户端存储少量数据，通常用于会话管理和个性化设置，客户端被指定设置Cookie后，每次请求时都会自动将之前设置的Cookie发送回服务器，服务器即可根据Cookie进行跟踪",
-    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""}/>, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
+    "Referer": [<Admonition type="important" title={"早期HTTP规范不慎将该字段拼错，为了保证兼容性，后续版本的规范仍使用该错误拼写"} children={""} />, "指示发起请求的页面地址，有助于服务器进行日志记录、链接分析或安全检查"],
 }
 export const securityAttrExtra = {
     "Authorization": <Tag color="blue">请求头</Tag>,
@@ -203,29 +203,29 @@ export const negotiationAttrExtra = {
 }
 
 export const responseCode = [
-    { code: 100, phrase: "Continue", desc: "请求正在进行中" },
-    { code: 200, phrase: "OK", desc: "请求成功" },
-    { code: 202, phrase: "Accepted", desc: "请求已被接受且正在处理中，但尚未完成" },
-    { code: 301, phrase: "Moving Permanently", desc: "资源有个新地址" },
-    { code: 302, phrase: "Moving Temporarily", desc: "资源有个新的临时地址" },
-    { code: 400, phrase: "Bad Request", desc: "服务器不认可这个请求" },
-    { code: 401, phrase: "Unauthorized", desc: "授权失败" },
-    { code: 404, phrase: "Not Found", desc: "所请求的资源不存在" },
-    { code: 406, phrase: "Not Acceptable", desc: "内容将不被浏览器所接受" },
-    { code: 500, phrase: "Internal Server Error", desc: "服务器遭遇错误" },
-    { code: 503, phrase: "Service Unavailable", desc: "服务器过载或不工作" },
+    { key: 100, code: 100, phrase: "Continue", desc: "请求正在进行中" },
+    { key: 200, code: 200, phrase: "OK", desc: "请求成功" },
+    { key: 202, code: 202, phrase: "Accepted", desc: "请求已被接受且正在处理中，但尚未完成" },
+    { key: 301, code: 301, phrase: "Moving Permanently", desc: "资源有个新地址" },
+    { key: 302, code: 302, phrase: "Moving Temporarily", desc: "资源有个新的临时地址" },
+    { key: 400, code: 400, phrase: "Bad Request", desc: "服务器不认可这个请求" },
+    { key: 401, code: 401, phrase: "Unauthorized", desc: "授权失败" },
+    { key: 404, code: 404, phrase: "Not Found", desc: "所请求的资源不存在" },
+    { key: 406, code: 406, phrase: "Not Acceptable", desc: "内容将不被浏览器所接受" },
+    { key: 500, code: 500, phrase: "Internal Server Error", desc: "服务器遭遇错误" },
+    { key: 503, code: 503, phrase: "Service Unavailable", desc: "服务器过载或不工作" },
 ];
 export const responseCodeColumn = [
     { title: '响应码', dataIndex: 'code', key: 'code', sorter: (a, b) => (a.code - b.code) },
-    { title: '原因短语 Reason-Phrase', dataIndex: 'phrase', key: 'phrase'},
+    { title: '原因短语 Reason-Phrase', dataIndex: 'phrase', key: 'phrase' },
     { title: '描述', dataIndex: 'desc', key: 'desc', },
 ];
 
 export const uriMap = [
-    { desc: "带有图片的首页HTML文件", internal_uri: "/html/test.html", external_uri: "/index.html" },
-    { desc: "去掉图片的首页HTML文件", internal_uri: "/html/noimg.html", external_uri: "/index_noimg.html" },
-    { desc: "纯文本文件", internal_uri: "/txt/test.txt", external_uri: "/info/server" },
-    { desc: "浙大校标图片文件", internal_uri: "/img/logo.jpg", external_uri: "/assets/logo.jpg" },
+    { key: 'index', desc: "带有图片的首页HTML文件", internal_uri: "/html/test.html", external_uri: "/index.html" },
+    { key: 'noimg', desc: "去掉图片的首页HTML文件", internal_uri: "/html/noimg.html", external_uri: "/index_noimg.html" },
+    { key: 'txt', desc: "纯文本文件", internal_uri: "/txt/test.txt", external_uri: "/info/server" },
+    { key: 'logo', desc: "浙大校标图片文件", internal_uri: "/img/logo.jpg", external_uri: "/assets/logo.jpg" },
 ];
 export const uriMapColumn = [
     { title: '文件描述', dataIndex: 'desc', key: 'desc', },
@@ -236,11 +236,11 @@ export const uriMapColumn = [
 const colorRender = (text) => (<Tag color={text === ' √ ' ? 'green' : (text === ' × ' ? 'red' : 'blue')} >{text}</Tag>)
 
 export const HTTPMethodAttribute = [
-    { method: '请求体', GET: '可选', POST: '通常', OPTIONS: '可选', HEAD: '可选', PUT: ' √ ', DELETE: '可选', PATCH: ' √ ' },
-    { method: '响应体', GET: ' √ ', POST: ' √ ', OPTIONS: ' √ ', HEAD: ' × ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' √ ' },
-    { method: '安全性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
-    { method: '幂等性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' × ' },
-    { method: '可缓存', GET: ' √ ', POST: '有时', OPTIONS: ' × ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
+    { key: 'body-req', method: '请求体', GET: '可选', POST: '通常', OPTIONS: '可选', HEAD: '可选', PUT: ' √ ', DELETE: '可选', PATCH: ' √ ' },
+    { key: 'body-res', method: '响应体', GET: ' √ ', POST: ' √ ', OPTIONS: ' √ ', HEAD: ' × ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' √ ' },
+    { key: 'safe', method: '安全性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
+    { key: 'idempotent', method: '幂等性', GET: ' √ ', POST: ' × ', OPTIONS: ' √ ', HEAD: ' √ ', PUT: ' √ ', DELETE: ' √ ', PATCH: ' × ' },
+    { key: 'cacheable', method: '可缓存', GET: ' √ ', POST: '有时', OPTIONS: ' × ', HEAD: ' √ ', PUT: ' × ', DELETE: ' × ', PATCH: ' × ' },
 ];
 
 export const HTTPMethodAttributeColumn = [

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Button, Col, Form, Input, List, message, Row, Steps} from 'antd';
+import React, { useState } from 'react';
+import { Button, Col, Form, Input, List, message, Row, Steps } from 'antd';
 import {
     ColumnWidthOutlined,
     DesktopOutlined,
@@ -53,7 +53,7 @@ function subnetting(networkStr, hostRequirements) {
     let currentIpInt = networkIpInt;
 
     for (const item of hostRequirementsWithIndex) {
-        const {hostCount, index} = item;
+        const { hostCount, index } = item;
         const requiredMaskLength = calculateRequiredMaskLength(hostCount);
         const subnetMaskInt = maskLengthToMask(requiredMaskLength);
         const blockSize = 1 << (32 - requiredMaskLength);
@@ -94,15 +94,15 @@ const SubnetCalculator = () => {
     const [calculatedHosts, setCalculatedHosts] = useState([]);
 
     const steps = [
-        {title: '指定划分后子网主机数',},
-        {title: '确定实际容纳主机数',},
-        {title: '划分子网',},
+        { title: '指定划分后子网主机数', },
+        { title: '确定实际容纳主机数', },
+        { title: '划分子网', },
     ];
 
     const next = async () => {
         try {
             if (step === 0) {
-                try{ await form.validateFields(['network', 'hosts']); }
+                try { await form.validateFields(['network', 'hosts']); }
                 catch (e) { throw new Error('请输入正确的网络地址和掩码长度（如：192.168.0.0/24）'); }
 
                 const values = form.getFieldsValue(['network', 'hosts']);
@@ -148,19 +148,19 @@ const SubnetCalculator = () => {
 
     return (<div>
         <Form form={form} name="subnet_calculator" autoComplete="off" layout="vertical" >
-            <h3 style={{fontSize: 18}}>被划分子网（如：192.168.0.0/24)</h3>
+            <h3 style={{ fontSize: 18 }}>被划分子网（如：192.168.0.0/24)</h3>
             <Form.Item
                 name="network"
-                rules={[{required: true, message: '请输入被划分子网'},
-                    {
-                        pattern: /^\d{1,3}(\.\d{1,3}){3}\/\d{1,2}$/,
-                        message: '请输入正确的网络地址和掩码长度（如：192.168.0.0/24）'
-                    },
+                rules={[{ required: true, message: '请输入被划分子网' },
+                {
+                    pattern: /^\d{1,3}(\.\d{1,3}){3}\/\d{1,2}$/,
+                    message: '请输入正确的网络地址和掩码长度（如：192.168.0.0/24）'
+                },
                 ]}
             >
-                <Input placeholder="如：192.168.0.0/24"/>
+                <Input placeholder="如：192.168.0.0/24" />
             </Form.Item>
-            <Steps size="small" current={step} items={steps} style={{marginBottom: 16}}/>
+            <Steps size="small" current={step} items={steps} style={{ marginBottom: 16 }} />
             {step === 0 && (<>
                 <Form.List
                     name="hosts"
@@ -171,34 +171,34 @@ const SubnetCalculator = () => {
                         },
                     },]}
                 >
-                    {(fields, {add, remove}, {errors}) => (<>
+                    {(fields, { add, remove }, { errors }) => (<>
                         <Row gutter={16}>
                             {fields.map((field, index) => (
                                 <Col xs={24} sm={12} md={8} lg={12} xl={8} xxl={6} key={field.key}>
-                                    <Form.Item required={false} style={{marginBottom: 8}}>
-                                        <div style={{display: 'flex', alignItems: 'center'}}>
-                                            <span style={{marginRight: 8, minWidth: 50}}> 子网{index + 1}：</span>
+                                    <Form.Item required={false} style={{ marginBottom: 8 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <span style={{ marginRight: 8, minWidth: 50 }}> 子网{index + 1}：</span>
                                             <Form.Item
-                                                {...field}
+                                                key={field.key}
                                                 validateTrigger={['onChange', 'onBlur']}
                                                 name={[field.name, 'host']}
-                                                rules={[{required: true, message: '请输入主机数量'}, { pattern: /^\d+$/, message: '主机数量必须是正整数', },]}
+                                                rules={[{ required: true, message: '请输入主机数量' }, { pattern: /^\d+$/, message: '主机数量必须是正整数', },]}
                                                 noStyle
                                             >
-                                                <Input placeholder="容纳主机数量"/>
+                                                <Input placeholder="容纳主机数量" />
                                             </Form.Item>
-                                            { fields.length > 1 ?
-                                                ( <MinusCircleOutlined onClick={() => remove(field.name)} style={{margin: '0 8px'}} />) : null
+                                            {fields.length > 1 ?
+                                                (<MinusCircleOutlined onClick={() => remove(field.name)} style={{ margin: '0 8px' }} />) : null
                                             }
                                         </div>
                                     </Form.Item>
                                 </Col>))}
                             <Col span={24}>
                                 <Form.Item>
-                                    <Button type="dashed" onClick={() => add()} icon={<PlusOutlined/>} style={{width: '100%'}} >
+                                    <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />} style={{ width: '100%' }} >
                                         添加子网需求
                                     </Button>
-                                    <Form.ErrorList errors={errors}/>
+                                    <Form.ErrorList errors={errors} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -206,11 +206,11 @@ const SubnetCalculator = () => {
                 </Form.List>
             </>)}
             {step === 1 && (<>
-                <p style={{marginBottom: 8}}>对于各个子网，我们并非简单地提供其所需数量的可用IP，而是选择最小的一个幂次，使（2的整数次幂
+                <p style={{ marginBottom: 8 }}>对于各个子网，我们并非简单地提供其所需数量的可用IP，而是选择最小的一个幂次，使（2的整数次幂
                     - 2） ≥ 所需的主机数量，其中被占用的两个地址分别是主机地址和该网络的广播地址</p>
                 <List
                     bordered
-                    dataSource={calculatedHosts} style={{marginBottom: 12}}
+                    dataSource={calculatedHosts} style={{ marginBottom: 12 }}
                     renderItem={(hostCount, index) => (<List.Item>
                         子网 {index + 1}：
                         需求主机数量：{form.getFieldValue(['hosts', index, 'host'])}，
@@ -219,43 +219,43 @@ const SubnetCalculator = () => {
                 />
             </>)}
             {step === 2 && result && (<>
-                <p style={{marginBottom: 8}}>实际分配中，我们通常从主机数最多的子网开始分配</p>
-                <List style={{marginBottom: 12}} bordered dataSource={result}
-                      renderItem={(subnet, index) => (
-                          <List.Item style={{paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16}}>
-                              <Row gutter={16}>
-                                  <Col span={24} style={{marginBottom: 8}}>
-                                      <span style={{ fontSize: 16, fontWeight: 'bold' }}>子网 {index + 1}: {subnet['子网']}</span>
-                                  </Col>
-                                  <Col span={8} style={{marginBottom: 8}}>
-                                      <UserOutlined style={{fontSize: 15}}/>
-                                      <span style={{ fontSize: 15, marginLeft: 4 }}>需求主机数量: {subnet['需求主机数量']}</span>
-                                  </Col>
-                                  <Col span={8} style={{marginBottom: 8}}>
-                                      <DesktopOutlined style={{fontSize: 15}}/>
-                                      <span style={{ fontSize: 15, marginLeft: 4 }}>实际容纳数量: {subnet['实际容纳数量']}</span>
-                                  </Col>
-                                  <Col span={8} style={{marginBottom: 8}}>
-                                      <ColumnWidthOutlined style={{fontSize: 15}}/>
-                                      <span style={{fontSize: 15, marginLeft: 4}}>子网掩码: {subnet['子网掩码']}</span>
-                                  </Col>
-                                  <Col span={8}>
-                                      <LinkOutlined style={{fontSize: 15}}/>
-                                      <span style={{ fontSize: 15, marginLeft: 4 }}>网络地址: {subnet['网络地址']}</span>
-                                  </Col>
-                                  <Col span={8}>
-                                      <NotificationOutlined style={{fontSize: 15}}/>
-                                      <span style={{ fontSize: 15, marginLeft: 4 }}>广播地址: {subnet['广播地址']}</span>
-                                  </Col>
-                              </Row>
-                          </List.Item>
-                      )}
+                <p style={{ marginBottom: 8 }}>实际分配中，我们通常从主机数最多的子网开始分配</p>
+                <List style={{ marginBottom: 12 }} bordered dataSource={result}
+                    renderItem={(subnet, index) => (
+                        <List.Item style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16 }}>
+                            <Row gutter={16}>
+                                <Col span={24} style={{ marginBottom: 8 }}>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>子网 {index + 1}: {subnet['子网']}</span>
+                                </Col>
+                                <Col span={8} style={{ marginBottom: 8 }}>
+                                    <UserOutlined style={{ fontSize: 15 }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4 }}>需求主机数量: {subnet['需求主机数量']}</span>
+                                </Col>
+                                <Col span={8} style={{ marginBottom: 8 }}>
+                                    <DesktopOutlined style={{ fontSize: 15 }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4 }}>实际容纳数量: {subnet['实际容纳数量']}</span>
+                                </Col>
+                                <Col span={8} style={{ marginBottom: 8 }}>
+                                    <ColumnWidthOutlined style={{ fontSize: 15 }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4 }}>子网掩码: {subnet['子网掩码']}</span>
+                                </Col>
+                                <Col span={8}>
+                                    <LinkOutlined style={{ fontSize: 15 }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4 }}>网络地址: {subnet['网络地址']}</span>
+                                </Col>
+                                <Col span={8}>
+                                    <NotificationOutlined style={{ fontSize: 15 }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4 }}>广播地址: {subnet['广播地址']}</span>
+                                </Col>
+                            </Row>
+                        </List.Item>
+                    )}
                 />
             </>)}
             <Form.Item>
                 {step < steps.length - 1 && (<Button type="primary" onClick={next}> 下一步 </Button>)}
                 {step === steps.length - 1 && (<Button type="primary" onClick={reset}> 重置 </Button>)}
-                {step > 0 && (<Button style={{margin: '0 8px'}} onClick={prev}> 上一步 </Button>)}
+                {step > 0 && (<Button style={{ margin: '0 8px' }} onClick={prev}> 上一步 </Button>)}
             </Form.Item>
         </Form>
     </div>);

@@ -10,7 +10,7 @@ import '../css/ScreenshotCard.css';
 // 条件导入浏览器依赖的库
 let useDropzone = null;
 let Canvas = null;
-let FabricImage = null; 
+let FabricImage = null;
 let Line = null;
 let Rect = null;
 
@@ -76,12 +76,12 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     const textConfig = currentOption?.textConfig || {};
     const initialContent = textConfig.initialContent;
     const initialLines = textConfig.initialLines || 1;
-    
+
     // 计算初始值：优先使用 initialContent，否则根据 initialLines 生成
-    const resetValue = initialContent !== undefined 
-      ? initialContent 
+    const resetValue = initialContent !== undefined
+      ? initialContent
       : (initialLines > 1 ? '\n'.repeat(initialLines - 1) : '');
-    
+
     setAnswer(`${questionId}-${mode}`, resetValue);
   };
 
@@ -93,7 +93,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     if (questionId && images && mode !== 'reference' && isImageMode()) {
       const imageKey = `${questionId}-${mode}`;
       const savedImage = getImage(imageKey);
-      
+
       if (savedImage && savedImage.data) {
         if (typeof savedImage.data === 'string') {
           setUploadedImage(savedImage.data);
@@ -112,7 +112,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
   const handleFileAccept = async (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      
+
       try {
         const imageKey = `${questionId}-${mode}`;
         await addImage(imageKey, file); // Wait for the image to be saved
@@ -174,7 +174,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
   const handleAnnotationToolChange = (tool) => {
     setAnnotationTool(tool);
     annotationToolRef.current = tool;
-    
+
     const canvas = fabricCanvasRef.current;
     if (canvas) {
       if (tool) {
@@ -183,7 +183,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
         canvas.defaultCursor = 'crosshair';
         canvas.hoverCursor = 'crosshair';
         canvas.moveCursor = 'crosshair';
-        
+
         // 取消当前选中的对象
         canvas.discardActiveObject();
         canvas.renderAll();
@@ -203,7 +203,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     }
 
     if (fabricCanvasRef.current) {
-        fabricCanvasRef.current.dispose();
+      fabricCanvasRef.current.dispose();
     }
 
     const container = annotationContainerRef.current;
@@ -220,40 +220,40 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
         console.error('Failed to load image');
         return;
       }
-      
+
       // 保存原始图片信息
       originalImageRef.current = {
         width: img.width,
         height: img.height,
         element: img
       };
-      
+
       // 响应式计算最大显示尺寸
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
-      
+
       // 基于屏幕大小和容器大小计算合理的最大显示尺寸
       const maxDisplayWidth = Math.min(
         maxWidth * 0.9,                    // 容器宽度的90%
         viewportWidth * 0.8,               // 视口宽度的80%
         Math.max(600, viewportWidth * 0.8) // 最小600px，或视口宽度的60%
       );
-      
+
       const maxDisplayHeight = Math.min(
         viewportHeight * 0.7,              // 视口高度的60%
         Math.max(400, viewportHeight * 0.7) // 最小400px，或视口高度的50%
       );
-      
+
       const scale = Math.min(
-        maxDisplayWidth / img.width, 
+        maxDisplayWidth / img.width,
         maxDisplayHeight / img.height,
         maxWidth / img.width // 还要考虑容器限制
       );
-      
+
       scaleRatioRef.current = scale;
       const canvasWidth = img.width * scale;
       const canvasHeight = img.height * scale;
-      
+
       // 创建适配图像尺寸的canvas
       const canvas = new Canvas(canvasRef.current, {
         width: canvasWidth,
@@ -262,7 +262,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
       });
 
       fabricCanvasRef.current = canvas;
-      
+
       // 缩放图片适应canvas
       img.scale(scale);
       img.set({
@@ -286,101 +286,101 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
       canvas.defaultCursor = 'default';
 
       canvas.on('mouse:down', (o) => {
-          const currentTool = annotationToolRef.current;
-          if (!currentTool) return;
-          
-          // 临时禁用选择功能，进入绘图模式
-          canvas.selection = false;
-          canvas.discardActiveObject();
-          
-          isDown = true;
-          const pointer = canvas.getPointer(o.e);
-          origX = pointer.x;
-          origY = pointer.y;
- 
-          let shape;
-          if (currentTool === 'line') {
-              shape = new Line([origX, origY, origX, origY], {
-                  stroke: strokeColorRef.current,
-                  strokeWidth: 2,
-                  selectable: false, // 绘图时不可选择
-                  evented: false,    // 绘图时不响应事件
-              });
-          } else if (currentTool === 'rect') {
-              shape = new Rect({
-                  left: origX,
-                  top: origY,
-                  originX: 'left',
-                  originY: 'top',
-                  width: 0,
-                  height: 0,
-                  stroke: strokeColorRef.current,
-                  strokeWidth: 2,
-                  fill: 'transparent',
-                  selectable: false, // 绘图时不可选择
-                  evented: false,    // 绘图时不响应事件
-              });
-          }
-          
-          if (shape) {
-              canvas.add(shape);
-              currentShape = shape;
-              canvas.renderAll();
-          }
+        const currentTool = annotationToolRef.current;
+        if (!currentTool) return;
+
+        // 临时禁用选择功能，进入绘图模式
+        canvas.selection = false;
+        canvas.discardActiveObject();
+
+        isDown = true;
+        const pointer = canvas.getPointer(o.e);
+        origX = pointer.x;
+        origY = pointer.y;
+
+        let shape;
+        if (currentTool === 'line') {
+          shape = new Line([origX, origY, origX, origY], {
+            stroke: strokeColorRef.current,
+            strokeWidth: 2,
+            selectable: false, // 绘图时不可选择
+            evented: false,    // 绘图时不响应事件
+          });
+        } else if (currentTool === 'rect') {
+          shape = new Rect({
+            left: origX,
+            top: origY,
+            originX: 'left',
+            originY: 'top',
+            width: 0,
+            height: 0,
+            stroke: strokeColorRef.current,
+            strokeWidth: 2,
+            fill: 'transparent',
+            selectable: false, // 绘图时不可选择
+            evented: false,    // 绘图时不响应事件
+          });
+        }
+
+        if (shape) {
+          canvas.add(shape);
+          currentShape = shape;
+          canvas.renderAll();
+        }
       });
 
       canvas.on('mouse:move', (o) => {
         if (!isDown || !currentShape) return;
-        
+
         const pointer = canvas.getPointer(o.e);
 
         if (currentShape.type === 'line') {
-            // 约束直线为水平或垂直方向
-            const deltaX = Math.abs(pointer.x - origX);
-            const deltaY = Math.abs(pointer.y - origY);
-            
-            if (deltaX > deltaY) {
-                // 水平线：y坐标保持不变
-                currentShape.set({ x2: pointer.x, y2: origY });
-            } else {
-                // 垂直线：x坐标保持不变
-                currentShape.set({ x2: origX, y2: pointer.y });
-            }
+          // 约束直线为水平或垂直方向
+          const deltaX = Math.abs(pointer.x - origX);
+          const deltaY = Math.abs(pointer.y - origY);
+
+          if (deltaX > deltaY) {
+            // 水平线：y坐标保持不变
+            currentShape.set({ x2: pointer.x, y2: origY });
+          } else {
+            // 垂直线：x坐标保持不变
+            currentShape.set({ x2: origX, y2: pointer.y });
+          }
         } else if (currentShape.type === 'rect') {
-            // 正确处理矩形的绘制方向
-            const left = Math.min(origX, pointer.x);
-            const top = Math.min(origY, pointer.y);
-            const width = Math.abs(origX - pointer.x);
-            const height = Math.abs(origY - pointer.y);
-            
-            currentShape.set({
-                left: left,
-                top: top,
-                width: width,
-                height: height,
-            });
+          // 正确处理矩形的绘制方向
+          const left = Math.min(origX, pointer.x);
+          const top = Math.min(origY, pointer.y);
+          const width = Math.abs(origX - pointer.x);
+          const height = Math.abs(origY - pointer.y);
+
+          currentShape.set({
+            left: left,
+            top: top,
+            width: width,
+            height: height,
+          });
         }
-        
+
         currentShape.setCoords();
         canvas.renderAll();
       });
 
       canvas.on('mouse:up', () => {
         if (isDown && currentShape) {
-            isDown = false;
-            
-            // 绘图完成后，使对象可选择和响应事件
-            currentShape.selectable = true;
-            currentShape.evented = true;
-            currentShape.setCoords();
-            canvas.renderAll();
-            currentShape = null;
-            
-            // 根据当前工具状态决定是否恢复选择功能
-            if (!annotationToolRef.current) {
-                canvas.selection = true;
-                canvas.defaultCursor = 'default';
-            }
+          isDown = false;
+
+          // 绘图完成后，使对象可选择和响应事件
+          currentShape.selectable = true;
+          currentShape.evented = true;
+          currentShape.setCoords();
+          canvas.renderAll();
+          currentShape = null;
+
+          // 根据当前工具状态决定是否恢复选择功能
+          if (!annotationToolRef.current) {
+            canvas.selection = true;
+            canvas.defaultCursor = 'default';
+          }
         }
       });
     }).catch((error) => {
@@ -399,7 +399,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     const canvas = fabricCanvasRef.current;
     const originalImage = originalImageRef.current;
     const currentScale = scaleRatioRef.current;
-    
+
     if (!canvas || !originalImage) {
       console.error('Canvas or original image not available');
       return;
@@ -409,7 +409,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = originalImage.width;
     tempCanvas.height = originalImage.height;
-    
+
     const fabricTempCanvas = new Canvas(tempCanvas, {
       width: originalImage.width,
       height: originalImage.height,
@@ -425,7 +425,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
         selectable: false,
         evented: false
       });
-      
+
       fabricTempCanvas.set('backgroundImage', bgImg);
 
       // 复制所有标注对象到临时Canvas，按比例放大
@@ -434,7 +434,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
 
       objects.forEach((obj) => {
         let clonedObj;
-        
+
         if (obj.type === 'line') {
           clonedObj = new Line([
             obj.x1 * scaleFactor,
@@ -460,7 +460,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
             evented: true,
           });
         }
-        
+
         if (clonedObj) {
           fabricTempCanvas.add(clonedObj);
         }
@@ -485,15 +485,15 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
 
   const generateSegmentedOptions = () => {
     const options = [];
-    
+
     if (children) {
       options.push({ label: title || '参考', value: 'reference' });
     }
-    
+
     uploadOptions.forEach(option => {
       options.push({ label: option.label, value: option.id });
     });
-    
+
     return options;
   };
 
@@ -510,7 +510,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
     if (isTextMode()) {
       const currentOption = getCurrentOption();
       const textConfig = currentOption.textConfig || {};
-      
+
       // 设置默认配置
       const defaultTextConfig = {
         codeEditor: false,
@@ -518,9 +518,9 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
         showLineNumbers: true,
         size: 'medium'
       };
-      
+
       const finalConfig = { ...defaultTextConfig, ...textConfig };
-      
+
       return (
         <div className="textContainer">
           <ModernInput
@@ -536,8 +536,8 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
         {uploadedImage ? (
           <img src={uploadedImage} alt={`题目 ${questionId} 的已上传图片`} className="uploadedImage" />
         ) : (
-          <div 
-            {...getMainRootProps({ 
+          <div
+            {...getMainRootProps({
               className: `placeholder ${isMainDragActive ? 'drag-active' : ''}`,
               onClick: () => setUploadModalVisible(true)
             })}
@@ -613,48 +613,48 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
           }
         }}
         width="90vw"
-        destroyOnClose
+        destroyOnHidden
         footer={null}
         className="annotationModal"
       >
         <div className="annotationContainer" ref={annotationContainerRef}>
-            <div className="annotationToolbar">
-                <Tooltip title="绘制直线">
-                    <Button icon={<LineOutlined />} onClick={() => handleAnnotationToolChange('line')} type={annotationTool === 'line' ? 'primary' : 'default'} />
+          <div className="annotationToolbar">
+            <Tooltip title="绘制直线">
+              <Button icon={<LineOutlined />} onClick={() => handleAnnotationToolChange('line')} type={annotationTool === 'line' ? 'primary' : 'default'} />
+            </Tooltip>
+            <Tooltip title="绘制矩形">
+              <Button icon={<BorderOutlined />} onClick={() => handleAnnotationToolChange('rect')} type={annotationTool === 'rect' ? 'primary' : 'default'} />
+            </Tooltip>
+            <Tooltip title="选择模式">
+              <Button icon={<AimOutlined />} onClick={() => handleAnnotationToolChange(null)} type={!annotationTool ? 'primary' : 'default'}>选择元素</Button>
+            </Tooltip>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {PRESET_COLORS.map((color) => (
+                <Tooltip key={color.value} title={color.name}>
+                  <div
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      backgroundColor: color.value,
+                      border: strokeColor === color.value ? '2px solid #333' : '1px solid #ccc',
+                      borderRadius: '3px',
+                      cursor: 'pointer',
+                      boxSizing: 'border-box'
+                    }}
+                    onClick={() => setStrokeColor(color.value)}
+                  />
                 </Tooltip>
-                <Tooltip title="绘制矩形">
-                    <Button icon={<BorderOutlined />} onClick={() => handleAnnotationToolChange('rect')} type={annotationTool === 'rect' ? 'primary' : 'default'} />
-                </Tooltip>
-                <Tooltip title="选择模式">
-                    <Button icon={<AimOutlined />} onClick={() => handleAnnotationToolChange(null)} type={!annotationTool ? 'primary' : 'default'}>选择元素</Button>
-                </Tooltip>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    {PRESET_COLORS.map((color) => (
-                        <Tooltip key={color.value} title={color.name}>
-                            <div
-                                style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    backgroundColor: color.value,
-                                    border: strokeColor === color.value ? '2px solid #333' : '1px solid #ccc',
-                                    borderRadius: '3px',
-                                    cursor: 'pointer',
-                                    boxSizing: 'border-box'
-                                }}
-                                onClick={() => setStrokeColor(color.value)}
-                            />
-                        </Tooltip>
-                    ))}
-                    <ColorPicker value={strokeColor} onChange={(color) => setStrokeColor(color.toHexString())} />
-                </div>
-                <Tooltip title="删除选中的元素">
-                    <Button icon={<DeleteOutlined />} onClick={deleteSelectedObject} danger>删除元素</Button>
-                </Tooltip>
-                <Button icon={<SaveOutlined />} onClick={saveAnnotation} type="primary" style={{ marginLeft: 'auto' }}>
-                    保存
-                </Button>
+              ))}
+              <ColorPicker value={strokeColor} onChange={(color) => setStrokeColor(color.toHexString())} />
             </div>
-            <canvas ref={canvasRef} />
+            <Tooltip title="删除选中的元素">
+              <Button icon={<DeleteOutlined />} onClick={deleteSelectedObject} danger>删除元素</Button>
+            </Tooltip>
+            <Button icon={<SaveOutlined />} onClick={saveAnnotation} type="primary" style={{ marginLeft: 'auto' }}>
+              保存
+            </Button>
+          </div>
+          <canvas ref={canvasRef} />
         </div>
       </Modal>
     </>

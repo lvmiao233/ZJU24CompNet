@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Col, Flex, Input, InputNumber, List, message, Progress, Row, Watermark } from 'antd';
+import { Button, Col, Flex, Input, InputNumber, List, message, Progress, Row, Space, Watermark } from 'antd';
 import axios from 'axios';
 import IconHeader from "@site/src/components/IconHeader";
 import { CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 
 function MultiTestCard(props) {
-    const {header, testUri, multiThread, innerStyle} = props;
+    const { header, testUri, multiThread, innerStyle } = props;
 
     const [testerServerUrl, setTesterServerUrl] = useState('');
     const [testedServerUrl, setTestedServerUrl] = useState('');
@@ -33,7 +33,7 @@ function MultiTestCard(props) {
         } catch (error) {
             setCases([]);
             setTestInfo([]);
-            if(error.status === 400) message.error('请求失败，请检查被测试服务端地址填写是否正确');
+            if (error.status === 400) message.error('请求失败，请检查被测试服务端地址填写是否正确');
             else message.error('测试发起失败，请检查测试服务地址是否正确');
         }
     };
@@ -63,14 +63,14 @@ function MultiTestCard(props) {
 
         return (
             <List.Item key={index}>
-                <div style={{ display: 'flex', alignItems: 'center' , width: '100%'}}>
+                <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                     {iconMap[status] || iconMap.AC} {/* 默认为AC状态图标 */}
-                        <h5 style={{ margin: 0, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <span style={{fontWeight: 'bold', minWidth: '24px'}}>{`${index}`}</span>
-                            <span style={{fontWeight: 'normal'}}>{name || '无标题'}</span>
-                            <span style={{fontWeight: 'normal'}}>{messageMap[status] || '未知状态'}</span>
-                            <span style={{fontWeight: 'normal'}}>{timeFormat(time) || '无耗时信息'} ms</span>
-                        </h5>
+                    <h5 style={{ margin: 0, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <span style={{ fontWeight: 'bold', minWidth: '24px' }}>{`${index}`}</span>
+                        <span style={{ fontWeight: 'normal' }}>{name || '无标题'}</span>
+                        <span style={{ fontWeight: 'normal' }}>{messageMap[status] || '未知状态'}</span>
+                        <span style={{ fontWeight: 'normal' }}>{timeFormat(time) || '无耗时信息'} ms</span>
+                    </h5>
                 </div>
             </List.Item>
         );
@@ -81,13 +81,18 @@ function MultiTestCard(props) {
             <IconHeader type="lab" title={header} />
             <Watermark content={testInfo} gap={[75, 75]} font={{ fontSize: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                    <Input
-                        addonBefore="http://"
-                        placeholder="测试服务地址"
-                        value={testerServerUrl}
-                        onChange={(e) => setTesterServerUrl(e.target.value)}
-                        style={{ flex: 1.1, marginRight: '10px' }}
-                    />
+                    <Space.Compact style={{ flex: 1.1, marginRight: '10px' }}>
+                        <Input
+                            style={{ width: '85px', pointerEvents: 'none', backgroundColor: '#fafafa' }}
+                            value="http://"
+                            disabled
+                        />
+                        <Input
+                            placeholder="测试服务地址"
+                            value={testerServerUrl}
+                            onChange={(e) => setTesterServerUrl(e.target.value)}
+                        />
+                    </Space.Compact>
                     <Input
                         placeholder="被测服务器地址"
                         value={testedServerUrl}
@@ -100,7 +105,7 @@ function MultiTestCard(props) {
                         suffix="个线程"
                         value={threadCount}
                         onChange={(e) => setThreadCount(e)}
-                        style={{flex: 0.6, marginRight: '10px'}}
+                        style={{ flex: 0.6, marginRight: '10px' }}
                     />}
                     <Button type="primary" onClick={handleSendRequest}>
                         发起测试
