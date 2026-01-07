@@ -1,0 +1,543 @@
+/* ================================
+   Homepage Styles
+   Modern Vite-inspired design
+   ================================ */
+
+/* --------------------------------
+   CSS Variables
+   -------------------------------- */
+:root {
+    --hero-gradient-start: rgba(19, 194, 194, 0.4);
+    --hero-gradient-mid: rgba(0, 109, 117, 0.2);
+    --hero-gradient-end: rgba(255, 255, 255, 0.1);
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 24px rgba(0, 109, 117, 0.15);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(0, 109, 117, 0.15);
+    --text-primary: #002329;
+    --text-secondary: #5a6a6d;
+}
+
+[data-theme='dark'] {
+    --hero-gradient-start: rgba(19, 194, 194, 0.25);
+    --hero-gradient-mid: rgba(0, 109, 117, 0.15);
+    --hero-gradient-end: rgba(30, 30, 30, 0.3);
+    --glass-bg: rgba(40, 40, 40, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #e8e8e8;
+    --text-secondary: #a8b5b8;
+}
+
+/* --------------------------------
+   Hero Section
+   -------------------------------- */
+.hero {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px 20px 50px;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(230, 255, 255, 0.95) 0%,
+            rgba(200, 250, 250, 0.8) 40%,
+            rgba(170, 245, 245, 0.6) 70%,
+            rgba(255, 255, 255, 1) 100%);
+    z-index: 0;
+}
+
+/* Soft gradient orbs - purely decorative, stay behind content */
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(19, 194, 194, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: floatOrb 8s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-background::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(54, 207, 201, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: floatOrb 10s ease-in-out infinite reverse;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+/* Removed auroraWave - simplified to just floating orbs */
+
+/* Hero to content smooth transition */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 40%,
+            var(--ifm-background-color, #fff) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+}
+
+.hero-title-en {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--ifm-color-primary);
+    letter-spacing: 0;
+}
+
+.hero-tagline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0 0 28px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0, 109, 117, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 109, 117, 0.4);
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background: var(--glass-bg);
+    color: var(--ifm-color-primary);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 109, 117, 0.1);
+    transform: translateY(-2px);
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+/* --------------------------------
+   Main Content
+   -------------------------------- */
+.homepage-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+/* --------------------------------
+   Info Cards Section
+   -------------------------------- */
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.info-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-card);
+    transition: all var(--transition-normal);
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+    margin-top: -5px;
+}
+
+.info-card-icon {
+    font-size: 24px;
+    color: var(--ifm-color-primary);
+}
+
+.info-card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    margin: 0;
+}
+
+.info-card-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.info-card-content a {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--ifm-color-primary-light);
+    transition: border-color var(--transition-fast);
+}
+
+.info-card-content a:hover {
+    border-bottom-style: solid;
+}
+
+/* --------------------------------
+   Section Headers
+   -------------------------------- */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-header-icon {
+    font-size: 26px;
+    color: var(--ifm-color-primary);
+}
+
+.section-header-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    margin: 0;
+}
+
+/* --------------------------------
+   Schedule Section
+   -------------------------------- */
+.schedule-section {
+    margin-bottom: 48px;
+}
+
+/* --------------------------------
+   CourseWork List (Replace deprecated antd List)
+   -------------------------------- */
+.coursework-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.coursework-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 14px;
+    background: rgba(0, 109, 117, 0.03);
+    border-radius: 6px;
+    transition: background var(--transition-fast);
+}
+
+.coursework-item:hover {
+    background: rgba(0, 109, 117, 0.08);
+}
+
+.coursework-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.coursework-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.coursework-date .arrow {
+    color: var(--ifm-color-primary-light);
+}
+
+/* --------------------------------
+   Materials Section
+   -------------------------------- */
+.materials-section {
+    margin-bottom: 48px;
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 12px 20px;
+}
+
+/* Enhanced File Card */
+.file-card {
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    background: var(--glass-bg);
+    box-shadow: none;
+}
+
+.file-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--ifm-color-primary-light);
+}
+
+/* --------------------------------
+   Styled Collapse (for CourseWork)
+   -------------------------------- */
+.schedule-section .ant-collapse {
+    background: transparent;
+    border: none;
+}
+
+.schedule-section .ant-collapse>.ant-collapse-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px !important;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.schedule-section .ant-collapse>.ant-collapse-item:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-section .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    padding: 10px 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    align-items: center;
+}
+
+.schedule-section .ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
+    background: rgba(0, 109, 117, 0.03);
+}
+
+.schedule-section .ant-collapse-content {
+    border-top: 1px solid var(--glass-border);
+}
+
+.schedule-section .ant-collapse-content-box {
+    padding: 12px 16px;
+}
+
+/* --------------------------------
+   Themed Tabs (for Materials)
+   -------------------------------- */
+.materials-section .ant-tabs-tab {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 12px 0;
+}
+
+.materials-section .ant-tabs-tab:hover {
+    color: var(--ifm-color-primary);
+}
+
+.materials-section .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: var(--ifm-color-primary) !important;
+}
+
+.materials-section .ant-tabs-ink-bar {
+    background: var(--ifm-color-primary) !important;
+}
+
+.materials-section .ant-tabs-nav::before {
+    border-bottom-color: var(--glass-border);
+}
+
+/* --------------------------------
+   Responsive Design
+   -------------------------------- */
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+
+    .info-section {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .materials-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+    .hero {
+        min-height: 280px;
+        padding: 48px 16px 40px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .hero-title-en {
+        font-size: 1.5rem;
+    }
+
+    .hero-tagline {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+
+    .homepage-main {
+        padding: 32px 16px;
+    }
+
+    .info-section {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .info-card-title {
+        font-size: 1.1rem;
+    }
+
+    .coursework-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .coursework-date {
+        font-size: 0.85rem;
+    }
+
+    .materials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Very small screens (< 400px) */
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .coursework-item {
+        padding: 10px 12px;
+    }
+}

@@ -1,31 +1,7 @@
 import React from 'react';
-import { Badge, Collapse, List, Col, Row } from 'antd';
+import { Collapse } from 'antd';
 import courseWorkData from '@site/src/data/courseWork.js';
-
-const getBadgeStatus = (start, end) => {
-    const now = new Date();
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    if (now < startDate) return <Badge status='default' text={'未开始'} />;
-    if (now > endDate) return <Badge status='error' text={'已结束'} />;
-    return <Badge status='processing' text={'进行中'} />;
-};
-
-export const renderItem = (item) => (
-    <List.Item>
-        <Row justify="space-between" align="middle">
-            <Col> <span style={{ fontWeight: 'bold' }}>{item.name}</span> </Col>
-            <Col>
-                <Row align="middle">
-                    <Col> <span>{item.start}</span> </Col>
-                    <Col> <span style={{ margin: '0 8px' }}> {">>"} </span> </Col>
-                    <Col> <span>{item.end}</span> </Col>
-                </Row>
-            </Col>
-            <Col> {getBadgeStatus(item.start, item.end)} </Col>
-        </Row>
-    </List.Item>
-);
+import CourseWorkList from './CourseWorkList';
 
 const CourseWorkTable = () => (
     <Collapse
@@ -34,10 +10,9 @@ const CourseWorkTable = () => (
             key: index.toString(),
             label: item.name,
             extra: `共${item.cnt}次  占比${item.ratio}`,
-            children: <List itemLayout="vertical" size="small" dataSource={courseWorkData.detail[item.key]} renderItem={renderItem} />
+            children: <CourseWorkList items={courseWorkData.detail[item.key]} />
         }))}
     />
 );
 
 export default CourseWorkTable;
-
