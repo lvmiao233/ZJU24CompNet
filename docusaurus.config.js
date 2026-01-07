@@ -99,13 +99,13 @@ const config = {
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
       announcementBar: {
-        id: 'turnin',
+        id: 'final_exam',
         content:
-          '📃全部实验报告必须在2025/12/30 23:59前提交 <strong id="countdown-timer"></strong>，逾期提交的任何实验均不计入成绩，请合理安排时间',
+          '💯本学期《计算机网络》课程期末考试将于2026/1/16 10:30-12:30进行，请合理安排复习节奏，按时参加考试，祝你取得满意的成绩！',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: false,
-      },
+      },// 如需使用倒计时，请使用<strong id="countdown-timer"></strong>并参考src/clientModules/countdown.js内实现配置
       navbar: {
         title: '计算机网络课程实验',
         logo: { alt: '计算机网络课程实验', src: 'img/logo.svg', },
