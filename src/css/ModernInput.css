@@ -28,7 +28,8 @@
   width: 100%;
   resize: vertical;
   overflow: hidden;
-  min-height: 28px; /* Corresponds to padding + font-size */
+  min-height: 28px;
+  /* Corresponds to padding + font-size */
   font-size: 20px;
   line-height: 1.5;
 }
@@ -65,7 +66,8 @@
 }
 
 .line-numbers .line-number {
-  height: 21px; /* 匹配代码行高 */
+  height: 21px;
+  /* 匹配代码行高 */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -92,4 +94,38 @@
 .code-editor-wrapper:focus-within {
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* ================================
+   ModernInput Dark Mode
+   ================================ */
+[data-theme='dark'] .modern-input {
+  border-color: rgba(19, 194, 194, 0.3);
+  background-color: rgba(35, 45, 45, 0.9);
+  color: #e8e8e8;
+}
+
+[data-theme='dark'] .modern-input:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 5px rgba(19, 194, 194, 0.5);
+}
+
+[data-theme='dark'] .code-editor-wrapper {
+  border-color: rgba(19, 194, 194, 0.2);
+  background-color: rgba(30, 38, 38, 0.95);
+}
+
+[data-theme='dark'] .line-numbers {
+  background-color: rgba(25, 35, 35, 0.95);
+  border-right-color: rgba(19, 194, 194, 0.15);
+  color: #6b8080;
+}
+
+[data-theme='dark'] .modern-input.code-editor {
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .code-editor-wrapper:focus-within {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(19, 194, 194, 0.2);
 }

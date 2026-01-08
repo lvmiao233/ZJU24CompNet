@@ -27,6 +27,7 @@
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
+
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
@@ -49,25 +50,26 @@
   --ifm-heading-vertical-rhythm-bottom: 0.75;
 }
 
-h1, h2, h3, h4, h5, h6, html {
-  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-h1 { font-size: 36px; }
-h2 { font-size: 25px; }
-h3 { font-size: 22px; }
-
-/* styles.css */
-.file-card {
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  padding: 14px;
-  transition: all 0.3s;
-  cursor: pointer;
-  margin-bottom: 8px;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+h1 {
+  font-size: 36px;
 }
 
-.file-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+h2 {
+  font-size: 25px;
 }
+
+h3 {
+  font-size: 22px;
+}
+
+/* FileCard styles moved to src/css/components.css */

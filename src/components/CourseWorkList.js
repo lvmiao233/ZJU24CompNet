@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from 'antd';
-import '../css/homepage.css';
+import '../css/components.css';
 
 const getBadgeStatus = (start, end) => {
     const now = new Date();

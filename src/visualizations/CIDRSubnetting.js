@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Input, List, message, Row, Steps } from 'antd';
+import { Button, Card, Col, Form, Input, message, Row, Steps } from 'antd';
 import {
     ColumnWidthOutlined,
     DesktopOutlined,
@@ -9,6 +9,8 @@ import {
     PlusOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import { useColorMode } from '@docusaurus/theme-common';
+import '../css/components.css';
 
 function ipToInt(ip) {
     const octets = ip.split('.').map(Number);
@@ -88,6 +90,8 @@ function subnetting(networkStr, hostRequirements) {
 
 const SubnetCalculator = () => {
     const [form] = Form.useForm();
+    const { colorMode } = useColorMode();
+    const isDark = colorMode === 'dark';
     const [result, setResult] = useState(null);
     const [step, setStep] = useState(0);
 
@@ -206,51 +210,75 @@ const SubnetCalculator = () => {
                 </Form.List>
             </>)}
             {step === 1 && (<>
-                <p style={{ marginBottom: 8 }}>对于各个子网，我们并非简单地提供其所需数量的可用IP，而是选择最小的一个幂次，使（2的整数次幂
+                <p style={{ marginBottom: 8, color: isDark ? '#e0e0e0' : 'inherit' }}>对于各个子网，我们并非简单地提供其所需数量的可用IP，而是选择最小的一个幂次，使（2的整数次幂
                     - 2） ≥ 所需的主机数量，其中被占用的两个地址分别是主机地址和该网络的广播地址</p>
-                <List
-                    bordered
-                    dataSource={calculatedHosts} style={{ marginBottom: 12 }}
-                    renderItem={(hostCount, index) => (<List.Item>
-                        子网 {index + 1}：
-                        需求主机数量：{form.getFieldValue(['hosts', index, 'host'])}，
-                        实际可容纳的主机数量：{hostCount}
-                    </List.Item>)}
-                />
+                <div className="subnet-list" style={{ marginBottom: 12 }}>
+                    {calculatedHosts.map((hostCount, index) => (
+                        <Card
+                            key={index}
+                            size="small"
+                            className="subnet-card"
+                            style={{ marginBottom: 8 }}
+                        >
+                            <span style={{ color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                子网 {index + 1}：
+                                需求主机数量：{form.getFieldValue(['hosts', index, 'host'])}，
+                                实际可容纳的主机数量：{hostCount}
+                            </span>
+                        </Card>
+                    ))}
+                </div>
             </>)}
             {step === 2 && result && (<>
-                <p style={{ marginBottom: 8 }}>实际分配中，我们通常从主机数最多的子网开始分配</p>
-                <List style={{ marginBottom: 12 }} bordered dataSource={result}
-                    renderItem={(subnet, index) => (
-                        <List.Item style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16 }}>
+                <p style={{ marginBottom: 8, color: isDark ? '#e0e0e0' : 'inherit' }}>实际分配中，我们通常从主机数最多的子网开始分配</p>
+                <div className="subnet-list" style={{ marginBottom: 12 }}>
+                    {result.map((subnet, index) => (
+                        <Card
+                            key={index}
+                            size="small"
+                            className="subnet-card"
+                            style={{ marginBottom: 8 }}
+                        >
                             <Row gutter={16}>
                                 <Col span={24} style={{ marginBottom: 8 }}>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>子网 {index + 1}: {subnet['子网']}</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold', color: isDark ? '#e8e8e8' : 'inherit' }}>
+                                        子网 {index + 1}: {subnet['子网']}
+                                    </span>
                                 </Col>
-                                <Col span={8} style={{ marginBottom: 8 }}>
-                                    <UserOutlined style={{ fontSize: 15 }} />
-                                    <span style={{ fontSize: 15, marginLeft: 4 }}>需求主机数量: {subnet['需求主机数量']}</span>
+                                <Col xs={24} sm={8} style={{ marginBottom: 8 }}>
+                                    <UserOutlined style={{ fontSize: 15, color: isDark ? 'var(--ifm-color-primary-light)' : 'inherit' }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4, color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                        需求主机数量: {subnet['需求主机数量']}
+                                    </span>
                                 </Col>
-                                <Col span={8} style={{ marginBottom: 8 }}>
-                                    <DesktopOutlined style={{ fontSize: 15 }} />
-                                    <span style={{ fontSize: 15, marginLeft: 4 }}>实际容纳数量: {subnet['实际容纳数量']}</span>
+                                <Col xs={24} sm={8} style={{ marginBottom: 8 }}>
+                                    <DesktopOutlined style={{ fontSize: 15, color: isDark ? 'var(--ifm-color-primary-light)' : 'inherit' }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4, color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                        实际容纳数量: {subnet['实际容纳数量']}
+                                    </span>
                                 </Col>
-                                <Col span={8} style={{ marginBottom: 8 }}>
-                                    <ColumnWidthOutlined style={{ fontSize: 15 }} />
-                                    <span style={{ fontSize: 15, marginLeft: 4 }}>子网掩码: {subnet['子网掩码']}</span>
+                                <Col xs={24} sm={8} style={{ marginBottom: 8 }}>
+                                    <ColumnWidthOutlined style={{ fontSize: 15, color: isDark ? 'var(--ifm-color-primary-light)' : 'inherit' }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4, color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                        子网掩码: {subnet['子网掩码']}
+                                    </span>
                                 </Col>
-                                <Col span={8}>
-                                    <LinkOutlined style={{ fontSize: 15 }} />
-                                    <span style={{ fontSize: 15, marginLeft: 4 }}>网络地址: {subnet['网络地址']}</span>
+                                <Col xs={24} sm={8}>
+                                    <LinkOutlined style={{ fontSize: 15, color: isDark ? 'var(--ifm-color-primary-light)' : 'inherit' }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4, color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                        网络地址: {subnet['网络地址']}
+                                    </span>
                                 </Col>
-                                <Col span={8}>
-                                    <NotificationOutlined style={{ fontSize: 15 }} />
-                                    <span style={{ fontSize: 15, marginLeft: 4 }}>广播地址: {subnet['广播地址']}</span>
+                                <Col xs={24} sm={8}>
+                                    <NotificationOutlined style={{ fontSize: 15, color: isDark ? 'var(--ifm-color-primary-light)' : 'inherit' }} />
+                                    <span style={{ fontSize: 15, marginLeft: 4, color: isDark ? '#e0e0e0' : 'inherit' }}>
+                                        广播地址: {subnet['广播地址']}
+                                    </span>
                                 </Col>
                             </Row>
-                        </List.Item>
-                    )}
-                />
+                        </Card>
+                    ))}
+                </div>
             </>)}
             <Form.Item>
                 {step < steps.length - 1 && (<Button type="primary" onClick={next}> 下一步 </Button>)}

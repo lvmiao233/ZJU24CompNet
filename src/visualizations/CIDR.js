@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, Alert } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { useColorMode } from '@docusaurus/theme-common';
 
 const { Text } = Typography;
 
 const IPMatchingComponent = () => {
     const [form] = Form.useForm();
+    const { colorMode } = useColorMode();
+    const isDark = colorMode === 'dark';
     const [routingTable, setRoutingTable] = useState([]);
     const [binaryRoutingTable, setBinaryRoutingTable] = useState([]);
     const [targetIP, setTargetIP] = useState('');
@@ -185,6 +188,16 @@ const IPMatchingComponent = () => {
         compared,
         mismatchPosition
     ) => {
+        // 定义颜色
+        const colors = {
+            border: isDark ? 'rgba(19, 194, 194, 0.3)' : '#d9d9d9',
+            hostBg: isDark ? 'rgba(60, 70, 70, 0.8)' : '#d9d9d9',
+            hostText: isDark ? '#a8b5b8' : 'inherit',
+            matchBg: isDark ? '#13c2c2' : '#006d75',
+            mismatchBg: isDark ? '#d48806' : '#faad14',
+            text: isDark ? '#e0e0e0' : 'inherit',
+        };
+
         return binaryArray.map((bit, index) => {
             let style = {
                 display: 'inline-block',
@@ -193,23 +206,26 @@ const IPMatchingComponent = () => {
                 height: '30px',
                 lineHeight: '30px',
                 borderRadius: '4px',
-                border: '1px solid #d9d9d9',
+                border: `1px solid ${colors.border}`,
                 margin: '2px',
+                color: colors.text,
             };
 
             if (index % 8 === 7) style.marginRight = '12px';
-            if (index >= maskLength) style.backgroundColor = '#d9d9d9'; // 主机部分，填充灰色
-            else if (compared) {
+            if (index >= maskLength) {
+                style.backgroundColor = colors.hostBg;
+                style.color = colors.hostText;
+            } else if (compared) {
                 if (comparisonArray.length > 0) {
                     if (mismatchPosition === null || index < mismatchPosition) {
                         if (bit === comparisonArray[index]) {
-                            style.backgroundColor = '#006d75'; // 青色
+                            style.backgroundColor = colors.matchBg;
                             style.color = 'white';
                         } else {
-                            style.backgroundColor = '#faad14'; // 金色
+                            style.backgroundColor = colors.mismatchBg;
                         }
                     } else {
-                        style.backgroundColor = '#faad14'; // 金色
+                        style.backgroundColor = colors.mismatchBg;
                     }
                 }
             }

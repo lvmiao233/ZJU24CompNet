@@ -1,0 +1,934 @@
+/* ================================
+   Shared Component Styles
+   For reusable components like FileCard, LinkCard, CourseWorkList, etc.
+   ================================ */
+
+/* --------------------------------
+   FileCard Component
+   -------------------------------- */
+.file-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.file-card {
+    border: 1px solid rgba(0, 109, 117, 0.15);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.file-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 109, 117, 0.15);
+    transform: translateY(-2px);
+    border-color: var(--ifm-color-primary);
+}
+
+.file-card-content {
+    display: flex;
+    align-items: center;
+}
+
+.file-card-icon-wrapper {
+    width: 52px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.file-card-icon {
+    font-size: 40px;
+    color: var(--ifm-color-primary);
+}
+
+.file-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.file-card-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ifm-font-color-base);
+}
+
+.file-card-size {
+    font-size: 14px;
+    color: #595959;
+}
+
+.file-card-download {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 20px;
+    color: var(--ifm-color-primary);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.file-card:hover .file-card-download {
+    opacity: 1;
+}
+
+/* --------------------------------
+   LinkCard Component (matches FileCard style)
+   -------------------------------- */
+.link-card-anchor {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.link-card {
+    border: 1px solid rgba(0, 109, 117, 0.15);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.link-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 109, 117, 0.15);
+    transform: translateY(-2px);
+    border-color: var(--ifm-color-primary);
+}
+
+.link-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.link-card-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 109, 117, 0.06);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.link-card-icon {
+    max-width: 32px;
+    max-height: 32px;
+    object-fit: contain;
+}
+
+.link-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.link-card-title {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ifm-font-color-base);
+    line-height: 1.3;
+}
+
+.link-card-desc {
+    font-size: 14px;
+    color: #595959;
+    display: block;
+    line-height: 1.4;
+}
+
+.link-card-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--ifm-color-primary);
+    opacity: 0.6;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.link-card:hover .link-card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* --------------------------------
+   CourseWorkList Component
+   -------------------------------- */
+.coursework-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.coursework-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 14px;
+    background: rgba(0, 109, 117, 0.04);
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.coursework-item:hover {
+    background: rgba(0, 109, 117, 0.08);
+}
+
+.coursework-name {
+    font-weight: 500;
+    color: var(--ifm-font-color-base);
+}
+
+.coursework-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--ifm-color-secondary-darker);
+    white-space: nowrap;
+}
+
+.coursework-date .arrow {
+    color: var(--ifm-color-primary-light);
+}
+
+.coursework-status .ant-badge-status-text {
+    color: var(--ifm-font-color-base);
+}
+
+/* ================================
+   Dark Mode for Components
+   ================================ */
+
+/* FileCard Dark Mode */
+[data-theme='dark'] .file-card {
+    background: rgba(40, 50, 50, 0.9);
+    border-color: rgba(19, 194, 194, 0.25);
+}
+
+[data-theme='dark'] .file-card:hover {
+    background: rgba(45, 60, 60, 0.95);
+    border-color: var(--ifm-color-primary);
+    box-shadow: 0 6px 20px rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .file-card-icon {
+    color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .file-card-name {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .file-card-size {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .file-card-download {
+    color: var(--ifm-color-primary-light);
+}
+
+/* LinkCard Dark Mode */
+[data-theme='dark'] .link-card {
+    background: rgba(40, 50, 50, 0.9);
+    border-color: rgba(19, 194, 194, 0.25);
+}
+
+[data-theme='dark'] .link-card:hover {
+    background: rgba(45, 60, 60, 0.95);
+    border-color: var(--ifm-color-primary);
+    box-shadow: 0 6px 20px rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .link-card-icon-wrapper {
+    background: rgba(19, 194, 194, 0.1);
+}
+
+[data-theme='dark'] .link-card-title {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .link-card-desc {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .link-card-arrow {
+    color: var(--ifm-color-primary-light);
+}
+
+/* CourseWorkList Dark Mode */
+[data-theme='dark'] .coursework-item {
+    background: rgba(19, 194, 194, 0.08);
+}
+
+[data-theme='dark'] .coursework-item:hover {
+    background: rgba(19, 194, 194, 0.15);
+}
+
+[data-theme='dark'] .coursework-name {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .coursework-date {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .coursework-status .ant-badge-status-text {
+    color: #e8e8e8 !important;
+}
+
+/* ================================
+   Responsive for Components
+   ================================ */
+@media (max-width: 767px) {
+    .coursework-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        text-align: left;
+    }
+
+    .coursework-date {
+        font-size: 0.85rem;
+    }
+
+    .link-card-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+
+    .link-card-icon {
+        max-width: 24px;
+        max-height: 24px;
+    }
+
+    .link-card-title {
+        font-size: 15px;
+    }
+
+    .link-card-desc {
+        font-size: 13px;
+    }
+}
+
+/* ================================
+   MultiTestCard Component
+   ================================ */
+.http-prefix-input {
+    background-color: #fafafa !important;
+}
+
+[data-theme='dark'] .http-prefix-input {
+    background-color: rgba(35, 45, 45, 0.9) !important;
+    color: #a8b5b8 !important;
+}
+
+/* ================================
+   Global Ant Design Modal Dark Mode
+   ================================ */
+/* Override antd CSS variables for Modal */
+[data-theme='dark'] .ant-modal {
+    --ant-modal-content-bg: rgba(30, 40, 40, 0.98);
+    --ant-modal-header-bg: transparent;
+    --ant-modal-footer-bg: transparent;
+}
+
+[data-theme='dark'] .ant-modal-content {
+    background-color: var(--ant-modal-content-bg) !important;
+    border: 1px solid rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .ant-modal-header {
+    background-color: transparent;
+    border-bottom-color: rgba(19, 194, 194, 0.15);
+}
+
+[data-theme='dark'] .ant-modal-title {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .ant-modal-close {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .ant-modal-close:hover {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .ant-modal-body {
+    color: #e0e0e0;
+}
+
+/* ================================
+   Ant Design Segmented Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-segmented {
+    background-color: rgba(35, 45, 45, 0.9);
+}
+
+[data-theme='dark'] .ant-segmented-item {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .ant-segmented-item:hover {
+    color: #e8e8e8 !important;
+}
+
+[data-theme='dark'] .ant-segmented-item:hover .ant-segmented-item-label {
+    color: #e8e8e8 !important;
+}
+
+[data-theme='dark'] .ant-segmented-item-selected {
+    background-color: rgba(19, 194, 194, 0.2);
+    color: #e8e8e8 !important;
+}
+
+[data-theme='dark'] .ant-segmented-item-selected .ant-segmented-item-label {
+    color: #e8e8e8 !important;
+}
+
+[data-theme='dark'] .ant-segmented-thumb {
+    background-color: rgba(19, 194, 194, 0.25);
+}
+
+/* ================================
+   Ant Design Button Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-btn-default {
+    background-color: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.3);
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-btn-default:hover {
+    background-color: rgba(45, 55, 55, 0.95);
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
+/* Primary Button - Match theme color */
+.ant-btn-primary {
+    background-color: var(--ifm-color-primary) !important;
+    border-color: var(--ifm-color-primary) !important;
+}
+
+.ant-btn-primary:hover {
+    background-color: var(--ifm-color-primary-dark) !important;
+    border-color: var(--ifm-color-primary-dark) !important;
+}
+
+/* ================================
+   IconHeader Component
+   ================================ */
+.icon-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.icon-header-icon {
+    color: var(--ifm-color-primary);
+    font-size: 26px;
+    margin-right: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-header-title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: var(--ifm-color-primary);
+}
+
+.icon-header-h2 {
+    font-size: 24px;
+}
+
+.icon-header-h3 {
+    font-size: 18px;
+}
+
+/* IconHeader Dark Mode */
+[data-theme='dark'] .icon-header-icon {
+    color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .icon-header-title {
+    color: var(--ifm-color-primary-light);
+}
+
+/* ================================
+   Ant Design Table Dark Mode
+   ================================ */
+/* Override antd Table CSS variables */
+[data-theme='dark'] .ant-table {
+    --ant-table-header-bg: rgba(30, 40, 40, 0.95);
+    --ant-table-body-sort-bg: rgba(19, 194, 194, 0.05);
+    --ant-table-row-hover-bg: rgba(19, 194, 194, 0.08);
+    --ant-table-header-sort-active-bg: rgba(19, 194, 194, 0.1);
+    --ant-table-fixed-header-sort-active-bg: rgba(19, 194, 194, 0.1);
+    --ant-table-border-color: rgba(19, 194, 194, 0.15);
+}
+
+[data-theme='dark'] .ant-table-wrapper {
+    background: transparent;
+}
+
+[data-theme='dark'] .ant-table {
+    background: transparent;
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-table-thead>tr>th {
+    background: rgba(30, 40, 40, 0.95) !important;
+    color: #e8e8e8 !important;
+    border-bottom-color: rgba(19, 194, 194, 0.2) !important;
+}
+
+[data-theme='dark'] .ant-table-tbody>tr>td {
+    background: transparent;
+    color: #e0e0e0;
+    border-bottom-color: rgba(19, 194, 194, 0.1) !important;
+}
+
+[data-theme='dark'] .ant-table-tbody>tr:hover>td {
+    background: rgba(19, 194, 194, 0.08) !important;
+}
+
+[data-theme='dark'] .ant-table-tbody>tr.ant-table-row-selected>td {
+    background: rgba(19, 194, 194, 0.12) !important;
+}
+
+[data-theme='dark'] .ant-table-column-sorter {
+    color: #6b8080;
+}
+
+[data-theme='dark'] .ant-table-column-sorter-up.active,
+[data-theme='dark'] .ant-table-column-sorter-down.active {
+    color: var(--ifm-color-primary) !important;
+}
+
+[data-theme='dark'] .ant-table a {
+    color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .ant-table a:hover {
+    color: var(--ifm-color-primary);
+}
+
+/* Table Pagination Dark Mode */
+[data-theme='dark'] .ant-pagination-item {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .ant-pagination-item a {
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-pagination-item-active {
+    background: rgba(19, 194, 194, 0.15);
+    border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .ant-pagination-item-active a {
+    color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .ant-pagination-prev .ant-pagination-item-link,
+[data-theme='dark'] .ant-pagination-next .ant-pagination-item-link {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-pagination-disabled .ant-pagination-item-link {
+    color: #6b8080;
+}
+
+/* Ant Design Select (used in table pagination) */
+[data-theme='dark'] .ant-select-selector {
+    background-color: rgba(35, 45, 45, 0.9) !important;
+    border-color: rgba(19, 194, 194, 0.2) !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-select-dropdown {
+    background-color: rgba(30, 40, 40, 0.98);
+    border: 1px solid rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .ant-select-item {
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-select-item-option-active,
+[data-theme='dark'] .ant-select-item-option-selected {
+    background-color: rgba(19, 194, 194, 0.15);
+}
+
+/* Table container and cell fixes */
+[data-theme='dark'] .ant-table-container {
+    background: transparent !important;
+}
+
+[data-theme='dark'] .ant-table-content {
+    background: transparent !important;
+}
+
+[data-theme='dark'] .ant-table-cell {
+    background: transparent !important;
+}
+
+[data-theme='dark'] .ant-table-cell-row-hover {
+    background: rgba(19, 194, 194, 0.08) !important;
+}
+
+/* Fix sorted column cells */
+[data-theme='dark'] .ant-table-column-sort {
+    background: rgba(19, 194, 194, 0.05) !important;
+}
+
+/* ================================
+   Ant Design Collapse Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-collapse {
+    --ant-collapse-header-bg: rgba(35, 45, 45, 0.9);
+    --ant-collapse-content-bg: rgba(30, 40, 40, 0.95);
+    background: transparent;
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .ant-collapse-item {
+    border-color: rgba(19, 194, 194, 0.15) !important;
+}
+
+[data-theme='dark'] .ant-collapse-header {
+    background: rgba(35, 45, 45, 0.9) !important;
+    color: #e8e8e8 !important;
+}
+
+[data-theme='dark'] .ant-collapse-header:hover {
+    background: rgba(40, 50, 50, 0.95) !important;
+}
+
+[data-theme='dark'] .ant-collapse-content {
+    background: rgba(30, 40, 40, 0.95) !important;
+    border-top-color: rgba(19, 194, 194, 0.15) !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-collapse-content-box {
+    background: transparent;
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-collapse-content-box p {
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-collapse-expand-icon {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .ant-collapse-arrow {
+    color: #a8b5b8 !important;
+}
+
+/* ================================
+   Global Ant Design Color Overrides
+   ================================ */
+/* Override antd CSS color variables - need to target the css-var-root class */
+[data-theme='dark'] .css-var-root,
+[data-theme='dark'] .ant-app,
+[data-theme='dark'] [class*="css-var-root"],
+[data-theme='dark'] [class*="css-dev-only-do-not-override"],
+[data-theme='dark'] {
+    /* Base colors */
+    --ant-color-text: #e0e0e0 !important;
+    --ant-color-text-secondary: #a8b5b8 !important;
+    --ant-color-text-tertiary: #6b8080 !important;
+    --ant-color-text-light-solid: #ffffff !important;
+    --ant-color-bg-container: transparent !important;
+    --ant-color-bg-elevated: rgba(35, 45, 45, 0.98) !important;
+    --ant-color-border: rgba(19, 194, 194, 0.2) !important;
+    --ant-color-border-secondary: rgba(19, 194, 194, 0.1) !important;
+
+    /* Disabled/tertiary text colors */
+    --ant-color-text-disabled: #6b8080 !important;
+    --ant-color-text-quaternary: #5a6a6a !important;
+
+    /* Primary color */
+    --ant-color-primary: #13c2c2 !important;
+    --ant-color-primary-hover: #36cfc9 !important;
+    --ant-color-primary-active: #08979c !important;
+    --ant-color-primary-bg: rgba(19, 194, 194, 0.15) !important;
+    --ant-color-primary-bg-hover: rgba(19, 194, 194, 0.25) !important;
+
+    /* Steps component variables - Wait state */
+    --steps-item-solid-line-color: rgba(19, 194, 194, 0.3) !important;
+    --steps-item-icon-bg-color: rgba(35, 45, 45, 0.9) !important;
+    --steps-item-icon-border-color: rgba(19, 194, 194, 0.35) !important;
+    --steps-item-icon-text-color: #a8b5b8 !important;
+    --steps-item-icon-dot-bg-color: rgba(19, 194, 194, 0.4) !important;
+
+    /* Steps component variables - Hover state */
+    --steps-item-icon-bg-hover-color: rgba(45, 55, 55, 0.95) !important;
+    --steps-item-icon-border-hover-color: #13c2c2 !important;
+    --steps-item-icon-text-hover-color: #e8e8e8 !important;
+
+    /* Steps component variables - Active/Process state */
+    --steps-item-icon-active-bg-color: #13c2c2 !important;
+    --steps-item-icon-active-border-color: #13c2c2 !important;
+    --steps-item-icon-active-text-color: #ffffff !important;
+
+    /* Button variables */
+    --ant-btn-border-color-hover: #13c2c2 !important;
+    --ant-btn-text-color-hover: #13c2c2 !important;
+    --ant-btn-bg-color-hover: rgba(19, 194, 194, 0.1) !important;
+}
+
+/* Force text color on common antd elements */
+[data-theme='dark'] .ant-collapse-content-box,
+[data-theme='dark'] .ant-collapse-content-box *:not(a):not(code):not(pre) {
+    color: #e0e0e0 !important;
+}
+
+/* ================================
+   Ant Design Input Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-input,
+[data-theme='dark'] .ant-input-number,
+[data-theme='dark'] .ant-input-number-input {
+    background-color: rgba(35, 45, 45, 0.9) !important;
+    border-color: rgba(19, 194, 194, 0.3) !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-input::placeholder,
+[data-theme='dark'] .ant-input-number-input::placeholder {
+    color: #6b8080 !important;
+}
+
+[data-theme='dark'] .ant-input:hover,
+[data-theme='dark'] .ant-input-number:hover {
+    border-color: var(--ifm-color-primary) !important;
+}
+
+[data-theme='dark'] .ant-input:focus,
+[data-theme='dark'] .ant-input-focused,
+[data-theme='dark'] .ant-input-number:focus,
+[data-theme='dark'] .ant-input-number-focused {
+    border-color: var(--ifm-color-primary) !important;
+    box-shadow: 0 0 0 2px rgba(19, 194, 194, 0.2) !important;
+}
+
+[data-theme='dark'] .ant-input-disabled,
+[data-theme='dark'] .ant-input[disabled] {
+    background-color: rgba(30, 40, 40, 0.6) !important;
+    color: #6b8080 !important;
+}
+
+[data-theme='dark'] .ant-input-group-addon {
+    background-color: rgba(35, 45, 45, 0.9) !important;
+    border-color: rgba(19, 194, 194, 0.3) !important;
+    color: #a8b5b8 !important;
+}
+
+/* ================================
+   Ant Design Alert Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-alert {
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .ant-alert-message,
+[data-theme='dark'] .ant-alert-description {
+    color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .ant-alert-info {
+    background-color: rgba(19, 194, 194, 0.1);
+}
+
+[data-theme='dark'] .ant-alert-warning {
+    background-color: rgba(250, 173, 20, 0.1);
+}
+
+[data-theme='dark'] .ant-alert-error {
+    background-color: rgba(255, 77, 79, 0.1);
+}
+
+[data-theme='dark'] .ant-alert-success {
+    background-color: rgba(82, 196, 26, 0.1);
+}
+
+/* ================================
+   Ant Design Form Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-form-item-label>label {
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-form-item-explain-error {
+    color: #ff7875;
+}
+
+/* Dashed Button */
+[data-theme='dark'] .ant-btn-dashed {
+    background-color: transparent;
+    border-color: rgba(19, 194, 194, 0.4);
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-btn-dashed:hover {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
+/* ================================
+   Ant Design Typography Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-typography {
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] h1.ant-typography,
+[data-theme='dark'] h2.ant-typography,
+[data-theme='dark'] h3.ant-typography,
+[data-theme='dark'] h4.ant-typography,
+[data-theme='dark'] h5.ant-typography {
+    color: #e8e8e8;
+}
+
+/* ================================
+   Visualization Components Dark Mode
+   ================================ */
+/* These have hardcoded colors, provide some general overrides */
+[data-theme='dark'] .ant-form h3,
+[data-theme='dark'] .ant-form p {
+    color: #e0e0e0;
+}
+
+/* ================================
+   Ant Design Steps Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-steps {
+    --ant-steps-icon-bg: rgba(35, 45, 45, 0.9);
+    --ant-steps-title-color: #a8b5b8;
+    --ant-steps-wait-icon-color: #6b8080;
+    --ant-steps-wait-icon-border-color: rgba(19, 194, 194, 0.3);
+}
+
+/* Wait state (未完成的步骤) */
+[data-theme='dark'] .ant-steps-item-wait .ant-steps-item-icon {
+    background: rgba(35, 45, 45, 0.9) !important;
+    border-color: rgba(19, 194, 194, 0.3) !important;
+}
+
+[data-theme='dark'] .ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon {
+    color: #6b8080 !important;
+}
+
+[data-theme='dark'] .ant-steps-item-wait .ant-steps-item-title {
+    color: #6b8080 !important;
+}
+
+/* Process state (当前步骤) */
+[data-theme='dark'] .ant-steps-item-process .ant-steps-item-icon {
+    background: #13c2c2 !important;
+    border-color: #13c2c2 !important;
+}
+
+[data-theme='dark'] .ant-steps-item-process .ant-steps-item-icon>.ant-steps-icon {
+    color: #ffffff !important;
+}
+
+[data-theme='dark'] .ant-steps-item-process .ant-steps-item-title {
+    color: #e8e8e8 !important;
+}
+
+/* Finish state (已完成的步骤) */
+[data-theme='dark'] .ant-steps-item-finish .ant-steps-item-icon {
+    background: rgba(19, 194, 194, 0.15) !important;
+    border-color: #13c2c2 !important;
+}
+
+[data-theme='dark'] .ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
+    color: #13c2c2 !important;
+}
+
+[data-theme='dark'] .ant-steps-item-finish .ant-steps-item-title {
+    color: #e8e8e8 !important;
+}
+
+/* Connecting lines (连接线) */
+[data-theme='dark'] .ant-steps-item-tail::after {
+    background-color: rgba(19, 194, 194, 0.25) !important;
+}
+
+[data-theme='dark'] .ant-steps-item-finish .ant-steps-item-tail::after {
+    background-color: #13c2c2 !important;
+}
+
+/* ================================
+   Ant Design Card Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-card {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+    color: #e0e0e0;
+}
+
+[data-theme='dark'] .ant-card-head {
+    background: rgba(30, 40, 40, 0.95);
+    border-bottom-color: rgba(19, 194, 194, 0.15);
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .ant-card-body {
+    color: #e0e0e0;
+}
+
+/* Subnet Card specific styling */
+[data-theme='dark'] .subnet-card {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+/* ================================
+   Ant Design Slider Dark Mode
+   ================================ */
+[data-theme='dark'] .ant-slider {
+    --ant-slider-rail-bg: rgba(60, 70, 70, 0.8);
+    --ant-slider-track-bg: var(--ifm-color-primary);
+    --ant-slider-handle-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .ant-slider-rail {
+    background-color: rgba(60, 70, 70, 0.8);
+}
+
+[data-theme='dark'] .ant-slider-track {
+    background-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .ant-slider-handle {
+    border-color: var(--ifm-color-primary) !important;
+    background-color: var(--ifm-color-primary) !important;
+}
+
+[data-theme='dark'] .ant-slider-handle:hover,
+[data-theme='dark'] .ant-slider-handle:focus {
+    border-color: var(--ifm-color-primary-light) !important;
+}

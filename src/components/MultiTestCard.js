@@ -3,6 +3,7 @@ import { Button, Col, Flex, Input, InputNumber, List, message, Progress, Row, Sp
 import axios from 'axios';
 import IconHeader from "@site/src/components/IconHeader";
 import { CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
+import '../css/components.css';
 
 function MultiTestCard(props) {
     const { header, testUri, multiThread, innerStyle } = props;
@@ -83,7 +84,8 @@ function MultiTestCard(props) {
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                     <Space.Compact style={{ flex: 1.1, marginRight: '10px' }}>
                         <Input
-                            style={{ width: '85px', pointerEvents: 'none', backgroundColor: '#fafafa' }}
+                            style={{ width: '85px', pointerEvents: 'none' }}
+                            className="http-prefix-input"
                             value="http://"
                             disabled
                         />

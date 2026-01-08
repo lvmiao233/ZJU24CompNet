@@ -19,7 +19,7 @@
 .single-option-label {
   font-size: 15px;
   font-weight: 500;
-  color: #262626;
+  color: var(--ifm-font-color-base, #262626);
   padding: 4px 8px;
 }
 
@@ -55,17 +55,17 @@
   border-radius: 8px;
   padding: 8%;
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
   color: #8c8c8c;
 }
 
 .placeholder:hover {
-  border-color: #40a9ff;
+  border-color: var(--ifm-color-primary-light, #40a9ff);
 }
 
 .placeholder.drag-active {
-  border-color: #1890ff;
-  background-color: #f6ffed;
+  border-color: var(--ifm-color-primary, #1890ff);
+  background-color: rgba(19, 194, 194, 0.05);
 }
 
 .uploadedImage {
@@ -117,4 +117,70 @@
 .annotationContainer canvas {
   flex: 1;
   border: 1px solid #f0f0f0;
+}
+
+/* ================================
+   ScreenshotCard Dark Mode
+   ================================ */
+[data-theme='dark'] .single-option-label {
+  color: #e8e8e8;
+}
+
+[data-theme='dark'] .placeholder {
+  border-color: rgba(19, 194, 194, 0.3);
+  color: #a8b5b8;
+  background: rgba(35, 45, 45, 0.5);
+}
+
+[data-theme='dark'] .placeholder:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .placeholder.drag-active {
+  border-color: var(--ifm-color-primary);
+  background-color: rgba(19, 194, 194, 0.1);
+}
+
+[data-theme='dark'] .uploadedImage {
+  border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .dropzone {
+  border-color: rgba(19, 194, 194, 0.3);
+  color: #a8b5b8;
+  background: rgba(35, 45, 45, 0.5);
+}
+
+[data-theme='dark'] .annotationToolbar {
+  background: rgba(35, 45, 45, 0.95);
+  border-bottom-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .annotationContainer canvas {
+  border-color: rgba(19, 194, 194, 0.2);
+}
+
+/* ================================
+   ScreenshotCard Responsive
+   ================================ */
+@media (max-width: 767px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .toolbar {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .placeholder {
+    padding: 12%;
+  }
+
+  .annotationToolbar {
+    gap: 8px;
+    padding: 8px;
+  }
 }

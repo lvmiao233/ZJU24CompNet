@@ -299,47 +299,7 @@
     margin-bottom: 48px;
 }
 
-/* --------------------------------
-   CourseWork List (Replace deprecated antd List)
-   -------------------------------- */
-.coursework-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.coursework-item {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    gap: 16px;
-    padding: 8px 14px;
-    background: rgba(0, 109, 117, 0.03);
-    border-radius: 6px;
-    transition: background var(--transition-fast);
-}
-
-.coursework-item:hover {
-    background: rgba(0, 109, 117, 0.08);
-}
-
-.coursework-name {
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.coursework-date {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
-}
-
-.coursework-date .arrow {
-    color: var(--ifm-color-primary-light);
-}
+/* CourseWork styles moved to components.css */
 
 /* --------------------------------
    Materials Section
@@ -354,22 +314,7 @@
     gap: 12px 20px;
 }
 
-/* Enhanced File Card */
-.file-card {
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 16px;
-    transition: all var(--transition-normal);
-    cursor: pointer;
-    background: var(--glass-bg);
-    box-shadow: none;
-}
-
-.file-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--ifm-color-primary-light);
-}
+/* FileCard styles moved to components.css */
 
 /* --------------------------------
    Styled Collapse (for CourseWork)
@@ -433,6 +378,81 @@
 
 .materials-section .ant-tabs-nav::before {
     border-bottom-color: var(--glass-border);
+}
+
+/* ================================
+   Dark Mode Overrides
+   ================================ */
+
+/* Dark mode Hero background */
+[data-theme='dark'] .hero-background {
+    background: linear-gradient(180deg,
+            rgba(20, 50, 50, 0.95) 0%,
+            rgba(15, 40, 40, 0.8) 40%,
+            rgba(10, 30, 30, 0.6) 70%,
+            var(--ifm-background-color) 100%);
+}
+
+[data-theme='dark'] .hero-background::before {
+    background: radial-gradient(circle, rgba(19, 194, 194, 0.15) 0%, transparent 70%);
+}
+
+[data-theme='dark'] .hero-background::after {
+    background: radial-gradient(circle, rgba(54, 207, 201, 0.1) 0%, transparent 70%);
+}
+
+[data-theme='dark'] .hero::after {
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(30, 30, 30, 0.5) 40%,
+            var(--ifm-background-color) 100%);
+}
+
+/* Dark mode Collapse */
+[data-theme='dark'] .schedule-section .ant-collapse>.ant-collapse-item {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .schedule-section .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    color: var(--text-primary);
+}
+
+[data-theme='dark'] .schedule-section .ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
+    background: rgba(19, 194, 194, 0.08);
+}
+
+/* Override antd CSS variables for dark mode Collapse */
+[data-theme='dark'] .schedule-section .ant-collapse {
+    --ant-collapse-content-bg: rgba(30, 40, 40, 0.95);
+    --ant-collapse-header-bg: transparent;
+}
+
+[data-theme='dark'] .schedule-section .ant-collapse-content {
+    background: var(--ant-collapse-content-bg) !important;
+    border-color: rgba(19, 194, 194, 0.15);
+}
+
+/* CourseWorkList and FileCard dark mode styles moved to components.css */
+
+/* Dark mode InfoCard */
+[data-theme='dark'] .info-card {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .info-card:hover {
+    box-shadow: 0 8px 24px rgba(19, 194, 194, 0.15);
+}
+
+/* Dark mode InfoCard */
+[data-theme='dark'] .info-card {
+    background: rgba(35, 45, 45, 0.9);
+    border-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .info-card:hover {
+    box-shadow: 0 8px 24px rgba(19, 194, 194, 0.15);
 }
 
 /* --------------------------------

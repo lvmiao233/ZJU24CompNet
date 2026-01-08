@@ -2,14 +2,16 @@
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin-bottom: 24px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    overflow: hidden; /* Ensures the child corners are also rounded */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    /* Ensures the child corners are also rounded */
 }
 
 .task-card-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Aligns children to the start and end */
+    justify-content: space-between;
+    /* Aligns children to the start and end */
     padding: 16px;
     background-color: #f7f7f7;
     border-bottom: 1px solid #e0e0e0;
@@ -22,7 +24,8 @@
 
 .task-card-icons {
     display: flex;
-    gap: 8px; /* Adds space between icons */
+    gap: 8px;
+    /* Adds space between icons */
     align-items: center;
 }
 
@@ -37,12 +40,14 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: #006d75; /* Theme color */
+    background-color: #006d75;
+    /* Theme color */
     color: white;
     font-size: 16px;
     font-weight: bold;
     margin-right: 12px;
-    flex-shrink: 0; /* Prevents the circle from shrinking */
+    flex-shrink: 0;
+    /* Prevents the circle from shrinking */
 }
 
 .task-title {
@@ -53,4 +58,58 @@
 
 .task-card-content {
     padding: 16px;
+}
+
+/* ================================
+   TaskCard Dark Mode
+   ================================ */
+[data-theme='dark'] .task-card {
+    border-color: rgba(19, 194, 194, 0.25);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: var(--ifm-background-color);
+}
+
+[data-theme='dark'] .task-card-header {
+    background-color: rgba(35, 45, 45, 0.9);
+    border-bottom-color: rgba(19, 194, 194, 0.2);
+}
+
+[data-theme='dark'] .task-title {
+    color: #e8e8e8;
+}
+
+[data-theme='dark'] .task-number-circle {
+    background-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .task-card-icons .anticon {
+    color: #a8b5b8;
+}
+
+[data-theme='dark'] .task-card-content {
+    background: var(--ifm-background-color);
+}
+
+/* ================================
+   TaskCard Responsive
+   ================================ */
+@media (max-width: 767px) {
+    .task-card-header {
+        padding: 12px;
+    }
+
+    .task-number-circle {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .task-title {
+        font-size: 16px;
+    }
+
+    .task-card-content {
+        padding: 12px;
+    }
 }
