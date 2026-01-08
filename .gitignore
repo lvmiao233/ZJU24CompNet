@@ -1,15 +1,23 @@
 # Dependencies
 /node_modules
+/node_modules.old
 
 # Production
 /build
 __pycache__
+
+# Local Helper Development
+.venv
+_convert_temp
 /local
-# /local/downloads
-# /local/temp_extract
-# /local/extracted_pdfs
+/local/downloads
+/local/downloads_old
+/local/temp_extract
+/local/extracted_pdfs
+/local/extracted_pdfs_old
 
 # Generated files
+static/raw/
 .docusaurus
 .cache-loader
 .idea/

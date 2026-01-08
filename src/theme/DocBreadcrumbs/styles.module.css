@@ -1,0 +1,74 @@
+.breadcrumbsContainer {
+  --ifm-breadcrumb-size-multiplier: 0.8;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* 复制按钮样式 */
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.copyButton:active {
+  transform: scale(0.98);
+}
+
+.copyButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.copyButtonArrow {
+  font-size: 10px;
+  opacity: 0.6;
+  padding-left: 8px;
+  margin-left: 6px;
+  border-left: 1px solid var(--ifm-color-emphasis-400);
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .copyButtonText {
+    display: none;
+  }
+
+  .copyButton {
+    padding: 6px 10px;
+  }
+
+  .copyButtonArrow {
+    display: none;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme='dark'] .copyButton {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .copyButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+}
