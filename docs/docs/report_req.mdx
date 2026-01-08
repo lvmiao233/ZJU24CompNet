@@ -3,7 +3,6 @@ sidebar_position: 2
 title: 实验报告要求
 description: 一份详细的计算机网络课程实验报告提交要求说明。本文档明确了实验报告的提交截止日期、格式规范、附件要求、组队政策以及学术诚信准则，旨在帮助学生规范地完成并提交实验报告。
 ---
-import { Alert } from 'antd';
 import { LabDeadlineData } from "@site/src/data/courseWork.js";
 import CourseWorkList from "@site/src/components/CourseWorkList";
 import SubmissionChecker from '@site/src/components/SubmissionChecker';
@@ -16,7 +15,11 @@ import SubmissionChecker from '@site/src/components/SubmissionChecker';
 
 ## 建议提交时间
 
-<Alert title="所有的实验报告最晚需在12月30日前提交到作业系统，逾期提交的任何内容均不计入最终成绩考核，且不接受任何理由的申诉。" type="warning" showIcon style={{marginBottom: 8}}/>
+:::warning  务必注意
+
+所有实验报告最晚需在12.30前提交到作业系统，逾期提交的任何内容均不计入最终成，且不接受任何理由申诉。
+
+:::
 <CourseWorkList items={LabDeadlineData} />
 * 以上时间反映的是建议的实验完成节奏，你可根据个人学习进度自行调整完成时间，在最终截止时间前完成提交即可
 * 为避免忘记提交，建议在初步完成后提交一版实验报告，后续在最终截止时间前仍可提交修订版本覆盖历史提交
