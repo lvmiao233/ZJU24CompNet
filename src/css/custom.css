@@ -73,3 +73,315 @@ h3 {
 }
 
 /* FileCard styles moved to src/css/components.css */
+
+/* ========================================
+   Glassmorphism Admonition Styles
+   ======================================== */
+
+/* Base admonition styling */
+.theme-admonition {
+  position: relative;
+  border: none !important;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+
+/* Admonition heading */
+.theme-admonition .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition [class*="admonitionHeading"] {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Admonition content - 使用默认字号 */
+.theme-admonition .admonitionContent_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition [class*="admonitionContent"] {
+  line-height: 1.6;
+}
+
+/* Admonition icon - 缩小到90%并应用对应颜色 */
+.theme-admonition [class*="admonitionIcon"] {
+  display: flex;
+  align-items: center;
+}
+
+.theme-admonition [class*="admonitionIcon"] svg {
+  transform: scale(0.9);
+  vertical-align: middle;
+}
+
+/* Note icon (青色) */
+.theme-admonition-note [class*="admonitionIcon"] svg {
+  fill: #0891b2;
+}
+
+/* Tip icon (绿色) */
+.theme-admonition-tip [class*="admonitionIcon"] svg {
+  fill: #16a34a;
+}
+
+/* Info/Important icon (蓝色) */
+.theme-admonition-info [class*="admonitionIcon"] svg,
+.theme-admonition-important [class*="admonitionIcon"] svg {
+  fill: #2563eb;
+}
+
+/* Warning icon (橙色) */
+.theme-admonition-warning [class*="admonitionIcon"] svg {
+  fill: #d97706;
+}
+
+/* Danger icon (红色) */
+.theme-admonition-danger [class*="admonitionIcon"] svg {
+  fill: #dc2626;
+}
+
+/* Caution icon (琥珀色) */
+.theme-admonition-caution [class*="admonitionIcon"] svg {
+  fill: #b45309;
+}
+
+/* Dark mode icon colors */
+[data-theme='dark'] .theme-admonition-note [class*="admonitionIcon"] svg {
+  fill: #22d3ee;
+}
+
+[data-theme='dark'] .theme-admonition-tip [class*="admonitionIcon"] svg {
+  fill: #4ade80;
+}
+
+[data-theme='dark'] .theme-admonition-info [class*="admonitionIcon"] svg,
+[data-theme='dark'] .theme-admonition-important [class*="admonitionIcon"] svg {
+  fill: #60a5fa;
+}
+
+[data-theme='dark'] .theme-admonition-warning [class*="admonitionIcon"] svg {
+  fill: #fbbf24;
+}
+
+[data-theme='dark'] .theme-admonition-danger [class*="admonitionIcon"] svg {
+  fill: #f87171;
+}
+
+[data-theme='dark'] .theme-admonition-caution [class*="admonitionIcon"] svg {
+  fill: #f59e0b;
+}
+
+/* ============ Note (青色 - 原info色) ============ */
+.theme-admonition-note {
+  background: linear-gradient(135deg,
+      rgba(6, 182, 212, 0.15) 0%,
+      rgba(103, 232, 249, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(6, 182, 212, 0.1),
+    inset 0 0 0 1px rgba(6, 182, 212, 0.2);
+}
+
+.theme-admonition-note .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-note [class*="admonitionHeading"] {
+  color: #0e7490;
+}
+
+/* ============ Tip (绿色) ============ */
+.theme-admonition-tip {
+  background: linear-gradient(135deg,
+      rgba(34, 197, 94, 0.15) 0%,
+      rgba(134, 239, 172, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(34, 197, 94, 0.1),
+    inset 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+.theme-admonition-tip .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-tip [class*="admonitionHeading"] {
+  color: #15803d;
+}
+
+/* ============ Info/Important (蓝色 - 原note色) ============ */
+.theme-admonition-info,
+.theme-admonition-important {
+  background: linear-gradient(135deg,
+      rgba(59, 130, 246, 0.15) 0%,
+      rgba(147, 197, 253, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(59, 130, 246, 0.1),
+    inset 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+.theme-admonition-info .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-info [class*="admonitionHeading"],
+.theme-admonition-important .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-important [class*="admonitionHeading"] {
+  color: #1d4ed8;
+}
+
+/* ============ Warning (橙色) ============ */
+.theme-admonition-warning {
+  background: linear-gradient(135deg,
+      rgba(245, 158, 11, 0.15) 0%,
+      rgba(253, 224, 71, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(245, 158, 11, 0.1),
+    inset 0 0 0 1px rgba(245, 158, 11, 0.2);
+}
+
+.theme-admonition-warning .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-warning [class*="admonitionHeading"] {
+  color: #b45309;
+}
+
+/* ============ Danger (红色) ============ */
+.theme-admonition-danger {
+  background: linear-gradient(135deg,
+      rgba(239, 68, 68, 0.15) 0%,
+      rgba(252, 165, 165, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(239, 68, 68, 0.1),
+    inset 0 0 0 1px rgba(239, 68, 68, 0.2);
+}
+
+.theme-admonition-danger .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-danger [class*="admonitionHeading"] {
+  color: #b91c1c;
+}
+
+/* ============ Caution (琥珀色/深橙) ============ */
+.theme-admonition-caution {
+  background: linear-gradient(135deg,
+      rgba(217, 119, 6, 0.15) 0%,
+      rgba(251, 191, 36, 0.1) 100%);
+  box-shadow:
+    0 8px 32px rgba(217, 119, 6, 0.1),
+    inset 0 0 0 1px rgba(217, 119, 6, 0.2);
+}
+
+.theme-admonition-caution .admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module,
+.theme-admonition-caution [class*="admonitionHeading"] {
+  color: #92400e;
+}
+
+/* ========================================
+   Dark Mode Glassmorphism
+   ======================================== */
+[data-theme='dark'] .theme-admonition {
+  background: rgba(30, 30, 40, 0.6);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode - Note (青色) */
+[data-theme='dark'] .theme-admonition-note {
+  background: linear-gradient(135deg,
+      rgba(6, 182, 212, 0.2) 0%,
+      rgba(30, 40, 45, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(6, 182, 212, 0.15),
+    inset 0 0 0 1px rgba(6, 182, 212, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-note [class*="admonitionHeading"] {
+  color: #67e8f9;
+}
+
+/* Dark mode - Tip */
+[data-theme='dark'] .theme-admonition-tip {
+  background: linear-gradient(135deg,
+      rgba(34, 197, 94, 0.2) 0%,
+      rgba(30, 40, 30, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(34, 197, 94, 0.15),
+    inset 0 0 0 1px rgba(34, 197, 94, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-tip [class*="admonitionHeading"] {
+  color: #86efac;
+}
+
+/* Dark mode - Info/Important (蓝色) */
+[data-theme='dark'] .theme-admonition-info,
+[data-theme='dark'] .theme-admonition-important {
+  background: linear-gradient(135deg,
+      rgba(59, 130, 246, 0.2) 0%,
+      rgba(30, 30, 50, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(59, 130, 246, 0.15),
+    inset 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-info [class*="admonitionHeading"],
+[data-theme='dark'] .theme-admonition-important [class*="admonitionHeading"] {
+  color: #93c5fd;
+}
+
+/* Dark mode - Warning */
+[data-theme='dark'] .theme-admonition-warning {
+  background: linear-gradient(135deg,
+      rgba(245, 158, 11, 0.2) 0%,
+      rgba(40, 35, 25, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(245, 158, 11, 0.15),
+    inset 0 0 0 1px rgba(245, 158, 11, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-warning [class*="admonitionHeading"] {
+  color: #fcd34d;
+}
+
+/* Dark mode - Danger */
+[data-theme='dark'] .theme-admonition-danger {
+  background: linear-gradient(135deg,
+      rgba(239, 68, 68, 0.2) 0%,
+      rgba(45, 25, 25, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(239, 68, 68, 0.15),
+    inset 0 0 0 1px rgba(239, 68, 68, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-danger [class*="admonitionHeading"] {
+  color: #fca5a5;
+}
+
+/* Dark mode - Caution */
+[data-theme='dark'] .theme-admonition-caution {
+  background: linear-gradient(135deg,
+      rgba(217, 119, 6, 0.2) 0%,
+      rgba(40, 30, 20, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(217, 119, 6, 0.15),
+    inset 0 0 0 1px rgba(217, 119, 6, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-caution [class*="admonitionHeading"] {
+  color: #fbbf24;
+}
+
+[data-theme='dark'] .theme-admonition-danger [class*="admonitionHeading"] {
+  color: #fca5a5;
+}
+
+/* Dark mode - Caution */
+[data-theme='dark'] .theme-admonition-caution {
+  background: linear-gradient(135deg,
+      rgba(217, 119, 6, 0.2) 0%,
+      rgba(40, 30, 20, 0.6) 100%);
+  box-shadow:
+    0 8px 32px rgba(217, 119, 6, 0.15),
+    inset 0 0 0 1px rgba(217, 119, 6, 0.3);
+}
+
+[data-theme='dark'] .theme-admonition-caution [class*="admonitionHeading"] {
+  color: #fbbf24;
+}
