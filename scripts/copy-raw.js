@@ -49,9 +49,14 @@ function cleanDir(dir) {
 
 /**
  * 复制文件，保持目录结构
+ * 将 .mdx 文件统一转为 .md 扩展名（解决 GitHub Pages charset 问题）
  */
 function copyFile(sourcePath, sourceDir, targetDir) {
-    const relativePath = path.relative(sourceDir, sourcePath);
+    let relativePath = path.relative(sourceDir, sourcePath);
+    // 将 .mdx 扩展名转换为 .md（GitHub Pages 对 .mdx 不会正确设置 charset=utf-8）
+    if (relativePath.endsWith('.mdx')) {
+        relativePath = relativePath.replace(/\.mdx$/, '.md');
+    }
     const targetPath = path.join(targetDir, relativePath);
     const targetFolder = path.dirname(targetPath);
 

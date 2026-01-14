@@ -42,18 +42,18 @@ function BreadcrumbsItem({ children, active }) {
 // 根据当前路由获取原始 Markdown 文件路径
 function getRawMarkdownPath(pathname) {
   // pathname 格式: /docs/Lab1/Lab1_Detailed 或 /notes/intro
-  // 转换为: /raw/docs/Lab1/Lab1_Detailed.mdx
+  // 转换为: /raw/docs/Lab1/Lab1_Detailed.md
 
   // 移除尾部斜杠
   let path = pathname.replace(/\/$/, '');
 
   // 处理根路径
   if (path === '' || path === '/') {
-    return '/raw/docs/intro.mdx';
+    return '/raw/docs/intro.md';
   }
 
-  // 添加 /raw 前缀和 .mdx 后缀
-  return `/raw${path}.mdx`;
+  // 添加 /raw 前缀和 .md 后缀（使用 .md 而非 .mdx 以确保 GitHub Pages 正确设置 charset）
+  return `/raw${path}.md`;
 }
 
 // 复制 Markdown 按钮组件
