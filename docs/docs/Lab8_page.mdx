@@ -434,7 +434,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 关于响应码的详细描述，你可以参考MDN的这份文档：
 
-<LinkCard title={'HTTP response status codes'} url={'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status'} icon={'https://developer.mozilla.org/favicon-192x192.png'}>{"HTTP response status codes indicate whether a specific HTTP request has been successfully completed."}</LinkCard>
+<LinkCard title={'HTTP response status codes'} url={'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status'}>{"HTTP response status codes indicate whether a specific HTTP request has been successfully completed."}</LinkCard>
 
 实验中，你需要对请求URL进行验证，如果解析得到的是`GET`方法，则验证相应文件是否存在；如果解析得到的是`POST`方法，则验证接口URI是否为`/dopost`，如不匹配，则返回`404 Not Found`，否则均返回`200 OK`
 

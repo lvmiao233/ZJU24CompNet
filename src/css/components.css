@@ -125,6 +125,11 @@
     object-fit: contain;
 }
 
+.link-card-fallback-icon {
+    font-size: 24px;
+    color: var(--ifm-color-primary);
+}
+
 .link-card-info {
     flex: 1;
     min-width: 0;
@@ -263,6 +268,10 @@
 }
 
 [data-theme='dark'] .link-card-arrow {
+    color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .link-card-fallback-icon {
     color: var(--ifm-color-primary-light);
 }
 

@@ -93,7 +93,7 @@ OS王道可以做，但意义没有计网那么大，可以看看jjm小测/作�
 
 概念复习时候我主要是完整过了一遍PPT，然后看了[修佬的笔记](https://www.cc98.org/topic/5773562)梳理
 
-<LinkCard title="修佬 操作系统笔记" url="https://note.isshikih.top/cour_note/D3QD_OperatingSystem/"  icon="https://note.isshikih.top/_assets/iro/IroPatch_Brown.ico">
+<LinkCard title="修佬 操作系统笔记" url="https://note.isshikih.top/cour_note/D3QD_OperatingSystem/">
     {"Isshiki修's Notebook"}
 </LinkCard>
 
