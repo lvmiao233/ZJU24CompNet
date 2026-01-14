@@ -3,8 +3,10 @@ sidebar_position: 91
 title: 计算机网络协议信息速查
 description: 一个全面的计算机网络协议信息参考页面。此页面提供了网络协议的层级分类、端口速查表，旨在帮助学习者速查速记网络协议的相关信息。
 ---
-import Protocols from '@site/src/data/protocals.js';
-import { protocolColumns } from '@site/src/data/protocals.js';
+import Protocols from '@site/src/data/protocols.js';
+import Ports from '@site/src/data/ports.js';
+import { protocolColumns } from '@site/src/data/protocols.js';
+import { portColumns } from '@site/src/data/ports.js';
 import { Table } from 'antd';
 
 ### 层级速记
@@ -20,6 +22,10 @@ NAT/ARP采用王道分类方式-最高看到哪层信息则属于哪层
 * 网络层协议：IP ICMP IGMP ARP OSPF
 * 数据链路层协议：HDLC PPP Ethernet 802.11
 
-### 端口号速记
+### IP协议号速记
 
 <Table columns={protocolColumns} dataSource={Protocols} pagination={false} style={{ width: '100%' }} size="small"/>
+
+### 端口号速记
+
+<Table columns={portColumns} dataSource={Ports} pagination={false} style={{ width: '100%' }} size="small"/>

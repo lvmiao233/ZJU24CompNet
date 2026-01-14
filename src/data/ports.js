@@ -1,4 +1,4 @@
-const Protocols = [
+const Ports = [
     { application: "FTP（控制连接）", protocol: "TCP", port: "21", link: "文件传输协议" },
     { application: "FTP（数据连接）", protocol: "TCP", port: "20", link: "文件传输协议" },
     { application: "TELNET", protocol: "TCP", port: "23", link: "Telnet" },
@@ -18,7 +18,7 @@ const Protocols = [
     { application: "QUIC", protocol: "UDP", port: "443", link: "QUIC" }
 ];
 
-export const protocolColumns = [
+export const portColumns = [
     {
         title: '应用程序',
         dataIndex: 'application',
@@ -53,4 +53,4 @@ export const protocolColumns = [
     },
 ];
 
-export default Protocols;
+export default Ports;
