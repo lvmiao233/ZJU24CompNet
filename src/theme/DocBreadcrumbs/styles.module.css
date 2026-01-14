@@ -72,3 +72,23 @@
   background: var(--ifm-color-emphasis-200);
   border-color: var(--ifm-color-emphasis-400);
 }
+
+/* AI 服务菜单项样式 */
+.aiFavicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  object-fit: contain;
+}
+
+.aiMenuItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.externalIcon {
+  font-size: 10px;
+  opacity: 0.5;
+  margin-left: 2px;
+}
