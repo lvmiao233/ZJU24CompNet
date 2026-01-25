@@ -1,0 +1,324 @@
+/* ========================================
+   Export Check Modal Styles
+   ======================================== */
+
+.export-check-modal .ant-modal-header {
+    border-bottom: 1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+    padding-bottom: 12px;
+}
+
+.export-check-modal-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.export-check-content {
+    padding: 8px 0;
+}
+
+.export-check-summary {
+    font-size: 14px;
+    color: var(--ifm-font-color-base, #1f2937);
+    margin-bottom: 8px;
+}
+
+.export-check-summary strong {
+    color: var(--ifm-color-warning-dark, #d97706);
+}
+
+.export-check-groups {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+
+
+.export-check-group {
+    margin-bottom: 16px;
+}
+
+.export-check-group:last-child {
+    margin-bottom: 0;
+}
+
+.export-check-group-header {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    margin-bottom: 4px;
+    margin-top: 12px;
+}
+
+.export-check-group:first-child .export-check-group-header {
+    margin-top: 0;
+}
+
+.export-check-group-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ifm-color-primary, #006d75);
+}
+
+.export-check-group-icon {
+    display: none;
+}
+
+.export-check-items {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.export-check-item {
+    position: relative;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--ifm-font-color-secondary, #4b5563);
+}
+
+/* 序号高亮样式 */
+.export-check-task-number {
+    color: var(--ifm-color-warning-dark, #d97706);
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.export-check-group-header {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    margin-bottom: 4px;
+    margin-top: 12px;
+}
+
+.export-check-group:first-child .export-check-group-header {
+    margin-top: 0;
+}
+
+.export-check-group-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ifm-color-primary, #006d75);
+}
+
+.export-check-group-icon {
+    display: none;
+}
+
+.export-check-items {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.export-check-item {
+    position: relative;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--ifm-font-color-secondary, #4b5563);
+}
+
+/* 序号高亮样式 */
+.export-check-task-number {
+    color: var(--ifm-color-warning-dark, #d97706);
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.export-check-notice {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg,
+            rgba(59, 130, 246, 0.1) 0%,
+            rgba(147, 197, 253, 0.05) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--ifm-color-primary-dark, #00474f);
+}
+
+.export-check-notice .anticon {
+    color: var(--ifm-color-primary, #006d75);
+}
+
+/* 缺失类型统计样式 */
+.export-check-counts {
+    padding: 6px 12px 6px 28px;
+    font-size: 13px;
+    color: var(--ifm-font-color-secondary, #4b5563);
+}
+
+.export-check-count-detail {
+    color: var(--ifm-color-warning-dark, #d97706);
+}
+
+/* Tag 标签样式 */
+.export-check-task {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.export-check-tags {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.export-check-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    background: rgba(217, 119, 6, 0.15);
+    color: #d97706;
+    white-space: nowrap;
+}
+
+.export-check-task-title {
+    color: var(--ifm-font-color-secondary, #4b5563);
+}
+
+[data-theme='dark'] .export-check-counts {
+    color: #9ca3af;
+}
+
+[data-theme='dark'] .export-check-count-detail {
+    color: #fbbf24;
+}
+
+[data-theme='dark'] .export-check-tag {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+[data-theme='dark'] .export-check-task-title {
+    color: #9ca3af;
+}
+
+/* ========================================
+   Dark Mode Styles
+   ======================================== */
+
+[data-theme='dark'] .export-check-modal .ant-modal-content {
+    background: #1f1f1f;
+}
+
+[data-theme='dark'] .export-check-modal .ant-modal-header {
+    background: #1f1f1f;
+    border-bottom-color: #333;
+}
+
+[data-theme='dark'] .export-check-modal .ant-modal-title {
+    color: #e5e7eb;
+}
+
+[data-theme='dark'] .export-check-summary {
+    color: #e5e7eb;
+}
+
+[data-theme='dark'] .export-check-summary strong {
+    color: #fbbf24;
+}
+
+[data-theme='dark'] .export-check-group-header {
+    background: none;
+    border: none;
+}
+
+[data-theme='dark'] .export-check-group-name {
+    color: #67e8f9;
+}
+
+[data-theme='dark'] .export-check-item {
+    color: #9ca3af;
+}
+
+[data-theme='dark'] .export-check-task-number {
+    color: #fbbf24;
+}
+
+/* Checklist Sytles */
+.export-checklist-container {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+}
+
+.export-checklist-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ifm-color-primary, #006d75);
+}
+
+.export-checklist-item {
+    margin-bottom: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.export-checklist-item:last-child {
+    margin-bottom: 0;
+}
+
+[data-theme='dark'] .export-checklist-container {
+    border-top-color: #333;
+}
+
+[data-theme='dark'] .export-checklist-title {
+    color: #67e8f9;
+}
+
+[data-theme='dark'] .export-check-notice {
+    background: linear-gradient(135deg,
+            rgba(59, 130, 246, 0.15) 0%,
+            rgba(30, 30, 50, 0.6) 100%);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+}
+
+[data-theme='dark'] .export-check-notice .anticon {
+    color: #60a5fa;
+}
+
+/* ========================================
+   Scrollbar Styles
+   ======================================== */
+
+.export-check-groups::-webkit-scrollbar {
+    width: 6px;
+}
+
+.export-check-groups::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.export-check-groups::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+.export-check-groups::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='dark'] .export-check-groups::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .export-check-groups::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme='dark'] .export-check-groups::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

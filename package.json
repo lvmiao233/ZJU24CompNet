@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "copy-raw": "node scripts/copy-raw.js",
+    "generate-index": "node scripts/generateQuestionIndex.js",
     "docusaurus": "docusaurus",
-    "prestart": "npm run copy-raw",
+    "prestart": "npm run copy-raw && npm run generate-index",
     "start": "docusaurus start",
-    "prebuild": "npm run copy-raw",
+    "prebuild": "npm run copy-raw && npm run generate-index",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
