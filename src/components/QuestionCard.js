@@ -1,3 +1,4 @@
+import React from 'react';
 import { Tag } from 'antd';
 import CollapsibleAnswer from './CollapsibleAnswer';
 import '../css/QuestionCard.css';
