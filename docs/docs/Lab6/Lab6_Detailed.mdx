@@ -1415,7 +1415,21 @@ R1知道去往R2的隧道，但R6不知道，我们需要把R1上的静态IPv6�
 - R1和R2两边的IPv6网络是采用什么技术通过IPv4的网络进行通信的？R6的IPv6网络又是如何实现与R2的IPv6网络通信的？
   <ModernInput size="exlarge" questionId="Lab6-q6"/>
 
-## 4 常见问题
+## 4 讨论与心得
+
+在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渨得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
+
+<ModernInput size="exlarge" questionId="lab6-question"/>
+
+在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
+
+<ModernInput size="exlarge" questionId="lab6-experience"/>
+
+你对本实验安排有哪些更好的建议呢？欢迎献计献策：
+
+<ModernInput size="exlarge" questionId="lab6-suggestion"/>
+
+## 5 常见问题
 
 * R6 与 R2 采用“隧道 + 双栈”混合互联时，流量转发优先级如何确定？优先走隧道还是原生 IPv6？
 
@@ -1433,6 +1447,6 @@ R1知道去往R2的隧道，但R6不知道，我们需要把R1上的静态IPv6�
 
   BGP 的设计哲学是**稳定性**和**策略控制**高于连通性，这与 IGP（如 OSPF）追求快速互通截然不同；**关于同步**，实际上现代路由器（如 Cisco IOS 12.2 以后）默认已经关闭了同步功能，因为现网大多采用全互联 IBGP 或路由反射器，同步机制已经过时；**关于重分发**，BGP 承载着全球几十万条互联网路由，如果默认允许自动重分发，任何一个内部网络的微小抖动都会被扩散到全球 BGP 网络中引发震荡，因此 BGP 强制要求管理员必须显式地宣告网络或配置策略，以确保只有稳定、合规的路由才会被通告出去
 
-## 5 导出实验报告
+## 6 导出实验报告
 
 <ExportButton templatePath={require('@site/assets/base_report/Lab6.zip').default} labName="Lab6" labId="lab6-" />

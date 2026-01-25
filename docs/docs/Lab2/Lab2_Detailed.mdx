@@ -864,7 +864,21 @@ ___
 * 从插上网线后开始，交换机的端口状态出现了哪些变化？大约需要多少时间才能成为FWD状态？期间，连接在该端口的计算机是否能够Ping通？
   <ModernInput size="exlarge" questionId="lab2-analysis-q8"/>
 
-## 4 常见问题
+## 4 讨论与心得
+
+在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
+
+<ModernInput size="exlarge" questionId="lab2-question"/>
+
+在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
+
+<ModernInput size="exlarge" questionId="lab2-experience"/>
+
+你对本实验安排有哪些更好的建议呢？欢迎献计献策：
+
+<ModernInput size="exlarge" questionId="lab2-suggestion"/>
+
+## 5 常见问题
 
 * **实验过程中 STP 的收敛时间比较久，这是为什么，大型网络中不会影响日常使用吗？有没有比 STP 更快的协议？**
 
@@ -892,6 +906,6 @@ ___
   * **封装方式**：**ISL** 采用外部封装模式，在原始以太网帧的头部和尾部加上总共 30 字节的头和尾，不修改原始帧内容；**dot1q** 采用内部标记模式，它在原始以太网帧的源 MAC 地址和类型字段之间插入 4 字节的 Tag，开销更小
   * **Native VLAN 支持**：ISL 不支持 Native VLAN 的概念，所有帧都会被封装；dot1q 支持 Native VLAN，属于该 VLAN 的数据帧在传输时不打标签，这能提高部分特定流量的转发效率
 
-## 5 导出实验报告
+## 6 导出实验报告
 
 <ExportButton templatePath={require('@site/assets/base_report/Lab2.zip').default} labName="Lab2" labId="lab2-" />

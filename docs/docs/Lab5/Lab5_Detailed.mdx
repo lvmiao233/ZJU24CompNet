@@ -1160,7 +1160,21 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 * 为什么要在区域边界路由器上进行路由合并？
   <ModernInput size="exlarge" questionId="Lab5-q6"/>
 
-## 4 常见问题
+## 4 讨论与心得
+
+在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
+
+<ModernInput size="exlarge" questionId="lab5-question"/>
+
+在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
+
+<ModernInput size="exlarge" questionId="lab5-experience"/>
+
+你对本实验安排有哪些更好的建议呢？欢迎献计献策：
+
+<ModernInput size="exlarge" questionId="lab5-suggestion"/>
+
+## 5 常见问题
 
 * 怎么确定一个边界路由器的 loopback 接口属于哪个 area？
 
@@ -1182,6 +1196,6 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 
   OSPF 在区域内部采用链路状态算法自然防环，但在区域之间传递路由信息时表现为距离矢量特征，为了从架构上根除区域间路由环路，OSPF 强制采用了逻辑上的两层结构（骨干与非骨干），规定所有非骨干区域必须经由骨干区域 Area 0 进行中转，这种星型逻辑结构确保了区域间路由信息的传递方向单一且无环，比单纯依赖复杂的防环算法更高效且稳定
 
-## 5 导出实验报告
+## 6 导出实验报告
 
 <ExportButton templatePath={require('@site/assets/base_report/Lab5.zip').default} labName="Lab5" labId="lab5-" />
