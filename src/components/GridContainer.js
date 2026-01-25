@@ -1,4 +1,3 @@
-import React from 'react';
 import '../css/GridContainer.css';
 
 const GridContainer = ({ children }) => {

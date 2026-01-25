@@ -7,15 +7,15 @@ description: 计算机网络实验五（Lab5）动态路由协议OSPF配置的�
 
 import FileCard from '@site/src/components/FileCard';
 import LinkCard from '@site/src/components/LinkCard';
-import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import DeadlineProgress from '@site/src/components/DeadlineProgress';
 import TaskCard from '@site/src/components/TaskCard';
-import ScreenshotCard from '@site/src/components/ScreenshotCard';
-import ModernInput from '@site/src/components/ModernInput';
+import StepRecordCard from '@site/src/components/StepRecordCard';
+import AnswerInput from '@site/src/components/AnswerInput';
 import ExportButton from '@site/src/components/ExportButton';
 import GridContainer from '@site/src/components/GridContainer';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
-<DeadlineProcess start={'2025-11-25 18:50:00'} end={'2025-12-09 23:59:59'}/>
+<DeadlineProgress start={'2025-11-25 18:50:00'} end={'2025-12-09 23:59:59'}/>
 
 <GridContainer>
     <FileCard file_type={'md'} name={'Lab5 实验报告模板 Markdown版本'} size={'742709'} link={require('@site/assets/templete/md/Lab5 实验报告模板.zip').default} />
@@ -58,7 +58,7 @@ import GridContainer from '@site/src/components/GridContainer';
     * 依次类推，R2、R3、R4、R6之间的子网为（只需要4个地址）：10.0.123.248/29，去掉全0全1地址后，还有6个地址可用
 * Area 1、Area 2、Area 3使用10.X.0.0/16的网络地址进行分配，其中X为Area编号，例如Area 1的3个子网分别使用10.1.0.0/24、10.1.1.0/24、10.1.2.0/24等子网地址（同一个交换机上的多台路由器的接口属于同一个子网）
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p0-s1" 
   title="网络拓扑图示例" 
   uploadOptions={[
@@ -66,7 +66,7 @@ import GridContainer from '@site/src/components/GridContainer';
   ]}
 >
 ![网络拓扑图及IP地址规划截图](img/image2.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -79,7 +79,7 @@ import GridContainer from '@site/src/components/GridContainer';
     * 激活接口: `no shutdown`
     * 对于串口，还需配置封装协议和时钟速率（在DCE端）：`encapsulation hdlc`, `clock rate 128000`
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p0-s2" 
       title="路由器接口配置命令" 
       uploadOptions={[
@@ -92,7 +92,7 @@ import GridContainer from '@site/src/components/GridContainer';
 2.  为PC1和PC2配置静态IP地址、子网掩码以及默认网关
 3.  在PC上使用 `ping` 命令测试其与直连路由器网关地址的连通性，确保链路正常工作
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p0-s2" 
       title="PC1→R1连通性测试示例" 
       uploadOptions={[
@@ -100,9 +100,9 @@ import GridContainer from '@site/src/components/GridContainer';
       ]}
     >
       ![PC1到R1连通性测试截图](img/image6.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p0-s2" 
       title="PC2→R2连通性测试示例" 
       uploadOptions={[
@@ -110,7 +110,7 @@ import GridContainer from '@site/src/components/GridContainer';
       ]}
     >
       ![PC2到R2连通性测试截图](img/image7.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -140,7 +140,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 2.  配置RIP使用版本2：`version 2`，该版本支持无类别域间路由（CIDR），能够正确传递子网掩码信息，是现代网络的基本要求
 3.  使用 `network [网络地址]` 命令宣告与路由器直连的网络，激活相应接口上的RIP协议，并开始向外通告这些网络；注意这里我们只填写网络地址，不填写子网掩码
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p1-s3" 
   title="RIP协议配置命令" 
   uploadOptions={[
@@ -156,7 +156,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 配置完成后，我们验证一下RIP协议是否按预期工作，并分析其路径选择的结果
 
 1.  在R1上使用 `show ip route` 命令查看路由表，标出到PC2子网的路由，下一跳是哪个路由器
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p1-s4" 
       title="R1路由表示例" 
       uploadOptions={[
@@ -164,9 +164,9 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R1路由表截图](img/image11.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 2.  在R2上使用 `show ip route` 命令查看路由表，标出到PC1子网的路由，下一跳是哪个路由器
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p1-s4" 
       title="R2路由表示例" 
       uploadOptions={[
@@ -174,9 +174,9 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R2路由表截图](img/image12.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3.  在R3上使用 `show ip route` 命令查看路由表
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p1-s4" 
       title="R3路由表示例" 
       uploadOptions={[
@@ -184,10 +184,10 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R3路由表截图](img/image13.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  分析从PC1所在子网到PC2所在子网的路由条目，记录其下一跳地址和度量值（跳数）
-5.  在PC1上使用 `tracert [PC2_IP]` 命令跟踪到PC2的路径，可以看到经过的路由器顺序是R1、<ModernInput size="medium" questionId="Lab5-p1-q4-1"/>，路由表中的路径选择应当与实际数据转发路径一致
-    <ScreenshotCard 
+5.  在PC1上使用 `tracert [PC2_IP]` 命令跟踪到PC2的路径，可以看到经过的路由器顺序是R1、<AnswerInput size="medium" questionId="Lab5-p1-q4-1"/>，路由表中的路径选择应当与实际数据转发路径一致
+    <StepRecordCard 
       questionId="Lab5-p1-s4" 
       title="路由跟踪结果示例" 
       uploadOptions={[
@@ -195,7 +195,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![PC1到PC2路由跟踪截图](img/image14.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -236,7 +236,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 例如，对于子网`192.168.1.0/24`，其子网掩码为`255.255.255.0`，而通配符掩码为`0.0.0.255`
 :::
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p2-s5" 
   title="R1 OSPF配置命令" 
   uploadOptions={[
@@ -263,7 +263,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 1.  创建Loopback 0接口并配置IP地址：`interface loopback 0`，`ip address [IP地址] [子网掩码]`
 2.  启动R2的OSPF进程，并将包括Loopback接口在内的所有接口宣告进Area 0
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p2-s6" 
   title="R2回环接口及OSPF配置命令" 
   uploadOptions={[
@@ -280,7 +280,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 2.  使用 `router-id [x.x.x.x]` 命令手动为R3指定一个Router ID
 3.  将R3的所有接口宣告进Area 0
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p2-s7" 
   title="R3 OSPF配置命令" 
   uploadOptions={[
@@ -304,11 +304,11 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
 现在，我们来深入OSPF的核心，查看每台路由器构建出的网络“路书”——链路状态数据库（LSDB），并验证我们的Router ID配置，结合之前的配置分析每个Router ID是如何被选举出来的（手动指定、最大Loopback IP或最大物理接口IP）
 
 1.  在R1上分别使用 `show ip ospf database` 命令查看它们的LSDB，标出路由器的Router ID，从输出可知：
-    * R1的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-1"/>（取自接口<ModernInput size="medium" questionId="Lab5-p2-q8-2"/>的IP）
-    * 与R1连接的有<ModernInput size="small" questionId="Lab5-p2-q8-3"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-4"/>、<ModernInput size="large" questionId="Lab5-p2-q8-5"/>
-    * 有<ModernInput size="small" questionId="Lab5-p2-q8-6"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-7"/>、<ModernInput size="large" questionId="Lab5-p2-q8-8"/>
+    * R1的Router ID为<AnswerInput size="large" questionId="Lab5-p2-q8-1"/>（取自接口<AnswerInput size="medium" questionId="Lab5-p2-q8-2"/>的IP）
+    * 与R1连接的有<AnswerInput size="small" questionId="Lab5-p2-q8-3"/>个路由器，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-4"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-5"/>
+    * 有<AnswerInput size="small" questionId="Lab5-p2-q8-6"/>条链路，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-7"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-8"/>
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s8" 
       title="R1 OSPF数据库示例" 
       uploadOptions={[
@@ -316,13 +316,13 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R1的OSPF数据库截图](img/image18.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 2.  在R2上分别使用 `show ip ospf database` 命令查看它们的LSDB，标出路由器的Router ID，从输出可知：
-    * R2的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-9"/>（取自接口<ModernInput size="medium" questionId="Lab5-p2-q8-10"/> 的IP）
-    * 与R2连接的有<ModernInput size="small" questionId="Lab5-p2-q8-11"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-12"/>、<ModernInput size="large" questionId="Lab5-p2-q8-13"/>
-    * 有<ModernInput size="small" questionId="Lab5-p2-q8-14"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-15"/>、<ModernInput size="large" questionId="Lab5-p2-q8-16"/>
+    * R2的Router ID为<AnswerInput size="large" questionId="Lab5-p2-q8-9"/>（取自接口<AnswerInput size="medium" questionId="Lab5-p2-q8-10"/> 的IP）
+    * 与R2连接的有<AnswerInput size="small" questionId="Lab5-p2-q8-11"/>个路由器，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-12"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-13"/>
+    * 有<AnswerInput size="small" questionId="Lab5-p2-q8-14"/>条链路，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-15"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-16"/>
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s8" 
       title="R2 OSPF数据库示例" 
       uploadOptions={[
@@ -330,14 +330,14 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R2的OSPF数据库截图](img/image19.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 3.  在R3上分别使用 `show ip ospf database` 命令查看它们的LSDB，标出路由器的Router ID，从输出可知：
-    * R3的Router ID为<ModernInput size="large" questionId="Lab5-p2-q8-17"/>（手动指定）
-    * 与R3连接的有<ModernInput size="small" questionId="Lab5-p2-q8-18"/>个路由器，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-19"/>、<ModernInput size="large" questionId="Lab5-p2-q8-20"/>
-    * 有<ModernInput size="small" questionId="Lab5-p2-q8-21"/>条链路，其ID分别是<ModernInput size="large" questionId="Lab5-p2-q8-22"/>、<ModernInput size="large" questionId="Lab5-p2-q8-23"/>
+    * R3的Router ID为<AnswerInput size="large" questionId="Lab5-p2-q8-17"/>（手动指定）
+    * 与R3连接的有<AnswerInput size="small" questionId="Lab5-p2-q8-18"/>个路由器，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-19"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-20"/>
+    * 有<AnswerInput size="small" questionId="Lab5-p2-q8-21"/>条链路，其ID分别是<AnswerInput size="large" questionId="Lab5-p2-q8-22"/>、<AnswerInput size="large" questionId="Lab5-p2-q8-23"/>
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s8" 
       title="R3 OSPF数据库示例" 
       uploadOptions={[
@@ -345,7 +345,7 @@ RIP使用**跳数**（**Hop Count**）作为衡量路径优劣的唯一度量（
       ]}
     >
       ![R3的OSPF数据库截图](img/image20.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -376,8 +376,8 @@ Cost = Reference Bandwidth / Interface Bandwidth
 </details>
 
 1.  在R1上使用 `show ip ospf interface` 命令，查看各个接口上详细的OSPF运行参数，标记各接口的cost值，网络类型，邻接关系及其Router ID，广播类型的网络再标出DR（Designed Router）或者BDR（Backup Designed Router）角色
-2.  对S2/0接口的运行参数分析：连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-1"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-2"/>，邻居Router ID=<ModernInput size="large" questionId="Lab5-p2-q9-3"/>
-    <ScreenshotCard 
+2.  对S2/0接口的运行参数分析：连接的网络类型为<AnswerInput size="medium" questionId="Lab5-p2-q9-1"/>，Cost=<AnswerInput size="small" questionId="Lab5-p2-q9-2"/>，邻居Router ID=<AnswerInput size="large" questionId="Lab5-p2-q9-3"/>
+    <StepRecordCard 
       questionId="Lab5-p2-s9" 
       title="R1 s2/0接口OSPF数据示例" 
       uploadOptions={[
@@ -385,13 +385,13 @@ Cost = Reference Bandwidth / Interface Bandwidth
       ]}
     >
       ![R1的s2/0接口OSPF数据截图](img/image21.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3.  对F0/1接口的运行参数分析：
-    * F0/1连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-4"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-5"/>，邻居Router ID=<ModernInput size="large" questionId="Lab5-p2-q9-6"/>
-    * DR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-7"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-8"/>
-    * BDR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-9"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-10"/>
+    * F0/1连接的网络类型为<AnswerInput size="medium" questionId="Lab5-p2-q9-4"/>，Cost=<AnswerInput size="small" questionId="Lab5-p2-q9-5"/>，邻居Router ID=<AnswerInput size="large" questionId="Lab5-p2-q9-6"/>
+    * DR的Router ID是<AnswerInput size="large" questionId="Lab5-p2-q9-7"/>，接口IP是<AnswerInput size="large" questionId="Lab5-p2-q9-8"/>
+    * BDR的Router ID是<AnswerInput size="large" questionId="Lab5-p2-q9-9"/>，接口IP是<AnswerInput size="large" questionId="Lab5-p2-q9-10"/>
   
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s9" 
       title="R1 f0/1接口OSPF数据示例" 
       uploadOptions={[
@@ -399,12 +399,12 @@ Cost = Reference Bandwidth / Interface Bandwidth
       ]}
     >
       ![R1的f0/1接口OSPF数据截图](img/image22.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  对F0/0接口的运行参数分析：
-    * F0/0连接的网络类型为<ModernInput size="medium" questionId="Lab5-p2-q9-11"/>，Cost=<ModernInput size="small" questionId="Lab5-p2-q9-12"/>
-    * DR的Router ID是<ModernInput size="large" questionId="Lab5-p2-q9-13"/>，接口IP是<ModernInput size="large" questionId="Lab5-p2-q9-14"/>
+    * F0/0连接的网络类型为<AnswerInput size="medium" questionId="Lab5-p2-q9-11"/>，Cost=<AnswerInput size="small" questionId="Lab5-p2-q9-12"/>
+    * DR的Router ID是<AnswerInput size="large" questionId="Lab5-p2-q9-13"/>，接口IP是<AnswerInput size="large" questionId="Lab5-p2-q9-14"/>
     
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s9" 
       title="R1 f0/0接口OSPF数据示例" 
       uploadOptions={[
@@ -412,7 +412,7 @@ Cost = Reference Bandwidth / Interface Bandwidth
       ]}
     >
       ![R1的f0/0接口OSPF数据截图](img/image23.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -432,8 +432,8 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 </details>
 查看R1、R2、R3的路由表，找到由OSPF学习到的路由（以`O`标记），观察与RIP比较OSPF所选择的路由的差异有何不同、两者的优先级有何差异
 
-1.  再次使用 `show ip route` 查看R1的路由表；由输出可知，对PC2所在网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-1"/>，由于OSPF的路由管理距离为110，比RIP的管理距离120优先级更高，所以把之前RIP选择的路由替换了
-    <ScreenshotCard 
+1.  再次使用 `show ip route` 查看R1的路由表；由输出可知，对PC2所在网络，OSPF选择的下一跳IP地址是<AnswerInput size="large" questionId="Lab5-p2-q10-1"/>，由于OSPF的路由管理距离为110，比RIP的管理距离120优先级更高，所以把之前RIP选择的路由替换了
+    <StepRecordCard 
       questionId="Lab5-p2-s10" 
       title="R1路由表示例" 
       uploadOptions={[
@@ -441,9 +441,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R1路由表OSPF截图](img/image24.png)
-    </ScreenshotCard>
-2.  再次使用 `show ip route` 查看R2的路由表；从输出可知，对PC1所在网络，OSPF选择的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p2-q10-2"/>
-    <ScreenshotCard 
+    </StepRecordCard>
+2.  再次使用 `show ip route` 查看R2的路由表；从输出可知，对PC1所在网络，OSPF选择的下一跳IP地址是<AnswerInput size="large" questionId="Lab5-p2-q10-2"/>
+    <StepRecordCard 
       questionId="Lab5-p2-s10" 
       title="R2路由表示例" 
       uploadOptions={[
@@ -451,9 +451,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R2路由表OSPF截图](img/image25.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3.  再次使用 `show ip route` 查看R3的路由表
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s10" 
       title="R3路由表示例" 
       uploadOptions={[
@@ -461,9 +461,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R3路由表OSPF截图](img/image26.png)
-    </ScreenshotCard>
-4.  在PC1上再次使用 `tracert` 跟踪到PC2的路径，观察到此时经过的路由器顺序是R1、<ModernInput size="small" questionId="Lab5-p2-q10-3"/>、<ModernInput size="small" questionId="Lab5-p2-q10-4"/>
-    <ScreenshotCard 
+    </StepRecordCard>
+4.  在PC1上再次使用 `tracert` 跟踪到PC2的路径，观察到此时经过的路由器顺序是R1、<AnswerInput size="small" questionId="Lab5-p2-q10-3"/>、<AnswerInput size="small" questionId="Lab5-p2-q10-4"/>
+    <StepRecordCard 
       questionId="Lab5-p2-s10" 
       title="路由跟踪结果" 
       uploadOptions={[
@@ -471,7 +471,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![PC1到PC2路由跟踪OSPF截图](img/image27.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -482,7 +482,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 2.  稍等片刻，待OSPF检测到链路中断并完成重新计算后，再次使用 `show ip route` 查看R1的路由表
 3.  观察并标记到达PC2所在子网的路由是否发生了变化，新的下一跳指向了哪里
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p2-s11" 
   title="R1路由表示例" 
   uploadOptions={[
@@ -490,7 +490,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
   ]}
 >
     ![R1路由表断开后截图](img/image28.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -498,9 +498,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 为什么在配置OSPF时，我们一般选择Loopback接口作为ID来源呢？接下来我们将观察路由器重启的变化，感受Router ID稳定性的重要性
 
 1.  在R1上使用 `write` 命令保存当前配置，然后右键该路由器- `reload` 重启路由器
-2.  待R1重启完成后，再次使用 `show ip ospf database` 查看其OSPF数据库，可以看到R1的Router ID变成了<ModernInput size="large" questionId="Lab5-p2-q12-1"/>，取自接口<ModernInput size="small" questionId="Lab5-p2-q12-2"/>的IP地址
+2.  待R1重启完成后，再次使用 `show ip ospf database` 查看其OSPF数据库，可以看到R1的Router ID变成了<AnswerInput size="large" questionId="Lab5-p2-q12-1"/>，取自接口<AnswerInput size="small" questionId="Lab5-p2-q12-2"/>的IP地址
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s12" 
       title="R1 OSPF数据库示例" 
       uploadOptions={[
@@ -508,7 +508,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R1重启后OSPF数据库截图](img/image29.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 由于在上一步中，我们关闭了R1原先作为Router ID来源的物理接口f0/1，其上的IP地址也暂时不可用，OSPF在重启后会重新选举一个当前可用的、IP地址最大的物理接口作为新的Router ID，而原来的Router ID也未消失，看上去是来自另一台不存在的路由器；而回环接口不会断开，OSPF优先选择后就不会遇到这种情况
 
 </TaskCard>
@@ -539,8 +539,8 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 
     你可以在R1发送了一个hello数据包时立刻打开R3对应的接口，此时R3发送的首个hello数据包应该就满足这一条件，这需要你卡到合适的Timing，可能需要多次尝试
     ::: 
-3.  观察R1终端输出的调试信息，记录下R1与R3重新建立邻接关系时经历的<ModernInput size="medium" questionId="Lab5-p2-q13-1"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-2"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-3"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-4"/>、<ModernInput size="medium" questionId="Lab5-p2-q13-5"/>5个状态变化
-    <ScreenshotCard 
+3.  观察R1终端输出的调试信息，记录下R1与R3重新建立邻接关系时经历的<AnswerInput size="medium" questionId="Lab5-p2-q13-1"/>、<AnswerInput size="medium" questionId="Lab5-p2-q13-2"/>、<AnswerInput size="medium" questionId="Lab5-p2-q13-3"/>、<AnswerInput size="medium" questionId="Lab5-p2-q13-4"/>、<AnswerInput size="medium" questionId="Lab5-p2-q13-5"/>5个状态变化
+    <StepRecordCard 
       questionId="Lab5-p2-s13" 
       title="邻接关系建立事件记录示例" 
       uploadOptions={[
@@ -548,10 +548,10 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![OSPF邻接关系建立事件记录截图](img/image30.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  待邻居关系达到 `Full` 状态后关闭调试（命令：`no debug ip ospf events`）
 5.  在R1上使用 `show ip ospf neighbor detail` 命令，查看邻居关系的最终状态
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p2-s13" 
       title="R1邻居信息示例" 
       uploadOptions={[
@@ -559,7 +559,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R1邻居信息截图](img/image31.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 6.  为R4和R6配置IP地址和OSPF（均属于Area 0），并观察它们在广播网络中的邻居关系；你会发现，由于DR/BDR机制，非DR/BDR的路由器之间只会建立到`2-Way`的邻居关系，而不会形成完全的`Full`邻接关系
 
 </TaskCard>
@@ -591,7 +591,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 
 1.  为R4、R6的回环接口与f0/0接口配置IP地址并激活
 2.  启用OSPF进程并将相应接口在Area 0宣告
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab5-p2-s14" 
     title="记录R4与R6的OSPF配置命令" 
     uploadOptions={[
@@ -600,7 +600,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
     ]}
     />
 3.  查看R4的OSPF邻居关系，由于处在广播网络中，R4与R6虽然是邻居关系（`2-WAY`），但不建立邻接关系
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab5-p2-s14" 
     title="截图R4的邻居关系" 
     uploadOptions={[
@@ -608,9 +608,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
     ]}
     >
         ![R4邻居关系截图](img/image32.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  查看R6的OSPF邻居关系，由于处在广播网络中，R4与R6虽然是邻居关系（`2-WAY`），但不建立邻接关系
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab5-p2-s14" 
     title="R6邻居关系示例" 
     uploadOptions={[
@@ -618,7 +618,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
     ]}
     >
         ![R6邻居关系截图](img/image33.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -656,7 +656,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 
 1.  为R4和R5的相关接口配置IP地址并激活
 2.  在R4和R5上启动OSPF进程，并根据拓扑图将R4和R5连接到Area 1的接口宣告进 **Area 1**（命令: `network [subnet] [wildcard-mask] area 1`）；此时R4成为了连接Area 0和Area 1的ABR
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s15" 
       title="R4和R5配置命令" 
       uploadOptions={[
@@ -665,7 +665,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     />
 3.  为PC3配置IP地址和相应的默认网关
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s15" 
       title="PC3网络配置示例" 
       uploadOptions={[
@@ -673,9 +673,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![PC3网络配置截图](img/image36.png)
-    </ScreenshotCard>
-4.  等待OSPF收敛后，使用 `show ip route` 在R2（Area 0内部路由器）上查看路由表，并标记出来自其他区域的**区域间路由**（**Inter-Area Route**）条目（`O IA`）；由路由表可知，目标为Area 1中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-1"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出
-    <ScreenshotCard 
+    </StepRecordCard>
+4.  等待OSPF收敛后，使用 `show ip route` 在R2（Area 0内部路由器）上查看路由表，并标记出来自其他区域的**区域间路由**（**Inter-Area Route**）条目（`O IA`）；由路由表可知，目标为Area 1中的子网的下一跳IP地址均为<AnswerInput size="large" questionId="Lab5-p3-q15-1"/>，从<AnswerInput size="medium" questionId="Lab5-p3-q15-2"/>接口发出
+    <StepRecordCard 
       questionId="Lab5-p3-s15" 
       title="R2路由表示例" 
       uploadOptions={[
@@ -683,9 +683,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R2路由表多域截图](img/image37.png)
-    </ScreenshotCard>
-5.  等待OSPF收敛后，使用 `show ip route` 在R5（Area 1内部路由器）上查看路由表，并标记出来自其他区域的**区域间路由**（**Inter-Area Route**）条目（`O IA`）；由路由表可知，目标为Area 0中的子网的下一跳IP地址均为<ModernInput size="large" questionId="Lab5-p3-q15-3"/>，从<ModernInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出
-    <ScreenshotCard 
+    </StepRecordCard>
+5.  等待OSPF收敛后，使用 `show ip route` 在R5（Area 1内部路由器）上查看路由表，并标记出来自其他区域的**区域间路由**（**Inter-Area Route**）条目（`O IA`）；由路由表可知，目标为Area 0中的子网的下一跳IP地址均为<AnswerInput size="large" questionId="Lab5-p3-q15-3"/>，从<AnswerInput size="medium" questionId="Lab5-p3-q15-4"/>接口发出
+    <StepRecordCard 
       questionId="Lab5-p3-s15" 
       title="R5路由表示例" 
       uploadOptions={[
@@ -693,9 +693,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R5路由表多域截图](img/image38.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 6.  在PC3上 `ping` PC1，测试跨区域的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s15" 
       title="PC3→1连通性测试示例" 
       uploadOptions={[
@@ -703,15 +703,15 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![PC3到PC1连通性测试截图](img/image39.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
 <TaskCard number={16} title="查看多域OSPF数据库信息" needScreenshot={true} needRecord={false}>
 通过对比不同位置路由器的LSDB，我们可以清晰地看到区域划分带来的信息隔离和摘要效果
 
-1.  在R2（Area 0内部）上使用 `show ip ospf database` 命令查看LSDB；由输出可观察到R2没有Area 1的具体信息，但是该区域的子网地址<ModernInput size="large" questionId="Lab5-p3-q16-1"/>、<ModernInput size="large" questionId="Lab5-p3-q16-2"/>、<ModernInput size="large" questionId="Lab5-p3-q16-3"/>由路由器<ModernInput size="large" questionId="Lab5-p3-q16-4"/>汇聚后以区域间链路的形式进行通告
-    <ScreenshotCard 
+1.  在R2（Area 0内部）上使用 `show ip ospf database` 命令查看LSDB；由输出可观察到R2没有Area 1的具体信息，但是该区域的子网地址<AnswerInput size="large" questionId="Lab5-p3-q16-1"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-2"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-3"/>由路由器<AnswerInput size="large" questionId="Lab5-p3-q16-4"/>汇聚后以区域间链路的形式进行通告
+    <StepRecordCard 
       questionId="Lab5-p3-s16" 
       title="R2 OSPF数据库示例" 
       uploadOptions={[
@@ -719,9 +719,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R2多域OSPF数据库截图](img/image40.png)
-    </ScreenshotCard>
-2.  在R5（Area 1内部）上使用 `show ip ospf database` 命令查看LSDB；由输出可观察到R5没有Area 0的具体信息，但是该区域的子网地址全部由路由器<ModernInput size="large" questionId="Lab5-p3-q16-5"/>汇聚后以区域间链路的形式进行通告
-    <ScreenshotCard 
+    </StepRecordCard>
+2.  在R5（Area 1内部）上使用 `show ip ospf database` 命令查看LSDB；由输出可观察到R5没有Area 0的具体信息，但是该区域的子网地址全部由路由器<AnswerInput size="large" questionId="Lab5-p3-q16-5"/>汇聚后以区域间链路的形式进行通告
+    <StepRecordCard 
       questionId="Lab5-p3-s16" 
       title="R5 OSPF数据库示例" 
       uploadOptions={[
@@ -729,12 +729,12 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R5多域OSPF数据库截图](img/image41.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3.  在R4（ABR）上使用 `show ip ospf database` 命令查看LSDB；由输出可观察到R4有Area 1和Area 0的具体信息，由于R4是区域边界路由器（ABR），所以对区域内的链路进行了汇聚，然后以区域间路由的形式向其他区域进行链路状态通告（LSA），其中：
-    * 向Area 0通告的属于Area 1的链路有<ModernInput size="large" questionId="Lab5-p3-q16-6"/>、<ModernInput size="large" questionId="Lab5-p3-q16-7"/>、<ModernInput size="large" questionId="Lab5-p3-q16-8"/>；
-    * 向Area 1通告的属于Area 0的链路有<ModernInput size="large" questionId="Lab5-p3-q16-9"/>、<ModernInput size="large" questionId="Lab5-p3-q16-10"/>、<ModernInput size="large" questionId="Lab5-p3-q16-11"/>、<ModernInput size="large" questionId="Lab5-p3-q16-12"/>、<ModernInput size="large" questionId="Lab5-p3-q16-13"/>、<ModernInput size="large" questionId="Lab5-p3-q16-14"/>、<ModernInput size="large" questionId="Lab5-p3-q16-15"/>、<ModernInput size="large" questionId="Lab5-p3-q16-16"/>
+    * 向Area 0通告的属于Area 1的链路有<AnswerInput size="large" questionId="Lab5-p3-q16-6"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-7"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-8"/>；
+    * 向Area 1通告的属于Area 0的链路有<AnswerInput size="large" questionId="Lab5-p3-q16-9"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-10"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-11"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-12"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-13"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-14"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-15"/>、<AnswerInput size="large" questionId="Lab5-p3-q16-16"/>
     
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s16" 
       title="R4 OSPF数据库示例" 
       uploadOptions={[
@@ -742,7 +742,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R4区域边界路由器OSPF数据库截图](img/image42.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -750,8 +750,8 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 
 为了查看路由器是如何确定区域边界路由器（ABR）的，我们可以使用 `show ip ospf border-routers` 命令
 
-1.  在R1（Area 0内部）上分别执行该命令，查看它们学习到的关于ABR（R4）的信息；由输出可知，当前已知的区域0内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-1"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-2"/>
-    <ScreenshotCard 
+1.  在R1（Area 0内部）上分别执行该命令，查看它们学习到的关于ABR（R4）的信息；由输出可知，当前已知的区域0内的ABR的IP地址为<AnswerInput size="large" questionId="Lab5-p3-q17-1"/>，下一跳IP地址为<AnswerInput size="large" questionId="Lab5-p3-q17-2"/>
+    <StepRecordCard 
       questionId="Lab5-p3-s17" 
       title="R1 ABR信息示例" 
       uploadOptions={[
@@ -759,9 +759,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R1区域边界路由器信息截图](img/image43.png)
-    </ScreenshotCard>
-2.  在R5（Area 1内部）上分别执行该命令，查看它们学习到的关于ABR（R4）的信息；由输出可知，当前已知的区域1内的ABR的IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-3"/>，下一跳IP地址为<ModernInput size="large" questionId="Lab5-p3-q17-4"/>
-    <ScreenshotCard 
+    </StepRecordCard>
+2.  在R5（Area 1内部）上分别执行该命令，查看它们学习到的关于ABR（R4）的信息；由输出可知，当前已知的区域1内的ABR的IP地址为<AnswerInput size="large" questionId="Lab5-p3-q17-3"/>，下一跳IP地址为<AnswerInput size="large" questionId="Lab5-p3-q17-4"/>
+    <StepRecordCard 
       questionId="Lab5-p3-s17" 
       title="R5 ABR信息示例" 
       uploadOptions={[
@@ -769,7 +769,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R5区域边界路由器信息截图](img/image44.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -778,7 +778,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
 1.  按照拓扑图为R6的F0/1接口、R8的各接口配置IP地址并激活相应接口
 2.  为PC4配置IP地址与默认网关
 3.  在R6和R8上启动OSPF，并将各接口宣告进 **Area 2**，此时R6成为连接Area 0和Area 2的ABR
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s18" 
       title="R6和R8配置命令" 
       uploadOptions={[
@@ -786,8 +786,8 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
         { id: 'r8_area2', label: '记录R8配置命令', type: 'text', textConfig: {initialContent: "R8(config)# interface f0/1\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface f0/0\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface f1/0\nR8(config-if)# \nR8(config-if)# \nR8(config)# interface loopback 0\nR8(config-if)# \nR8(config)# \nR8(config-router)# ", codeEditor: true, initialLines: 13} }
       ]}
     />
-4.  等待网络收敛后，在R8上查看路由表，并标记出到Area 1网络的区域间路由；由输出可知，区域间路由包含了Area 1和Area 0的地址，其中Area 1的子网地址有<ModernInput size="large" questionId="Lab5-p3-q18-1"/>、<ModernInput size="large" questionId="Lab5-p3-q18-2"/>、<ModernInput size="large" questionId="Lab5-p3-q18-3"/>
-    <ScreenshotCard 
+4.  等待网络收敛后，在R8上查看路由表，并标记出到Area 1网络的区域间路由；由输出可知，区域间路由包含了Area 1和Area 0的地址，其中Area 1的子网地址有<AnswerInput size="large" questionId="Lab5-p3-q18-1"/>、<AnswerInput size="large" questionId="Lab5-p3-q18-2"/>、<AnswerInput size="large" questionId="Lab5-p3-q18-3"/>
+    <StepRecordCard 
       questionId="Lab5-p3-s18" 
       title="R8路由表示例" 
       uploadOptions={[
@@ -795,9 +795,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![R8路由表截图](img/image45.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 5.  测试PC4与PC1（跨Area 0）的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s18" 
       title="PC4→1连通性测试示例" 
       uploadOptions={[
@@ -805,9 +805,9 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![PC4到PC1连通性测试截图](img/image46.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 6.  测试PC4与PC3（跨Area 0和Area 1）的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s18" 
       title="PC4→3连通性测试示例" 
       uploadOptions={[
@@ -815,7 +815,7 @@ AD是一个0到255之间的整数，它并不衡量路径的优劣（如带宽�
       ]}
     >
         ![PC4到PC3连通性测试截图](img/image47.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -835,7 +835,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 | R5 s2/0,1 | 1:101 | 10:202 | R7 s2/0 |
 | R5 s2/0,2 | 1:102 | 11:203 | R9 s2/0 |
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s19" 
   title="Frame Relay交换机配置" 
   uploadOptions={[
@@ -854,7 +854,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 3.  为每个子接口配置IP地址，并使用 `frame-relay interface-dlci [dlci]` 命令将其与**相应的**DLCI绑定，dlci值等于上一步Frame Relay交换机上定义的数据链路相关DLCI值
 4.  将R5的s2/0接口宣告进Area 1
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s20" 
   title="R5 Frame Relay配置命令" 
   uploadOptions={[
@@ -872,7 +872,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 4.  在R5上查看FrameRelay映射关系（命令：`show frame-relay map`）
 5.  在R7上 `ping` R5的IP地址，测试连通性；由于是点对点连接，应该只有一个子接口地址可以ping通
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s21" 
   title="R7配置命令" 
   uploadOptions={[
@@ -893,7 +893,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 4.  在R9上测试与R5的连通性，由于R5-R9采用的是点对点Frame Relay连接，只有R5的1个子接口地址可以通；如果在R5上测试，需要加上参数`source s2/0`指定接口
 5.  测试R9到R7的连通性；你会发现此时无法ping通，这是R5、R7、R9通过帧中继交换机连接的形式是非广播式多路访问，虽然路由器在同一个IP子网，但由于数据链路不是广播式的，所以在没有建立点对点数据链路的情况下，即使在同一IP子网内也无法通信
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s22" 
   title="R9配置命令" 
   uploadOptions={[
@@ -910,7 +910,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 
 在解决NBMA问题之前，我们先来观察一下默认配置下的失败状态：在R5, R7, R9上分别使用 `show ip ospf neighbor` 查看OSPF邻居关系；你会发现邻居关系无法建立，这是因为OSPF默认将帧中继接口视为广播网络类型，需要选举DR/BDR，但在非广播的NBMA环境中，路由器之间无法通过多播Hello包相互发现，导致选举失败，无法正常建立三者间的邻居关系
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s23" 
   title="R5邻居关系（配置前）" 
   uploadOptions={[
@@ -928,7 +928,7 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 1.  分别在R5, R7, R9的帧中继接口（或子接口）下，使用命令 `ip ospf network point-to-multipoint`
 2.  稍等片刻后，再次使用 `show ip ospf neighbor` 查看邻居关系，此时应该能够成功建立
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s24" 
   title="配置点对多点网络类型命令" 
   uploadOptions={[
@@ -947,8 +947,8 @@ NBMA网络的特点是，网络中的多台设备虽然在同一个逻辑网段�
 
 OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area 0相连，且**所有区域间的路由信息都必须通过Area 0进行中转**，非骨干区域之间不能直接交换路由信息，我们可以通过对以下路由器OSPF数据库中Summary Net Link部分的观察来验证这一规则
 
-1.  在R5上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-1"/>宣告的，而R7作为Area 1和Area 2的ABR，却没有向Area 1宣告Area 2的路由信息，是因为所有的Area都只和Area 0进行路由信息交换
-    <ScreenshotCard 
+1.  在R5上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<AnswerInput size="large" questionId="Lab5-p3-q25-1"/>宣告的，而R7作为Area 1和Area 2的ABR，却没有向Area 1宣告Area 2的路由信息，是因为所有的Area都只和Area 0进行路由信息交换
+    <StepRecordCard 
       questionId="Lab5-p3-s25" 
       title="R5 OSPF数据库示例" 
       uploadOptions={[
@@ -956,9 +956,9 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
       ]}
     >
         ![R5 OSPF数据库截图](img/image49.png)
-    </ScreenshotCard>
-2.  在R8上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-2"/>宣告的，而R7作为Area 1和Area 2的ABR，也没有向Area 2宣告Area 1的路由信息
-    <ScreenshotCard 
+    </StepRecordCard>
+2.  在R8上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<AnswerInput size="large" questionId="Lab5-p3-q25-2"/>宣告的，而R7作为Area 1和Area 2的ABR，也没有向Area 2宣告Area 1的路由信息
+    <StepRecordCard 
       questionId="Lab5-p3-s25" 
       title="R8 OSPF数据库示例" 
       uploadOptions={[
@@ -966,9 +966,9 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
       ]}
     >
         ![R8 OSPF数据库截图](img/image50.png)
-    </ScreenshotCard>
-3.  在R7上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-3"/>宣告的，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<ModernInput size="large" questionId="Lab5-p3-q25-4"/>宣告的
-    <ScreenshotCard 
+    </StepRecordCard>
+3.  在R7上使用 `show ip ospf database` 查看OSPF数据库，观察得知，Area 1所有的的聚合路由都是由区域边界路由器(ABR)<AnswerInput size="large" questionId="Lab5-p3-q25-3"/>宣告的，Area 2所有的的聚合路由都是由区域边界路由器(ABR)<AnswerInput size="large" questionId="Lab5-p3-q25-4"/>宣告的
+    <StepRecordCard 
       questionId="Lab5-p3-s25" 
       title="R7 OSPF数据库示例" 
       uploadOptions={[
@@ -976,15 +976,15 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
       ]}
     >
         ![R7 OSPF数据库截图](img/image51.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
 <TaskCard number={26} title="查看指定网络的路由信息" needScreenshot={true} needRecord={false}>
 
-在R8上使用 `show ip route [目标网络地址]` 命令，查看去往PC3所在子网的路由条目，观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q26-1"/>的下一跳IP地址是<ModernInput size="large" questionId="Lab5-p3-q26-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q26-3"/>
+在R8上使用 `show ip route [目标网络地址]` 命令，查看去往PC3所在子网的路由条目，观察得知，前往子网<AnswerInput size="large" questionId="Lab5-p3-q26-1"/>的下一跳IP地址是<AnswerInput size="large" questionId="Lab5-p3-q26-2"/>，是路由器<AnswerInput size="medium" questionId="Lab5-p3-q26-3"/>
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s26" 
   title="R8→PC3网络路由信息示例" 
   uploadOptions={[
@@ -992,18 +992,18 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
   ]}
 >
     ![R8到PC3网络路由信息截图](img/image52.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
 <TaskCard number={27} title="测试链路中断对路由信息的影响" needScreenshot={true} needRecord={false}>
 
 1.  在R6上关闭其连接Area 0的f0/0接口，切断Area 2与骨干区域的直接连接
-2.  在R8上再次查看路由信息，观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-1"/>的路由已经不存在
-3.  在R7上查看路由信息，观察得知，前往子网<ModernInput size="large" questionId="Lab5-p3-q27-2"/>的路由是存在的，但是由于Area 2和Area 1不直接交换路由信息，R7没有向Area 2宣告路由的存在
+2.  在R8上再次查看路由信息，观察得知，前往子网<AnswerInput size="large" questionId="Lab5-p3-q27-1"/>的路由已经不存在
+3.  在R7上查看路由信息，观察得知，前往子网<AnswerInput size="large" questionId="Lab5-p3-q27-2"/>的路由是存在的，但是由于Area 2和Area 1不直接交换路由信息，R7没有向Area 2宣告路由的存在
 4.  重新使用 `no shutdown` 打开R6的f0/0接口，观察R8的路由信息是否能够恢复
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s27" 
   title="R8路由信息示例" 
   uploadOptions={[
@@ -1023,7 +1023,7 @@ OSPF有一个非常重要的设计规则：所有非骨干区域都必须与Area
 3.  使用 `show ip ospf database` 查看R10的OSPF数据库，观察可知没有其他Area的信息，因为Area 3和Area 1不直接交换信息
 4.  使用 `show ip route` 查看R10的路由表，观察可知没有其他Area的信息，因为OSPF数据库中缺乏相关数据
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s28" 
   title="R10配置命令" 
   uploadOptions={[
@@ -1052,7 +1052,7 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 </details>
 
 1.  在R9（Area 1/3的ABR）和R4（Area 0/1的ABR）之间，通过传输区域Area 1建立虚链路（命令：`area [area-id] virtual-link RID`），其中area-id写1，RID写**对方的Router ID**
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s29" 
       title="虚链路配置命令" 
       uploadOptions={[
@@ -1061,10 +1061,10 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
       ]}
     />
 2.  配置完成后，使用 `show ip ospf virtual-links` 检查虚链路是否成功建立，观察可知：
-    * R4通过区域<ModernInput size="small" questionId="Lab5-p3-q29-1"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-2"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-3"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-4"/>
-    * R9通过区域<ModernInput size="small" questionId="Lab5-p3-q29-5"/>的接口<ModernInput size="medium" questionId="Lab5-p3-q29-6"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-7"/>）建立了虚链路，使用的Cost值为<ModernInput size="small" questionId="Lab5-p3-q29-8"/>
+    * R4通过区域<AnswerInput size="small" questionId="Lab5-p3-q29-1"/>的接口<AnswerInput size="medium" questionId="Lab5-p3-q29-2"/>与R9（RID是<AnswerInput size="large" questionId="Lab5-p3-q29-3"/>）建立了虚链路，使用的Cost值为<AnswerInput size="small" questionId="Lab5-p3-q29-4"/>
+    * R9通过区域<AnswerInput size="small" questionId="Lab5-p3-q29-5"/>的接口<AnswerInput size="medium" questionId="Lab5-p3-q29-6"/>与R4（RID是<AnswerInput size="large" questionId="Lab5-p3-q29-7"/>）建立了虚链路，使用的Cost值为<AnswerInput size="small" questionId="Lab5-p3-q29-8"/>
     
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s29" 
       title="R4虚链路状态" 
       uploadOptions={[
@@ -1073,10 +1073,10 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
       ]}
     />
 3.  配置完成后，使用 `show ip ospf neighbor` 命令检查邻居关系是否成功建立，观察可知：
-    *   R4通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-9"/>与R9（RID是<ModernInput size="large" questionId="Lab5-p3-q29-10"/>）建立了邻接关系
-    *   R9通过接口<ModernInput size="medium" questionId="Lab5-p3-q29-11"/>与R4（RID是<ModernInput size="large" questionId="Lab5-p3-q29-12"/>）建立了邻接关系
+    *   R4通过接口<AnswerInput size="medium" questionId="Lab5-p3-q29-9"/>与R9（RID是<AnswerInput size="large" questionId="Lab5-p3-q29-10"/>）建立了邻接关系
+    *   R9通过接口<AnswerInput size="medium" questionId="Lab5-p3-q29-11"/>与R4（RID是<AnswerInput size="large" questionId="Lab5-p3-q29-12"/>）建立了邻接关系
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s29" 
       title="R4邻居信息（虚链路）" 
       uploadOptions={[
@@ -1092,9 +1092,9 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 现在虚链路已经打通，我们来验证一下Area 3是否已被成功接入OSPF骨干网络
 
 1.  在虚链路成功建立后，再次使用 `show ip route` 查看R10的路由表，标出PC1、PC2、PC3所在子网的相关记录
-2.  使用 `show ip ospf database` 查看R10的OSPF数据库，观察可知所有其他区域路由信息均由区域边界路由器<ModernInput size="large" questionId="Lab5-p3-q30-1"/>宣告
+2.  使用 `show ip ospf database` 查看R10的OSPF数据库，观察可知所有其他区域路由信息均由区域边界路由器<AnswerInput size="large" questionId="Lab5-p3-q30-1"/>宣告
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab5-p3-s30" 
   title="R10路由表（虚链路建立后）" 
   uploadOptions={[
@@ -1123,10 +1123,10 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 
 1.  在R9的OSPF配置模式下，使用 `area [area-id] range [ip_net] [mask]` 命令，将来自Area 0的多个`10.0.x.x`子网汇总成一条`10.0.0.0 255.255.0.0`的路由，并通告给Area 3；注意命令中的`area-id`指的是需要合并的路由**来⾃的区域**
 2.  配置完成后，查看R9和R10的路由表，标出合并的那条路由
-    * R9上，合并的路由采用了特殊的接口<ModernInput size="medium" questionId="Lab5-p3-q31-1"/>作为下一跳；这是一个防环机制，如果R9收到一个去往未知`10.0.x.x`子网的数据包，它会将其丢弃，而不是错误地发回Area 1
-    * R10上，下一跳的IP地址是<ModernInput size="large" questionId="Lab5-p3-q31-2"/>，是路由器<ModernInput size="medium" questionId="Lab5-p3-q31-3"/>的接口
+    * R9上，合并的路由采用了特殊的接口<AnswerInput size="medium" questionId="Lab5-p3-q31-1"/>作为下一跳；这是一个防环机制，如果R9收到一个去往未知`10.0.x.x`子网的数据包，它会将其丢弃，而不是错误地发回Area 1
+    * R10上，下一跳的IP地址是<AnswerInput size="large" questionId="Lab5-p3-q31-2"/>，是路由器<AnswerInput size="medium" questionId="Lab5-p3-q31-3"/>的接口
 
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab5-p3-s31" 
       title="R9路由表（路由聚合后）" 
       uploadOptions={[
@@ -1148,31 +1148,31 @@ OSPF采用了一种星型的区域架构，规定**所有非骨干区域**（**A
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 * 在一个网络中各路由器的OSPF进程号是否一定要相同？一个路由器上可以配置多个进程号吗？
-  <ModernInput size="exlarge" questionId="Lab5-q1"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q1"/>
 * 未手工指定Router ID时，如果没有给回环接口配置IP地址，会从哪一个接口选取地址作为Router ID？如果给回环接口配置了IP地址，又会从哪一个接口选取地址作为Router ID？
-  <ModernInput size="exlarge" questionId="Lab5-q2"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q2"/>
 * 如果Router ID对应的接口down了，路由器会自动重新选择另一个接口地址作为新的Router ID吗？
-  <ModernInput size="exlarge" questionId="Lab5-q3"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q3"/>
 * 宣告网络属于哪个area的命令中，网络地址后面的参数是子网掩码吗？为什么要写成0.0.255.255，而不是255.255.0.0？
-  <ModernInput size="exlarge" questionId="Lab5-q4"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q4"/>
 * 是不是所有其他Area上的路由器都只和Area 0上的路由器进行路由信息交换？虚链路的作用是什么？
-  <ModernInput size="exlarge" questionId="Lab5-q5"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q5"/>
 * 为什么要在区域边界路由器上进行路由合并？
-  <ModernInput size="exlarge" questionId="Lab5-q6"/>
+  <AnswerInput size="exlarge" questionId="Lab5-q6"/>
 
 ## 4 讨论与心得
 
 在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
 
-<ModernInput size="exlarge" questionId="lab5-question"/>
+<AnswerInput size="exlarge" questionId="lab5-question"/>
 
 在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
 
-<ModernInput size="exlarge" questionId="lab5-experience"/>
+<AnswerInput size="exlarge" questionId="lab5-experience"/>
 
 你对本实验安排有哪些更好的建议呢？欢迎献计献策：
 
-<ModernInput size="exlarge" questionId="lab5-suggestion"/>
+<AnswerInput size="exlarge" questionId="lab5-suggestion"/>
 
 ## 5 常见问题
 

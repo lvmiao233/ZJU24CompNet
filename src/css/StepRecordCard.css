@@ -1,4 +1,4 @@
-.screenshot-card {
+.step-record-card {
   width: 100%;
   padding-top: 4px;
   margin-bottom: 4px;
@@ -23,11 +23,11 @@
   padding: 4px 8px;
 }
 
-.screenshot-card .ant-segmented {
+.step-record-card .ant-segmented {
   font-size: 15px;
 }
 
-.screenshot-card .ant-segmented .ant-segmented-item-label {
+.step-record-card .ant-segmented .ant-segmented-item-label {
   font-size: 15px;
 }
 
@@ -120,7 +120,7 @@
 }
 
 /* ================================
-   ScreenshotCard Dark Mode
+   StepRecordCard Dark Mode
    ================================ */
 [data-theme='dark'] .single-option-label {
   color: #e8e8e8;
@@ -161,7 +161,7 @@
 }
 
 /* ================================
-   ScreenshotCard Responsive
+   StepRecordCard Responsive
    ================================ */
 @media (max-width: 767px) {
   .header {

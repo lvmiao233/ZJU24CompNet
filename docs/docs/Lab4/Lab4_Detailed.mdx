@@ -6,15 +6,15 @@ description: 计算机网络实验四（Lab4）静态路由配置的详解版指
 
 
 import FileCard from '@site/src/components/FileCard';
-import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import DeadlineProgress from '@site/src/components/DeadlineProgress';
 import TaskCard from '@site/src/components/TaskCard';
-import ScreenshotCard from '@site/src/components/ScreenshotCard';
-import ModernInput from '@site/src/components/ModernInput';
+import StepRecordCard from '@site/src/components/StepRecordCard';
+import AnswerInput from '@site/src/components/AnswerInput';
 import ExportButton from '@site/src/components/ExportButton';
 import GridContainer from '@site/src/components/GridContainer';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
-<DeadlineProcess start={'2025-11-11 18:50:00'} end={'2025-11-25 23:59:59'}/>
+<DeadlineProgress start={'2025-11-11 18:50:00'} end={'2025-11-25 23:59:59'}/>
 <GridContainer>
     <FileCard file_type={'md'} name={'Lab4 实验报告模板 Markdown版本'} size={'446958'} link={require('@site/assets/templete/md/Lab4 实验报告模板.zip').default} />
     <FileCard file_type={'doc'} name={'Lab4 实验报告模板 Word版本'} size={'532480'} link={require('@site/assets/templete/word/实验报告模版_实验4.doc').default} />
@@ -53,7 +53,7 @@ import GridContainer from '@site/src/components/GridContainer';
 
 GNS3原生支持在拓扑图上添加文字标注并导出图片，你可以参考[GNS3客户端使用](/docs/GNS3/client-usage)了解使用方式
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s1" 
   title="拓扑图示例" 
   uploadOptions={[
@@ -61,7 +61,7 @@ GNS3原生支持在拓扑图上添加文字标注并导出图片，你可以参�
   ]}
 >
   ![静态路由实验拓扑图](img/image2.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -87,7 +87,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 1.  使用`ip [IP地址]`命令（此时默认为24位子网掩码），为PC1配置IP地址 `10.0.0.X`，为PC2配置IP地址 `10.0.1.X`，其中X为你的学号后2位或后3位；两台PC均使用24位长度的子网掩码，即 `255.255.255.0`
 2.  使用 `ping` 命令检查PC1与PC2之间的连通性并截图，思考为什么它们无法通信
   
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s2" 
   title="PC间Ping结果示例" 
   uploadOptions={[
@@ -95,7 +95,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
   ]}
 >
   ![PC间Ping测试结果截图](img/image3.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -104,7 +104,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 1.  使用`ip [IP地址] [子网掩码]`命令将PC1和PC2的子网掩码长度均修改为16位，即 `255.255.0.0`
 2.  再次使用 `ping` 命令检查PC1与PC2之间的连通性并截图
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s3" 
   title="修改掩码后Ping结果示例" 
   uploadOptions={[
@@ -112,7 +112,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
   ]}
 >
   ![修改掩码后Ping测试结果截图](img/image4.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 此时，PC1（`10.0.0.X/16`）计算自己和PC2（`10.0.1.X`）的网络地址时，都会使用`/16`的掩码，得到的结果都是 `10.0.0.0`，因此PC1会认为PC2与自己在同一个局域网内，无需默认网关转发，只需要二层转发即可通信成功
 
@@ -147,7 +147,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 2.  根据你的IP规划，为R1的f0/0和f1/0接口分别配置IP地址和16位掩码，并激活接口
 3.  配置完成后，在特权模式下使用 `show ip route` 命令查看R1当前的路由表信息
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s4" 
   title="R1路由表示例" 
   uploadOptions={[
@@ -156,7 +156,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
   ]}
 >
   ![R1路由表信息截图](img/image7.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -165,7 +165,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 1.  为PC3配置IP地址 `10.1.0.X`（X规则同前），子网掩码为16位，即 `255.255.0.0`
 2.  使用 `ping` 命令检查PC1与PC3之间的连通性
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s5" 
   title="PC1→3 Ping结果示例" 
   uploadOptions={[
@@ -173,7 +173,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
   ]}
 >
   ![PC1与PC3间Ping测试结果截图](img/image8.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 此时，PC1和PC3位于由R1隔开的两个不同子网中（10.0.0.0/16 和 10.1.0.0/16），它们之间的通信必须经过路由器转发，但由于PC尚未配置网关，它们不知道该把发往外部网络的数据包交给谁，因此 `ping` 会失败
 
@@ -198,7 +198,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 2.  使用命令`ip [主机IP] [子网掩码] gateway [网关IP]`为PC3配置默认网关，地址为R1面向PC3的接口（f1/0）的IP地址
 3.  再次 `ping` PC3，此时PC1和PC3都知道如何将数据包发送给R1，而R1也同时连接着这两个网络，因此应当能够成功转发数据包，通信成功
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s6" 
   title="PC1→3 Ping结果示例" 
   uploadOptions={[
@@ -208,7 +208,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
   ]}
 >
   ![PC Ping测试结果截图](img/image11.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -216,7 +216,7 @@ IP地址由两部分组成：网络部分（Network ID）和主机部分（Host 
 
 根据你的IP规划，为R4的f0/0和f0/1两个接口分别配置IP地址并使用 `no shutdown` 命令激活接口
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s7" 
   title="R4接口配置命令" 
   uploadOptions={[
@@ -252,7 +252,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 `network`命令在这里的作用是声明该地址池可以从哪个网段中分配IP地址，而不是配置一条路由
 :::
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s8" 
   title="DHCP服务配置命令" 
   uploadOptions={[
@@ -284,7 +284,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 在PC4的命令行中输入 `ip dhcp` 命令，使其向网络中发送DHCP请求，获取IP地址、子网掩码和默认网关，并截图查看获取到的配置信息
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s9" 
   title="PC4 DHCP地址分配示例" 
   uploadOptions={[
@@ -292,7 +292,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![PC4 DHCP地址分配结果截图](img/image15.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -300,7 +300,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 由于DHCP的Discover报文是广播包，无法被分隔广播域的路由器转发，路由器的每个接口所连接的网段如果需要DHCP服务都必须有一个独立的地址池为其服务，因此我们需要用相似的方式，在R4上为f0/1接口所连接的子网（`172.16.1.0/24`）配置第二个DHCP地址池
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s10" 
   title="第二个DHCP池配置命令" 
   uploadOptions={[
@@ -314,7 +314,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 在PC5上同样使用 `ip dhcp` 命令动态获取网络配置，并截图查看结果
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s11" 
   title="PC5 DHCP地址分配示例" 
   uploadOptions={[
@@ -322,7 +322,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![R4路由器DHCP服务配置截图](img/image17.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -330,7 +330,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 使用 `ping` 命令测试PC4与PC5之间的连通性，由于它们都连接到R4，并且R4的路由表中包含了这两个直接相连的子网，通信应该可以成功
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s12" 
   title="PC4→5 Ping结果示例" 
   uploadOptions={[
@@ -338,7 +338,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![PC4与PC5间Ping测试结果截图](img/image18.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -346,7 +346,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 在R4的特权模式下使用 `show ip dhcp binding` 命令，查看DHCP服务器已经分配出去的IP地址及其对应的客户端MAC地址信息
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s13" 
   title="DHCP主机分配信息示例" 
   uploadOptions={[
@@ -354,7 +354,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![R4路由器DHCP主机分配信息截图](img/image19.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -377,7 +377,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 2.  配置数据链路层协议为HDLC（命令：`encapsulation hdlc`）
 3.  选取其中任意一台路由器作为DCE端，在其上设置时钟速率（命令：`clock rate 64000`）
 4.  为两个接口配置IP地址并激活接口
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s14" 
       title="R1配置命令示例" 
       uploadOptions={[
@@ -385,8 +385,8 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R1路由器HDLC串口配置命令截图](img/image20.png)
-    </ScreenshotCard>
-    <ScreenshotCard 
+    </StepRecordCard>
+    <StepRecordCard 
       questionId="Lab4-s14" 
       title="R2配置命令示例" 
       uploadOptions={[
@@ -394,9 +394,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R2路由器HDLC串口配置命令截图](img/image21.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 5.  使用 `ping` 命令测试两个路由器串口之间的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s14" 
       title="R1-R2连通性测试示例" 
       uploadOptions={[
@@ -404,7 +404,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R1与R2间HDLC连通性测试结果截图](img/image22.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -429,7 +429,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 2.  配置数据链路层协议为PPP（命令：`encapsulation ppp`）
 3.  配置PPP认证模式为CHAP（命令：`ppp authentication chap`）
 4.  在R2上，为R4设置认证的用户名和密码（命令：`username R4 password 1234`），其中用户名必须是对方路由器的`hostname`（区分大小写）
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s15" 
       title="R2配置命令示例" 
       uploadOptions={[
@@ -437,9 +437,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R2路由器PPP串口配置命令截图](img/image23.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 5.  在R4上，为R2设置认证的用户名和密码（命令：`username R2 password 1234`），密码必须与R2上设置的一致
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s15" 
       title="R4配置命令示例" 
       uploadOptions={[
@@ -447,9 +447,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R4路由器PPP串口配置命令截图](img/image24.png)
-    </ScreenshotCard> 
+    </StepRecordCard> 
 6.  使用 `show interface [接口名]` 查看串口状态，确认链路状态为 `up` 且线路协议状态也为 `up`，`LCP Open` 表明PPP的链路控制协议已协商完成
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s15" 
       title="串口状态示例" 
       uploadOptions={[
@@ -457,9 +457,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R4与R2间PPP串口状态截图](img/image25.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 7.  使用 `ping` 测试两个路由器之间的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s15" 
       title="连通性测试示例" 
       uploadOptions={[
@@ -467,7 +467,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![R4与R2间PPP连通性测试结果截图](img/image26.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -475,7 +475,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 根据IP规划，为R1和R3之间的接口配置IP地址，激活接口，并使用 `ping` 命令测试两个路由器间直连链路的连通性
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s16" 
   title="R1-R3接口配置与测试" 
   uploadOptions={[
@@ -491,7 +491,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 根据IP规划，为R4和R3之间的接口配置IP地址，激活接口，并使用 `ping` 命令测试两个路由器之间的连通性
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s17" 
   title="R4-R3接口配置与测试" 
   uploadOptions={[
@@ -507,7 +507,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 现在，网络中的所有链路都已配置完毕，但路由尚未完全建立，请分别测试PC1与PC4、PC1与PC5、PC3与PC4、PC3与PC5之间的连通性，你会发现这些 `ping` 命令都会失败
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s18" 
   title="连通性测试结果示例" 
   uploadOptions={[
@@ -518,7 +518,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![跨路由器PC间连通性测试结果截图](img/image27.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -526,7 +526,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 在R1、R2、R3、R4上分别使用 `show ip route` 命令查看各自的路由表信息，分析为什么上一步的 `ping` 失败的原因是缺少了哪些路由信息，为下一步添加路由做准备
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s19" 
   title="路由表信息示例" 
   uploadOptions={[
@@ -537,7 +537,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![路由表信息截图示例](img/image28.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 你会发现，每台路由器只知道与自己直接相连的网络，对于通过其他路由器才能到达的“远程网络”，它们的路由表中并没有相应条目，因此不知道如何转发数据包
 
@@ -561,7 +561,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 </details>
 
 1. 在各个路由器上为相应的目标网络（Zone1, Zone2, Guest zone所在子网）添加静态路由（**优先选择以太网线路作为下一跳路径**），以便上述三个区内的PC能够互相Ping通
-    <ScreenshotCard 
+    <StepRecordCard 
         questionId="Lab4-s20" 
         title="静态路由配置示例" 
         uploadOptions={[
@@ -572,12 +572,12 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
         ]}
     >
       ![静态路由配置命令示例](img/image29.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 2. 测试PC1到PC4、PC1到PC5、PC3到PC4、PC3到PC5之间的连通性，此时应当均能连通，如果不通，请仔细分析是哪一台路由器缺少了路由）
     :::tip 提示
     Ping是一个双向的过程，不仅需要请求包能够到达目标主机，来自目标主机的响应包也需要能够返回给请求主机；因此往返路径上所有路由都需要知道如何到达目标主机和**源主机**，如果无法Ping通，请思考你遗漏了往返路径中哪个节点的配置
     :::
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s20" 
       title="连通性测试结果示例" 
       uploadOptions={[
@@ -588,9 +588,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![静态路由配置后PC间连通性测试结果截图](img/image30.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3. 记录最后的路由表信息
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s20" 
       title="路由表信息示例" 
       uploadOptions={[
@@ -601,7 +601,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     >
       ![静态路由配置后各路由器路由表信息截图](img/image31.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -620,7 +620,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 </details>
 
 1.  在R1和R4上，为对方的PC所在子网添加一条备用路由，选择**经过R2的串口线路**作为下一跳路径，并将管理距离（路由距离）设置为30（命令：`ip route 目标网络 子网掩码 下一跳地址 距离`）；这里选择30是为了和默认的静态路由（AD为1）拉开显著差距，任何大于静态路由AD的整数值在此处都可以实现浮动路由的效果
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s21" 
       title="备用路由配置命令" 
       uploadOptions={[
@@ -629,7 +629,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
       ]}
     />  
 2.  配置完成后，在**R1-R3、R4-R3 间链路断开前**查看R1和R4的路由表，确认这条AD为30的新增路由没有出现
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="R1路由表示例" 
     uploadOptions={[
@@ -637,8 +637,8 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开前R1路由表信息截图](img/image33.png)
-    </ScreenshotCard>
-    <ScreenshotCard 
+    </StepRecordCard>
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="R4路由表示例" 
     uploadOptions={[
@@ -646,9 +646,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开前R4路由表信息截图](img/image34.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 3.  在PC1上使用 `traceroute` 命令，追踪到R4的f0/0接口IP数据包路径的变化
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="路由跟踪示例" 
     uploadOptions={[
@@ -656,10 +656,10 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开前PC1路由跟踪结果截图](img/image35.png)
-    </ScreenshotCard> 
+    </StepRecordCard> 
 4.  通过 `shutdown` 命令在R1和R4上关闭与R3连接的以太网接口，模拟主链路故障（**R1-R3、R4-R3 间链路断开**）
 5.  再次查看R1和R4的路由表，验证备用路由是否已被自动添加进路由表
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="R1路由表示例" 
     uploadOptions={[
@@ -667,8 +667,8 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开后R1路由表信息截图](img/image36.png)
-    </ScreenshotCard>
-    <ScreenshotCard 
+    </StepRecordCard>
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="R4路由表示例" 
     uploadOptions={[
@@ -676,11 +676,11 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开后R4路由表信息截图](img/image37.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 6.  使用 `traceroute` 命令观察数据包路径的变化
     :::tip 当主链路断开，备用链路被激活时，数据包的路径发生了改变；现在R2成为了路径上的关键节点，如果R2的路由表中没有去往目的PC网络（如172.16.0.0/24）和源PC网络（10.0.0.0/16）的路由，那么数据包在到达R2时就会被丢弃；因此如果无法Ping通，请检查R2上是否添加了相应的路由
     :::  
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="路由跟踪示例" 
     uploadOptions={[
@@ -688,9 +688,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
     ]}
     >
     ![链路断开后PC1路由跟踪结果截图](img/image38.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 7.  重新 `no shutdown` 开启接口，验证**R1-R3、R4-R3 间链路重新打开后**主路由是否恢复
-    <ScreenshotCard 
+    <StepRecordCard 
     questionId="Lab4-s21" 
     title="路由表示例" 
     uploadOptions={[
@@ -707,7 +707,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 在R1上，请分别以其不同接口的IP地址作为源地址，测试到R4的s2/1接口地址的连通性
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s22" 
   title="Ping结果示例" 
   uploadOptions={[
@@ -716,9 +716,9 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![R1指定源地址Ping测试结果截图1](img/image39.png)
-</ScreenshotCard>
+</StepRecordCard>
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s22" 
   title="Ping结果示例" 
   uploadOptions={[
@@ -727,11 +727,11 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
   ]}
 >
   ![R1指定源地址Ping测试结果截图2](img/image39.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 如果发现不通，请分析是哪台路由器缺少了返回路径的路由信息，并进行补充，如果某个路由器上不需要增加静态路由信息，配置命令填`-`即可
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s22" 
   title="补充静态路由配置命令" 
   uploadOptions={[
@@ -748,7 +748,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 给R3的f0/0（R3-R5之间）接口配置IP地址，给R5各接口配置IP地址，激活接口，并测试两个路由器之间的连通性
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s23" 
   title="R3-R5接口配置与测试" 
   uploadOptions={[
@@ -764,7 +764,7 @@ DHCP通过自动化、集中化的方式，它不仅消除了手动配置的麻�
 
 为PC6和PC7配置静态IP地址、子网掩码以及默认网关（选择R5的内部接口地址作为网关），其中PC6的主机号使用你的学号后2位或后3位
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab4-s24" 
   title="PC6/PC7网络配置命令" 
   uploadOptions={[
@@ -812,7 +812,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
     :::
 2.  创建ACL以允许Private区域（`192.168.0.0/24`）的流量
 3.  设置NAT规则，将内部流量的源地址转换为R5的fa0/0接口地址；请注意，Access List配置时采用的是通配符掩码，0表示需要精确匹配的位，因此应为子网掩码的取反，例如对于`192.168.0.0/24`，通配符掩码应为`0.0.0.255`，路由器将只严格检查0对应位是否匹配；由于我们这里只要转换一个内部网络的源地址，因此只需要配置1号访问列表即可
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s25" 
       title="NAT配置命令示例" 
       uploadOptions={[
@@ -820,10 +820,10 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
       ]}
     >
       ![R5路由器NAT规则截图](img/image40.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  在PC6和PC7上持续 `ping` R3的fa0/0接口地址（`ping [IP地址] -t`）
 5.  `ping` 通后，在R5上使用 `show ip nat translation` 命令查看NAT转换表，观察内部私有地址是如何被转换成外部地址的
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s25" 
       title="NAT转换信息示例" 
       uploadOptions={[
@@ -831,7 +831,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
       ]}
     >
       ![R5路由器NAT转换信息截图](img/image41.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -850,7 +850,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
     :::tip 提示
     R5是一个典型的末梢路由器（Stub Router），它只有一个出口（通往R3）可以访问外部所有网络，对于这样的路由器，我们不需要为每个外部网络都写一条静态路由，只需要配置默认路由（命令：`ip route 0.0.0.0 0.0.0.0 [默认路由器IP地址]`）将所有不知道怎么转发的都交给R3就能实现通信；另外需要注意的是，Private Zone对其他区域是不可见的（其源IP地址都被“伪装”成了R5的外部接口IP地址），所以在外部路由器上是不需要也不应该为其添加路由的（只需要添加R3-R5之间的子网）
     :::
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s26" 
       title="各路由器配置命令" 
       uploadOptions={[
@@ -862,7 +862,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
       ]}
     />
 2. 使用`ping`命令，检验PC6与PC1、PC3、PC4、PC5的连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s26" 
       title="连通性测试结果示例" 
       uploadOptions={[
@@ -873,7 +873,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
       ]}
     >
       ![PC6与其他区域PC连通性测试结果截图](img/image42.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -883,7 +883,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
 2.  进入R2的f0/0接口配置模式，使用 `ip address dhcp` 命令使其作为DHCP客户端动态获取IP地址
 3.  配置完成后，使用 `show ip interface brief` 等命令查看R2获取到的IP地址
 4.  在你的**电脑主机上**打开命令行（CMD或PowerShell），`ping` R2刚刚获取到的IP地址，测试连通性
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s27" 
       title="连通性测试结果示例" 
       uploadOptions={[
@@ -893,7 +893,7 @@ ACL的本质是一张有序的规则清单，每一条规则都是一个 permit�
       ]}
     >
       ![R2与主机连通性测试结果截图](img/image43.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -904,7 +904,7 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
 1.  在R2上配置NAT，定义f0/0为外部接口，s2/0为内部接口
 2.  创建ACL以允许Zone1（10.0.0.0/16）的流量通过
 3.  建立NAT转换规则
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s28" 
       title="R2 NAT配置命令示例" 
       uploadOptions={[
@@ -912,9 +912,9 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![R2路由器NAT配置命令截图](img/image44.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 4.  在R1上添加一条指向电脑主机所在子网的静态路由，下一跳为R2
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s28" 
       title="R1路由配置命令示例" 
       uploadOptions={[
@@ -922,12 +922,12 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![R1路由配置命令截图](img/image45.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 5.  在电脑主机和PC1上互相 `ping` 测试连通性
     :::tip 提示
     如果Zone 1的PC机无法与电脑主机通信，建议先检查R2能否Ping通Zone 1 PC机 / 电脑主机，判断问题在于路由配置还是虚拟网卡配置；如果电脑主机能够Ping通R2，但R2无法Ping通电脑主机，请检查是否关闭了防火墙（Windows安全中心-防火墙与网络保护-分别点击三种网络并关闭其防火墙）
     :::
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s28" 
       title="主机IP信息示例" 
       uploadOptions={[
@@ -935,8 +935,8 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![电脑主机IP地址信息截图](img/image46.png)
-    </ScreenshotCard>
-    <ScreenshotCard 
+    </StepRecordCard>
+    <StepRecordCard 
       questionId="Lab4-s28" 
       title="连通性测试结果示例" 
       uploadOptions={[
@@ -944,7 +944,7 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![PC1与主机连通性测试结果截图](img/image47.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -959,7 +959,7 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
 2.  在GNS3中，将R2的f0/0接口改连到Cloud设备的eth2接口（如果你在Linux使用非VMWare进行虚拟化且无法找到该接口，请参考[Linux使用提示](/docs/GNS3/client-usage#21-网络云)）
 3.  在R2的f0/0接口上重新使用 `ip address dhcp` 获取真实网络的IP地址
 4.  在R2上配置默认路由，指向真实网络环境的默认网关
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s29" 
       title="R2配置命令示例" 
       uploadOptions={[
@@ -967,9 +967,9 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![R2真实网络配置命令截图](img/image48.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 5.  在R1上配置默认路由，指向R2
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s29" 
       title="R1配置命令示例" 
       uploadOptions={[
@@ -977,9 +977,9 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![R1真实网络路由配置命令截图](img/image49.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 6.  测试R2能否 `ping` 通主机H
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s29" 
       title="Ping结果示例" 
       uploadOptions={[
@@ -987,9 +987,9 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![R2与主机H的Ping测试结果截图](img/image50.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 7.  测试PC1能否 `ping` 通主机H
-    <ScreenshotCard 
+    <StepRecordCard 
       questionId="Lab4-s29" 
       title="Ping结果示例" 
       uploadOptions={[
@@ -997,7 +997,7 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
       ]}
     >
       ![PC1与主机H的Ping测试结果截图](img/image51.png)
-    </ScreenshotCard>
+    </StepRecordCard>
 
 </TaskCard>
 
@@ -1015,33 +1015,33 @@ GNS3内部的10.x.x.x地址是私有地址，对于外部的真实电脑主机�
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 * 路由器的接口为什么会出现：FastEthernet0/1 is up, line protocol is down的状态？
-  <ModernInput size="exlarge" questionId="Lab4-q1"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q1"/>
 * 路由起什么作用？什么是静态路由？
-  <ModernInput size="exlarge" questionId="Lab4-q2"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q2"/>
 * 需要为每个PC的IP地址添加路由，还是只需要为其网络地址添加路由？
-  <ModernInput size="exlarge" questionId="Lab4-q3"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q3"/>
 * 添加静态路由时，下一跳地址是填写本路由器的端口地址，还是对方路由器的端口地址？或者是目的地网络的路由器端口地址？
-  <ModernInput size="exlarge" questionId="Lab4-q4"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q4"/>
 * 什么是默认路由？添加默认路由的命令格式是什么？
-  <ModernInput size="exlarge" questionId="Lab4-q5"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q5"/>
 * 在同一个局域网内的2台PC机，IP地址分别为10.0.0.x/24和10.0.1.x/24，都属于VLAN1，一开始不能互相Ping通，为什么把子网掩码长度从24位变成16位，就通了？
-  <ModernInput size="exlarge" questionId="Lab4-q6"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q6"/>
 * 如果仅仅是为了让不同区域内的PC之间能够互相Ping通，在设置静态路由时，路由器之间互联的子网是否全部都要加入到所有路由器的路由表中？为什么？
-  <ModernInput size="exlarge" questionId="Lab4-q7"/>
+  <AnswerInput size="exlarge" questionId="Lab4-q7"/>
 
 ## 4 讨论与心得
 
 在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
 
-<ModernInput size="exlarge" questionId="lab4-question"/>
+<AnswerInput size="exlarge" questionId="lab4-question"/>
 
 在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
 
-<ModernInput size="exlarge" questionId="lab4-experience"/>
+<AnswerInput size="exlarge" questionId="lab4-experience"/>
 
 你对本实验安排有哪些更好的建议呢？欢迎献计献策：
 
-<ModernInput size="exlarge" questionId="lab4-suggestion"/>
+<AnswerInput size="exlarge" questionId="lab4-suggestion"/>
 
 ## 5 常见问题
 

@@ -7,7 +7,7 @@ description: 关于计算机网络物理层（Physical Layer）的课程笔记�
 import FileCard from '@site/src/components/FileCard';
 import GridContainer from '@site/src/components/GridContainer';
 import QuestionCard from '@site/src/components/QuestionCard';
-import Answer from '@site/src/components/Answer';
+import CollapsibleAnswer from '@site/src/components/CollapsibleAnswer';
 
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>章节资源</h3>
@@ -22,11 +22,11 @@ import Answer from '@site/src/components/Answer';
 
 A. 7.2kb/s&emsp;&emsp;&emsp;B. 8kb/s&emsp;&emsp;&emsp;C.64kb/s&emsp;&emsp;&emsp;D.512kb/s
 
-<Answer>
+<CollapsibleAnswer>
 答案：C
 
 同步TDM下，每路信号固定获得相同的时间片，由于不同时间片，我们使用的是相同的通信线路，因此线路的带宽也不变，因此线路通信能力至少要是每路信号中最大数据率*信号路数，才能保证最快的1路在自己的时间片能达到相应的速率
 
 STDM统计时分复用下，时间片可以动态分配，就不会有以上的问题
-</Answer>
+</CollapsibleAnswer>
 </QuestionCard>

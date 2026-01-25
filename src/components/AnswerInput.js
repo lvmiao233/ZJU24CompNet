@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useEffect } from 'react';
-import '../css/ModernInput.css';
+import { useContext, useRef, useEffect } from 'react';
+import '../css/AnswerInput.css';
 import { AnswerContext } from '@site/src/context/AnswerContext';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
@@ -98,9 +98,9 @@ const highlightCiscoCommands = (editor) => {
 };
 
 // 内部实现组件，包含所有浏览器API相关逻辑
-function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, initialLines = 1, showLineNumbers = true, initialContent = '', ...props }) {
+function AnswerInputImpl({ questionId, size = 'medium', codeEditor = false, initialLines = 1, showLineNumbers = true, initialContent = '', ...props }) {
   const { answers, setAnswer } = useContext(AnswerContext);
-  const sizeClassName = `modern-input-${size}`;
+  const sizeClassName = `answer-input-${size}`;
   const textareaRef = useRef(null);
   const codeEditorRef = useRef(null);
   const lineNumbersRef = useRef(null);
@@ -230,7 +230,7 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
         )}
         <div
           ref={codeEditorRef}
-          className={`modern-input code-editor ${sizeClassName}`}
+          className={`answer-input code-editor ${sizeClassName}`}
           {...props}
         />
       </div>
@@ -244,7 +244,7 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
     return (
       <textarea
         ref={textareaRef}
-        className={`modern-input ${sizeClassName}`}
+        className={`answer-input ${sizeClassName}`}
         value={displayValue}
         onChange={handleChange}
         rows="1"
@@ -255,7 +255,7 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
 
   return (
     <input
-      className={`modern-input ${sizeClassName}`}
+      className={`answer-input ${sizeClassName}`}
       value={displayValue}
       onChange={handleChange}
       {...props}
@@ -264,7 +264,7 @@ function ModernInputImpl({ questionId, size = 'medium', codeEditor = false, init
 }
 
 // SSR安全的fallback组件 - 尽可能简单
-const ModernInputFallback = ({ codeEditor, initialLines = 1 }) => {
+const AnswerInputFallback = ({ codeEditor, initialLines = 1 }) => {
   if (codeEditor) {
     return (
       <textarea
@@ -287,10 +287,10 @@ const ModernInputFallback = ({ codeEditor, initialLines = 1 }) => {
 };
 
 // 主要的导出组件，使用BrowserOnly确保SSR安全
-export default function ModernInput(props) {
+export default function AnswerInput(props) {
   return (
-    <BrowserOnly fallback={<ModernInputFallback {...props} />}>
-      {() => <ModernInputImpl {...props} />}
+    <BrowserOnly fallback={<AnswerInputFallback {...props} />}>
+      {() => <AnswerInputImpl {...props} />}
     </BrowserOnly>
   );
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import '@site/src/css/TaskCard.css';
 import { CameraOutlined, CodeOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';

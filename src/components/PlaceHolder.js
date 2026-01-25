@@ -1,4 +1,3 @@
-import React from 'react';
 import { Result } from 'antd';
 
 // 主要的导出组件，使用BrowserOnly确保SSR安全

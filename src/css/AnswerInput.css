@@ -1,4 +1,4 @@
-.modern-input {
+.answer-input {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 4px 8px;
@@ -6,25 +6,25 @@
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.modern-input:focus {
+.answer-input:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   outline: none;
 }
 
-.modern-input-small {
+.answer-input-small {
   width: 50px;
 }
 
-.modern-input-medium {
+.answer-input-medium {
   width: 100px;
 }
 
-.modern-input-large {
+.answer-input-large {
   width: 200px;
 }
 
-.modern-input-exlarge {
+.answer-input-exlarge {
   width: 100%;
   resize: vertical;
   overflow: hidden;
@@ -35,7 +35,7 @@
 }
 
 /* 代码编辑器不应用尺寸类的宽度限制 */
-.code-editor-wrapper .modern-input {
+.code-editor-wrapper .answer-input {
   width: auto;
 }
 
@@ -74,7 +74,7 @@
 }
 
 /* CodeJar代码编辑器样式 */
-.modern-input.code-editor {
+.answer-input.code-editor {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   background-color: transparent;
   border: none;
@@ -87,7 +87,7 @@
   flex: 1;
 }
 
-.modern-input.code-editor:focus {
+.answer-input.code-editor:focus {
   outline: none;
 }
 
@@ -97,15 +97,15 @@
 }
 
 /* ================================
-   ModernInput Dark Mode
+   AnswerInput Dark Mode
    ================================ */
-[data-theme='dark'] .modern-input {
+[data-theme='dark'] .answer-input {
   border-color: rgba(19, 194, 194, 0.3);
   background-color: rgba(35, 45, 45, 0.9);
   color: #e8e8e8;
 }
 
-[data-theme='dark'] .modern-input:focus {
+[data-theme='dark'] .answer-input:focus {
   border-color: var(--ifm-color-primary);
   box-shadow: 0 0 5px rgba(19, 194, 194, 0.5);
 }
@@ -121,7 +121,7 @@
   color: #6b8080;
 }
 
-[data-theme='dark'] .modern-input.code-editor {
+[data-theme='dark'] .answer-input.code-editor {
   color: #e0e0e0;
 }
 

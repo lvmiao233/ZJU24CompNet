@@ -1,4 +1,3 @@
-import React from 'react';
 import { Collapse } from 'antd';
 import courseWorkData from '@site/src/data/courseWork.js';
 import CourseWorkList from './CourseWorkList';

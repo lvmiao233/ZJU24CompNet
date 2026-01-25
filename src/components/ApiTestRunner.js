@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Col, Flex, Input, InputNumber, List, message, Progress, Row, Space, Watermark } from 'antd';
 import axios from 'axios';
 import IconHeader from "@site/src/components/IconHeader";
 import { CheckCircleTwoTone, ClockCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 import '../css/components.css';
 
-function MultiTestCard(props) {
+function ApiTestRunner(props) {
     const { header, testUri, multiThread, innerStyle } = props;
 
     const [testerServerUrl, setTesterServerUrl] = useState('');
@@ -153,4 +153,4 @@ function MultiTestCard(props) {
     );
 }
 
-export default MultiTestCard;
+export default ApiTestRunner;

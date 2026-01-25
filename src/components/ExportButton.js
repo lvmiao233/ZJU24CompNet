@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Modal, message, Checkbox } from 'antd';
 import { DownloadOutlined, WarningOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { AnswerContext } from '../context/AnswerContext';

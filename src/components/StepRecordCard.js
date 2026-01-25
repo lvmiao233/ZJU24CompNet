@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
+import { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { Segmented, Button, Modal, ColorPicker, Tooltip } from 'antd';
 import { UploadOutlined, EditOutlined, LineOutlined, BorderOutlined, DeleteOutlined, SaveOutlined, AimOutlined, ReloadOutlined } from '@ant-design/icons';
 import { AnswerContext } from '@site/src/context/AnswerContext';
-import ModernInput from './ModernInput';
+import AnswerInput from './AnswerInput';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import '../css/ScreenshotCard.css';
+import '../css/StepRecordCard.css';
 
 // 条件导入浏览器依赖的库
 let useDropzone = null;
@@ -35,7 +35,7 @@ const PRESET_COLORS = [
 ];
 
 // 内部实现组件，包含所有浏览器API相关逻辑
-const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
+const StepRecordCardImpl = ({ questionId, title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
   const [mode, setMode] = useState(children ? 'reference' : uploadOptions[0].id);
   const { images, addImage, getImage, setAnswer } = useContext(AnswerContext);
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -523,7 +523,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
 
       return (
         <div className="textContainer">
-          <ModernInput
+          <AnswerInput
             questionId={`${questionId}-${mode}`}
             {...finalConfig}
           />
@@ -552,7 +552,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
 
   return (
     <>
-      <div className="screenshot-card">
+      <div className="step-record-card">
         <div className="header">
           {shouldShowSegmented() ? (
             <Segmented
@@ -662,7 +662,7 @@ const ScreenshotCardImpl = ({ questionId, title, children, uploadOptions = [{ id
 };
 
 // SSR安全的fallback组件
-const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
+const StepRecordCardFallback = ({ title, children, uploadOptions = [{ id: 'default', label: '上传并标记截图' }] }) => {
   const shouldShowSegmented = () => {
     const totalOptions = (children ? 1 : 0) + uploadOptions.length;
     return totalOptions > 1;
@@ -685,7 +685,7 @@ const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'defau
   };
 
   return (
-    <div className="screenshot-card">
+    <div className="step-record-card">
       <div className="header">
         {shouldShowSegmented() ? (
           <Segmented
@@ -718,12 +718,12 @@ const ScreenshotCardFallback = ({ title, children, uploadOptions = [{ id: 'defau
 };
 
 // 主要的导出组件，使用BrowserOnly确保SSR安全
-const ScreenshotCard = (props) => {
+const StepRecordCard = (props) => {
   return (
-    <BrowserOnly fallback={<ScreenshotCardFallback {...props} />}>
-      {() => <ScreenshotCardImpl {...props} />}
+    <BrowserOnly fallback={<StepRecordCardFallback {...props} />}>
+      {() => <StepRecordCardImpl {...props} />}
     </BrowserOnly>
   );
 };
 
-export default ScreenshotCard;
+export default StepRecordCard;

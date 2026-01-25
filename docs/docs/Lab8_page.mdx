@@ -6,10 +6,10 @@ description: 计算机网络实验八（Lab8）指导手册，内容为实现一
 
 import {Table} from 'antd';
 import FileCard from '@site/src/components/FileCard';
-import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import DeadlineProgress from '@site/src/components/DeadlineProgress';
 import GridContainer from '@site/src/components/GridContainer';
-import MappedCollapse from "@site/src/components/CollapseContent";
-import MultiTestCard from "@site/src/components/MultiTestCard";
+import CollapseList from "@site/src/components/CollapseList";
+import ApiTestRunner from "@site/src/components/ApiTestRunner";
 import HTTPVersions, {HTTPMethods, HTTPMethodsExtras, cacheAttrInfo, cacheAttrExtra, negotiationAttrInfo, negotiationAttrExtra, resourceAttrInfo, resourceAttrExtra, securityAttrInfo, securityAttrExtra, uriMap, uriMapColumn, responseCode, responseCodeColumn,  HTTPMethodAttribute,  HTTPMethodAttributeColumn} from '@site/src/data/HTTPInfo.js';
 import IconHeader from "@site/src/components/IconHeader";import LinkCard from "@site/src/components/LinkCard";
 import Tabs from '@theme/Tabs';
@@ -17,7 +17,7 @@ import TabItem from '@theme/TabItem';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
 
-<DeadlineProcess start={'2025-09-30 18:50:00'} end={'2025-12-30 23:59:59'}/>
+<DeadlineProgress start={'2025-09-30 18:50:00'} end={'2025-12-30 23:59:59'}/>
 
 <GridContainer>
     <FileCard file_type={'md'} name={'Lab8 实验报告模板 Markdown版本'} size={'26341'} link={require('@site/assets/templete/md/Lab8 实验报告模板.zip').default} />
@@ -29,7 +29,7 @@ import TabItem from '@theme/TabItem';
 :::important 提示
 以下指导仅供参考，除实验报告中具体要求外，我们对具体实现方式没有要求，你可以自由设计与开发，文档内测试仅供你逐步验证实现正确性，评分以报告+代码为准，**对于感觉较简单的步骤可以跳过相应测试**
 
-<MultiTestCard header={'快速完整测试'} testUri={'/test/lab8/resource-retrieve'} innerStyle={{marginTop: -20, marginBottom: -20}}/>
+<ApiTestRunner header={'快速完整测试'} testUri={'/test/lab8/resource-retrieve'} innerStyle={{marginTop: -20, marginBottom: -20}}/>
 
 :::
 
@@ -60,7 +60,7 @@ HTTP，即超文本传输协议（Hyper Text Transfer Protocol），定义了客
 
 过去三十年间，为了适应通讯与计算技术的迅猛发展，万维网联盟（W3C）和互联网工程任务组（IETF）也在对HTTP进行持续的迭代，目前最新的HTTP版本是HTTP/3.0；在实验中，你只需要实现HTTP/1.0版本的部分基本特性即可，其他HTTP版本的特性仅供你延伸学习，我们的理论课程也会覆盖这部分内容
 
-<MappedCollapse items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} size={'small'} />
+<CollapseList items={HTTPVersions} defaultActiveKey={['HTTP/1.0']} size={'small'} />
 
 对于各个版本的HTTP协议而言，我们使用浏览器用户访问网页的一般流程是：
 * **DNS解析**[本实验不涉及]：当用户在浏览器地址栏输入一个URL时，浏览器首先需要通过DNS解析得到相应服务器IP地址
@@ -172,7 +172,7 @@ void connectionHandler(int socket) {
 
 * 完成响应发送后，**关闭连接**
 
-<MultiTestCard header={"测试2 HTTP请求结构解析"} testUri={"/test/lab8/structure-parse"}/>
+<ApiTestRunner header={"测试2 HTTP请求结构解析"} testUri={"/test/lab8/structure-parse"}/>
 
 请在下方输入框中，分别填入测试框架运行地址（如127.0.0.1:5000）、你的Web服务器运行的地址（如127.0.0.1:8080），点击发起测试，观察测试用例通过情况
 
@@ -184,7 +184,7 @@ void connectionHandler(int socket) {
 
 通过这些方法，客户端可以向服务器表达不同的操作意图，如获取资源、提交数据或删除资源等，一般来说，我们最为常用的是GET和POST方法，另一些方法在特定情况下会非常有用
 
-<MappedCollapse items={HTTPMethods} defaultActiveKey={['GET方法']} extras={HTTPMethodsExtras} size={'small'}/>
+<CollapseList items={HTTPMethods} defaultActiveKey={['GET方法']} extras={HTTPMethodsExtras} size={'small'}/>
 <IconHeader type="tryout" title="动手试3 使用不同HTTP方法并观察请求与响应" />
 
 你可以点击测试按钮，发起相应方法的请求，并在开发人员工具中观察请求与响应情况
@@ -260,19 +260,19 @@ HTTP方法能够有效地表示请求的类型，然而，客户端与服务端�
 
 * **资源属性**  如资源的类型、编码方式、最后修改时间等，帮助接收方正确处理接收到的数据
 
-    <MappedCollapse items={resourceAttrInfo} size={'small'} extras={resourceAttrExtra}/>
+    <CollapseList items={resourceAttrInfo} size={'small'} extras={resourceAttrExtra}/>
 
 * **缓存属性**  指示资源是否能/如何被缓存，从而提高网络性能，优化用户体验
 
-    <MappedCollapse items={cacheAttrInfo} size={'small'} extras={cacheAttrExtra}/>
+    <CollapseList items={cacheAttrInfo} size={'small'} extras={cacheAttrExtra}/>
 
 * **安全/隐私属性**  如要求身份验证、限制跨域请求等，用于增强用户的安全性和隐私保护
 
-    <MappedCollapse items={securityAttrInfo} size={'small'} extras={securityAttrExtra}/>
+    <CollapseList items={securityAttrInfo} size={'small'} extras={securityAttrExtra}/>
 
 * **机制协商**  如接收方的内容类型偏好或处理能力，以便发出方选择最适合的内容进行响应
 
-    <MappedCollapse items={negotiationAttrInfo} size={'small'} extras={negotiationAttrExtra}/>
+    <CollapseList items={negotiationAttrInfo} size={'small'} extras={negotiationAttrExtra}/>
 
 <IconHeader type="tryout" title="动手试4 分析一个HTTP请求的属性" />
 
@@ -368,7 +368,7 @@ void connectionHandler(int socket) {
 * 头字段名称不区分大小写，请求中的名称采用完全随机的大小写，请确保你的程序均能够正常处理
 * 测试服务会生成随机长度的请求正文，你返回的`Content-Length`、`Content-Type`字段及响应正文内容需要与其完全匹配
 
-<MultiTestCard header={"测试3 服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
+<ApiTestRunner header={"测试3 服务器的WebEcho功能"} testUri={"/test/lab8/web-echo"}/>
 
 ## 5 东西怎么找&送？——资源访问处理与响应
 
@@ -438,7 +438,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 
 实验中，你需要对请求URL进行验证，如果解析得到的是`GET`方法，则验证相应文件是否存在；如果解析得到的是`POST`方法，则验证接口URI是否为`/dopost`，如不匹配，则返回`404 Not Found`，否则均返回`200 OK`
 
-<MultiTestCard header={"测试4 资源URI映射"} testUri={"/test/lab8/uri-mapping"}/>
+<ApiTestRunner header={"测试4 资源URI映射"} testUri={"/test/lab8/uri-mapping"}/>
 
 为了便于你分部分调试，我们不妨分开来独立测试路径映射、文件读取与内容传输功能，这里请你先实现资源URI映射；我们的测试框架将会对给定URL检验映射的正确性，具体来说，对于`GET`方法的请求，请你检验URL合法性，根据请求URL映射得到相应的文件路径，并将相应的文件路径的**字符串**（不是文件本身）返回给客户端，请求头需正确设置`Content-Type`字段（字符串长度）和`Content-Type`字段（`text/plain`）的值
 
@@ -453,7 +453,7 @@ URN更关注于资源的身份标识而非物理位置，旨在提供一种持�
 * **文件读取**：使用文件I/O操作读取指定路径上的资源文件，如果文件存在，则将其内容读取到内存中，以便后续进行响应
 * **构建HTTP响应**：根据读取到的文件内容构建HTTP响应报：文件字节流完整置于响应正文中；响应头`Content-Length`设置为文件大小（以字节为单位）；根据文件类型，设置响应头`Content-Type`，以指示客户端如何处理该资源，对于本实验，你无需实现复杂的MIME类型检测。只需根据请求文件的扩展名进行简单的映射即可，例如文本文件应设置`Content-Type: text/plain`，图片文件应设置`Content-Type: image/jpeg`等，请至少支持实验所需文件（.html, .txt, .jpg）的类型映射
 
-<MultiTestCard header={"测试5 资源访问"} testUri={"/test/lab8/resource-retrieve"}/>
+<ApiTestRunner header={"测试5 资源访问"} testUri={"/test/lab8/resource-retrieve"}/>
 
 我们的测试框架将会验证是否能从指定URI访问到相应文件，并对文件完整性、响应头正确性进行验证
 

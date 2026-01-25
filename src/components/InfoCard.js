@@ -1,4 +1,3 @@
-import React from 'react';
 import '../css/homepage.css';
 
 const InfoCard = ({ icon, title, children }) => (

@@ -7,7 +7,7 @@ description: 关于计算机网络体系结构中应用层（Application Layer�
 import FileCard from '@site/src/components/FileCard';
 import GridContainer from '@site/src/components/GridContainer';
 import QuestionCard from '@site/src/components/QuestionCard';
-import Answer from '@site/src/components/Answer';
+import CollapsibleAnswer from '@site/src/components/CollapsibleAnswer';
 
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>章节资源</h3>
@@ -22,7 +22,7 @@ import Answer from '@site/src/components/Answer';
 ![FTP上传文件F](img/W275-4.png)
 
 3)在H通过数据连接发送F的过程中，当H收到确认序号为2101的确认段时，H的拥塞窗口调整为多少?
-<Answer>
+<CollapsibleAnswer>
 答案：3000
 
 快启动阶段，每有1字节被ACK，窗口增加1
@@ -30,5 +30,5 @@ import Answer from '@site/src/components/Answer';
 ACK 2101，即100-2100传输成功，初始窗口为1000，确认了2000字节，则窗口为3000
 
 注意TCP慢启动时，尽管最终效果上看，每一批传输之后窗口*2，但并不总是能发送一整个窗口长度再一次收到整个窗口对应的ACK，每次回来的ACK可能只会确认其中一部分，每确认1b，窗口+1
-</Answer>
+</CollapsibleAnswer>
 </QuestionCard>

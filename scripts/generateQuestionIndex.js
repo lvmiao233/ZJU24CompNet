@@ -70,7 +70,7 @@ function parseMdxFile(filePath, labId) {
         }
 
         // 4. 检测 ScreenshotCard
-        if (line.includes('<ScreenshotCard')) {
+        if (line.includes('<StepRecordCard')) {
             const screenshotInfo = extractScreenshotCard(lines, i);
             if (screenshotInfo) {
                 screenshotInfo.ids.forEach(item => {
@@ -94,7 +94,7 @@ function parseMdxFile(filePath, labId) {
         }
 
         // 5. 检测 ModernInput
-        const modernInputMatches = line.matchAll(/<ModernInput\s+[^>]*questionId="([^"]+)"[^>]*\/?>/g);
+        const modernInputMatches = line.matchAll(/<AnswerInput\s+[^>]*questionId="([^"]+)"[^>]*\/?>/g);
         for (const match of modernInputMatches) {
             const questionId = match[0].match(/questionId="([^"]+)"/)?.[1];
             if (questionId) {
@@ -119,7 +119,7 @@ function parseMdxFile(filePath, labId) {
         const modernInputMatchesAlt = line.matchAll(/questionId="([^"]+)"[^>]*\/?>/g);
         for (const match of modernInputMatchesAlt) {
             // 确保是 ModernInput 组件
-            if (line.includes('ModernInput') && match[1]) {
+            if (line.includes('AnswerInput') && match[1]) {
                 const questionId = match[1];
                 if (!questions[questionId]) {
                     const info = {
@@ -159,7 +159,7 @@ function extractScreenshotCard(lines, startIndex) {
         content += line + '\n';
 
         // 计算标签深度
-        if (line.includes('<ScreenshotCard')) {
+        if (line.includes('<StepRecordCard')) {
             foundStart = true;
             depth++;
         }
@@ -167,7 +167,7 @@ function extractScreenshotCard(lines, startIndex) {
             // 自闭合标签
             if (foundStart && depth === 1) break;
         }
-        if (line.includes('</ScreenshotCard>')) {
+        if (line.includes('</StepRecordCard>')) {
             depth--;
             if (depth <= 0) break;
         }

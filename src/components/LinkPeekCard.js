@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Avatar, Card, Col, Row, Typography} from 'antd';
 import {DownOutlined, RightOutlined, UpOutlined} from "@ant-design/icons";
 

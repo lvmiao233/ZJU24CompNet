@@ -1,16 +1,15 @@
-import React from 'react';
 import { Tag } from 'antd';
-import Answer from './Answer';
+import CollapsibleAnswer from './CollapsibleAnswer';
 import '../css/QuestionCard.css';
 
 const QuestionCard = ({ children, source }) => {
   const sourceArray = Array.isArray(source) ? source : (source ? [source] : []);
 
   const questionContent = React.Children.toArray(children).filter(
-    (child) => child.type !== Answer
+    (child) => child.type !== CollapsibleAnswer
   );
   const answerContent = React.Children.toArray(children).find(
-    (child) => child.type === Answer
+    (child) => child.type === CollapsibleAnswer
   );
 
   return (

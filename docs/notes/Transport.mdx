@@ -8,7 +8,7 @@ import TCPControlSimulation from "@site/src/visualizations/TCPControlSimulation"
 import FileCard from '@site/src/components/FileCard';
 import GridContainer from '@site/src/components/GridContainer';
 import QuestionCard from '@site/src/components/QuestionCard';
-import Answer from '@site/src/components/Answer';
+import CollapsibleAnswer from '@site/src/components/CollapsibleAnswer';
 
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>章节资源</h3>
@@ -38,7 +38,7 @@ C. When the application calls a connect primitive, the TCP entity sends a segmen
 D. After sending a segment with only the SYN flag, once it receives a segment with only the SYN flags, the TCP entity will send a segment with SYN+ACK flag and change its state from SYN_SENT to SYN_RCVD.
 
 
-<Answer>
+<CollapsibleAnswer>
 答案：D
 
 A. accept()错误，应为listen()
@@ -50,7 +50,7 @@ B/C. only the ACK错误，应为SYN+ACK
 
 * 被动打开指的是，服务器开始监听，处于被动等待客户端发起连接的状态；调用listen开始监听是服务器主动进行的操作
 * 绿色：服务端，红色：客户端，黑色：异常情况处理方式
-</Answer>
+</CollapsibleAnswer>
 </QuestionCard>
 
 <QuestionCard source={["概念-TCP C/S通信流程"]}>
@@ -60,13 +60,13 @@ B/C. only the ACK错误，应为SYN+ACK
 
 <QuestionCard source={["概念-快重传", "概念-超时"]}>
 ### 为什么超时cwnd置1，dup ACK减半？
-<Answer>
+<CollapsibleAnswer>
 请考虑：超时事件发生和收到3个冗余ACK,哪个意味着网络拥塞程度更严重？[25王道 P260-3]
 
 通过分析不难发现，在收到3个冗余ACK的情况下，网络虽然拥塞，但至少还有ACK报文段能被正确交付。而当超时发生时，说明网络可能已经拥塞得连ACK 报文段都传输不了，发送方只能等待超时后重传数据。
 
 因此，超时事件发生时，网络拥塞更严重，发送方就应该最大限度地抑制数据发送量，所以cwnd置为1；收到3个冗余ACK时，网络拥塞不是很严重，发送方稍微抑制一下发送的数据量即可，所以cwnd减半。
-</Answer>
+</CollapsibleAnswer>
 </QuestionCard>
 
 <QuestionCard source={["25王道 P244-32"]}>
@@ -74,7 +74,7 @@ B/C. only the ACK错误，应为SYN+ACK
 
 A. 40ms&emsp;&emsp;&emsp;B. 50ms&emsp;&emsp;&emsp;C. 60ms&emsp;&emsp;&emsp;D.70ms
 
-<Answer>
+<CollapsibleAnswer>
 电子版答案有误，实体书已更正，答案为B 50ms
-</Answer>
+</CollapsibleAnswer>
 </QuestionCard>

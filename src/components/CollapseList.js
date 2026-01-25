@@ -3,7 +3,7 @@ import React from "react";
 
 const collapseStyle = {fontSize: 15, marginBottom: 0, whiteSpace: "pre-line"};
 
-const MappedCollapse = (props) => {
+const CollapseList = (props) => {
     const { items, defaultActiveKey, extras, size } = props;
     const mappedItems = Object.keys(items).map(key => ({
         key, label: key,
@@ -28,5 +28,5 @@ const MappedCollapse = (props) => {
     );
 }
 
-export default MappedCollapse;
+export default CollapseList;
 

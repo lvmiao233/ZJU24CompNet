@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Upload, Alert } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 

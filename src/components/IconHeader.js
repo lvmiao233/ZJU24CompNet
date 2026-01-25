@@ -1,4 +1,3 @@
-import React from 'react';
 import { DotChartOutlined, ExperimentOutlined } from "@ant-design/icons";
 import '../css/components.css';
 

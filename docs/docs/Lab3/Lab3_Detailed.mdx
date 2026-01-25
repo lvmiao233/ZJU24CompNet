@@ -6,15 +6,15 @@ description: 计算机网络实验三（Lab3）使用三层交换机组网的详
 
 
 import FileCard from '@site/src/components/FileCard';
-import DeadlineProcess from '@site/src/components/DeadlineProcess';
+import DeadlineProgress from '@site/src/components/DeadlineProgress';
 import TaskCard from '@site/src/components/TaskCard';
-import ScreenshotCard from '@site/src/components/ScreenshotCard';
-import ModernInput from '@site/src/components/ModernInput';
+import StepRecordCard from '@site/src/components/StepRecordCard';
+import AnswerInput from '@site/src/components/AnswerInput';
 import ExportButton from '@site/src/components/ExportButton';
 import GridContainer from '@site/src/components/GridContainer';
 
 <h3 style={{color: '#006d75', marginTop: 0, marginBottom: 8}}>实验资源</h3>
-<DeadlineProcess start={'2025-10-28 18:50:00'} end={'2025-11-11 23:59:59'}/>
+<DeadlineProgress start={'2025-10-28 18:50:00'} end={'2025-11-11 23:59:59'}/>
 <GridContainer>
         <FileCard file_type={'md'} name={'Lab3 实验报告模板 Markdown版本'} size={'194092'} link={require('@site/assets/templete/md/Lab3 实验报告模板.zip').default} />
         <FileCard file_type={'doc'} name={'Lab3 实验报告模板 Word版本'} size={'247296'} link={require('@site/assets/templete/word/实验报告模版_实验3.doc').default} />
@@ -73,7 +73,7 @@ import GridContainer from '@site/src/components/GridContainer';
 
 这一步是后续所有配置的基础，它模拟了企业网络中不同部门被划分到不同VLAN的典型场景
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s1" 
   title="网络拓扑图参考" 
   uploadOptions={[
@@ -81,7 +81,7 @@ import GridContainer from '@site/src/components/GridContainer';
   ]}
 >
   ![网络拓扑图参考示意图](img/image2.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -91,7 +91,7 @@ import GridContainer from '@site/src/components/GridContainer';
 
 预期的结果应该是不通的；这是因为它们处于不同的VLAN，二层交换机会将它们的广播（如ARP请求）和单播流量严格限制在各自的VLAN内部，这也验证了我们确实需要一个三层设备来打破这种隔离
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s2" 
   title="PC间Ping结果示例" 
   uploadOptions={[
@@ -99,7 +99,7 @@ import GridContainer from '@site/src/components/GridContainer';
   ]}
 >
   ![PC 间 Ping 测试结果示例（VLAN 隔离验证）](img/image3.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -147,7 +147,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 4. 使用与2台PC一致的子网，分别给2个子接口配置IP地址
 5. 激活**接口**和两个子接口（命令：`no shutdown`）
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s4" 
   title="路由器子接口配置命令" 
   uploadOptions={[
@@ -180,7 +180,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 请根据拓扑图，为两台PC设置静态IP地址，并将其默认网关分别设置为对应VLAN的路由器子接口的IP地址；这个配置告诉PC：“凡是要发送到本地子网以外的数据包，都请发给这个网关地址”，这样路由器才能接管跨VLAN的通信任务
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s5" 
   title="PC网络配置示例" 
   uploadOptions={[
@@ -190,7 +190,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 >
    ![PC1 网络配置示例截图](img/image6.png)
    ![PC2网络配置截图](img/image7.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -198,7 +198,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 在进行最终的跨VLAN连通性测试之前，先做一个基础验证；分别在两台PC上Ping它们各自的默认网关地址（即路由器上对应的子接口IP）；如果能Ping通，说明PC到路由器的三层链路是通畅的，这是实现VLAN间路由的前提
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s6" 
   title="PC Ping子接口结果示例" 
   uploadOptions={[
@@ -208,7 +208,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 >
    ![PC1 Ping 路由器子接口结果截图](img/image8.png)
    ![PC2 Ping路由器子接口结果截图](img/image9.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -218,7 +218,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 如果配置正确，此时应该能够Ping通，数据包经过源PC → 交换机 → (Trunk链路) → 路由器子接口 → 路由器内部路由 → 另一个路由器子接口 → (Trunk链路) → 交换机 → 目的PC的路径到达目标主机；这个测试的成功标志着我们已经成功配置了单臂路由
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s7" 
   title="PC间Ping结果示例" 
   uploadOptions={[
@@ -226,7 +226,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![PC 间互相 Ping 测试结果截图（单臂路由完成后）](img/image10.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -236,7 +236,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 使用`show ip route`命令，你会看到路由表中出现了两条标记为C（Connected）的直连路由，分别对应我们配置的两个子接口所在的网段；正是因为这两条路由的存在，路由器才知道如何将数据包从一个VLAN的网段转发到另一个VLAN的网段
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s8" 
   title="路由表内容示例" 
   uploadOptions={[
@@ -244,7 +244,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![路由器路由表内容示例截图（含两条直连 C 路由）](img/image11.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -252,7 +252,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 记录路由器上的运行配置（命令：`show running-config`），复制粘贴本节相关的文本（完整内容请放在文件中，命名为R1.txt，随报告压缩提交）
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p1-s9" 
   title="路由器运行配置" 
   uploadOptions={[
@@ -299,7 +299,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 2. 新增两台PC（PC3、PC4）直接连接到三层交换机上
 3. 规划并为新PC分配所在VLAN内的合适IP地址，并在图中标记各设备的IP地址和VLAN
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s1" 
   title="三层交换网络拓扑图示例" 
   uploadOptions={[
@@ -307,7 +307,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![img](img/image13.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -319,7 +319,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 2. 将直连的两台PC（PC3、PC4）的端口分别划入不同的VLAN中；这一步的操作与在二层交换机上完全相同，因为三层功能是构建在二层基础之上的
 3. 查看并截图记录配置结果（命令`show vlan`或者`show vlan-switch`）
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s2" 
   title="VLAN配置结果示例" 
   uploadOptions={[
@@ -328,7 +328,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![img](img/image14.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -340,7 +340,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 2. 使用`interface vlan [VLAN ID]`命令为之前创建的两个VLAN分别创建SVI（交换虚拟接口，概念介绍参见Lab2）
 3. 使用`ip address [IP地址] [子网掩码]`为每个SVI配置IP地址，作为对应VLAN的网关
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s3" 
   title="VLAN接口IP地址配置" 
   uploadOptions={[
@@ -368,7 +368,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 :::
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s5" 
   title="PC网络配置示例" 
   uploadOptions={[
@@ -378,7 +378,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 >
    ![img](img/image15.png)
    ![PC4网络配置截图](img/image16.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -386,7 +386,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 测试PC3、PC4能否Ping通各自的VLAN接口地址，确保三层链路成功建立
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s6" 
   title="Ping VLAN接口结果示例" 
   uploadOptions={[
@@ -396,7 +396,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 >
   ![img](img/image17.png)
   ![img](img/image18.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -404,7 +404,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 测试三层交换机内部的VLAN间路由功能，请尝试在PC3和PC4之间互相Ping，此时数据包应该能够在三层交换机内部被高速路由转发实现通信
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s7" 
   title="PC间Ping结果示例" 
   uploadOptions={[
@@ -412,7 +412,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![img](img/image19.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -420,7 +420,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 现在我们来测试一个更复杂的场景：连接在二层交换机上的PC与连接在三层交换机上的PC之间的通信；请分别尝试从PC1 Ping PC4、从PC2 Ping PC3；你会发现它们之间无法通信，这暴露了我们当前配置中的一个缺陷
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s8" 
   title="跨交换机Ping结果示例" 
   uploadOptions={[
@@ -431,7 +431,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ![img](img/image20.png)
 
   ![img](img/image21.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -446,7 +446,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 在三层交换机上把与二层交换机互联的端口设置成Trunk模式
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s9" 
   title="三层交换机Trunk配置命令" 
   uploadOptions={[
@@ -460,7 +460,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 在配置好Trunk链路后，再次进行跨交换机的VLAN间连通性测试；此时之前不通的路径应该已经可以Ping通了，这证明Trunk链路成功地将所有VLAN的流量都传递给了三层交换机，使其能够为整个网络提供路由服务
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s10" 
   title="配置Trunk后Ping结果示例" 
   uploadOptions={[
@@ -468,7 +468,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![img](img/image22.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -476,7 +476,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 与路由器一样，三层交换机也维护着一张路由表来指导其转发决策；请使用`show ip route`命令，查看并截图三层交换机的路由信息，你会看到与每个已配置并激活的SVI相对应的直连路由
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s11" 
   title="三层交换机路由表示例" 
   uploadOptions={[
@@ -484,7 +484,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
   ]}
 >
   ![img](img/image23.png)
-</ScreenshotCard>
+</StepRecordCard>
 
 </TaskCard>
 
@@ -492,7 +492,7 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 
 记录三层交换机上的当前运行配置，复制粘贴本节相关的文本（完整内容请放在文件中，命名为S2.txt，与报告一同压缩提交）
 
-<ScreenshotCard 
+<StepRecordCard 
   questionId="Lab3-p2-s12" 
   title="三层交换机运行配置" 
   uploadOptions={[
@@ -507,31 +507,31 @@ Trunk链路能帮我们解决这个问题，它允许单一物理鏈路承载多
 根据你观察到的实验数据和对实验原理的理解，分别解答以下问题：
 
 * 为什么路由器的端口可以配置IP地址，而三层交换机的端口跟二层交换机一样不能配置IP地址？
-   <ModernInput size="exlarge" questionId="Lab3-q1"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q1"/>
 * 本实验中为什么要用子接口？有什么好处？使用物理接口可以吗？
-   <ModernInput size="exlarge" questionId="Lab3-q2"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q2"/>
 * 直连三层交换机的PC的默认路由器地址应该设为什么？
-   <ModernInput size="exlarge" questionId="Lab3-q3"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q3"/>
 * 三层交换机和二层交换机互联时，连在二层交换机上VLAN2的PC为什么Ping不通连在三层交换机上VLAN 1的PC？
-   <ModernInput size="exlarge" questionId="Lab3-q4"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q4"/>
 * Ping测试时，为什么一开始有几次不通，后面又通了？
-   <ModernInput size="exlarge" questionId="Lab3-q5"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q5"/>
 * 既然路由器可以实现VLAN间数据交换，为何还要设计三层交换机呢？
-   <ModernInput size="exlarge" questionId="Lab3-q6"/>
+   <AnswerInput size="exlarge" questionId="Lab3-q6"/>
 
 ## 4 讨论与心得
 
 在完成本实验后，你可能会有很多待解答的问题，你可以把它们记在这里，接下来的学习中，你也许会逐渐得到答案的，同时也可以让老师了解到你有哪些困惑，老师在课堂可以安排针对性地解惑。等到课程结束后，你再回头看看这些问题时你或许会有不同的见解：
 
-<ModernInput size="exlarge" questionId="lab3-question"/>
+<AnswerInput size="exlarge" questionId="lab3-question"/>
 
 在实验过程中你可能会遇到的困难，并得到了宝贵的经验教训，请把它们记录下来，提供给其他人参考吧：
 
-<ModernInput size="exlarge" questionId="lab3-experience"/>
+<AnswerInput size="exlarge" questionId="lab3-experience"/>
 
 你对本实验安排有哪些更好的建议呢？欢迎献计献策：
 
-<ModernInput size="exlarge" questionId="lab3-suggestion"/>
+<AnswerInput size="exlarge" questionId="lab3-suggestion"/>
 
 ## 5 常见问题
 
