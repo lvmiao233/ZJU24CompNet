@@ -74,13 +74,21 @@ function parseMdxFile(filePath, labId) {
             const screenshotInfo = extractScreenshotCard(lines, i);
             if (screenshotInfo) {
                 screenshotInfo.ids.forEach(item => {
-                    questions[item.id] = {
+                    const info = {
                         type: item.type,
                         label: item.label || null,
                         taskNumber: currentTask?.number || null,
                         taskTitle: currentTask?.title || null,
                         sectionTitle: currentSection
                     };
+
+                    // 补充思考题信息
+                    const refInfo = identifyReflectionType(item.id, labId, currentSection);
+                    if (refInfo?.isReflection) {
+                        Object.assign(info, refInfo);
+                    }
+
+                    questions[item.id] = info;
                 });
             }
         }
@@ -90,12 +98,20 @@ function parseMdxFile(filePath, labId) {
         for (const match of modernInputMatches) {
             const questionId = match[0].match(/questionId="([^"]+)"/)?.[1];
             if (questionId) {
-                questions[questionId] = {
+                const info = {
                     type: 'fillblank',
                     taskNumber: currentTask?.number || null,
                     taskTitle: currentTask?.title || null,
                     sectionTitle: currentSection
                 };
+
+                // 补充思考题信息
+                const refInfo = identifyReflectionType(questionId, labId, currentSection);
+                if (refInfo?.isReflection) {
+                    Object.assign(info, refInfo);
+                }
+
+                questions[questionId] = info;
             }
         }
 
@@ -106,12 +122,20 @@ function parseMdxFile(filePath, labId) {
             if (line.includes('ModernInput') && match[1]) {
                 const questionId = match[1];
                 if (!questions[questionId]) {
-                    questions[questionId] = {
+                    const info = {
                         type: 'fillblank',
                         taskNumber: currentTask?.number || null,
                         taskTitle: currentTask?.title || null,
                         sectionTitle: currentSection
                     };
+
+                    // 补充思考题信息
+                    const refInfo = identifyReflectionType(questionId, labId, currentSection);
+                    if (refInfo?.isReflection) {
+                        Object.assign(info, refInfo);
+                    }
+
+                    questions[questionId] = info;
                 }
             }
         }
@@ -229,26 +253,38 @@ function extractScreenshotCard(lines, startIndex) {
  * - labX-suggestion (讨论心得)
  * - Lab3-qN 或 Lab5-qN (独立思考题)
  */
-function identifyReflectionType(id, labId) {
+function identifyReflectionType(id, labId, sectionTitle) {
     const idLower = id.toLowerCase();
     const labLower = labId.toLowerCase().replace(/-+$/, '');
 
-    // 精确匹配 labX-analysis-qN 格式的思考题
+    // 0. 优先规则：如果 Section Title 包含 "实验结果与分析"，视为思考题
+    if (sectionTitle && sectionTitle.includes('实验结果与分析')) {
+        // 尝试提取题号 qN
+        const questionMatch = id.match(/-q(\d+)$/i) || id.match(/q(\d+)$/i);
+        const questionNum = questionMatch ? parseInt(questionMatch[1], 10) : undefined;
+
+        return {
+            isReflection: true,
+            reflectionType: 'question-item',
+            questionNum
+        };
+    }
+
+    // 1. 精确匹配 labX-analysis-qN 格式的思考题
     const analysisMatch = idLower.match(new RegExp(`^${labLower}-analysis-q(\\d+)$`));
     if (analysisMatch) {
         return { isReflection: true, reflectionType: 'analysis', questionNum: parseInt(analysisMatch[1], 10) };
     }
 
-    // 匹配讨论心得类
+    // 2. 匹配讨论心得类
     if (idLower === `${labLower}-question`) return { isReflection: true, reflectionType: 'question' };
     if (idLower === `${labLower}-experience`) return { isReflection: true, reflectionType: 'experience' };
     if (idLower === `${labLower}-suggestion`) return { isReflection: true, reflectionType: 'suggestion' };
 
-    // Lab3 和 Lab5 的独立 qN 是思考题
-    if ((labLower === 'lab3' || labLower === 'lab5')) {
-        const match = id.match(new RegExp(`^${labLower}-q(\\d+)$`, 'i'));
-        if (match) return { isReflection: true, reflectionType: 'question-item', questionNum: parseInt(match[1], 10) };
-    }
+    // 3. 通用匹配 qN 格式（如果上面没覆盖到，但 ID 符合格式，也认为是）
+    // 移除特定的 lab 白名单，对所有 lab 生效
+    const match = id.match(new RegExp(`^${labLower}-q(\\d+)$`, 'i'));
+    if (match) return { isReflection: true, reflectionType: 'question-item', questionNum: parseInt(match[1], 10) };
 
     return { isReflection: false };
 }

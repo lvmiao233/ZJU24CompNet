@@ -148,6 +148,8 @@ const ExportButtonImpl = ({ templatePath, labName, labId }) => {
             }
           } else {
             // 未知类型
+            console.warn('Found unclassified missing item:', placeholder, info);
+
             if (!missingByTask.has(-1)) {
               missingByTask.set(-1, {
                 taskNumber: null,
