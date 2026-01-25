@@ -512,14 +512,15 @@ const ExportButtonImpl = ({ templatePath, labName, labId }) => {
           <Button key="cancel" onClick={() => setCheckModalVisible(false)}>
             取消
           </Button>,
-          <Button
-            key="export"
-            type="primary"
-            onClick={handleConfirmExport}
-            disabled={checkedItems.length < checklistItems.length}
-          >
-            确认导出
-          </Button>
+          checkedItems.length === checklistItems.length ? (
+            <Button
+              key="export"
+              type="primary"
+              onClick={handleConfirmExport}
+            >
+              确认导出
+            </Button>
+          ) : null
         ]}
         className="export-check-modal"
         width={700}
