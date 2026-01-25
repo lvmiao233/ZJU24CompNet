@@ -99,12 +99,12 @@ const config = {
       metadata: [ {name: 'name', content: '浙大计网实验文档'}, ],
       image: 'img/zjucompnet-social-card.jpg',
       announcementBar: {
-        id: 'final_exam',
+        id: '25-26_semester_end',
         content:
-          '💯本学期《计算机网络》课程期末考试将于2026/1/16 10:30-12:30进行，请合理安排复习节奏，按时参加考试，祝你取得满意的成绩！',
+          '✅25-26学年秋冬学期的《计算机网络》课程已经结束，如需了解下一学年情况，请留意网站后续更新',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
-        isCloseable: false,
+        isCloseable: true,
       },// 如需使用倒计时，请使用<strong id="countdown-timer"></strong>并参考src/clientModules/countdown.js内实现配置
       navbar: {
         title: '计算机网络课程实验',
