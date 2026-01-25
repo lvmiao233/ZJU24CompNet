@@ -19,7 +19,7 @@ const config = {
 
   // GitHub pages deployment config.
   organizationName: 'lvmiao233', // GitHub org/user name.
-  projectName: 'ZJU24CompNet', // repo name.
+  projectName: 'ZJUCompNet', // repo name.
 
   onBrokenLinks: 'warn',
 
@@ -67,12 +67,12 @@ const config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
           // Enable this to enable the "edit this page" links.
-          // editUrl: 'https://github.com/lvmiao233/ZJU24CompNet/',
+          // editUrl: 'https://github.com/lvmiao233/ZJUCompNet/',
         },
         blog: {
           showReadingTime: true,
           // Enable this to enable the "edit this page" links.
-          // editUrl: 'https://github.com/lvmiao233/ZJU24CompNet/',
+          // editUrl: 'https://github.com/lvmiao233/ZJUCompNet/',
         },
         theme: { customCss: './src/css/custom.css', },
       }),
@@ -120,7 +120,7 @@ const config = {
             href: 'https://github.com/lvmiao233/NetLabFramework',
             label: '测试框架', position: 'right',
           }, {
-            href: 'https://github.com/lvmiao233/ZJU24CompNet',
+            href: 'https://github.com/lvmiao233/ZJUCompNet',
             label: '文档仓库', position: 'right',
           },
         ],
