@@ -18,6 +18,7 @@ _convert_temp
 
 # Generated files
 static/raw/
+temp/
 labQuestionIndex.json
 .docusaurus
 .cache-loader
